@@ -2,17 +2,14 @@
 
   .main-grid{
     display:grid;
-    width:90vw;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
     border-radius: 10px;
-    margin: auto;
     background:#ddd;
     box-shadow: #000 3px 3px 0px;
     border: solid #000 5px;
     gap: 18px;
     padding:18px;
-    aspect-ratio: 1/1;
     
   }
 
