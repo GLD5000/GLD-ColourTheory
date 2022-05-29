@@ -22,6 +22,8 @@
     cursor: pointer;
     overflow: hidden;
     margin:auto;
+    grid-column:span 3;
+    
   }
   
   label {

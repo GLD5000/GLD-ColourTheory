@@ -6,7 +6,7 @@ color_picker.onchange = function() {
 	color_picker_wrapper.style.backgroundColor = color_picker.value;    
   color_picker_hex_label.innerHTML = 'Click To Copy: '+hexToHSL(color_picker.value);
 }
-color_picker_wrapper.style.backgroundColor = color_picker.value;
+//color_picker_wrapper.style.backgroundColor = color_picker.value;
 
 function hexToHSL(H) {
   // Convert hex to RGB first
@@ -52,7 +52,6 @@ function hexToHSL(H) {
 
   return "hsl(" + h + "," + s + "%," + l + "%)";
 }
-console.log("heoeoe");
 function HSLToHex(h,s,l) {
   s /= 100;
   l /= 100;
@@ -113,11 +112,14 @@ function hueRotateHEX(hex, rotation){
 
 }
 
-function copyHex(){
-   /* Copy the text inside the text field */
-   navigator.clipboard.writeText(color_picker.value);
 
-   /* Alert the copied text */
-   alert("Copied the text: " + color_picker.value);
+window.onclick = e => { // if clicked item is a button, copy the inner text
+  if (e.target.tagName == 'BUTTON'){
+    let text = e.target.innerHTML;
+    console.log();  // to get the element tag name alone
+    navigator.clipboard.writeText(text);
+    alert("Copied the text: " + text);
+  }
+
 }
 
