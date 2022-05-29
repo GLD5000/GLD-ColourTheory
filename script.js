@@ -4,7 +4,7 @@ const color_picker_hex_label = document.getElementById("picker-label-hex");
 
 color_picker.onchange = function() {
 	color_picker_wrapper.style.backgroundColor = color_picker.value;    
-  color_picker_hex_label.innerHTML = 'Click To Copy: '+color_picker.value;
+  color_picker_hex_label.innerHTML = 'Click To Copy: '+hexToHSL(color_picker.value);
 }
 color_picker_wrapper.style.backgroundColor = color_picker.value;
 
@@ -52,7 +52,7 @@ function hexToHSL(H) {
 
   return "hsl(" + h + "," + s + "%," + l + "%)";
 }
-
+console.log("heoeoe");
 function HSLToHex(h,s,l) {
   s /= 100;
   l /= 100;
