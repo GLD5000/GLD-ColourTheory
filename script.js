@@ -2,39 +2,7 @@ const color_picker = document.getElementById("mainColour-picker");
 const color_picker_wrapper = document.getElementById("mainColour-wrapper");
 const color_picker_hex_label = document.getElementById("mainColour-label");
 
-function customColour(e){
-  let name = e.id.split('-')[0];
-  let wrapper = name + '-wrapper';
-  let label = name + '-label';
-  let colour = e.value;
-  //e.value = colour;
-  console.log(this.value);    
- return document.getElementById(wrapper).style.backgroundColor = colour;    
-  document.getElementById(label).innerHTML = colour;
-  console.log(colour);
-  console.log(document.getElementById(wrapper).style.backgroundColor);
-}
-
-
-
-const pickers = document.querySelectorAll('input[type="color"]');
-
-for (let i in pickers) {
-  if (i > 0) {
-    pickers[i].onchange = () => {
-      let name = pickers[i].id.split('-')[0];
-      let wrapper = name + '-wrapper';
-      let label = name + '-label';
-      let colour = pickers[i].value;
-      //e.value = colour;
-      document.getElementById(wrapper).style.backgroundColor = colour;    
-      document.getElementById(label).innerHTML = colour;
-    } 
-  }
-}
-
-
-color_picker.onchange = () => {
+function updateColour(){
   let mainColour = color_picker.value;
   let analogousAColour = hueRotateHEX(mainColour,-30);
   let analogousBColour = hueRotateHEX(mainColour,30);
@@ -87,6 +55,74 @@ color_picker.onchange = () => {
   document.getElementById("monoB-picker").value = monoBColour;
 
 
+}
+
+function adjustHue(){
+  const newHue = document.getElementById("hue-slider").value;
+  color_picker.value = HSLToHex(...hueChangeHSL(...hexToHSL(color_picker.value), newHue));
+ // console.log(newHue);
+  updateColour();
+}
+
+function adjustLum(){
+const newLum = document.getElementById("lum-slider").value;
+color_picker.value = HSLToHex(...lumChangeHSL(...hexToHSL(color_picker.value), newLum));
+  //console.log(newLum);
+  updateColour();
+}
+
+
+function adjustSat(){
+const newSat = document.getElementById("sat-slider").value;
+color_picker.value = HSLToHex(...satChangeHSL(...hexToHSL(color_picker.value), newSat));
+  //console.log(newSat);
+  updateColour();
+}
+
+
+
+/*console.log(sliderHue.value);
+
+sliderHue.input = () => {
+  sliderHue.value = sliderHue.value;
+  color_picker.value = HSLToHex(...hueChangeHSL(...hexToHSL(color_picker.value), sliderHue.value))
+}
+
+console.log(sliderHue.value);*/
+
+function customColour(e){
+  let name = e.id.split('-')[0];
+  let wrapper = name + '-wrapper';
+  let label = name + '-label';
+  let colour = e.value;
+  //e.value = colour;
+  console.log(this.value);    
+ return document.getElementById(wrapper).style.backgroundColor = colour;    
+  document.getElementById(label).innerHTML = colour;
+  console.log(colour);
+  console.log(document.getElementById(wrapper).style.backgroundColor);
+}
+
+
+  const pickers = document.querySelectorAll('input[type="color"]');
+
+  for (let i in pickers) {
+    if (i > 0) {
+      pickers[i].onchange = () => {
+        let name = pickers[i].id.split('-')[0];
+        let wrapper = name + '-wrapper';
+        let label = name + '-label';
+        let colour = pickers[i].value;
+        //e.value = colour;
+        document.getElementById(wrapper).style.backgroundColor = colour;    
+        document.getElementById(label).innerHTML = colour;
+      } 
+    }
+  }
+
+
+color_picker.onchange = () => {
+  updateColour();
 }
 
 function hexToHSLString(H) {
@@ -229,22 +265,29 @@ function hueRotateHSL(hue,sat,lum, rotation){
 }
 
 function lumAdjustHSL(hue,sat,lum, adjustment){
-
-  
   return (lum + adjustment > 100)? [hue,sat,lum + adjustment - 100]: [hue,sat,lum + adjustment]; 
-
 }
 
+function hueChangeHSL(hue,sat,lum, newHue){
+  return [newHue, sat, lum]; 
+}
+
+function satChangeHSL(hue,sat,lum, newSat){
+  return [hue, newSat, lum]; 
+}
+
+function lumChangeHSL(hue,sat,lum, newLum){
+  return [hue, sat, newLum]; 
+}
+
+
+
 function hueRotateHEX(hex, rotation){
-
   return HSLToHex(...hueRotateHSL(...hexToHSL(hex), rotation));
-
 }
 
 function lumAdjustHEX(hex, adjustment){
-
   return HSLToHex(...lumAdjustHSL(...hexToHSL(hex), adjustment));
-
 }
 
 
@@ -255,19 +298,4 @@ window.onclick = e => { // if clicked item is a button, copy the inner text
     navigator.clipboard.writeText(text);
     alert('Copied: ' + text);
   }
-
-  /*if (e.target.tagName === 'INPUT' && e.target.id !== 'mainColour-picker'){
-    //console.log(e.target.id);
-    let name = e.target.id.split('-')[0];
-    console.log(e.value);
-    let wrapper = name + '-wrapper';
-    let label = name + '-label';
-    let colour = e.value;
-    document.getElementById(wrapper).style.backgroundColor = colour;    
-    document.getElementById(label).innerHTML = colour;
-    //document.getElementById("analogousA-picker").value = analogousAColour;
-  
-  }*/
-
-
 }
