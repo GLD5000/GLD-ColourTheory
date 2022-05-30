@@ -47,7 +47,7 @@
   .main-grid{
     display:grid;
     grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
-    grid-template-rows: repeat(auto-fit, minmax(200px,1fr))
+    grid-template-rows: repeat(auto-fit, minmax(200px,1fr));
     margin: auto;
     row-gap: 2rem;
     column-gap: 2rem;
