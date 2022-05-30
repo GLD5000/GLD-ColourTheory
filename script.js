@@ -79,6 +79,13 @@ color_picker.value = HSLToHex(...satChangeHSL(...hexToHSL(color_picker.value), n
   updateColour();
 }
 
+function onLoad(){
+  let hue = parseInt(Math.random() * 360);
+  let sat = 48 + parseInt(Math.random() * 40); // 78
+  let lum = 53 + parseInt(Math.random() * 35); // 53
+  color_picker.value = HSLToHex(hue,sat,lum);
+  updateColour();
+}
 
 
 /*console.log(sliderHue.value);

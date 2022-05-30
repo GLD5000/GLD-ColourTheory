@@ -8,27 +8,28 @@
     <script defer src="/script.js"></script>
     <link rel="stylesheet" href="/style.css">
 </head>
-<body style="background-color:#000;">
+<body onload="onLoad()" style="background-color:#000;">
 
 
   <container class="pallete">
 
     <container class="main-grid">
+      <container class="slider-picker-container">
+        <input oninput="adjustHue()" type="range" min="0" max="359" class="hue" id="hue-slider" name="Hue"></input>
+        <input oninput="adjustLum()" type="range" min="10" max="89" class="lum" id="lum-slider" name="Luminance"></input>
+        <input oninput="adjustSat()" type="range" min="0" max="99" class="sat" id="sat-slider" name="Saturation"></input>
 
-      <input oninput="adjustHue()" type="range" min="0" max="359" class="hue" id="hue-slider" name="Hue"></input>
-      <input oninput="adjustLum()" type="range" min="10" max="89" class="lum" id="lum-slider" name="Luminance"></input>
-      <input oninput="adjustSat()" type="range" min="0" max="99" class="sat" id="sat-slider" name="Saturation"></input>
 
+        <wrapper class="picker-grid large-picker" name="Primary Colour">
+          <wrapper id="mainColour-wrapper" style="background-color:#2ae5e2;">
+              <input type="color" id="mainColour-picker" value="#2ae5e2" class="picker">
+                </input>
+                
+              </wrapper>
+              <button id="mainColour-label" >Pick a Colour</button>
+        </wrapper>
+      </container>
 
-      <wrapper class="picker-grid large-picker" name="Primary Colour">
-        <wrapper id="mainColour-wrapper" style="background-color:#2ae5e2;">
-            <input type="color" id="mainColour-picker" value="#2ae5e2" class="picker">
-              </input>
-              
-            </wrapper>
-            <button id="mainColour-label" >Pick a Colour</button>
-      </wrapper>
-  
         <wrapper class="picker-grid small-picker" name="Monochrome A">
             <wrapper id="monoA-wrapper" style="background-color:#18c4c1;">
                 <input type="color" id="monoA-picker" value="#18c4c1" class="picker">

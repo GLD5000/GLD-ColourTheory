@@ -46,7 +46,9 @@
 
   .main-grid{
     display:grid;
-    margin:auto;
+    grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    grid-template-rows: repeat(auto-fit, minmax(200px,1fr))
+    margin: auto;
     row-gap: 2rem;
     column-gap: 2rem;
     padding:28px;
@@ -70,6 +72,17 @@
     font-size: var(--gem2);
 
   }
+
+  .slider-picker-container{
+    grid-row: span 2;
+    grid-column: span 3;
+    display:grid;
+    grid-template-rows: 1fr 7fr;
+    row-gap: 2rem;
+    column-gap: 2rem;
+
+  }
+  
 
   /*
   
