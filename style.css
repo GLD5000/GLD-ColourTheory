@@ -24,25 +24,27 @@
     overflow: hidden;
     margin:auto;
     grid-column:span 3;
+  }
 
+  .complementary{
+    grid-row:span 2;
   }
 
   .picker-grid:hover::before{
       content: attr(name);
       position: absolute;
-      padding: 25%;
-      text-align: center;
-    
+      text-align: center;  
+      width:100%;
+      font-size: 2rem;
     }
-  
 
   .large-picker{
-    grid-column:7/span 6;
+    grid-column:1/span 6;
     grid-row:1/span 5;
     background-color: #1c9b1c;
   }
   
-  label {
+  label{
    border: solid black 1px;
     margin:auto;
   }
@@ -55,12 +57,13 @@
     background-color: #ddd;
   }
   
-  
-  input[type="color"] {
-    content:"";
-    opacity:0%;
-    padding:0px;
+  input[type="color"]{
+    opacity:0;
+    padding:0;
     width: 100%;
     height: 100%;
     cursor: pointer;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
   }

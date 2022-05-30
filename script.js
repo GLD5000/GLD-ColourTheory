@@ -2,9 +2,40 @@ const color_picker = document.getElementById("mainColour-picker");
 const color_picker_wrapper = document.getElementById("mainColour-wrapper");
 const color_picker_hex_label = document.getElementById("mainColour-label");
 
-color_picker.onchange = function() {
+function customColour(e){
+  let name = e.id.split('-')[0];
+  let wrapper = name + '-wrapper';
+  let label = name + '-label';
+  let colour = e.value;
+  //e.value = colour;
+  console.log(this.value);    
+ return document.getElementById(wrapper).style.backgroundColor = colour;    
+  document.getElementById(label).innerHTML = colour;
+  console.log(colour);
+  console.log(document.getElementById(wrapper).style.backgroundColor);
+}
+
+
+
+const pickers = document.querySelectorAll('input[type="color"]');
+
+for (let i in pickers) {
+  if (i > 0) {
+    pickers[i].onchange = () => {
+      let name = pickers[i].id.split('-')[0];
+      let wrapper = name + '-wrapper';
+      let label = name + '-label';
+      let colour = pickers[i].value;
+      //e.value = colour;
+      document.getElementById(wrapper).style.backgroundColor = colour;    
+      document.getElementById(label).innerHTML = colour;
+    } 
+  }
+}
+
+
+color_picker.onchange = () => {
   let mainColour = color_picker.value;
-  let complementaryColour = hueRotateHEX(mainColour,180);
   let analogousAColour = hueRotateHEX(mainColour,-30);
   let analogousBColour = hueRotateHEX(mainColour,30);
   let triadicAColour = hueRotateHEX(mainColour,-120);
@@ -18,12 +49,6 @@ color_picker.onchange = function() {
 
 	color_picker_wrapper.style.backgroundColor = mainColour;    
   color_picker_hex_label.innerHTML = mainColour;
-
-
-
-  document.getElementById("complementary-wrapper").style.backgroundColor = complementaryColour;    
-  document.getElementById("complementary-label").innerHTML = complementaryColour;
-  document.getElementById("complementary-picker").value = complementaryColour;
 
   document.getElementById("analogousA-wrapper").style.backgroundColor = analogousAColour;    
   document.getElementById("analogousA-label").innerHTML = analogousAColour;
@@ -195,11 +220,12 @@ function HSLToHex(h,s,l) {
 }
 
 function hueRotateHSL(hue,sat,lum, rotation){
+  let adjustment = parseInt(hue) + parseInt(rotation);
 
-  if (rotation < 0) rotation += 360;
+  if (adjustment > 360) adjustment += -360;
+  if (adjustment < 0) adjustment += 360;
 
-  return (hue + rotation > 360)? [hue - 360 + rotation, sat, lum]: [hue + rotation, sat, lum]; 
-
+  return [adjustment, sat, lum]; 
 }
 
 function lumAdjustHSL(hue,sat,lum, adjustment){
@@ -227,6 +253,21 @@ window.onclick = e => { // if clicked item is a button, copy the inner text
   if (e.target.tagName === 'BUTTON'){
     let text = e.target.innerHTML;
     navigator.clipboard.writeText(text);
+    alert('Copied: ' + text);
   }
-}
 
+  /*if (e.target.tagName === 'INPUT' && e.target.id !== 'mainColour-picker'){
+    //console.log(e.target.id);
+    let name = e.target.id.split('-')[0];
+    console.log(e.value);
+    let wrapper = name + '-wrapper';
+    let label = name + '-label';
+    let colour = e.value;
+    document.getElementById(wrapper).style.backgroundColor = colour;    
+    document.getElementById(label).innerHTML = colour;
+    //document.getElementById("analogousA-picker").value = analogousAColour;
+  
+  }*/
+
+
+}
