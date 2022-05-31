@@ -85,14 +85,16 @@ color_picker.value = HSLToHex(...satChangeHSL(...hexToHSL(color_picker.value), n
 function copyAll() {
   //console.log(pickers.length);
   const cssArray = [];
-  pickers.forEach((x,i) => {
-    console.log(typeof pickers[i] === 'object'?pickers[i].id.split('-')[0]:null);
+  pickers.forEach(x => {
+    //console.log(typeof x === 'object'?pickers[i].id.split('-')[0]:null);
     //console.log(pickers[i].id.split('-')[0]);
-    if (typeof pickers[i] === 'object') {
-      let name = pickers[i].id.split('-')[0];
+    //if (typeof x === 'object') {
+      let name = x.id.split('-')[0];
       let label = name + '-label';
       cssArray.push([name, document.getElementById(label).innerHTML]);
-    }
+    //} else {
+      //console.log(x);
+    //}
   } ); 
   console.log(cssArray);
 }
