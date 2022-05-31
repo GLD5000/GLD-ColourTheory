@@ -91,12 +91,15 @@ function copyAll() {
     //if (typeof x === 'object') {
       let name = x.id.split('-')[0];
       let label = name + '-label';
-      cssArray.push([name, document.getElementById(label).innerHTML]);
+      cssArray.push(`--${name}: ${document.getElementById(label).innerHTML};`);
     //} else {
       //console.log(x);
     //}
   } ); 
-  console.log(cssArray);
+  navigator.clipboard.writeText(cssArray.join('\n'));
+  alert('Copied All To Clipboard');
+
+  //console.log(cssArray);
 }
 
 function onLoad(){
