@@ -1,6 +1,8 @@
 const color_picker = document.getElementById("mainColour-picker");
 const color_picker_wrapper = document.getElementById("mainColour-wrapper");
 const color_picker_hex_label = document.getElementById("mainColour-label");
+const pickers = document.querySelectorAll('input[type="color"]');
+
 
 function updateColour(){
   let mainColour = color_picker.value;
@@ -79,7 +81,41 @@ color_picker.value = HSLToHex(...satChangeHSL(...hexToHSL(color_picker.value), n
   updateColour();
 }
 
+
+function copyAll() {
+  //console.log(pickers.length);
+
+  const cssArray = [];
+  for (let i in pickers) {
+    console.log(pickers[i]);
+    //console.log(pickers[i].id.split('-')[0]);
+
+   // let name = pickers[i].id.split('-')[0];
+    //let label = name + '-label';
+    //cssArray.push([name, document.getElementById(label).innerHTML]);
+  }
+  //console.log(pickers);
+}
+
 function onLoad(){
+
+
+  for (let i in pickers) {
+    if (i > 0) {
+      pickers[i].onchange = () => {
+        let name = pickers[i].id.split('-')[0];
+        let wrapper = name + '-wrapper';
+        let label = name + '-label';
+        let colour = pickers[i].value;
+        //e.value = colour;
+        document.getElementById(wrapper).style.backgroundColor = colour;    
+        document.getElementById(label).innerHTML = colour;
+      } 
+    }
+  }
+
+
+
   let hue = parseInt(Math.random() * 360);
   let sat = 48 + parseInt(Math.random() * 40); // 78
   let lum = 53 + parseInt(Math.random() * 35); // 53
@@ -88,14 +124,6 @@ function onLoad(){
 }
 
 
-/*console.log(sliderHue.value);
-
-sliderHue.input = () => {
-  sliderHue.value = sliderHue.value;
-  color_picker.value = HSLToHex(...hueChangeHSL(...hexToHSL(color_picker.value), sliderHue.value))
-}
-
-console.log(sliderHue.value);*/
 
 function customColour(e){
   let name = e.id.split('-')[0];
@@ -111,21 +139,6 @@ function customColour(e){
 }
 
 
-  const pickers = document.querySelectorAll('input[type="color"]');
-
-  for (let i in pickers) {
-    if (i > 0) {
-      pickers[i].onchange = () => {
-        let name = pickers[i].id.split('-')[0];
-        let wrapper = name + '-wrapper';
-        let label = name + '-label';
-        let colour = pickers[i].value;
-        //e.value = colour;
-        document.getElementById(wrapper).style.backgroundColor = colour;    
-        document.getElementById(label).innerHTML = colour;
-      } 
-    }
-  }
 
 
 color_picker.onchange = () => {
@@ -300,9 +313,12 @@ function lumAdjustHEX(hex, adjustment){
 
 
 window.onclick = e => { // if clicked item is a button, copy the inner text
-  if (e.target.tagName === 'BUTTON'){
+  if (e.target.tagName === 'BUTTON' && e.target.id !== 'copyAllCSS'){
+
     let text = e.target.innerHTML;
     navigator.clipboard.writeText(text);
     alert('Copied: ' + text);
+  } else if (e.target.id === 'copyAllCSS'){
+    copyAll();
   }
 }
