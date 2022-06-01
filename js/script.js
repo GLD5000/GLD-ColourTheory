@@ -2,7 +2,7 @@ const color_picker = document.getElementById("mainColour-picker");
 const color_picker_wrapper = document.getElementById("mainColour-wrapper");
 const color_picker_hex_label = document.getElementById("mainColour-label");
 const pickers = document.querySelectorAll('input[type="color"]');
-
+const buttons = document.querySelectorAll('button');
 
 function updateColour(){
   let mainColour = color_picker.value;
@@ -83,28 +83,19 @@ color_picker.value = HSLToHex(...satChangeHSL(...hexToHSL(color_picker.value), n
 
 
 function copyAll() {
-  //console.log(pickers.length);
-  const cssArray = [];
-  pickers.forEach(x => {
-    //console.log(typeof x === 'object'?pickers[i].id.split('-')[0]:null);
-    //console.log(pickers[i].id.split('-')[0]);
-    //if (typeof x === 'object') {
-      let name = x.id.split('-')[0];
-      let label = name + '-label';
-      cssArray.push(`--${name}: ${document.getElementById(label).innerHTML};`);
-    //} else {
-      //console.log(x);
-    //}
-  } ); 
+  const cssArray = [...pickers].map(x => {
+    let name = x.id.split('-')[0];
+    let label = name + '-label';
+    return `--${name}: ${document.getElementById(label).innerHTML};`
+  });
+
   navigator.clipboard.writeText(cssArray.join('\n'));
   alert('Copied All To Clipboard');
 
-  //console.log(cssArray);
+  console.log(cssArray.join('\n'));
 }
 
 function onLoad(){
-
-
   for (let i in pickers) {
     if (i > 0) {
       pickers[i].onchange = () => {
