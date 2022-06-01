@@ -95,9 +95,9 @@ function copyAll() {
   console.log(cssArray.join('\n'));
 }
 
-function onLoad(){
+function onChangepickers(){
   for (let i in pickers) {
-    if (i > 0) {
+    if (i > 0) { // skip the first one - MainColour
       pickers[i].onchange = () => {
         let name = pickers[i].id.split('-')[0];
         let wrapper = name + '-wrapper';
@@ -109,13 +109,75 @@ function onLoad(){
       } 
     }
   }
+}
+
+function copySingle(e) {
+  let text = e.innerHTML;
+  navigator.clipboard.writeText(text);
+  alert('Copied: ' + text);
+  console.log(text);
+}
+
+function toggleHSL(e){
+ if (e.innerHTML === 'Hex'){
+  e.innerHTML = 'HSL';
+ } else {
+  e.innerHTML = 'Hex';
+ }
+}
+
+function toggleSCSS(e){
+  if (e.innerHTML === 'SCSS'){
+   e.innerHTML = 'CSS';
+  } else {
+   e.innerHTML = 'SCSS';
+  }
+ }
+ 
+
+function onClickButtons(){
+  buttons.forEach(x => {//Assign a function to each button onclick
+    const id = x.id;
+    if (id === 'copyAllCSS') x.onclick = () => copyAll();
+    if (id === 'SCSSToggle') x.onclick = () => toggleSCSS(x);
+    if (id === 'HSLToggle') x.onclick = () => toggleHSL(x);
+    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle') x.onclick = () => copySingle(x);
+  }); 
+      //Single Copy buttons
+
+      // Copy all Button
+
+      // Toggle Hex
+
+      //Toggle Hsl
+
+      /*
+      buttons[i].onclick = e => {
+        if (e.target.tagName === 'BUTTON' && e.target.id !== 'copyAllCSS'){
+
+          let text = e.target.innerHTML;
+          navigator.clipboard.writeText(text);
+          alert('Copied: ' + text);
+        } else if (e.target.id === 'copyAllCSS'){
+          copyAll();
+        }            
+      } 
+      */
+  
+}
 
 
-
+function randomMainColour(){
   let hue = parseInt(Math.random() * 360);
   let sat = 48 + parseInt(Math.random() * 40); // 78
   let lum = 53 + parseInt(Math.random() * 35); // 53
   color_picker.value = HSLToHex(hue,sat,lum);
+}
+
+function onLoad(){
+  onChangepickers();
+  onClickButtons();
+  randomMainColour();
   updateColour();
 }
 
@@ -308,6 +370,7 @@ function lumAdjustHEX(hex, adjustment){
 
 
 
+/*
 window.onclick = e => { // if clicked item is a button, copy the inner text
   if (e.target.tagName === 'BUTTON' && e.target.id !== 'copyAllCSS'){
 
@@ -318,3 +381,4 @@ window.onclick = e => { // if clicked item is a button, copy the inner text
     copyAll();
   }
 }
+*/
