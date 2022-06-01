@@ -4,6 +4,31 @@ const color_picker_hex_label = document.getElementById("mainColour-label");
 const pickers = document.querySelectorAll('input[type="color"]');
 const buttons = document.querySelectorAll('button');
 
+function updateLabels(){
+  const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+
+  if (isHex === true){
+    buttons.forEach(x =>{
+      const id = x.id;
+      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle'){//All Colour label buttons
+        let name = id.split('-')[0];
+        let picker = name + '-picker';
+        x.innerHTML = document.getElementById(picker).value;
+      }
+    });
+  } else {
+    buttons.forEach(x =>{
+      const id = x.id;
+      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle'){//All Colour label buttons
+        let name = id.split('-')[0];
+        let picker = name + '-picker';
+        x.innerHTML = hexToHSLString(document.getElementById(picker).value);
+      }
+    });
+  }
+}
+
+
 function updateColour(){
   let mainColourLabel, analogousAColourLabel, analogousBColourLabel,triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monoAColourLabel, monoBColourLabel;
   const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
@@ -108,10 +133,11 @@ color_picker.value = HSLToHex(...satChangeHSL(...hexToHSL(color_picker.value), n
 
 
 function copyAll() {
+  const isSCSS = (document.getElementById("SCSSToggle").innerHTML === 'SCSS');
   const cssArray = [...pickers].map(x => {
     let name = x.id.split('-')[0];
     let label = name + '-label';
-    return `--${name}: ${document.getElementById(label).innerHTML};`
+    return isSCSS?`$${name}: ${document.getElementById(label).innerHTML};`:`--${name}: ${document.getElementById(label).innerHTML};`;
   });
   const text = cssArray.join('\n');
   navigator.clipboard.writeText(text);
@@ -145,8 +171,10 @@ function copySingle(e) {
 function toggleHSL(e){
  if (e.innerHTML === 'Hex'){
   e.innerHTML = 'HSL';
+  updateLabels();
  } else {
   e.innerHTML = 'Hex';
+  updateLabels();
  }
 }
 

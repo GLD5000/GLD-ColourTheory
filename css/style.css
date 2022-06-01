@@ -131,8 +131,21 @@
     cursor: pointer;
     background-color: #ddd;
     font-size: var(--gem);
-
   }
+.btn-lg{
+  font-size: var(--gem2);
+  background-color: #bbb;
+}
+
+.flexbox-horizontal{
+  display:flex;
+  gap: 3px;
+}
+
+.btn-small{
+  flex: 1 1 50%;
+}
+
   
   input[type="color"]{
     opacity:0;
@@ -172,7 +185,7 @@
     opacity: 0;
   }
 
-  .hue{
+.hue{
     background:linear-gradient(to right, hsl(0,100%,50%), hsl(60,100%,50%), hsl(120,100%,50%), hsl(180,100%,50%), hsl(240,100%,50%),hsl(300,100%,50%),hsl(360,100%,50%));
   }
 .lum{
