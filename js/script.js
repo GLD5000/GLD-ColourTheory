@@ -4,56 +4,106 @@ const color_picker_hex_label = document.getElementById("mainColour-label");
 const pickers = document.querySelectorAll('input[type="color"]');
 const buttons = document.querySelectorAll('button');
 
-function updateColour(){
-  let mainColour = color_picker.value;
-  let analogousAColour = hueRotateHEX(mainColour,-30);
-  let analogousBColour = hueRotateHEX(mainColour,30);
-  let triadicAColour = hueRotateHEX(mainColour,-120);
-  let triadicBColour = hueRotateHEX(mainColour,120);
-  let tetradicAColour = hueRotateHEX(mainColour,90);
-  let tetradicBColour = hueRotateHEX(mainColour,180);
-  let tetradicCColour = hueRotateHEX(mainColour,270);
-  let monoAColour = lumAdjustHEX(mainColour,-10);
-  let monoBColour = lumAdjustHEX(mainColour,10);
+function updateLabels(){
+  const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
 
+  if (isHex === true){
+    buttons.forEach(x =>{
+      const id = x.id;
+      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle'){//All Colour label buttons
+        let name = id.split('-')[0];
+        let picker = name + '-picker';
+        x.innerHTML = document.getElementById(picker).value;
+      }
+    });
+  } else {
+    buttons.forEach(x =>{
+      const id = x.id;
+      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle'){//All Colour label buttons
+        let name = id.split('-')[0];
+        let picker = name + '-picker';
+        x.innerHTML = hexToHSLString(document.getElementById(picker).value);
+      }
+    });
+  }
+}
+
+
+function updateColour(){
+  let mainColourLabel, analogousAColourLabel, analogousBColourLabel,triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monoAColourLabel, monoBColourLabel;
+  const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+  const mainColour = color_picker.value;
+  const analogousAColour = hueRotateHEX(mainColour,-30);
+  const analogousBColour = hueRotateHEX(mainColour,30);
+  const triadicAColour = hueRotateHEX(mainColour,-120);
+  const triadicBColour = hueRotateHEX(mainColour,120);
+  const tetradicAColour = hueRotateHEX(mainColour,90);
+  const tetradicBColour = hueRotateHEX(mainColour,180);
+  const tetradicCColour = hueRotateHEX(mainColour,270);
+  const monoAColour = lumAdjustHEX(mainColour,-10);
+  const monoBColour = lumAdjustHEX(mainColour,10);
+
+  if (isHex === true){
+    mainColourLabel = mainColour;
+    analogousAColourLabel = analogousAColour;
+    analogousBColourLabel = analogousBColour;
+    triadicAColourLabel = triadicAColour;
+    triadicBColourLabel = triadicBColour;
+    tetradicAColourLabel = tetradicAColour;
+    tetradicBColourLabel = tetradicBColour;
+    tetradicCColourLabel = tetradicCColour;
+    monoAColourLabel = monoAColour;
+    monoBColourLabel = monoBColour;
+    } else {
+    mainColourLabel = hexToHSLString(mainColour);
+    analogousAColourLabel = hexToHSLString(analogousAColour);
+    analogousBColourLabel = hexToHSLString(analogousBColour);
+    triadicAColourLabel = hexToHSLString(triadicAColour);
+    triadicBColourLabel = hexToHSLString(triadicBColour);
+    tetradicAColourLabel = hexToHSLString(tetradicAColour);
+    tetradicBColourLabel = hexToHSLString(tetradicBColour);
+    tetradicCColourLabel = hexToHSLString(tetradicCColour);
+    monoAColourLabel = hexToHSLString(monoAColour);
+    monoBColourLabel = hexToHSLString(monoBColour);
+  }
 
 	color_picker_wrapper.style.backgroundColor = mainColour;    
-  color_picker_hex_label.innerHTML = mainColour;
+  color_picker_hex_label.innerHTML = mainColourLabel;
 
   document.getElementById("analogousA-wrapper").style.backgroundColor = analogousAColour;    
-  document.getElementById("analogousA-label").innerHTML = analogousAColour;
+  document.getElementById("analogousA-label").innerHTML = analogousAColourLabel;
   document.getElementById("analogousA-picker").value = analogousAColour;
 
   document.getElementById("analogousB-wrapper").style.backgroundColor = analogousBColour;    
-  document.getElementById("analogousB-label").innerHTML = analogousBColour;
+  document.getElementById("analogousB-label").innerHTML = analogousBColourLabel;
   document.getElementById("analogousB-picker").value = analogousBColour;
 
   document.getElementById("triadicA-wrapper").style.backgroundColor = triadicAColour;    
-  document.getElementById("triadicA-label").innerHTML = triadicAColour;
+  document.getElementById("triadicA-label").innerHTML = triadicAColourLabel;
   document.getElementById("triadicA-picker").value = triadicAColour;
 
   document.getElementById("triadicB-wrapper").style.backgroundColor = triadicBColour;    
-  document.getElementById("triadicB-label").innerHTML = triadicBColour;
+  document.getElementById("triadicB-label").innerHTML = triadicBColourLabel;
   document.getElementById("triadicB-picker").value = triadicBColour;
 
   document.getElementById("tetradicA-wrapper").style.backgroundColor = tetradicAColour;    
-  document.getElementById("tetradicA-label").innerHTML = tetradicAColour;
+  document.getElementById("tetradicA-label").innerHTML = tetradicAColourLabel;
   document.getElementById("tetradicA-picker").value = tetradicAColour;
 
   document.getElementById("tetradicB-wrapper").style.backgroundColor = tetradicBColour;    
-  document.getElementById("tetradicB-label").innerHTML = tetradicBColour;
+  document.getElementById("tetradicB-label").innerHTML = tetradicBColourLabel;
   document.getElementById("tetradicB-picker").value = tetradicBColour;
 
   document.getElementById("tetradicC-wrapper").style.backgroundColor = tetradicCColour;    
-  document.getElementById("tetradicC-label").innerHTML = tetradicCColour;
+  document.getElementById("tetradicC-label").innerHTML = tetradicCColourLabel;
   document.getElementById("tetradicC-picker").value = tetradicCColour;
 
   document.getElementById("monoA-wrapper").style.backgroundColor = monoAColour;    
-  document.getElementById("monoA-label").innerHTML = monoAColour;
+  document.getElementById("monoA-label").innerHTML = monoAColourLabel;
   document.getElementById("monoA-picker").value = monoAColour;
 
   document.getElementById("monoB-wrapper").style.backgroundColor = monoBColour;    
-  document.getElementById("monoB-label").innerHTML = monoBColour;
+  document.getElementById("monoB-label").innerHTML = monoBColourLabel;
   document.getElementById("monoB-picker").value = monoBColour;
 
 
@@ -83,21 +133,21 @@ color_picker.value = HSLToHex(...satChangeHSL(...hexToHSL(color_picker.value), n
 
 
 function copyAll() {
+  const isSCSS = (document.getElementById("SCSSToggle").innerHTML === 'SCSS');
   const cssArray = [...pickers].map(x => {
     let name = x.id.split('-')[0];
     let label = name + '-label';
-    return `--${name}: ${document.getElementById(label).innerHTML};`
+    return isSCSS?`$${name}: ${document.getElementById(label).innerHTML};`:`--${name}: ${document.getElementById(label).innerHTML};`;
   });
-
-  navigator.clipboard.writeText(cssArray.join('\n'));
-  alert('Copied All To Clipboard');
-
-  console.log(cssArray.join('\n'));
+  const text = cssArray.join('\n');
+  navigator.clipboard.writeText(text);
+  alert(`Copied To Clipboard:\n${text}`);
+  //console.log(text);
 }
 
-function onLoad(){
+function onChangepickers(){
   for (let i in pickers) {
-    if (i > 0) {
+    if (i > 0) { // skip the first one - MainColour
       pickers[i].onchange = () => {
         let name = pickers[i].id.split('-')[0];
         let wrapper = name + '-wrapper';
@@ -109,13 +159,77 @@ function onLoad(){
       } 
     }
   }
+}
+
+function copySingle(e) {
+  let text = e.innerHTML;
+  navigator.clipboard.writeText(text);
+  alert('Copied: ' + text);
+  console.log(text);
+}
+
+function toggleHSL(e){
+ if (e.innerHTML === 'Hex'){
+  e.innerHTML = 'HSL';
+  updateLabels();
+ } else {
+  e.innerHTML = 'Hex';
+  updateLabels();
+ }
+}
+
+function toggleSCSS(e){
+  if (e.innerHTML === 'SCSS'){
+   e.innerHTML = 'CSS';
+  } else {
+   e.innerHTML = 'SCSS';
+  }
+ }
+ 
+
+function onClickButtons(){
+  buttons.forEach(x => {//Assign a function to each button onclick
+    const id = x.id;
+    if (id === 'copyAllCSS') x.onclick = () => copyAll();
+    if (id === 'SCSSToggle') x.onclick = () => toggleSCSS(x);
+    if (id === 'HSLToggle') x.onclick = () => toggleHSL(x);
+    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle') x.onclick = () => copySingle(x);
+  }); 
+      //Single Copy buttons
+
+      // Copy all Button
+
+      // Toggle Hex
+
+      //Toggle Hsl
+
+      /*
+      buttons[i].onclick = e => {
+        if (e.target.tagName === 'BUTTON' && e.target.id !== 'copyAllCSS'){
+
+          let text = e.target.innerHTML;
+          navigator.clipboard.writeText(text);
+          alert('Copied: ' + text);
+        } else if (e.target.id === 'copyAllCSS'){
+          copyAll();
+        }            
+      } 
+      */
+  
+}
 
 
-
+function randomMainColour(){
   let hue = parseInt(Math.random() * 360);
   let sat = 48 + parseInt(Math.random() * 40); // 78
   let lum = 53 + parseInt(Math.random() * 35); // 53
   color_picker.value = HSLToHex(hue,sat,lum);
+}
+
+function onLoad(){
+  onChangepickers();
+  onClickButtons();
+  randomMainColour();
   updateColour();
 }
 
@@ -308,6 +422,7 @@ function lumAdjustHEX(hex, adjustment){
 
 
 
+/*
 window.onclick = e => { // if clicked item is a button, copy the inner text
   if (e.target.tagName === 'BUTTON' && e.target.id !== 'copyAllCSS'){
 
@@ -318,3 +433,4 @@ window.onclick = e => { // if clicked item is a button, copy the inner text
     copyAll();
   }
 }
+*/
