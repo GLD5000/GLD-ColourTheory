@@ -100,7 +100,7 @@
     }
 
 
-  }*/
+  */
 
   .picker-grid::before{
       content: attr(name);

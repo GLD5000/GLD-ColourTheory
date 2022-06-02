@@ -1,0 +1,21 @@
+@use '../utilities/index' as *;
+
+
+.large-picker{
+    grid-column:1/span 3;
+    grid-row:2/span 1;
+    background-color: #1c9b1c;
+    font-size: var(--gem3);
+
+  }
+
+  input[type="color"]{
+    opacity:0;
+    padding:0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+  }

@@ -1,2 +1,24 @@
 @use '../utilities/index' as *;
 
+button{
+    white-space: normal;
+    align-items: center;
+    border:none;
+    cursor: pointer;
+    background-color: #ddd;
+    font-size: var(--gem);
+  }
+.btn-lg{
+  font-size: var(--gem2);
+  background-color: #bbb;
+}
+
+.flexbox-horizontal{
+  display:flex;
+  gap: 3px;
+}
+
+.btn-small{
+  flex: 1 1 50%;
+}
+
