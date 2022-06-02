@@ -13,23 +13,25 @@
 
   <container class="pallete">
 
+    <container class="slider-picker-container">
+      <input oninput="adjustHue()" type="range" min="0" max="359" class="hue" id="hue-slider" name="Hue"></input>
+      <input oninput="adjustLum()" type="range" min="10" max="89" class="lum" id="lum-slider" name="Luminance"></input>
+      <input oninput="adjustSat()" type="range" min="0" max="99" class="sat" id="sat-slider" name="Saturation"></input>
+
+
+      <wrapper class="picker-grid large-picker" name="Main Colour">
+        <wrapper id="mainColour-wrapper" style="background-color:#2ae5e2;">
+            <input type="color" id="mainColour-picker" value="#2ae5e2" class="picker">
+              </input>
+              
+            </wrapper>
+            <button id="mainColour-label" >Pick a Colour</button>
+      </wrapper>
+    </container>
+
     <container class="main-grid">
 
-      <container class="slider-picker-container">
-        <input oninput="adjustHue()" type="range" min="0" max="359" class="hue" id="hue-slider" name="Hue"></input>
-        <input oninput="adjustLum()" type="range" min="10" max="89" class="lum" id="lum-slider" name="Luminance"></input>
-        <input oninput="adjustSat()" type="range" min="0" max="99" class="sat" id="sat-slider" name="Saturation"></input>
-
-
-        <wrapper class="picker-grid large-picker" name="Main Colour">
-          <wrapper id="mainColour-wrapper" style="background-color:#2ae5e2;">
-              <input type="color" id="mainColour-picker" value="#2ae5e2" class="picker">
-                </input>
-                
-              </wrapper>
-              <button id="mainColour-label" >Pick a Colour</button>
-        </wrapper>
-      </container>
+   
 
       <wrapper class="picker-grid small-picker" name="Monochrome A">
           <wrapper id="monoA-wrapper" style="background-color:#18c4c1;">

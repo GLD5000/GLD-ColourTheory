@@ -1,11 +1,10 @@
-@use '../utilities/index' as *;
-
+@use '../abstracts' as *;
 
 .large-picker{
     grid-column:1/span 3;
     grid-row:2/span 1;
-    background-color: #1c9b1c;
-    font-size: var(--gem3);
+    background-color: #000;
+    font-size: $gem3;
 
   }
 

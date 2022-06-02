@@ -1,5 +1,4 @@
-@use '../utilities/index' as *;
-
+@use '../abstracts' as *;
 
 input[type="range"]{
     position: relative;

@@ -1,4 +1,4 @@
-@use '../utilities/index' as *;
+@use '../abstracts' as *;
 
 
 .picker-grid{
@@ -8,6 +8,8 @@
   height: 100%;
   grid-template-columns: 1fr;
   grid-template-rows: 5fr 2fr;
+  row-gap: 3px;
+  background-color: #000;
   border-radius: 10px;
   box-shadow: #000 3px 3px 0px;
   border: solid #000 8px;
@@ -16,7 +18,7 @@
   margin:auto;
   grid-column:span 1;
   grid-row: span 1;
-  font-size: var(--gem2);
+  font-size: $gem2;
 
 }
 
@@ -53,13 +55,14 @@
     }
 
     .main-grid{
+      width: 100%;
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
-      grid-template-rows: repeat(auto-fit, minmax(200px,1fr));
-      margin: auto;
+      grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+      background-color: #777;
+      margin: 0;
       row-gap: 2rem;
       column-gap: 2rem;
-      padding:28px;
+      padding:28px 0px;
     }
   
   

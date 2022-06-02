@@ -1,15 +1,14 @@
-@use '../utilities/index' as *;
-
+@use '../abstracts' as *;
 button{
     white-space: normal;
     align-items: center;
     border:none;
     cursor: pointer;
     background-color: #ddd;
-    font-size: var(--gem);
+    font-size: $gem;
   }
 .btn-lg{
-  font-size: var(--gem2);
+  font-size: $gem2;
   background-color: #bbb;
 }
 

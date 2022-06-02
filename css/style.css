@@ -1,7 +1,161 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Libre+Franklin:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Oswald:wght@200;300;400;500;600;700&family=Quattrocento:wght@400;700&display=swap");
+*, *::after, *::before {
+  font-family: "Bebas Neue", cursive;
+}
+
 /* Dynamic Sizing */
-body {
+:root {
   background: #000;
+}
+
+button {
+  white-space: normal;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  background-color: #ddd;
+  font-size: clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem);
+}
+
+.btn-lg {
+  font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6);
+  background-color: #bbb;
+}
+
+.flexbox-horizontal {
+  display: flex;
+  gap: 3px;
+}
+
+.btn-small {
+  flex: 1 1 50%;
+}
+
+.picker-grid {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: 1fr;
+  grid-template-rows: 5fr 2fr;
+  row-gap: 3px;
+  background-color: #000;
+  border-radius: 10px;
+  box-shadow: #000 3px 3px 0px;
+  border: solid #000 8px;
+  cursor: pointer;
+  overflow: hidden;
+  margin: auto;
+  grid-column: span 1;
+  grid-row: span 1;
+  font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6);
+}
+
+/*
+  .picker-grid:hover::before{
+      content: attr(name);
+      position: absolute;
+      text-align: center; 
+      top: 1rem; 
+      width:100%;
+      line-height: 90%;
+    }
+*/
+.picker-grid::before {
+  content: attr(name);
+  position: absolute;
+  text-align: center;
+  top: 1rem;
+  width: 100%;
+  line-height: 90%;
+}
+
+.slider-picker-container {
+  grid-row: span 2;
+  grid-column: span 3;
+  display: grid;
+  grid-template-rows: 1fr 7fr;
+  row-gap: 2rem;
+  column-gap: 2rem;
+}
+
+.main-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  background-color: #777;
+  margin: 0;
+  row-gap: 2rem;
+  column-gap: 2rem;
+  padding: 28px 0px;
+}
+
+.pallete {
+  margin: auto;
+  padding: 2rem;
+  display: block;
+  border-radius: 10px;
+  background: #777;
+  box-shadow: #000 6x 6px 0px;
+  border: solid #000 8px;
+}
+
+.large-picker {
+  grid-column: 1/span 3;
+  grid-row: 2/span 1;
+  background-color: #000;
+  font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6 * 1.6);
+}
+
+input[type=color] {
+  opacity: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+input[type=range] {
+  position: relative;
+  opacity: 100%;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  border-radius: 10px;
+  box-shadow: #000 3px 3px 0px;
+  border: solid #000 8px;
+  grid-row: 1/span 1;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  opacity: 0;
+}
+
+input[type=range]::-ms-thumb {
+  opacity: 0;
+}
+
+input[type=range]::-moz-range-thumb {
+  opacity: 0;
+}
+
+.hue {
+  background: linear-gradient(to right, hsl(0deg, 100%, 50%), hsl(60deg, 100%, 50%), hsl(120deg, 100%, 50%), hsl(180deg, 100%, 50%), hsl(240deg, 100%, 50%), hsl(300deg, 100%, 50%), hsl(0deg, 100%, 50%));
+}
+
+.lum {
+  background: linear-gradient(to left, #fff, #555);
+}
+
+.sat {
+  background: linear-gradient(to right, hsl(0deg, 0%, 50%), hsl(60deg, 10%, 50%), hsl(120deg, 20%, 50%), hsl(180deg, 40%, 50%), hsl(240deg, 80%, 50%), hsl(300deg, 100%, 50%), hsl(0deg, 100%, 50%));
 }
 
 /*# sourceMappingURL=style.css.map */
