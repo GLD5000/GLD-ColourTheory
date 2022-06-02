@@ -1,2 +1,5 @@
-@use '/utilities/_index.scss';
+@use './utilities/_index.scss' as *;
 
+body{
+    background: $blue;
+}
