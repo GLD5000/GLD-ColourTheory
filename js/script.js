@@ -232,6 +232,7 @@ function onLoad(){
   onClickButtons();
   randomMainColour();
   updateColour();
+  color_picker_hex_label.innerHTML = "Pick a Colour";
 }
 
 
