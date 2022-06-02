@@ -149,13 +149,14 @@ function onChangepickers(){
   for (let i in pickers) {
     if (i > 0) { // skip the first one - MainColour
       pickers[i].onchange = () => {
-        let name = pickers[i].id.split('-')[0];
-        let wrapper = name + '-wrapper';
-        let label = name + '-label';
-        let colour = pickers[i].value;
+        const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+        const name = pickers[i].id.split('-')[0];
+        const wrapper = name + '-wrapper';
+        const label = name + '-label';
+        const colour = pickers[i].value;
         //e.value = colour;
         document.getElementById(wrapper).style.backgroundColor = colour;    
-        document.getElementById(label).innerHTML = colour;
+        document.getElementById(label).innerHTML = (isHex)?colour:hexToHSLString(colour);
       } 
     }
   }
