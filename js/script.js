@@ -396,7 +396,7 @@ function hueRotateHSL(hue,sat,lum, rotation){
 }
 
 function lumAdjustHSL(hue,sat,lum, adjustment){
-  return (lum + adjustment > 100)? [hue,sat,lum + adjustment - 100]: [hue,sat,lum + adjustment]; 
+  return [hue,sat,Math.max(0,Math.min(100,lum + adjustment))]; 
 }
 
 function hueChangeHSL(hue,sat,lum, newHue){
