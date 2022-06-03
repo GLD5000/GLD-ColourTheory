@@ -195,7 +195,7 @@ input[type=range]::-moz-range-thumb {
   grid-template: "header header header" auto ". picker ." auto ". palette ." 1fr "footer footer footer" auto/1em 1fr 1em;
 }
 
-@media all and (min-width: 1920px) {
+@media all and (min-width: 120em) {
   .body-grid {
     grid-template: "header header header header" auto ". picker palette ." 1fr "footer footer footer footer" auto/1em 1fr 1fr 1em;
   }
