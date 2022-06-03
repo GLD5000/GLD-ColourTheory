@@ -1,18 +1,200 @@
-/* Error: Can't find stylesheet to import.
- *    ,
- * 12 | @forward '../layouts/default';
- *    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
- *    '
- *   css/sass/utilities/_index.scss 12:1  @use
- *   css/sass/main.scss 1:1               root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a    \2577 \a 12 \2502  @forward '../layouts/default';\a    \2502  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   css/sass/utilities/_index.scss 12:1  @use\a   css/sass/main.scss 1:1               root stylesheet";
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Libre+Franklin:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Oswald:wght@200;300;400;500;600;700&family=Quattrocento:wght@400;700&display=swap");
+*, *::after, *::before {
+  font-family: "Bebas Neue", cursive;
 }
+
+/* Dynamic Sizing */
+:root {
+  background: #000;
+}
+
+.header, .footer {
+  color: #fff;
+}
+
+button {
+  white-space: normal;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  background-color: #ddd;
+  font-size: clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem);
+}
+
+.btn-lg {
+  font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6);
+  background-color: #bbb;
+}
+
+.btn-small {
+  flex: 1 1 50%;
+}
+
+.body-grid-vertical {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.flexbox-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.flexbox-horizontal-btn {
+  display: flex;
+  gap: 3px;
+}
+
+.flexbox-horizontal-box {
+  flex: 1 1 100%;
+}
+
+.holy-grail {
+  display: grid;
+  grid-template: auto 1fr auto/auto 1fr auto;
+}
+
+.main-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  background-color: #777;
+  margin: 0;
+  row-gap: 2rem;
+  column-gap: 2rem;
+  padding: 28px 0px;
+}
+
+.pallete {
+  margin: auto;
+  width: 100%;
+  padding: 2rem;
+  display: grid;
+  grid-template: auto 1fr/1fr;
+  border-radius: 10px;
+  background: #777;
+  box-shadow: #000 6px 6px 0px;
+  border: solid #000 8px;
+}
+
+.picker-grid {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: 1fr;
+  grid-template-rows: 5fr 2fr;
+  row-gap: 3px;
+  background-color: #000;
+  border-radius: 10px;
+  box-shadow: #000 3px 3px 0px;
+  border: solid #000 8px;
+  cursor: pointer;
+  overflow: hidden;
+  margin: auto;
+  grid-column: span 1;
+  grid-row: span 1;
+  font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6);
+}
+
+/*
+  .picker-grid:hover::before{
+      content: attr(name);
+      position: absolute;
+      text-align: center; 
+      top: 1rem; 
+      width:100%;
+      line-height: 90%;
+    }
+*/
+.picker-grid::before {
+  content: attr(name);
+  position: absolute;
+  text-align: center;
+  top: 1rem;
+  width: 100%;
+  line-height: 90%;
+}
+
+.slider-picker-container {
+  width: 100%;
+  grid-row: span 2;
+  grid-column: span 3;
+  display: grid;
+  grid-template-rows: 1fr 7fr;
+  row-gap: 2rem;
+  column-gap: 2rem;
+}
+
+.large-picker {
+  grid-column: 1/span 3;
+  grid-row: 2/span 1;
+  background-color: #000;
+  font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6 * 1.6);
+}
+
+input[type=color] {
+  opacity: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+input[type=range] {
+  position: relative;
+  opacity: 100%;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  border-radius: 10px;
+  box-shadow: #000 3px 3px 0px;
+  border: solid #000 8px;
+  grid-row: 1/span 1;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  opacity: 0;
+}
+
+input[type=range]::-ms-thumb {
+  opacity: 0;
+}
+
+input[type=range]::-moz-range-thumb {
+  opacity: 0;
+}
+
+.hue {
+  background: linear-gradient(to right, hsl(0deg, 100%, 50%), hsl(60deg, 100%, 50%), hsl(120deg, 100%, 50%), hsl(180deg, 100%, 50%), hsl(240deg, 100%, 50%), hsl(300deg, 100%, 50%), hsl(0deg, 100%, 50%));
+}
+
+.lum {
+  background: linear-gradient(to left, #fff, #555);
+}
+
+.sat {
+  background: linear-gradient(to right, hsl(0deg, 0%, 50%), hsl(60deg, 10%, 50%), hsl(120deg, 20%, 50%), hsl(180deg, 40%, 50%), hsl(240deg, 80%, 50%), hsl(300deg, 100%, 50%), hsl(0deg, 100%, 50%));
+}
+
+.body-grid {
+  display: grid;
+  width: 100%;
+}
+
+@media all and (min-width: 600px) {
+  .body-grid {
+    grid-template: "header header header" auto ". picker ." auto ". palette ." 1fr "footer footer footer" auto/1em 1fr 1em;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
