@@ -10,76 +10,56 @@
 
 .header, .footer {
   color: #fff;
+  background-color: red;
 }
 
-button {
-  white-space: normal;
-  align-items: center;
-  border: none;
-  cursor: pointer;
-  background-color: #ddd;
-  font-size: clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem);
-}
-
-.btn-lg {
-  font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6);
+/*
+button{
+    white-space: normal;
+    align-items: center;
+    border:none;
+    cursor: pointer;
+    background-color: #ddd;
+    font-size: $gem;
+  }
+.btn-lg{
+  font-size: $gem2;
   background-color: #bbb;
 }
 
-.btn-small {
+
+.btn-small{
   flex: 1 1 50%;
 }
-
-.body-grid-vertical {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-}
-
-.flexbox-horizontal {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.flexbox-horizontal-btn {
-  display: flex;
-  gap: 3px;
-}
-
-.flexbox-horizontal-box {
-  flex: 1 1 100%;
-}
-
-.holy-grail {
-  display: grid;
-  grid-template: auto 1fr auto/auto 1fr auto;
-}
-
-.main-grid {
+*/
+.header {
+  height: 100%;
   width: 100%;
+}
+
+.main-picker {
+  display: grid;
+  grid-template: 1fr 5fr/1fr;
+  background-color: #777;
+}
+
+.slider-container {
+  display: flex;
+  flex-basis: 100% 100% 100%;
+}
+
+.swatch-palette {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   background-color: #777;
-  margin: 0;
-  row-gap: 2rem;
-  column-gap: 2rem;
-  padding: 28px 0px;
 }
 
-.pallete {
-  margin: auto;
+.footer {
+  height: 100%;
   width: 100%;
-  padding: 2rem;
-  display: grid;
-  grid-template: auto 1fr/1fr;
-  border-radius: 10px;
-  background: #777;
-  box-shadow: #000 6px 6px 0px;
-  border: solid #000 8px;
 }
 
-.picker-grid {
+.swatch, .main-swatch {
   position: relative;
   display: grid;
   width: 100%;
@@ -99,17 +79,7 @@ button {
   font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6);
 }
 
-/*
-  .picker-grid:hover::before{
-      content: attr(name);
-      position: absolute;
-      text-align: center; 
-      top: 1rem; 
-      width:100%;
-      line-height: 90%;
-    }
-*/
-.picker-grid::before {
+.swatch::before {
   content: attr(name);
   position: absolute;
   text-align: center;
@@ -118,24 +88,89 @@ button {
   line-height: 90%;
 }
 
-.slider-picker-container {
+.main-swatch::before {
+  content: attr(name);
+  position: absolute;
+  text-align: center;
+  top: 1rem;
   width: 100%;
-  grid-row: span 2;
-  grid-column: span 3;
-  display: grid;
-  grid-template-rows: 1fr 7fr;
-  row-gap: 2rem;
-  column-gap: 2rem;
+  line-height: 90%;
 }
 
+.flexbox-horizontal-btn {
+  display: flex;
+  gap: 3px;
+}
+
+/*
+
+
+
+
+
+.flexbox-horizontal-box{
+  flex: 1 1 100%;
+}
+
+.holy-grail{
+  display: grid;
+  grid-template: auto 1fr auto / auto 1fr auto;
+}
+
+.main-grid{
+  width: 100%;
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+  margin: 0;
+  row-gap: 2rem;
+  column-gap: 2rem;
+  padding:28px 0px;
+}
+
+
+
+
+
+
+  .pallete{
+  margin:auto;
+  width: 100%;
+  padding:2rem;
+  display:grid;
+  grid-template: auto 1fr / 1fr;
+  border-radius: 10px;
+  background:#777;
+  box-shadow: #000 6px 6px 0px;
+  border: solid #000 8px;
+}
+
+  .picker-grid:hover::before{
+      content: attr(name);
+      position: absolute;
+      text-align: center; 
+      top: 1rem; 
+      width:100%;
+      line-height: 90%;
+    }
+
+
+
+
+    .main-picker{
+      width: 100%;
+      display:grid;
+      grid-template-rows: 1fr 7fr;
+      row-gap: 2rem;
+      column-gap: 2rem;
+
+    }
+  */
 .large-picker {
-  grid-column: 1/span 3;
-  grid-row: 2/span 1;
   background-color: #000;
   font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6 * 1.6);
 }
 
-input[type=color] {
+.picker {
   opacity: 0;
   padding: 0;
   width: 100%;
@@ -186,19 +221,104 @@ input[type=range]::-moz-range-thumb {
   background: linear-gradient(to right, hsl(0deg, 0%, 50%), hsl(60deg, 10%, 50%), hsl(120deg, 20%, 50%), hsl(180deg, 40%, 50%), hsl(240deg, 80%, 50%), hsl(300deg, 100%, 50%), hsl(0deg, 100%, 50%));
 }
 
+.header {
+  grid-area: header;
+}
+
+.main-picker {
+  grid-area: picker;
+}
+
+.swatch-palette {
+  grid-area: palette;
+}
+
+.footer {
+  grid-area: footer;
+}
+
+.main-picker {
+  grid-template-columns: 1fr;
+}
+
 .body-grid {
   display: grid;
   width: 100%;
 }
 
 .body-grid {
-  grid-template: "header header header" auto ". picker ." auto ". palette ." 1fr "footer footer footer" auto/1em 1fr 1em;
+  grid-template-rows: 200px auto auto 200px;
+  grid-template-columns: 1em 1fr 1em;
+  grid-template-areas: "header header header" ". picker ." ". palette ." "footer footer footer";
+  grid-gap: 1em;
 }
 
-@media all and (min-width: 120em) {
-  .body-grid {
-    grid-template: "header header header header" auto ". picker palette ." 1fr "footer footer footer footer" auto/1em 1fr 1fr 1em;
-  }
+.swatch-palette {
+  grid-template-columns: 1fr;
 }
+
+/*
+@media all and (min-width: $bp-tiny){
+
+    .body-grid{
+        grid-template:
+        "header header header header" auto
+        ". picker palette ." 1fr
+        "footer footer footer footer" auto 
+        / 1em 1fr 1fr 1em;
+    }
+
+    .swatch-palette {
+        grid-template-columns: 1fr 1fr;      
+    }
+}
+
+@media all and (min-width: $bp-small){
+
+    .body-grid{
+        grid-template:
+        "header header header header" auto
+        ". picker palette ." 1fr
+        "footer footer footer footer" auto 
+        / 1em 1fr 1fr 1em;
+    }
+
+    .swatch-palette {
+        grid-template-columns: 1fr 1fr 1fr;      
+    }
+}
+
+@media all and (min-width: $bp-medium){
+
+    .body-grid{
+        grid-template:
+        "header header header header" auto
+        ". picker palette ." 1fr
+        "footer footer footer footer" auto 
+        / 1em 1fr 1fr 1em;
+    }
+
+    .swatch-palette {
+        grid-auto-columns: 1fr;      
+    }
+}
+
+
+@media all and (min-width: $bp-large){
+    .body-grid{
+        grid-template:
+        "header header header header" auto
+        ". picker palette ." 1fr
+        "footer footer footer footer" auto 
+        / 1em 1fr 1fr 1em;
+    }
+
+    .swatch-palette {
+        grid-auto-columns: 100px 100px;      
+    }
+
+}
+
+*/
 
 /*# sourceMappingURL=style.css.map */

@@ -1,59 +1,36 @@
 @use '../abstracts' as *;
 
-.body-grid-vertical{
-  display:grid;
-  grid-template-rows: auto 1fr auto;
+
+.header{
+  height: 100%;
+  width:100%;
 }
 
-.flexbox-horizontal{
-  display:flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.flexbox-horizontal-btn{
-  display:flex;
-  gap: 3px;
-}
-
-
-.flexbox-horizontal-box{
-  flex: 1 1 100%;
-}
-
-.holy-grail{
+.main-picker{
   display: grid;
-  grid-template: auto 1fr auto / auto 1fr auto;
-}
-
-.main-grid{
-  width: 100%;
-  display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+  grid-template: 1fr 5fr / 1fr;
   background-color: #777;
-  margin: 0;
-  row-gap: 2rem;
-  column-gap: 2rem;
-  padding:28px 0px;
-}
-
-.pallete{
-  margin:auto;
-  width: 100%;
-  padding:2rem;
-  display:grid;
-  grid-template: auto 1fr / 1fr;
-  border-radius: 10px;
-  background:#777;
-  box-shadow: #000 6px 6px 0px;
-  border: solid #000 8px;
 
 }
 
+.slider-container{
+  display: flex;
+  flex-basis: 100% 100% 100%;
+}
 
+.swatch-palette{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+    background-color: #777;
 
-.picker-grid{
+}
+
+.footer{
+  height: 100%;
+  width:100%;
+}
+
+.swatch, .main-swatch{
   position:relative;
   display:grid;
   width: 100%;
@@ -74,7 +51,72 @@
 
 }
 
+.swatch::before{
+  content: attr(name);
+  position: absolute;
+  text-align: center; 
+  top: 1rem; 
+  width:100%;
+  line-height: 90%;
+}
+
+.main-swatch::before{
+  content: attr(name);
+  position: absolute;
+  text-align: center; 
+  top: 1rem; 
+  width:100%;
+  line-height: 90%;
+}
+
+.flexbox-horizontal-btn{
+  display:flex;
+  gap: 3px;
+}
+
+
   /*
+
+
+
+
+
+.flexbox-horizontal-box{
+  flex: 1 1 100%;
+}
+
+.holy-grail{
+  display: grid;
+  grid-template: auto 1fr auto / auto 1fr auto;
+}
+
+.main-grid{
+  width: 100%;
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+  margin: 0;
+  row-gap: 2rem;
+  column-gap: 2rem;
+  padding:28px 0px;
+}
+
+
+
+
+
+
+  .pallete{
+  margin:auto;
+  width: 100%;
+  padding:2rem;
+  display:grid;
+  grid-template: auto 1fr / 1fr;
+  border-radius: 10px;
+  background:#777;
+  box-shadow: #000 6px 6px 0px;
+  border: solid #000 8px;
+}
+
   .picker-grid:hover::before{
       content: attr(name);
       position: absolute;
@@ -83,27 +125,16 @@
       width:100%;
       line-height: 90%;
     }
-*/
 
 
 
-  .picker-grid::before{
-      content: attr(name);
-      position: absolute;
-      text-align: center; 
-      top: 1rem; 
-      width:100%;
-      line-height: 90%;
-    }
 
-    .slider-picker-container{
+    .main-picker{
       width: 100%;
-      grid-row: span 2;
-      grid-column: span 3;
       display:grid;
       grid-template-rows: 1fr 7fr;
       row-gap: 2rem;
       column-gap: 2rem;
   
     }
-  
+  */
