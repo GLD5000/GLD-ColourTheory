@@ -25,7 +25,8 @@
 
 .body-grid{
     display:grid;
-    width: 100%;
+    width: 100vw;
+    min-height: 100vh;
 }
 
 .body-grid{
@@ -45,7 +46,7 @@
   grid-template-columns: 1fr;      
 }
 
-/*
+
 @media all and (min-width: $bp-tiny){
 
     .body-grid{
@@ -107,4 +108,3 @@
 
 }
 
-*/

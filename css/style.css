@@ -4,6 +4,60 @@
 }
 
 /* Dynamic Sizing */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
 :root {
   background: #000;
 }
@@ -243,7 +297,8 @@ input[type=range]::-moz-range-thumb {
 
 .body-grid {
   display: grid;
-  width: 100%;
+  width: 100vw;
+  min-height: 100vh;
 }
 
 .body-grid {
@@ -257,68 +312,41 @@ input[type=range]::-moz-range-thumb {
   grid-template-columns: 1fr;
 }
 
-/*
-@media all and (min-width: $bp-tiny){
+@media all and (min-width: 37.5em) {
+  .body-grid {
+    grid-template: "header header header header" auto ". picker palette ." 1fr "footer footer footer footer" auto/1em 1fr 1fr 1em;
+  }
 
-    .body-grid{
-        grid-template:
-        "header header header header" auto
-        ". picker palette ." 1fr
-        "footer footer footer footer" auto 
-        / 1em 1fr 1fr 1em;
-    }
-
-    .swatch-palette {
-        grid-template-columns: 1fr 1fr;      
-    }
+  .swatch-palette {
+    grid-template-columns: 1fr 1fr;
+  }
 }
+@media all and (min-width: 60em) {
+  .body-grid {
+    grid-template: "header header header header" auto ". picker palette ." 1fr "footer footer footer footer" auto/1em 1fr 1fr 1em;
+  }
 
-@media all and (min-width: $bp-small){
-
-    .body-grid{
-        grid-template:
-        "header header header header" auto
-        ". picker palette ." 1fr
-        "footer footer footer footer" auto 
-        / 1em 1fr 1fr 1em;
-    }
-
-    .swatch-palette {
-        grid-template-columns: 1fr 1fr 1fr;      
-    }
+  .swatch-palette {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
+@media all and (min-width: 80em) {
+  .body-grid {
+    grid-template: "header header header header" auto ". picker palette ." 1fr "footer footer footer footer" auto/1em 1fr 1fr 1em;
+  }
 
-@media all and (min-width: $bp-medium){
-
-    .body-grid{
-        grid-template:
-        "header header header header" auto
-        ". picker palette ." 1fr
-        "footer footer footer footer" auto 
-        / 1em 1fr 1fr 1em;
-    }
-
-    .swatch-palette {
-        grid-auto-columns: 1fr;      
-    }
+  .swatch-palette {
+    grid-auto-columns: 1fr;
+  }
 }
+@media all and (min-width: 120em) {
+  .body-grid {
+    grid-template: "header header header header" auto ". picker palette ." 1fr "footer footer footer footer" auto/1em 1fr 1fr 1em;
+  }
 
-
-@media all and (min-width: $bp-large){
-    .body-grid{
-        grid-template:
-        "header header header header" auto
-        ". picker palette ." 1fr
-        "footer footer footer footer" auto 
-        / 1em 1fr 1fr 1em;
-    }
-
-    .swatch-palette {
-        grid-auto-columns: 100px 100px;      
-    }
-
+  .swatch-palette {
+    grid-auto-columns: 100px 100px;
+  }
 }
-
-*/
 
 /*# sourceMappingURL=style.css.map */
