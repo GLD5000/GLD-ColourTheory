@@ -12,124 +12,94 @@
 
   <header class="header">head</header>
 
-  <container class="pallete">
-
-    <container class="slider-picker-container">
+  <section name="main-picker" class="slider-picker-container">
+    <container class="slider-container">
       <input oninput="adjustHue()" type="range" min="0" max="359" class="hue" id="hue-slider" name="Hue"></input>
       <input oninput="adjustLum()" type="range" min="10" max="89" class="lum" id="lum-slider" name="Luminance"></input>
       <input oninput="adjustSat()" type="range" min="0" max="99" class="sat" id="sat-slider" name="Saturation"></input>
+      </container>
 
-
-      <wrapper class="picker-grid large-picker" name="Main Colour">
-        <wrapper id="mainColour-wrapper">
-            <input type="color" id="mainColour-picker" class="picker">
-              </input>
-              
-            </wrapper>
-            <button id="mainColour-label" ></button>
+    <container class="picker-grid large-picker" name="Main Colour">
+      <wrapper id="mainColour-wrapper">
+        <input type="color" id="mainColour-picker" class="picker"></input>
       </wrapper>
+      <button id="mainColour-label" ></button>
+    </container>
+  </section name="main-picker">
+
+  <section class="main-grid">
+    <container class="picker-grid small-picker" name="Monochrome A">
+      <wrapper id="monoA-wrapper">
+        <input type="color" id="monoA-picker" class="picker"></input>
+      </wrapper>
+      <button id="monoA-label" ></button>
     </container>
 
-    <container class="main-grid">
-
-   
-
-      <wrapper class="picker-grid small-picker" name="Monochrome A">
-          <wrapper id="monoA-wrapper">
-              <input type="color" id="monoA-picker" class="picker">
-                </input>
-              </wrapper>
-              <button id="monoA-label" ></button>
+    <container class="picker-grid small-picker" name="Monochrome B">
+      <wrapper id="monoB-wrapper">
+        <input type="color" id="monoB-picker" class="picker"></input>
       </wrapper>
-
-      <wrapper class="picker-grid small-picker" name="Monochrome B">
-          <wrapper id="monoB-wrapper">
-              <input type="color" id="monoB-picker" class="picker">
-                </input>
-              </wrapper>
-              <button id="monoB-label" ></button>
-      </wrapper>
-
-
-      <wrapper class="picker-grid small-picker" name="Analogous A">
-          <wrapper id="analogousA-wrapper">
-              <input type="color" id="analogousA-picker" class="picker">
-                </input>
-              </wrapper>
-              <button id="analogousA-label" ></button>
-      </wrapper>
-
-
-      <wrapper class="picker-grid small-picker" name="Analogous B">
-          <wrapper id="analogousB-wrapper">
-              <input type="color" id="analogousB-picker" class="picker">
-                </input>
-              </wrapper>
-              <button id="analogousB-label" ></button>
-      </wrapper>
-
-
-      <wrapper class="picker-grid small-picker" name="Triadic A">
-          <wrapper id="triadicA-wrapper">
-              <input type="color" id="triadicA-picker" class="picker">
-                </input>
-              </wrapper>
-              <button id="triadicA-label" ></button>
-      </wrapper>
-
-
-      <wrapper class="picker-grid small-picker" name="Triadic B">
-          <wrapper id="triadicB-wrapper">
-              <input type="color" id="triadicB-picker" class="picker">
-                </input>
-              </wrapper>
-              <button id="triadicB-label" ></button>
-      </wrapper>
-
-
-      <wrapper class="picker-grid small-picker" name="Tetradic A">
-          <wrapper id="tetradicA-wrapper">
-              <input type="color" id="tetradicA-picker" class="picker">
-                </input>
-              </wrapper>
-              <button id="tetradicA-label" ></button>
-      </wrapper>
-
-
-      <wrapper class="picker-grid small-picker complementary" name="Tetradic B / Complement">
-          <wrapper id="tetradicB-wrapper">
-              <input type="color" id="tetradicB-picker" class="picker">
-                </input>
-              </wrapper>
-              <button id="tetradicB-label" ></button>
-      </wrapper>
-
-
-      <wrapper class="picker-grid small-picker" name="Tetradic C">
-          <wrapper id="tetradicC-wrapper">
-              <input type="color" id="tetradicC-picker" class="picker">
-                </input>
-              </wrapper>
-              <button id="tetradicC-label" ></button>
-      </wrapper>   
-        
-      <wrapper class="picker-grid">
-        <button class="btn-lg" id="copyAllCSS">Copy All</button>
-        <wrapper class="flexbox-horizontal-btn">
-          <button class="btn-small" id="SCSSToggle">SCSS</button>
-          <button class="btn-small" id="HSLToggle">Hex</button>
-        </wrapper>
-      </wrapper>
-
+      <button id="monoB-label" ></button>
     </container>
-  </container>  
 
-    
-    <footer class="footer">foot</footer>
-    
-    
-    
-    
+    <container class="picker-grid small-picker" name="Analogous A">
+      <wrapper id="analogousA-wrapper">
+        <input type="color" id="analogousA-picker" class="picker"></input>
+      </wrapper>
+      <button id="analogousA-label" ></button>
+    </container>
 
+    <container class="picker-grid small-picker" name="Analogous B">
+      <wrapper id="analogousB-wrapper">
+        <input type="color" id="analogousB-picker" class="picker"></input>
+      </wrapper>
+      <button id="analogousB-label" ></button>
+    </container>
+
+    <wrapper class="picker-grid small-picker" name="Triadic A">
+      <wrapper id="triadicA-wrapper">
+        <input type="color" id="triadicA-picker" class="picker"></input>
+      </wrapper>
+      <button id="triadicA-label" ></button>
+    </wrapper>
+
+    <container class="picker-grid small-picker" name="Triadic B">
+      <wrapper id="triadicB-wrapper">
+        <input type="color" id="triadicB-picker" class="picker"></input>
+      </wrapper>
+      <button id="triadicB-label" ></button>
+    </container>
+
+    <container class="picker-grid small-picker" name="Tetradic A">
+      <wrapper id="tetradicA-wrapper">
+        <input type="color" id="tetradicA-picker" class="picker"></input>
+      </wrapper>
+      <button id="tetradicA-label" ></button>
+    </container>
+
+    <container class="picker-grid small-picker complementary" name="Tetradic B / Complement">
+      <wrapper id="tetradicB-wrapper">
+        <input type="color" id="tetradicB-picker" class="picker"></input>
+      </wrapper>
+      <button id="tetradicB-label" ></button>
+    </container>
+
+    <container class="picker-grid small-picker" name="Tetradic C">
+      <wrapper id="tetradicC-wrapper">
+        <input type="color" id="tetradicC-picker" class="picker"></input>
+      </wrapper>
+      <button id="tetradicC-label" ></button>
+    </container>   
+      
+    <container class="picker-grid">
+      <button class="btn-lg" id="copyAllCSS">Copy All</button>
+      <wrapper class="flexbox-horizontal-btn">
+        <button class="btn-small" id="SCSSToggle">SCSS</button>
+        <button class="btn-small" id="HSLToggle">Hex</button>
+      </wrapper>
+    </container>
+  </section>
+    
+  <footer class="footer">foot</footer>
 </body>
 </html>
