@@ -2,7 +2,7 @@
  $font_ratio: 1.6;
   
  $font_min_px: 16;
- $font_max_px: 36;
+ $font_max_px: 48;
   
  $min_width_px: 380;
  $max_width_px: 2400;
@@ -24,3 +24,9 @@
  $gem4: calc($gem3 * $font_ratio);
  $gem5: calc($gem4 * $font_ratio);
  $gem6: calc($gem5 * $font_ratio);
+ $gem7: calc($gem6 * $font_ratio);
+ $gem8: calc($gem7 * $font_ratio);
+ $gem9: calc($gem8 * $font_ratio);
+ $gem10: calc($gem9 * $font_ratio);
+ $gem11: calc($gem10 * $font_ratio);
+ $gem12: calc($gem11 * $font_ratio); 

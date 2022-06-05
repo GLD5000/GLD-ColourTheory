@@ -4,8 +4,71 @@
 }
 
 /* Dynamic Sizing */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
 :root {
   background: #000;
+}
+
+.header, .footer {
+  color: #fff;
+  background-color: red;
 }
 
 button {
@@ -14,24 +77,52 @@ button {
   border: none;
   cursor: pointer;
   background-color: #ddd;
-  font-size: clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem);
+  font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
 }
 
 .btn-lg {
-  font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6);
+  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6);
   background-color: #bbb;
-}
-
-.flexbox-horizontal {
-  display: flex;
-  gap: 3px;
 }
 
 .btn-small {
   flex: 1 1 50%;
 }
 
-.picker-grid {
+.header {
+  height: 100%;
+  width: 100%;
+}
+
+.main-picker {
+  width: 100%;
+  display: grid;
+  grid-template: 1fr 10fr/1fr;
+  background-color: #777;
+  padding: 1em;
+  gap: 1em;
+}
+
+.slider-container {
+  width: 100%;
+  display: flex;
+  flex-basis: 100% 100% 100%;
+}
+
+.swatch-palette {
+  width: 100%;
+  display: grid;
+  background-color: #777;
+  gap: 1em;
+  padding: 1em;
+}
+
+.footer {
+  height: 100%;
+  width: 100%;
+}
+
+.swatch, .main-swatch, .btn-container {
   position: relative;
   display: grid;
   width: 100%;
@@ -48,20 +139,10 @@ button {
   margin: auto;
   grid-column: span 1;
   grid-row: span 1;
-  font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6);
+  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6);
 }
 
-/*
-  .picker-grid:hover::before{
-      content: attr(name);
-      position: absolute;
-      text-align: center; 
-      top: 1rem; 
-      width:100%;
-      line-height: 90%;
-    }
-*/
-.picker-grid::before {
+.swatch::before, .main-swatch::before {
   content: attr(name);
   position: absolute;
   text-align: center;
@@ -70,44 +151,22 @@ button {
   line-height: 90%;
 }
 
-.slider-picker-container {
-  grid-row: span 2;
-  grid-column: span 3;
+.flexbox-horizontal-btn {
+  display: flex;
+  gap: 3px;
+}
+
+.holy-grail {
   display: grid;
-  grid-template-rows: 1fr 7fr;
-  row-gap: 2rem;
-  column-gap: 2rem;
+  grid-template: auto 1fr auto/auto 1fr auto;
 }
 
-.main-grid {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  background-color: #777;
-  margin: 0;
-  row-gap: 2rem;
-  column-gap: 2rem;
-  padding: 28px 0px;
-}
-
-.pallete {
-  margin: auto;
-  padding: 2rem;
-  display: block;
-  border-radius: 10px;
-  background: #777;
-  box-shadow: #000 6x 6px 0px;
-  border: solid #000 8px;
-}
-
-.large-picker {
-  grid-column: 1/span 3;
-  grid-row: 2/span 1;
+.large-picker, .btn-container {
   background-color: #000;
-  font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6 * 1.6);
+  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6 * 1.6);
 }
 
-input[type=color] {
+.picker {
   opacity: 0;
   padding: 0;
   width: 100%;
@@ -156,6 +215,120 @@ input[type=range]::-moz-range-thumb {
 
 .sat {
   background: linear-gradient(to right, hsl(0deg, 0%, 50%), hsl(60deg, 10%, 50%), hsl(120deg, 20%, 50%), hsl(180deg, 40%, 50%), hsl(240deg, 80%, 50%), hsl(300deg, 100%, 50%), hsl(0deg, 100%, 50%));
+}
+
+/* Grid areas */
+.header {
+  grid-area: header;
+}
+
+.main-picker {
+  grid-area: picker;
+}
+
+.swatch-palette {
+  grid-area: palette;
+}
+
+.footer {
+  grid-area: footer;
+}
+
+/*
+Grid level 2 areas
+*/
+.MonochromeA {
+  grid-area: MonochromeA;
+}
+
+.MonochromeB {
+  grid-area: MonochromeB;
+}
+
+.AnalogousA {
+  grid-area: AnalogousA;
+}
+
+.AnalogousB {
+  grid-area: AnalogousB;
+}
+
+.TriadicA {
+  grid-area: TriadicA;
+}
+
+.TriadicB {
+  grid-area: TriadicB;
+}
+
+.TetradicA {
+  grid-area: TetradicA;
+}
+
+.TetradicB {
+  grid-area: TetradicB;
+}
+
+.TetradicC {
+  grid-area: TetradicC;
+}
+
+.btn-container {
+  grid-area: btn-container;
+}
+
+.body-grid {
+  background-color: aquamarine;
+  width: clamp(240px, 100vw, 137.5em);
+  margin: auto;
+  display: grid;
+  min-height: 100vh;
+}
+
+@media all and (min-width: 0px) {
+  .body-grid {
+    grid-template: "header header header" auto ". picker  ." 1fr ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
+  }
+
+  .swatch-palette {
+    grid-template: "MonochromeA" 1fr "MonochromeB" 1fr "AnalogousA" 1fr "AnalogousB" 1fr "TriadicA" 1fr "TriadicB" 1fr "TetradicA" 1fr "TetradicB" 1fr "TetradicC" 1fr "btn-container" 1fr/1fr;
+  }
+}
+@media all and (min-width: 37.5em) {
+  .body-grid {
+    grid-template: "header header header" auto ". picker  ." 1fr ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
+  }
+
+  .swatch-palette {
+    grid-template: "MonochromeA MonochromeB" 1fr "AnalogousA AnalogousB" 1fr "TriadicA TriadicB" 1fr "TetradicA TetradicB" 1fr "TetradicC btn-container" 1fr/1fr 1fr;
+  }
+}
+@media all and (min-width: 60em) {
+  .body-grid {
+    grid-template: "header header header" auto ". picker  ." 1fr ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
+  }
+
+  .swatch-palette {
+    grid-template: "MonochromeA MonochromeB" 1fr "AnalogousA AnalogousB" 1fr "TriadicA TriadicB" 1fr "TetradicA TetradicB" 1fr "TetradicC btn-container" 1fr/1fr 1fr;
+  }
+}
+@media all and (min-width: 80em) {
+  .body-grid {
+    grid-template: "header header header header" auto ". picker palette ." 0.2fr ". . palette ." 1fr "footer footer footer footer" auto/1em 0.5fr 0.5fr 1em;
+  }
+
+  .swatch-palette {
+    grid-template: "MonochromeA MonochromeB" 1fr "AnalogousA AnalogousB" 1fr "TriadicA TriadicB" 1fr "TetradicA TetradicB" 1fr "TetradicC btn-container" 1fr/1fr 1fr;
+  }
+}
+@media all and (min-width: 120em) {
+  .body-grid {
+    grid-template: "header header header header" auto ". picker palette ." 0.2fr ". . palette ." 1fr "footer footer footer footer" auto/1em 0.5fr 0.5fr 1em;
+  }
+
+  .swatch-palette {
+    grid-template: "MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB" 1fr "AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB" 1fr "TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB" 1fr "TetradicA TetradicA TetradicB TetradicB TetradicC TetradicC" 1fr ". . btn-container btn-container . ." 1fr/1fr 1fr 1fr 1fr 1fr 1fr;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,5 +1,4 @@
 @use '../abstracts' as *;
-
 input[type="range"]{
     position: relative;
     opacity:100%;
@@ -36,3 +35,4 @@ input[type="range"]{
 .sat{
   background:linear-gradient(to right, hsl(0,0%,50%), hsl(60,10%,50%), hsl(120,20%,50%), hsl(180,40%,50%), hsl(240,80%,50%),hsl(300,100%,50%),hsl(360,100%,50%));
 }
+
