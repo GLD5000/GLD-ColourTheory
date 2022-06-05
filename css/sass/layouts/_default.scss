@@ -3,9 +3,6 @@
 .header{
     grid-area: header;
 }
-.main-picker{
-    grid-area: picker;
-}
 .swatch-palette{
     grid-area: palette;
 }
@@ -15,6 +12,9 @@
 /*
 Grid level 2 areas
 */
+.main-picker{
+    grid-area: picker;
+}
 .MonochromeA{
     grid-area: MonochromeA;
 }
@@ -47,6 +47,7 @@ Grid level 2 areas
 }
 
 $swatch-palette-small: 
+"picker" 2fr
 "MonochromeA" 1fr
 "MonochromeB" 1fr
 "AnalogousA" 1fr
@@ -61,6 +62,7 @@ $swatch-palette-small:
 
 
 $swatch-palette-medium: 
+"picker picker" 2fr
 "MonochromeA MonochromeB" 1fr
 "AnalogousA AnalogousB" 1fr
 "TriadicA TriadicB" 1fr
@@ -70,12 +72,18 @@ $swatch-palette-medium:
 
 
 $swatch-palette-large: 
-"MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB" 1fr
-"AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB" 1fr
-"TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB" 1fr
-"TetradicA TetradicA TetradicB TetradicB TetradicC TetradicC" 1fr
-". . btn-container btn-container . ." 1fr 
+"picker picker picker picker picker picker MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB" 1fr
+"picker picker picker picker picker picker AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB" 1fr
+"picker picker picker picker picker picker TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB" 1fr
+"TetradicA TetradicA TetradicA TetradicB TetradicB TetradicB TetradicC TetradicC TetradicC btn-container btn-container btn-container" 1fr
+/ 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+$swatch-palette-extra-large: 
+"MonochromeA MonochromeB picker picker TriadicA TriadicB" 1fr
+"AnalogousA AnalogousB picker picker TetradicA TetradicC" 1fr
+"btn-container btn-container . .  TetradicB TetradicB" 1fr
 / 1fr 1fr 1fr 1fr 1fr 1fr;
+
 
 
 .body-grid{
@@ -90,30 +98,16 @@ $swatch-palette-large:
 
 
 
-$body-grid-small: 
+$body-grid: 
 "header header header" auto
-". picker  ." 1fr
 ". palette ." 5fr
 "footer footer footer" auto 
 / 1em 1fr 1em;
 
-
-
-$body-grid-large: 
-"header header header header" auto
-". picker palette ." 0.2fr
-". . palette ." 1fr
-"footer footer footer footer" auto 
-/ 1em 0.5fr 0.5fr 1em;
-
-
-
-
-
 @media all and (min-width: 0px){
 
     .body-grid{
-        grid-template: $body-grid-small;
+        grid-template: $body-grid;
     }
 
     .swatch-palette {
@@ -121,11 +115,10 @@ $body-grid-large:
     }
 }
 
-
 @media all and (min-width: $bp-tiny){
 
     .body-grid{
-        grid-template: $body-grid-small;
+        grid-template: $body-grid;
     }
 
     .swatch-palette {
@@ -136,7 +129,7 @@ $body-grid-large:
 @media all and (min-width: $bp-small){
 
     .body-grid{
-        grid-template: $body-grid-small;
+        grid-template: $body-grid;
     }
 
     .swatch-palette {
@@ -147,23 +140,20 @@ $body-grid-large:
 @media all and (min-width: $bp-medium){
 
     .body-grid{
-        grid-template: $body-grid-large;
+        grid-template: $body-grid;
     }
 
     .swatch-palette {
-        grid-template: $swatch-palette-medium;    
+        grid-template: $swatch-palette-large;    
     }
 }
-
 
 @media all and (min-width: $bp-large){
     .body-grid{
-        grid-template: $body-grid-large;
+        grid-template: $body-grid;
     }
 
     .swatch-palette {
-        grid-template: $swatch-palette-large;      
+        grid-template: $swatch-palette-extra-large;      
     }
-
 }
-

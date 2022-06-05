@@ -3,8 +3,7 @@
   font-family: "Bebas Neue", cursive;
 }
 
-/* Dynamic Sizing */
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* Dynamic Sizing */ /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -99,7 +98,6 @@ button {
   display: grid;
   grid-template: 1fr 10fr/1fr;
   background-color: #777;
-  padding: 1em;
   gap: 1em;
 }
 
@@ -222,10 +220,6 @@ input[type=range]::-moz-range-thumb {
   grid-area: header;
 }
 
-.main-picker {
-  grid-area: picker;
-}
-
 .swatch-palette {
   grid-area: palette;
 }
@@ -237,6 +231,10 @@ input[type=range]::-moz-range-thumb {
 /*
 Grid level 2 areas
 */
+.main-picker {
+  grid-area: picker;
+}
+
 .MonochromeA {
   grid-area: MonochromeA;
 }
@@ -287,47 +285,42 @@ Grid level 2 areas
 
 @media all and (min-width: 0px) {
   .body-grid {
-    grid-template: "header header header" auto ". picker  ." 1fr ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
+    grid-template: "header header header" auto ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
   }
-
   .swatch-palette {
-    grid-template: "MonochromeA" 1fr "MonochromeB" 1fr "AnalogousA" 1fr "AnalogousB" 1fr "TriadicA" 1fr "TriadicB" 1fr "TetradicA" 1fr "TetradicB" 1fr "TetradicC" 1fr "btn-container" 1fr/1fr;
+    grid-template: "picker" 2fr "MonochromeA" 1fr "MonochromeB" 1fr "AnalogousA" 1fr "AnalogousB" 1fr "TriadicA" 1fr "TriadicB" 1fr "TetradicA" 1fr "TetradicB" 1fr "TetradicC" 1fr "btn-container" 1fr/1fr;
   }
 }
 @media all and (min-width: 37.5em) {
   .body-grid {
-    grid-template: "header header header" auto ". picker  ." 1fr ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
+    grid-template: "header header header" auto ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
   }
-
   .swatch-palette {
-    grid-template: "MonochromeA MonochromeB" 1fr "AnalogousA AnalogousB" 1fr "TriadicA TriadicB" 1fr "TetradicA TetradicB" 1fr "TetradicC btn-container" 1fr/1fr 1fr;
+    grid-template: "picker picker" 2fr "MonochromeA MonochromeB" 1fr "AnalogousA AnalogousB" 1fr "TriadicA TriadicB" 1fr "TetradicA TetradicB" 1fr "TetradicC btn-container" 1fr/1fr 1fr;
   }
 }
 @media all and (min-width: 60em) {
   .body-grid {
-    grid-template: "header header header" auto ". picker  ." 1fr ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
+    grid-template: "header header header" auto ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
   }
-
   .swatch-palette {
-    grid-template: "MonochromeA MonochromeB" 1fr "AnalogousA AnalogousB" 1fr "TriadicA TriadicB" 1fr "TetradicA TetradicB" 1fr "TetradicC btn-container" 1fr/1fr 1fr;
+    grid-template: "picker picker" 2fr "MonochromeA MonochromeB" 1fr "AnalogousA AnalogousB" 1fr "TriadicA TriadicB" 1fr "TetradicA TetradicB" 1fr "TetradicC btn-container" 1fr/1fr 1fr;
   }
 }
 @media all and (min-width: 80em) {
   .body-grid {
-    grid-template: "header header header header" auto ". picker palette ." 0.2fr ". . palette ." 1fr "footer footer footer footer" auto/1em 0.5fr 0.5fr 1em;
+    grid-template: "header header header" auto ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
   }
-
   .swatch-palette {
-    grid-template: "MonochromeA MonochromeB" 1fr "AnalogousA AnalogousB" 1fr "TriadicA TriadicB" 1fr "TetradicA TetradicB" 1fr "TetradicC btn-container" 1fr/1fr 1fr;
+    grid-template: "picker picker picker picker picker picker MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB" 1fr "picker picker picker picker picker picker AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB" 1fr "picker picker picker picker picker picker TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB" 1fr "TetradicA TetradicA TetradicA TetradicB TetradicB TetradicB TetradicC TetradicC TetradicC btn-container btn-container btn-container" 1fr/1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   }
 }
 @media all and (min-width: 120em) {
   .body-grid {
-    grid-template: "header header header header" auto ". picker palette ." 0.2fr ". . palette ." 1fr "footer footer footer footer" auto/1em 0.5fr 0.5fr 1em;
+    grid-template: "header header header" auto ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
   }
-
   .swatch-palette {
-    grid-template: "MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB" 1fr "AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB" 1fr "TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB" 1fr "TetradicA TetradicA TetradicB TetradicB TetradicC TetradicC" 1fr ". . btn-container btn-container . ." 1fr/1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template: "MonochromeA MonochromeB picker picker TriadicA TriadicB" 1fr "AnalogousA AnalogousB picker picker TetradicA TetradicC" 1fr "btn-container btn-container . .  TetradicB TetradicB" 1fr/1fr 1fr 1fr 1fr 1fr 1fr;
   }
 }
 

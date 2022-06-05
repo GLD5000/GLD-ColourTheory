@@ -12,24 +12,25 @@
 
   <header class="header" name="header">head</header>
 
-  <section class="main-picker">
-
-    <container class="slider-container">
-      <input oninput="adjustHue()" type="range" min="0" max="359" class="hue" id="hue-slider" name="Hue"></input>
-      <input oninput="adjustLum()" type="range" min="10" max="89" class="lum" id="lum-slider" name="Luminance"></input>
-      <input oninput="adjustSat()" type="range" min="0" max="99" class="sat" id="sat-slider" name="Saturation"></input>
-    </container>
-
-    <container class="main-swatch" name="Main Colour">
-      <wrapper id="mainColour-wrapper">
-        <input type="color" id="mainColour-picker" class="picker large-picker"></input>
-      </wrapper>
-      <button class="btn-med" id="mainColour-label" ></button>
-    </container>
-
-  </section>
 
   <section class="swatch-palette">
+    <section class="main-picker">
+
+      <container class="slider-container">
+        <input oninput="adjustHue()" type="range" min="0" max="359" class="hue" id="hue-slider" name="Hue"></input>
+        <input oninput="adjustLum()" type="range" min="10" max="89" class="lum" id="lum-slider" name="Luminance"></input>
+        <input oninput="adjustSat()" type="range" min="0" max="99" class="sat" id="sat-slider" name="Saturation"></input>
+      </container>
+  
+      <container class="main-swatch" name="Main Colour">
+        <wrapper id="mainColour-wrapper">
+          <input type="color" id="mainColour-picker" class="picker large-picker"></input>
+        </wrapper>
+        <button class="btn-med" id="mainColour-label" ></button>
+      </container>
+  
+    </section>
+  
 
     <container class="swatch MonochromeA" name="Monochrome A">
       <wrapper id="monoA-wrapper">
