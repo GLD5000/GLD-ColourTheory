@@ -24,37 +24,52 @@
 
 
 .body-grid{
+    background-color: aquamarine;
+    width: clamp(240px, 90vw, 137.5em);
+    margin: auto;
     display:grid;
-    width: 100vw;
     min-height: 100vh;
 }
 
-.body-grid{
-    grid-template-rows: 200px auto auto 200px;
-    grid-template-columns: 1em 1fr 1em;
-
-    grid-template-areas: "header header header"
-    ". picker ."
-    ". palette ."
-    "footer footer footer";
+$body-grid-small: 
+"header header header" auto
+    ". picker  ." 0.25fr
+    ". palette ." 1fr
+    "footer footer footer" auto 
+    / 1em 1fr 1em;
 
 
-    grid-gap: 1em;
-}
+
+$body-grid-large: 
+"header header header header" auto
+    ". picker palette ." 2fr
+    ". . palette ." 1fr
+    "footer footer footer footer" auto 
+    / 1em 0.5fr 0.5fr 1em;
+
+
+
 
 .swatch-palette {
   grid-template-columns: 1fr;      
+}
+
+@media all and (min-width: 0px){
+
+    .body-grid{
+        grid-template: $body-grid-small;
+    }
+
+    .swatch-palette {
+        grid-template-columns: 1fr;      
+    }
 }
 
 
 @media all and (min-width: $bp-tiny){
 
     .body-grid{
-        grid-template:
-        "header header header header" auto
-        ". picker palette ." 1fr
-        "footer footer footer footer" auto 
-        / 1em 1fr 1fr 1em;
+        grid-template: $body-grid-small;
     }
 
     .swatch-palette {
@@ -65,11 +80,7 @@
 @media all and (min-width: $bp-small){
 
     .body-grid{
-        grid-template:
-        "header header header header" auto
-        ". picker palette ." 1fr
-        "footer footer footer footer" auto 
-        / 1em 1fr 1fr 1em;
+        grid-template: $body-grid-small;
     }
 
     .swatch-palette {
@@ -80,11 +91,7 @@
 @media all and (min-width: $bp-medium){
 
     .body-grid{
-        grid-template:
-        "header header header header" auto
-        ". picker palette ." 1fr
-        "footer footer footer footer" auto 
-        / 1em 1fr 1fr 1em;
+        grid-template: $body-grid-large;
     }
 
     .swatch-palette {
@@ -95,11 +102,7 @@
 
 @media all and (min-width: $bp-large){
     .body-grid{
-        grid-template:
-        "header header header header" auto
-        ". picker palette ." 1fr
-        "footer footer footer footer" auto 
-        / 1em 1fr 1fr 1em;
+        grid-template: $body-grid-large;
     }
 
     .swatch-palette {

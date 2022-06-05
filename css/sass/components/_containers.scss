@@ -7,21 +7,29 @@
 }
 
 .main-picker{
+  width: 100%;
   display: grid;
   grid-template: 1fr 5fr / 1fr;
   background-color: #777;
+  padding: 1em;
+  gap: 1em;
 
 }
 
 .slider-container{
+  width: 100%;
+
   display: flex;
   flex-basis: 100% 100% 100%;
 }
 
 .swatch-palette{
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
-    background-color: #777;
+  background-color: #777;
+  gap: 1em;
+  padding: 1em;
 
 }
 
@@ -48,7 +56,6 @@
   grid-column:span 1;
   grid-row: span 1;
   font-size: $gem2;
-
 }
 
 .swatch::before{

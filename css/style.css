@@ -58,6 +58,10 @@ table {
   border-spacing: 0;
 }
 
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
 :root {
   background: #000;
 }
@@ -92,20 +96,27 @@ button{
 }
 
 .main-picker {
+  width: 100%;
   display: grid;
   grid-template: 1fr 5fr/1fr;
   background-color: #777;
+  padding: 1em;
+  gap: 1em;
 }
 
 .slider-container {
+  width: 100%;
   display: flex;
   flex-basis: 100% 100% 100%;
 }
 
 .swatch-palette {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   background-color: #777;
+  gap: 1em;
+  padding: 1em;
 }
 
 .footer {
@@ -296,25 +307,29 @@ input[type=range]::-moz-range-thumb {
 }
 
 .body-grid {
+  background-color: aquamarine;
+  width: clamp(240px, 90vw, 137.5em);
+  margin: auto;
   display: grid;
-  width: 100vw;
   min-height: 100vh;
-}
-
-.body-grid {
-  grid-template-rows: 200px auto auto 200px;
-  grid-template-columns: 1em 1fr 1em;
-  grid-template-areas: "header header header" ". picker ." ". palette ." "footer footer footer";
-  grid-gap: 1em;
 }
 
 .swatch-palette {
   grid-template-columns: 1fr;
 }
 
+@media all and (min-width: 0px) {
+  .body-grid {
+    grid-template: "header header header" auto ". picker  ." 0.25fr ". palette ." 1fr "footer footer footer" auto/1em 1fr 1em;
+  }
+
+  .swatch-palette {
+    grid-template-columns: 1fr;
+  }
+}
 @media all and (min-width: 37.5em) {
   .body-grid {
-    grid-template: "header header header header" auto ". picker palette ." 1fr "footer footer footer footer" auto/1em 1fr 1fr 1em;
+    grid-template: "header header header" auto ". picker  ." 0.25fr ". palette ." 1fr "footer footer footer" auto/1em 1fr 1em;
   }
 
   .swatch-palette {
@@ -323,7 +338,7 @@ input[type=range]::-moz-range-thumb {
 }
 @media all and (min-width: 60em) {
   .body-grid {
-    grid-template: "header header header header" auto ". picker palette ." 1fr "footer footer footer footer" auto/1em 1fr 1fr 1em;
+    grid-template: "header header header" auto ". picker  ." 0.25fr ". palette ." 1fr "footer footer footer" auto/1em 1fr 1em;
   }
 
   .swatch-palette {
@@ -332,7 +347,7 @@ input[type=range]::-moz-range-thumb {
 }
 @media all and (min-width: 80em) {
   .body-grid {
-    grid-template: "header header header header" auto ". picker palette ." 1fr "footer footer footer footer" auto/1em 1fr 1fr 1em;
+    grid-template: "header header header header" auto ". picker palette ." 2fr ". . palette ." 1fr "footer footer footer footer" auto/1em 0.5fr 0.5fr 1em;
   }
 
   .swatch-palette {
@@ -341,7 +356,7 @@ input[type=range]::-moz-range-thumb {
 }
 @media all and (min-width: 120em) {
   .body-grid {
-    grid-template: "header header header header" auto ". picker palette ." 1fr "footer footer footer footer" auto/1em 1fr 1fr 1em;
+    grid-template: "header header header header" auto ". picker palette ." 2fr ". . palette ." 1fr "footer footer footer footer" auto/1em 0.5fr 0.5fr 1em;
   }
 
   .swatch-palette {
