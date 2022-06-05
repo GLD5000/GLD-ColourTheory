@@ -77,11 +77,11 @@ button {
   border: none;
   cursor: pointer;
   background-color: #ddd;
-  font-size: clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem);
+  font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
 }
 
 .btn-lg {
-  font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6);
+  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6);
   background-color: #bbb;
 }
 
@@ -139,7 +139,7 @@ button {
   margin: auto;
   grid-column: span 1;
   grid-row: span 1;
-  font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6);
+  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6);
 }
 
 .swatch::before, .main-swatch::before {
@@ -163,7 +163,7 @@ button {
 
 .large-picker, .btn-container {
   background-color: #000;
-  font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6 * 1.6);
+  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6 * 1.6);
 }
 
 .picker {
@@ -300,7 +300,7 @@ Grid level 2 areas
   }
 
   .swatch-palette {
-    grid-template: "MonochromeA" 1fr "MonochromeB" 1fr "AnalogousA" 1fr "AnalogousB" 1fr "TriadicA" 1fr "TriadicB" 1fr "TetradicA" 1fr "TetradicB" 1fr "TetradicC" 1fr "btn-container" 1fr/1fr;
+    grid-template: "MonochromeA MonochromeB" 1fr "AnalogousA AnalogousB" 1fr "TriadicA TriadicB" 1fr "TetradicA TetradicB" 1fr "TetradicC btn-container" 1fr/1fr 1fr;
   }
 }
 @media all and (min-width: 60em) {
@@ -309,7 +309,7 @@ Grid level 2 areas
   }
 
   .swatch-palette {
-    grid-template: "MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB" 1fr "AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB" 1fr "TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB" 1fr "TetradicA TetradicA TetradicB TetradicB TetradicC TetradicC" 1fr ". . btn-container btn-container . ." 1fr/1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template: "MonochromeA MonochromeB" 1fr "AnalogousA AnalogousB" 1fr "TriadicA TriadicB" 1fr "TetradicA TetradicB" 1fr "TetradicC btn-container" 1fr/1fr 1fr;
   }
 }
 @media all and (min-width: 80em) {
@@ -318,7 +318,7 @@ Grid level 2 areas
   }
 
   .swatch-palette {
-    grid-template: "MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB" 1fr "AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB" 1fr "TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB" 1fr "TetradicA TetradicA TetradicB TetradicB TetradicC TetradicC" 1fr ". . btn-container btn-container . ." 1fr/1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template: "MonochromeA MonochromeB" 1fr "AnalogousA AnalogousB" 1fr "TriadicA TriadicB" 1fr "TetradicA TetradicB" 1fr "TetradicC btn-container" 1fr/1fr 1fr;
   }
 }
 @media all and (min-width: 120em) {

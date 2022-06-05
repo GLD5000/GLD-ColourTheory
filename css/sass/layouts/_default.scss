@@ -61,12 +61,12 @@ $swatch-palette-small:
 
 
 $swatch-palette-medium: 
-"MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB" 1fr
-"AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB" 1fr
-"TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB" 1fr
-"TetradicA TetradicA TetradicB TetradicB TetradicC TetradicC" 1fr
-". . btn-container btn-container . ." 1fr 
-/ 1fr 1fr 1fr 1fr 1fr 1fr;
+"MonochromeA MonochromeB" 1fr
+"AnalogousA AnalogousB" 1fr
+"TriadicA TriadicB" 1fr
+"TetradicA TetradicB" 1fr
+"TetradicC btn-container" 1fr
+/ 1fr 1fr;
 
 
 $swatch-palette-large: 
@@ -129,7 +129,7 @@ $body-grid-large:
     }
 
     .swatch-palette {
-        grid-template: $swatch-palette-small;    
+        grid-template: $swatch-palette-medium;    
     }
 }
 
