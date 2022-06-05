@@ -68,7 +68,7 @@ table {
 
 .header, .footer {
   color: #fff;
-  background-color: red;
+  background-color: #777;
 }
 
 button {
@@ -278,7 +278,7 @@ Grid level 2 areas
 }
 
 .body-grid {
-  background-color: aquamarine;
+  background-color: #777;
   width: clamp(240px, 100vw, 137.5em);
   margin: auto;
   display: grid;
