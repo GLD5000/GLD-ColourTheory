@@ -71,25 +71,24 @@ table {
   background-color: red;
 }
 
-/*
-button{
-    white-space: normal;
-    align-items: center;
-    border:none;
-    cursor: pointer;
-    background-color: #ddd;
-    font-size: $gem;
-  }
-.btn-lg{
-  font-size: $gem2;
+button {
+  white-space: normal;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  background-color: #ddd;
+  font-size: clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem);
+}
+
+.btn-lg {
+  font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6);
   background-color: #bbb;
 }
 
-
-.btn-small{
+.btn-small {
   flex: 1 1 50%;
 }
-*/
+
 .header {
   height: 100%;
   width: 100%;
@@ -98,7 +97,7 @@ button{
 .main-picker {
   width: 100%;
   display: grid;
-  grid-template: 1fr 5fr/1fr;
+  grid-template: 1fr 10fr/1fr;
   background-color: #777;
   padding: 1em;
   gap: 1em;
@@ -113,7 +112,6 @@ button{
 .swatch-palette {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   background-color: #777;
   gap: 1em;
   padding: 1em;
@@ -124,7 +122,7 @@ button{
   width: 100%;
 }
 
-.swatch, .main-swatch {
+.swatch, .main-swatch, .btn-container {
   position: relative;
   display: grid;
   width: 100%;
@@ -144,16 +142,7 @@ button{
   font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6);
 }
 
-.swatch::before {
-  content: attr(name);
-  position: absolute;
-  text-align: center;
-  top: 1rem;
-  width: 100%;
-  line-height: 90%;
-}
-
-.main-swatch::before {
+.swatch::before, .main-swatch::before {
   content: attr(name);
   position: absolute;
   text-align: center;
@@ -167,70 +156,12 @@ button{
   gap: 3px;
 }
 
-/*
-
-
-
-
-
-.flexbox-horizontal-box{
-  flex: 1 1 100%;
-}
-
-.holy-grail{
+.holy-grail {
   display: grid;
-  grid-template: auto 1fr auto / auto 1fr auto;
+  grid-template: auto 1fr auto/auto 1fr auto;
 }
 
-.main-grid{
-  width: 100%;
-  display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
-  margin: 0;
-  row-gap: 2rem;
-  column-gap: 2rem;
-  padding:28px 0px;
-}
-
-
-
-
-
-
-  .pallete{
-  margin:auto;
-  width: 100%;
-  padding:2rem;
-  display:grid;
-  grid-template: auto 1fr / 1fr;
-  border-radius: 10px;
-  background:#777;
-  box-shadow: #000 6px 6px 0px;
-  border: solid #000 8px;
-}
-
-  .picker-grid:hover::before{
-      content: attr(name);
-      position: absolute;
-      text-align: center; 
-      top: 1rem; 
-      width:100%;
-      line-height: 90%;
-    }
-
-
-
-
-    .main-picker{
-      width: 100%;
-      display:grid;
-      grid-template-rows: 1fr 7fr;
-      row-gap: 2rem;
-      column-gap: 2rem;
-
-    }
-  */
-.large-picker {
+.large-picker, .btn-container {
   background-color: #000;
   font-size: calc(clamp(1rem, 0.7648514851rem + 0.9900990099vw, 2.25rem) * 1.6 * 1.6);
 }
@@ -286,6 +217,7 @@ input[type=range]::-moz-range-thumb {
   background: linear-gradient(to right, hsl(0deg, 0%, 50%), hsl(60deg, 10%, 50%), hsl(120deg, 20%, 50%), hsl(180deg, 40%, 50%), hsl(240deg, 80%, 50%), hsl(300deg, 100%, 50%), hsl(0deg, 100%, 50%));
 }
 
+/* Grid areas */
 .header {
   grid-area: header;
 }
@@ -302,65 +234,100 @@ input[type=range]::-moz-range-thumb {
   grid-area: footer;
 }
 
-.main-picker {
-  grid-template-columns: 1fr;
+/*
+Grid level 2 areas
+*/
+.MonochromeA {
+  grid-area: MonochromeA;
+}
+
+.MonochromeB {
+  grid-area: MonochromeB;
+}
+
+.AnalogousA {
+  grid-area: AnalogousA;
+}
+
+.AnalogousB {
+  grid-area: AnalogousB;
+}
+
+.TriadicA {
+  grid-area: TriadicA;
+}
+
+.TriadicB {
+  grid-area: TriadicB;
+}
+
+.TetradicA {
+  grid-area: TetradicA;
+}
+
+.TetradicB {
+  grid-area: TetradicB;
+}
+
+.TetradicC {
+  grid-area: TetradicC;
+}
+
+.btn-container {
+  grid-area: btn-container;
 }
 
 .body-grid {
   background-color: aquamarine;
-  width: clamp(240px, 90vw, 137.5em);
+  width: clamp(240px, 100vw, 137.5em);
   margin: auto;
   display: grid;
   min-height: 100vh;
 }
 
-.swatch-palette {
-  grid-template-columns: 1fr;
-}
-
 @media all and (min-width: 0px) {
   .body-grid {
-    grid-template: "header header header" auto ". picker  ." 0.25fr ". palette ." 1fr "footer footer footer" auto/1em 1fr 1em;
+    grid-template: "header header header" auto ". picker  ." 1fr ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
   }
 
   .swatch-palette {
-    grid-template-columns: 1fr;
+    grid-template: "MonochromeA" 1fr "MonochromeB" 1fr "AnalogousA" 1fr "AnalogousB" 1fr "TriadicA" 1fr "TriadicB" 1fr "TetradicA" 1fr "TetradicB" 1fr "TetradicC" 1fr "btn-container" 1fr/1fr;
   }
 }
 @media all and (min-width: 37.5em) {
   .body-grid {
-    grid-template: "header header header" auto ". picker  ." 0.25fr ". palette ." 1fr "footer footer footer" auto/1em 1fr 1em;
+    grid-template: "header header header" auto ". picker  ." 1fr ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
   }
 
   .swatch-palette {
-    grid-template-columns: 1fr 1fr;
+    grid-template: "MonochromeA" 1fr "MonochromeB" 1fr "AnalogousA" 1fr "AnalogousB" 1fr "TriadicA" 1fr "TriadicB" 1fr "TetradicA" 1fr "TetradicB" 1fr "TetradicC" 1fr "btn-container" 1fr/1fr;
   }
 }
 @media all and (min-width: 60em) {
   .body-grid {
-    grid-template: "header header header" auto ". picker  ." 0.25fr ". palette ." 1fr "footer footer footer" auto/1em 1fr 1em;
+    grid-template: "header header header" auto ". picker  ." 1fr ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
   }
 
   .swatch-palette {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template: "MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB" 1fr "AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB" 1fr "TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB" 1fr "TetradicA TetradicA TetradicB TetradicB TetradicC TetradicC" 1fr ". . btn-container btn-container . ." 1fr/1fr 1fr 1fr 1fr 1fr 1fr;
   }
 }
 @media all and (min-width: 80em) {
   .body-grid {
-    grid-template: "header header header header" auto ". picker palette ." 2fr ". . palette ." 1fr "footer footer footer footer" auto/1em 0.5fr 0.5fr 1em;
+    grid-template: "header header header header" auto ". picker palette ." 0.2fr ". . palette ." 1fr "footer footer footer footer" auto/1em 0.5fr 0.5fr 1em;
   }
 
   .swatch-palette {
-    grid-auto-columns: 1fr;
+    grid-template: "MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB" 1fr "AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB" 1fr "TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB" 1fr "TetradicA TetradicA TetradicB TetradicB TetradicC TetradicC" 1fr ". . btn-container btn-container . ." 1fr/1fr 1fr 1fr 1fr 1fr 1fr;
   }
 }
 @media all and (min-width: 120em) {
   .body-grid {
-    grid-template: "header header header header" auto ". picker palette ." 2fr ". . palette ." 1fr "footer footer footer footer" auto/1em 0.5fr 0.5fr 1em;
+    grid-template: "header header header header" auto ". picker palette ." 0.2fr ". . palette ." 1fr "footer footer footer footer" auto/1em 0.5fr 0.5fr 1em;
   }
 
   .swatch-palette {
-    grid-auto-columns: 100px 100px;
+    grid-template: "MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB" 1fr "AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB" 1fr "TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB" 1fr "TetradicA TetradicA TetradicB TetradicB TetradicC TetradicC" 1fr ". . btn-container btn-container . ." 1fr/1fr 1fr 1fr 1fr 1fr 1fr;
   }
 }
 
