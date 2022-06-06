@@ -141,7 +141,9 @@ function onClickButtons(){
     if (id === 'copyAllCSS') x.onclick = () => copyAll();
     if (id === 'SCSSToggle') x.onclick = () => toggleSCSS(x);
     if (id === 'HSLToggle') x.onclick = () => toggleHSL(x);
-    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle') x.onclick = () => copySingle(x);
+    if (id === 'randomise') x.onclick = () => randomise();
+
+    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise') x.onclick = () => copySingle(x);
   }); 
       //Single Copy buttons
 
@@ -181,7 +183,10 @@ function onLoad(){
   updateColour();
   color_picker_hex_label.innerHTML = "Pick a Colour";
 }
-
+function randomise(){
+  randomMainColour();
+  updateColour();
+}
 
 
 function customColour(e){
