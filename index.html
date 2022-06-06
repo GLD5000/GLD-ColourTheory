@@ -19,7 +19,7 @@
 
         <container class="slider-container">
           <input oninput="adjustHue()" type="range" min="0" max="359" class="hue" id="hue-slider" name="Hue"></input>
-          <input oninput="adjustLum()" type="range" min="10" max="89" class="lum" id="lum-slider" name="Luminance"></input>
+          <input oninput="adjustLum()" type="range" min="45" max="89" class="lum" id="lum-slider" name="Luminance"></input>
           <input oninput="adjustSat()" type="range" min="0" max="99" class="sat" id="sat-slider" name="Saturation"></input>
         </container>
     
@@ -104,23 +104,12 @@
         </wrapper>
       </container>
 
-      <container class="shades-container">
-        <ul class="shades-list">
-          <li class="shade shade-50">50</li>
-          <li class="shade shade-100">100</li>
-          <li class="shade shade-200">200</li>
-          <li class="shade shade-300">300</li>
-          <li class="shade shade-400">400</li>
-          <li class="shade shade-500">500</li>
-          <li class="shade shade-600">600</li>
-          <li class="shade shade-700">700</li>
-          <li class="shade shade-800">800</li>
-          <li class="shade shade-900">900</li>
-        </ul>
-
-        <button class="btn-med" id="shades-container-btn" >Copy Range</button>
-
-      </container>
+      <container class="swatch neutral" name="Neutral">
+        <wrapper id="neutral-wrapper">
+          <input type="color" id="neutral-picker" class="picker"></input>
+        </wrapper>
+        <button class="btn-med" id="neutral-label" ></button>
+      </container>   
 
     </section>
     <footer class="footer">foot</footer>
