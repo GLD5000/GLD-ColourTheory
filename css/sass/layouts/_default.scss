@@ -96,14 +96,15 @@ $swatch-palette-extra-large:
     top:0;
     left:0;
     background-color: $grey-500;
-    height: calc(100vh - 18px);
+    height: 100vh;
+    width: clamp(240px, 100vw, 137.5em);
+    margin-left: auto;
+    margin-right: auto;
 
-    width: clamp(240px, 100vw - 18px, 137.5em);
-    margin: auto;
     display:grid;
 }
 .swatch-palette {
-    overflow-y:scroll;    
+    overflow-y:auto;    
 }
 
 
@@ -111,9 +112,9 @@ $swatch-palette-extra-large:
 
 
 $body-grid: 
-"header header header" 100px
+"header header header" 24px
 ". palette ." 1fr
-"footer footer footer" 100px 
+"footer footer footer" 24px 
 / 1em 1fr 1em;
 
 @media all and (min-width: 0px){
