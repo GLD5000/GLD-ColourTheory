@@ -1,4 +1,6 @@
+@use '../abstracts' as *;
+
 .header,.footer {
-    color: #fff;
-    background-color: #777;
+    color: $grey-0;
+    background-color: $grey-500;
 }

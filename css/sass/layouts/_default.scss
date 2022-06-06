@@ -87,7 +87,7 @@ $swatch-palette-extra-large:
 
 
 .body-grid{
-    background-color: #777;
+    background-color: $grey-500;
     width: clamp(240px, 100vw, 137.5em);
     margin: auto;
     display:grid;

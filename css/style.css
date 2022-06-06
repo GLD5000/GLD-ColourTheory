@@ -67,7 +67,7 @@ table {
 
 .header, .footer {
   color: #fff;
-  background-color: #777;
+  background-color: hsl(0deg, 0%, 55.7%);
 }
 
 button {
@@ -75,13 +75,13 @@ button {
   align-items: center;
   border: none;
   cursor: pointer;
-  background-color: #ddd;
+  background-color: hsl(0deg, 0%, 83.9%);
   font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
 }
 
 .btn-lg {
   font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6);
-  background-color: #bbb;
+  background-color: hsl(0deg, 0%, 66.7%);
 }
 
 .btn-small {
@@ -97,7 +97,7 @@ button {
   width: 100%;
   display: grid;
   grid-template: 1fr 10fr/1fr;
-  background-color: #777;
+  background-color: hsl(0deg, 0%, 55.7%);
   gap: 1em;
 }
 
@@ -110,7 +110,7 @@ button {
 .swatch-palette {
   width: 100%;
   display: grid;
-  background-color: #777;
+  background-color: hsl(0deg, 0%, 55.7%);
   gap: 1em;
   padding: 1em;
 }
@@ -276,7 +276,7 @@ Grid level 2 areas
 }
 
 .body-grid {
-  background-color: #777;
+  background-color: hsl(0deg, 0%, 55.7%);
   width: clamp(240px, 100vw, 137.5em);
   margin: auto;
   display: grid;
