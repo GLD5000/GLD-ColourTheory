@@ -9,6 +9,24 @@
 .footer{
     grid-area: footer;
 }
+.body-grid{
+    position:relative;
+    top:0;
+    left:0;
+    background-color: $grey-500;
+    height: 100vh;
+    width: clamp(240px, 100vw, 137.5em);
+    margin-left: auto;
+    margin-right: auto;
+    display:grid;
+    grid-template: 
+    "header header header" 24px
+    ". palette ." 1fr
+    "footer footer footer" 24px 
+    / 1em 1fr 1em;
+}
+
+
 /*
 Grid level 2 areas
 */
@@ -42,23 +60,26 @@ Grid level 2 areas
 .TetradicC{
     grid-area: TetradicC;
 }
-
 .neutral{
     grid-area: Neutral;
 }
-
-
 .btn-container{
     grid-area: btn-container;
 }
-$picker-height-med: 16em;
-$swatch-height-med: 8em;
 
-$picker-height-small: 24em;
-$swatch-height-small: 12em;
+$picker-height-tiny: 24em;
+$swatch-height-tiny: 12em;
 
+$picker-height-small: 16em;
+$swatch-height-small: 8em;
 
-$swatch-palette-small-areas: 
+$picker-height-medium: 16em;
+$swatch-height-medium: 12em;
+
+$picker-height-large: 32em;
+$swatch-height-large: 16em;
+
+$swatch-palette-tiny-areas: 
 "picker" 
 "MonochromeA" 
 "MonochromeB" 
@@ -71,13 +92,10 @@ $swatch-palette-small-areas:
 "TetradicC" 
 "Neutral" 
 "btn-container";
-$swatch-palette-tiny-rows: $picker-height-small repeat(11, $swatch-height-small);
-$swatch-palette-small-rows: $picker-height-med repeat(11, $swatch-height-med);
-$swatch-palette-small-columns: 1fr;
+$swatch-palette-tiny-rows: $picker-height-tiny repeat(11, $swatch-height-tiny);
+$swatch-palette-tiny-columns: 1fr;
 
-
-
-$swatch-palette-medium-areas: 
+$swatch-palette-small-areas: 
 "picker picker"
 "MonochromeA MonochromeB" 
 "AnalogousA AnalogousB" 
@@ -85,72 +103,44 @@ $swatch-palette-medium-areas:
 "TetradicA TetradicB" 
 "TetradicC Neutral"
 "btn-container btn-container";
-$swatch-palette-medium-rows: $picker-height-med repeat(6, $swatch-height-med);
-$swatch-palette-medium-columns: repeat(2,1fr);
+$swatch-palette-small-rows: $picker-height-small repeat(11, $swatch-height-small);
+$swatch-palette-small-columns: 1fr 1fr;
 
+$swatch-palette-medium-areas: 
+"picker picker picker picker"
+"MonochromeA MonochromeB AnalogousA AnalogousB"
+"TetradicA TetradicB TetradicC Neutral" 
+"TriadicA TriadicB btn-container btn-container";
+$swatch-palette-medium-rows: $picker-height-medium repeat(6, $swatch-height-medium);
+$swatch-palette-medium-columns: repeat(4,1fr);
 
 $swatch-palette-large-areas: 
 "picker picker picker picker picker picker MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB"
 "picker picker picker picker picker picker AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB"
 "btn-container btn-container btn-container btn-container btn-container btn-container TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB"
 "TetradicA TetradicA TetradicA TetradicB TetradicB TetradicB TetradicC TetradicC TetradicC Neutral Neutral Neutral";
-$swatch-palette-large-rows: repeat(4,1fr);
+$swatch-palette-large-rows: repeat(4,$swatch-height-large);
 $swatch-palette-large-columns: repeat(12,1fr);
-
 
 $swatch-palette-huge-areas: 
 "MonochromeA MonochromeB picker picker TriadicA TriadicB" 
 "AnalogousA AnalogousB picker picker TetradicA TetradicC" 
 "btn-container btn-container Neutral .  TetradicB TetradicB";
-$swatch-palette-huge-rows: repeat(3,1fr);
+$swatch-palette-huge-rows: repeat(3,$swatch-height-large);
 $swatch-palette-huge-columns: repeat(6,1fr);
 
-
-.body-grid{
-    position:relative;
-    top:0;
-    left:0;
-    background-color: $grey-500;
-    height: 100vh;
-    width: clamp(240px, 100vw, 137.5em);
-    margin-left: auto;
-    margin-right: auto;
-
-    display:grid;
-}
 .swatch-palette {
     overflow-y:auto;    
 }
-
-
-
-
-
-$body-grid: 
-"header header header" 24px
-". palette ." 1fr
-"footer footer footer" 24px 
-/ 1em 1fr 1em;
-
 @media all and (min-width: 0px){
-
-    .body-grid{
-        grid-template: $body-grid;
-    }
-
     .swatch-palette {
-        grid-template-areas: $swatch-palette-small-areas;
+        grid-template-areas: $swatch-palette-tiny-areas;
         grid-template-rows: $swatch-palette-tiny-rows;
-        grid-template-columns: $swatch-palette-small-columns;
+        grid-template-columns: $swatch-palette-tiny-columns;
     }
 }
 
 @media all and (min-width: $bp-tiny){
-
-    .body-grid{
-        grid-template: $body-grid;
-    }
-
     .swatch-palette {
         grid-template-areas: $swatch-palette-small-areas;  
         grid-template-rows: $swatch-palette-small-rows;    
@@ -159,11 +149,6 @@ $body-grid:
 }
 
 @media all and (min-width: $bp-small){
-
-    .body-grid{
-        grid-template: $body-grid;
-    }
-
     .swatch-palette {
         grid-template-areas: $swatch-palette-medium-areas;  
         grid-template-rows: $swatch-palette-medium-rows;    
@@ -172,11 +157,6 @@ $body-grid:
 }
 
 @media all and (min-width: $bp-medium){
-
-    .body-grid{
-        grid-template: $body-grid;
-    }
-
     .swatch-palette {
         grid-template-areas: $swatch-palette-large-areas;  
         grid-template-rows: $swatch-palette-large-rows;    
@@ -185,10 +165,6 @@ $body-grid:
 }
 
 @media all and (min-width: $bp-large){
-    .body-grid{
-        grid-template: $body-grid;
-    }
-
     .swatch-palette {
         grid-template-areas: $swatch-palette-huge-areas;  
         grid-template-rows: $swatch-palette-huge-rows;    
