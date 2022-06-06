@@ -1,7 +1,40 @@
 @use '../abstracts' as *;
 
 
-.picker-grid{
+.header{
+  height: 100%;
+  width:100%;
+}
+
+.main-picker{
+  width: 100%;
+  display: grid;
+  grid-template: 1fr 10fr / 1fr;
+  background-color: #777;
+  gap: 1em;
+
+}
+
+.slider-container{
+  width: 100%;
+  display: flex;
+  flex-basis: 100% 100% 100%;
+}
+
+.swatch-palette{
+  width: 100%;
+  display: grid;
+  background-color: #777;
+  gap: 1em;
+  padding: 1em;
+}
+
+.footer{
+  height: 100%;
+  width:100%;
+}
+
+.swatch, .main-swatch, .btn-container{
   position:relative;
   display:grid;
   width: 100%;
@@ -19,61 +52,23 @@
   grid-column:span 1;
   grid-row: span 1;
   font-size: $gem2;
-
 }
 
-  /*
-  .picker-grid:hover::before{
-      content: attr(name);
-      position: absolute;
-      text-align: center; 
-      top: 1rem; 
-      width:100%;
-      line-height: 90%;
-    }
-*/
+.swatch::before, .main-swatch::before{
+  content: attr(name);
+  position: absolute;
+  text-align: center; 
+  top: 1rem; 
+  width:100%;
+  line-height: 90%;
+}
 
+.flexbox-horizontal-btn{
+  display:flex;
+  gap: 3px;
+}
 
-
-  .picker-grid::before{
-      content: attr(name);
-      position: absolute;
-      text-align: center; 
-      top: 1rem; 
-      width:100%;
-      line-height: 90%;
-    }
-
-    .slider-picker-container{
-      grid-row: span 2;
-      grid-column: span 3;
-      display:grid;
-      grid-template-rows: 1fr 7fr;
-      row-gap: 2rem;
-      column-gap: 2rem;
-  
-    }
-
-    .main-grid{
-      width: 100%;
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-      background-color: #777;
-      margin: 0;
-      row-gap: 2rem;
-      column-gap: 2rem;
-      padding:28px 0px;
-    }
-  
-  
-    .pallete{
-      margin:auto;
-      padding:2rem;
-      display:block;
-      border-radius: 10px;
-      background:#777;
-      box-shadow: #000 6x 6px 0px;
-      border: solid #000 8px;
-  
-    }
-  
+.holy-grail{
+  display: grid;
+  grid-template: auto 1fr auto / auto 1fr auto;
+}

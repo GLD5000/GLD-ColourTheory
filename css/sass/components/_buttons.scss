@@ -1,4 +1,5 @@
 @use '../abstracts' as *;
+
 button{
     white-space: normal;
     align-items: center;
@@ -12,10 +13,6 @@ button{
   background-color: #bbb;
 }
 
-.flexbox-horizontal{
-  display:flex;
-  gap: 3px;
-}
 
 .btn-small{
   flex: 1 1 50%;
