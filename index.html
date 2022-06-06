@@ -19,7 +19,7 @@
 
         <container class="slider-container">
           <input oninput="adjustHue()" type="range" min="0" max="359" class="hue" id="hue-slider" name="Hue"></input>
-          <input oninput="adjustLum()" type="range" min="10" max="89" class="lum" id="lum-slider" name="Luminance"></input>
+          <input oninput="adjustLum()" type="range" min="45" max="89" class="lum" id="lum-slider" name="Luminance"></input>
           <input oninput="adjustSat()" type="range" min="0" max="99" class="sat" id="sat-slider" name="Saturation"></input>
         </container>
     
@@ -103,6 +103,14 @@
           <button class="btn-small" id="HSLToggle">Hex</button>
         </wrapper>
       </container>
+
+      <container class="swatch neutral" name="Neutral">
+        <wrapper id="neutral-wrapper">
+          <input type="color" id="neutral-picker" class="picker"></input>
+        </wrapper>
+        <button class="btn-med" id="neutral-label" ></button>
+      </container>   
+
     </section>
     <footer class="footer">foot</footer>
   </section>

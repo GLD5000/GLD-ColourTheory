@@ -28,85 +28,33 @@ function updateLabels(){
   }
 }
 
-
 function updateColour(){
-  let mainColourLabel, analogousAColourLabel, analogousBColourLabel,triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monoAColourLabel, monoBColourLabel;
+  let mainColourLabel, analogousAColourLabel, analogousBColourLabel,triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monoAColourLabel, monoBColourLabel, neutralColourLabel;
   const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
   const mainColour = color_picker.value;
-  const analogousAColour = hueRotateHEX(mainColour,-30);
-  const analogousBColour = hueRotateHEX(mainColour,30);
-  const triadicAColour = hueRotateHEX(mainColour,-120);
-  const triadicBColour = hueRotateHEX(mainColour,120);
-  const tetradicAColour = hueRotateHEX(mainColour,90);
-  const tetradicBColour = hueRotateHEX(mainColour,180);
-  const tetradicCColour = hueRotateHEX(mainColour,270);
-  const monoAColour = lumAdjustHEX(mainColour,-10);
-  const monoBColour = lumAdjustHEX(mainColour,10);
-
-  if (isHex === true){
-    mainColourLabel = mainColour;
-    analogousAColourLabel = analogousAColour;
-    analogousBColourLabel = analogousBColour;
-    triadicAColourLabel = triadicAColour;
-    triadicBColourLabel = triadicBColour;
-    tetradicAColourLabel = tetradicAColour;
-    tetradicBColourLabel = tetradicBColour;
-    tetradicCColourLabel = tetradicCColour;
-    monoAColourLabel = monoAColour;
-    monoBColourLabel = monoBColour;
-    } else {
-    mainColourLabel = hexToHSLString(mainColour);
-    analogousAColourLabel = hexToHSLString(analogousAColour);
-    analogousBColourLabel = hexToHSLString(analogousBColour);
-    triadicAColourLabel = hexToHSLString(triadicAColour);
-    triadicBColourLabel = hexToHSLString(triadicBColour);
-    tetradicAColourLabel = hexToHSLString(tetradicAColour);
-    tetradicBColourLabel = hexToHSLString(tetradicBColour);
-    tetradicCColourLabel = hexToHSLString(tetradicCColour);
-    monoAColourLabel = hexToHSLString(monoAColour);
-    monoBColourLabel = hexToHSLString(monoBColour);
+  function getColour(name){
+    if (name === 'mainColour') { return mainColour;
+    } else if (name === 'analogousA') { return hueRotateHEX(mainColour,-30);
+    } else if (name === 'analogousB') { return hueRotateHEX(mainColour,30);
+    } else if (name === 'triadicA') { return hueRotateHEX(mainColour,-120);
+    } else if (name === 'triadicB') { return hueRotateHEX(mainColour,120);
+    } else if (name === 'tetradicA') { return hueRotateHEX(mainColour,90);
+    } else if (name === 'tetradicB') { return hueRotateHEX(mainColour,180);
+    } else if (name === 'tetradicC') { return hueRotateHEX(mainColour,270);
+    } else if (name === 'monoA') { return lumAdjustHEX(mainColour,-10);
+    } else if (name === 'monoB') { return lumAdjustHEX(mainColour,10);
+    } else if (name === 'neutral') { return satAdjustHEX(mainColour,-200);}
   }
-
-	color_picker_wrapper.style.backgroundColor = mainColour;    
-  color_picker_hex_label.innerHTML = mainColourLabel;
-
-  document.getElementById("analogousA-wrapper").style.backgroundColor = analogousAColour;    
-  document.getElementById("analogousA-label").innerHTML = analogousAColourLabel;
-  document.getElementById("analogousA-picker").value = analogousAColour;
-
-  document.getElementById("analogousB-wrapper").style.backgroundColor = analogousBColour;    
-  document.getElementById("analogousB-label").innerHTML = analogousBColourLabel;
-  document.getElementById("analogousB-picker").value = analogousBColour;
-
-  document.getElementById("triadicA-wrapper").style.backgroundColor = triadicAColour;    
-  document.getElementById("triadicA-label").innerHTML = triadicAColourLabel;
-  document.getElementById("triadicA-picker").value = triadicAColour;
-
-  document.getElementById("triadicB-wrapper").style.backgroundColor = triadicBColour;    
-  document.getElementById("triadicB-label").innerHTML = triadicBColourLabel;
-  document.getElementById("triadicB-picker").value = triadicBColour;
-
-  document.getElementById("tetradicA-wrapper").style.backgroundColor = tetradicAColour;    
-  document.getElementById("tetradicA-label").innerHTML = tetradicAColourLabel;
-  document.getElementById("tetradicA-picker").value = tetradicAColour;
-
-  document.getElementById("tetradicB-wrapper").style.backgroundColor = tetradicBColour;    
-  document.getElementById("tetradicB-label").innerHTML = tetradicBColourLabel;
-  document.getElementById("tetradicB-picker").value = tetradicBColour;
-
-  document.getElementById("tetradicC-wrapper").style.backgroundColor = tetradicCColour;    
-  document.getElementById("tetradicC-label").innerHTML = tetradicCColourLabel;
-  document.getElementById("tetradicC-picker").value = tetradicCColour;
-
-  document.getElementById("monoA-wrapper").style.backgroundColor = monoAColour;    
-  document.getElementById("monoA-label").innerHTML = monoAColourLabel;
-  document.getElementById("monoA-picker").value = monoAColour;
-
-  document.getElementById("monoB-wrapper").style.backgroundColor = monoBColour;    
-  document.getElementById("monoB-label").innerHTML = monoBColourLabel;
-  document.getElementById("monoB-picker").value = monoBColour;
-
-
+  pickers.forEach((x,i) =>{
+    const name = pickers[i].id.split('-')[0];
+    const wrapper = name + '-wrapper';
+    const label = name + '-label';
+    const colourName = name + 'Colour';
+    const colour = getColour(name);//coloursArr[i];
+    pickers[i].value = colour;
+    document.getElementById(wrapper).style.backgroundColor = colour;    
+    document.getElementById(label).innerHTML = (isHex)?colour:hexToHSLString(colour);
+  });
 }
 
 function adjustHue(){
@@ -154,7 +102,6 @@ function onChangepickers(){
         const wrapper = name + '-wrapper';
         const label = name + '-label';
         const colour = pickers[i].value;
-        //e.value = colour;
         document.getElementById(wrapper).style.backgroundColor = colour;    
         document.getElementById(label).innerHTML = (isHex)?colour:hexToHSLString(colour);
       } 
@@ -400,6 +347,11 @@ function lumAdjustHSL(hue,sat,lum, adjustment){
   return [hue,sat,Math.max(0,Math.min(100,lum + adjustment))]; 
 }
 
+function satAdjustHSL(hue,sat,lum, adjustment){
+  return [hue,Math.max(0,Math.min(100,sat + adjustment)),lum]; 
+}
+
+
 function hueChangeHSL(hue,sat,lum, newHue){
   return [newHue, sat, lum]; 
 }
@@ -420,6 +372,10 @@ function hueRotateHEX(hex, rotation){
 
 function lumAdjustHEX(hex, adjustment){
   return HSLToHex(...lumAdjustHSL(...hexToHSL(hex), adjustment));
+}
+
+function satAdjustHEX(hex, adjustment){
+  return HSLToHex(...satAdjustHSL(...hexToHSL(hex), adjustment));
 }
 
 

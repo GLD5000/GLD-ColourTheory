@@ -42,26 +42,39 @@ Grid level 2 areas
 .TetradicC{
     grid-area: TetradicC;
 }
+
+.neutral{
+    grid-area: Neutral;
+}
+
+
 .btn-container{
     grid-area: btn-container;
 }
-$picker-height-med: 24em;
-$swatch-height-med: 12em;
+$picker-height-med: 16em;
+$swatch-height-med: 8em;
+
+$picker-height-small: 24em;
+$swatch-height-small: 12em;
 
 
-$swatch-palette-small: 
-"picker" 2fr
-"MonochromeA" 1fr
-"MonochromeB" 1fr
-"AnalogousA" 1fr
-"AnalogousB" 1fr
-"TriadicA" 1fr
-"TriadicB" 1fr
-"TetradicA" 1fr
-"TetradicB" 1fr
-"TetradicC" 1fr
-"btn-container" 1fr 
-/ 1fr;
+$swatch-palette-small-areas: 
+"picker" 
+"MonochromeA" 
+"MonochromeB" 
+"AnalogousA" 
+"AnalogousB" 
+"TriadicA" 
+"TriadicB" 
+"TetradicA" 
+"TetradicB" 
+"TetradicC" 
+"Neutral" 
+"btn-container";
+$swatch-palette-tiny-rows: $picker-height-small repeat(11, $swatch-height-small);
+$swatch-palette-small-rows: $picker-height-med repeat(11, $swatch-height-med);
+$swatch-palette-small-columns: 1fr;
+
 
 
 $swatch-palette-medium-areas: 
@@ -70,25 +83,27 @@ $swatch-palette-medium-areas:
 "AnalogousA AnalogousB" 
 "TriadicA TriadicB" 
 "TetradicA TetradicB" 
-"TetradicC btn-container" ;
-
-$swatch-palette-medium-rows: $picker-height-med repeat(5, $swatch-height-med);
+"TetradicC Neutral"
+"btn-container btn-container";
+$swatch-palette-medium-rows: $picker-height-med repeat(6, $swatch-height-med);
 $swatch-palette-medium-columns: repeat(2,1fr);
 
 
-$swatch-palette-large: 
-"picker picker picker picker picker picker MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB" 1fr
-"picker picker picker picker picker picker AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB" 1fr
-"picker picker picker picker picker picker TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB" 1fr
-"TetradicA TetradicA TetradicA TetradicB TetradicB TetradicB TetradicC TetradicC TetradicC btn-container btn-container btn-container" 1fr
-/ 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+$swatch-palette-large-areas: 
+"picker picker picker picker picker picker MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB"
+"picker picker picker picker picker picker AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB"
+"btn-container btn-container btn-container btn-container btn-container btn-container TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB"
+"TetradicA TetradicA TetradicA TetradicB TetradicB TetradicB TetradicC TetradicC TetradicC Neutral Neutral Neutral";
+$swatch-palette-large-rows: repeat(4,1fr);
+$swatch-palette-large-columns: repeat(12,1fr);
 
-$swatch-palette-extra-large: 
-"MonochromeA MonochromeB picker picker TriadicA TriadicB" 1fr
-"AnalogousA AnalogousB picker picker TetradicA TetradicC" 1fr
-"btn-container btn-container . .  TetradicB TetradicB" 1fr
-/ 1fr 1fr 1fr 1fr 1fr 1fr;
 
+$swatch-palette-huge-areas: 
+"MonochromeA MonochromeB picker picker TriadicA TriadicB" 
+"AnalogousA AnalogousB picker picker TetradicA TetradicC" 
+"btn-container btn-container Neutral .  TetradicB TetradicB";
+$swatch-palette-huge-rows: repeat(3,1fr);
+$swatch-palette-huge-columns: repeat(6,1fr);
 
 
 .body-grid{
@@ -124,7 +139,9 @@ $body-grid:
     }
 
     .swatch-palette {
-        grid-template: $swatch-palette-small;    
+        grid-template-areas: $swatch-palette-small-areas;
+        grid-template-rows: $swatch-palette-tiny-rows;
+        grid-template-columns: $swatch-palette-small-columns;
     }
 }
 
@@ -135,11 +152,9 @@ $body-grid:
     }
 
     .swatch-palette {
-        grid-template-areas: $swatch-palette-medium-areas;  
-        
-
-        grid-template-rows: $swatch-palette-medium-rows;    
-        grid-template-columns: $swatch-palette-medium-columns;    
+        grid-template-areas: $swatch-palette-small-areas;  
+        grid-template-rows: $swatch-palette-small-rows;    
+        grid-template-columns: $swatch-palette-small-columns;    
     }
 }
 
@@ -151,8 +166,8 @@ $body-grid:
 
     .swatch-palette {
         grid-template-areas: $swatch-palette-medium-areas;  
-        grid-template-rows: $picker-height-med repeat(5, $swatch-height-med);    
-        grid-template-columns: 1fr 1fr;    
+        grid-template-rows: $swatch-palette-medium-rows;    
+        grid-template-columns: $swatch-palette-medium-columns;    
     }
 }
 
@@ -163,7 +178,9 @@ $body-grid:
     }
 
     .swatch-palette {
-        grid-template: $swatch-palette-large;    
+        grid-template-areas: $swatch-palette-large-areas;  
+        grid-template-rows: $swatch-palette-large-rows;    
+        grid-template-columns: $swatch-palette-large-columns;    
     }
 }
 
@@ -173,6 +190,8 @@ $body-grid:
     }
 
     .swatch-palette {
-        grid-template: $swatch-palette-extra-large;      
+        grid-template-areas: $swatch-palette-huge-areas;  
+        grid-template-rows: $swatch-palette-huge-rows;    
+        grid-template-columns: $swatch-palette-huge-columns;    
     }
 }
