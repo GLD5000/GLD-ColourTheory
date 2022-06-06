@@ -33,39 +33,43 @@ Grid level 2 areas
 .main-picker{
     grid-area: picker;
 }
-.MonochromeA{
-    grid-area: MonochromeA;
+.monochromeA{
+    grid-area: monochromeA;
 }
-.MonochromeB{
-    grid-area: MonochromeB;
+.monochromeB{
+    grid-area: monochromeB;
 }
-.AnalogousA{
-    grid-area: AnalogousA;
+.analogousA{
+    grid-area: analogousA;
 }
-.AnalogousB{
-    grid-area: AnalogousB;
+.analogousB{
+    grid-area: analogousB;
 }
-.TriadicA{
-    grid-area: TriadicA;
+.triadicA{
+    grid-area: triadicA;
 }
-.TriadicB{
-    grid-area: TriadicB;
+.triadicB{
+    grid-area: triadicB;
 }
-.TetradicA{
-    grid-area: TetradicA;
+.tetradicA{
+    grid-area: tetradicA;
 }
-.TetradicB{
-    grid-area: TetradicB;
+.tetradicB{
+    grid-area: tetradicB;
 }
-.TetradicC{
-    grid-area: TetradicC;
+.tetradicC{
+    grid-area: tetradicC;
 }
 .neutral{
-    grid-area: Neutral;
+    grid-area: neutral;
 }
-.btn-container{
-    grid-area: btn-container;
+.btn-copy{
+    grid-area: copyAll;
 }
+.btn-random{
+    grid-area: random;
+}
+
 
 $picker-height-tiny: 24em;
 $swatch-height-tiny: 12em;
@@ -81,51 +85,55 @@ $swatch-height-large: 16em;
 
 $swatch-palette-tiny-areas: 
 "picker" 
-"MonochromeA" 
-"MonochromeB" 
-"AnalogousA" 
-"AnalogousB" 
-"TriadicA" 
-"TriadicB" 
-"TetradicA" 
-"TetradicB" 
-"TetradicC" 
-"Neutral" 
-"btn-container";
+"monochromeA" 
+"monochromeB" 
+"analogousA" 
+"analogousB" 
+"triadicA" 
+"triadicB" 
+"tetradicA" 
+"tetradicB" 
+"tetradicC" 
+"neutral" 
+"copyAll"
+"random";
 $swatch-palette-tiny-rows: $picker-height-tiny repeat(11, $swatch-height-tiny);
 $swatch-palette-tiny-columns: 1fr;
 
 $swatch-palette-small-areas: 
 "picker picker"
-"MonochromeA MonochromeB" 
-"AnalogousA AnalogousB" 
-"TriadicA TriadicB" 
-"TetradicA TetradicB" 
-"TetradicC Neutral"
-"btn-container btn-container";
+"monochromeA monochromeB" 
+"analogousA analogousB" 
+"triadicA triadicB" 
+"tetradicA tetradicB" 
+"tetradicC neutral"
+"copyAll copyAll"
+"random random";
 $swatch-palette-small-rows: $picker-height-small repeat(11, $swatch-height-small);
 $swatch-palette-small-columns: 1fr 1fr;
 
 $swatch-palette-medium-areas: 
 "picker picker picker picker"
-"MonochromeA MonochromeB AnalogousA AnalogousB"
-"TetradicA TetradicB TetradicC Neutral" 
-"TriadicA TriadicB btn-container btn-container";
+"monochromeA monochromeB analogousA analogousB"
+"tetradicA tetradicB tetradicC neutral" 
+"triadicA triadicB copyAll random";
 $swatch-palette-medium-rows: $picker-height-medium repeat(6, $swatch-height-medium);
 $swatch-palette-medium-columns: repeat(4,1fr);
 
 $swatch-palette-large-areas: 
-"picker picker picker picker picker picker MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB"
-"picker picker picker picker picker picker AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB"
-"btn-container btn-container btn-container btn-container btn-container btn-container TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB"
-"TetradicA TetradicA TetradicA TetradicB TetradicB TetradicB TetradicC TetradicC TetradicC Neutral Neutral Neutral";
+"picker picker monochromeA monochromeB"
+"picker picker analogousA analogousB"
+"neutral  neutral  triadicA triadicB"
+"tetradicA tetradicB tetradicB tetradicC "
+"random random copyAll copyAll";
+
 $swatch-palette-large-rows: repeat(4,$swatch-height-large);
-$swatch-palette-large-columns: repeat(12,1fr);
+$swatch-palette-large-columns: repeat(4,1fr);
 
 $swatch-palette-huge-areas: 
-"MonochromeA MonochromeB picker picker TriadicA TriadicB" 
-"AnalogousA AnalogousB picker picker TetradicA TetradicC" 
-"btn-container btn-container Neutral .  TetradicB TetradicB";
+"monochromeA monochromeB picker picker triadicA triadicB" 
+"analogousA analogousB picker picker tetradicA tetradicC" 
+"copyAll copyAll neutral random  tetradicB tetradicB";
 $swatch-palette-huge-rows: repeat(3,$swatch-height-large);
 $swatch-palette-huge-columns: repeat(6,1fr);
 
