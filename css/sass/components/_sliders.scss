@@ -10,8 +10,8 @@ input[type="range"]{
     outline: none;
     -webkit-appearance: none;
     border-radius: 10px;
-    box-shadow: #000 3px 3px 0px;
-    border: solid #000 8px;
+    box-shadow: $grey-1000 3px 3px 0px;
+    border: solid $grey-1000 8px;
     grid-row:1/span 1;
 
   }
