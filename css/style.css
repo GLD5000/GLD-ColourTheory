@@ -36,6 +36,7 @@ footer, header, hgroup, menu, nav, section {
 
 body {
   line-height: 1;
+  height: 100vh;
 }
 
 ol, ul {
@@ -59,6 +60,8 @@ table {
 
 *, *::after, *::before {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 :root {
@@ -66,8 +69,9 @@ table {
 }
 
 .header, .footer {
+  display: relative;
   color: #fff;
-  background-color: hsl(0deg, 0%, 55.7%);
+  background-color: hsl(0deg, 0%, 41.2%);
 }
 
 button {
@@ -276,16 +280,24 @@ Grid level 2 areas
 }
 
 .body-grid {
+  position: relative;
+  top: 0;
+  left: 0;
   background-color: hsl(0deg, 0%, 55.7%);
+  height: 100vh;
   width: clamp(240px, 100vw, 137.5em);
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   display: grid;
-  min-height: 100vh;
+}
+
+.swatch-palette {
+  overflow-y: auto;
 }
 
 @media all and (min-width: 0px) {
   .body-grid {
-    grid-template: "header header header" auto ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
+    grid-template: "header header header" 24px ". palette ." 1fr "footer footer footer" 24px/1em 1fr 1em;
   }
   .swatch-palette {
     grid-template: "picker" 2fr "MonochromeA" 1fr "MonochromeB" 1fr "AnalogousA" 1fr "AnalogousB" 1fr "TriadicA" 1fr "TriadicB" 1fr "TetradicA" 1fr "TetradicB" 1fr "TetradicC" 1fr "btn-container" 1fr/1fr;
@@ -293,23 +305,27 @@ Grid level 2 areas
 }
 @media all and (min-width: 37.5em) {
   .body-grid {
-    grid-template: "header header header" auto ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
+    grid-template: "header header header" 24px ". palette ." 1fr "footer footer footer" 24px/1em 1fr 1em;
   }
   .swatch-palette {
-    grid-template: "picker picker" 2fr "MonochromeA MonochromeB" 1fr "AnalogousA AnalogousB" 1fr "TriadicA TriadicB" 1fr "TetradicA TetradicB" 1fr "TetradicC btn-container" 1fr/1fr 1fr;
+    grid-template-areas: "picker picker" "MonochromeA MonochromeB" "AnalogousA AnalogousB" "TriadicA TriadicB" "TetradicA TetradicB" "TetradicC btn-container";
+    grid-template-rows: 24em repeat(5, 12em);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 @media all and (min-width: 60em) {
   .body-grid {
-    grid-template: "header header header" auto ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
+    grid-template: "header header header" 24px ". palette ." 1fr "footer footer footer" 24px/1em 1fr 1em;
   }
   .swatch-palette {
-    grid-template: "picker picker" 2fr "MonochromeA MonochromeB" 1fr "AnalogousA AnalogousB" 1fr "TriadicA TriadicB" 1fr "TetradicA TetradicB" 1fr "TetradicC btn-container" 1fr/1fr 1fr;
+    grid-template-areas: "picker picker" "MonochromeA MonochromeB" "AnalogousA AnalogousB" "TriadicA TriadicB" "TetradicA TetradicB" "TetradicC btn-container";
+    grid-template-rows: 24em repeat(5, 12em);
+    grid-template-columns: 1fr 1fr;
   }
 }
 @media all and (min-width: 80em) {
   .body-grid {
-    grid-template: "header header header" auto ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
+    grid-template: "header header header" 24px ". palette ." 1fr "footer footer footer" 24px/1em 1fr 1em;
   }
   .swatch-palette {
     grid-template: "picker picker picker picker picker picker MonochromeA MonochromeA MonochromeA MonochromeB MonochromeB MonochromeB" 1fr "picker picker picker picker picker picker AnalogousA AnalogousA AnalogousA AnalogousB AnalogousB AnalogousB" 1fr "picker picker picker picker picker picker TriadicA TriadicA TriadicA TriadicB TriadicB TriadicB" 1fr "TetradicA TetradicA TetradicA TetradicB TetradicB TetradicB TetradicC TetradicC TetradicC btn-container btn-container btn-container" 1fr/1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -317,7 +333,7 @@ Grid level 2 areas
 }
 @media all and (min-width: 120em) {
   .body-grid {
-    grid-template: "header header header" auto ". palette ." 5fr "footer footer footer" auto/1em 1fr 1em;
+    grid-template: "header header header" 24px ". palette ." 1fr "footer footer footer" 24px/1em 1fr 1em;
   }
   .swatch-palette {
     grid-template: "MonochromeA MonochromeB picker picker TriadicA TriadicB" 1fr "AnalogousA AnalogousB picker picker TetradicA TetradicC" 1fr "btn-container btn-container . .  TetradicB TetradicB" 1fr/1fr 1fr 1fr 1fr 1fr 1fr;

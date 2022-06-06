@@ -45,6 +45,9 @@ Grid level 2 areas
 .btn-container{
     grid-area: btn-container;
 }
+$picker-height-med: 24em;
+$swatch-height-med: 12em;
+
 
 $swatch-palette-small: 
 "picker" 2fr
@@ -61,14 +64,16 @@ $swatch-palette-small:
 / 1fr;
 
 
-$swatch-palette-medium: 
-"picker picker" 2fr
-"MonochromeA MonochromeB" 1fr
-"AnalogousA AnalogousB" 1fr
-"TriadicA TriadicB" 1fr
-"TetradicA TetradicB" 1fr
-"TetradicC btn-container" 1fr
-/ 1fr 1fr;
+$swatch-palette-medium-areas: 
+"picker picker"
+"MonochromeA MonochromeB" 
+"AnalogousA AnalogousB" 
+"TriadicA TriadicB" 
+"TetradicA TetradicB" 
+"TetradicC btn-container" ;
+
+$swatch-palette-medium-rows: $picker-height-med repeat(5, $swatch-height-med);
+$swatch-palette-medium-columns: repeat(2,1fr);
 
 
 $swatch-palette-large: 
@@ -87,11 +92,19 @@ $swatch-palette-extra-large:
 
 
 .body-grid{
+    position:relative;
+    top:0;
+    left:0;
     background-color: $grey-500;
+    height: 100vh;
     width: clamp(240px, 100vw, 137.5em);
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+
     display:grid;
-    min-height: 100vh;
+}
+.swatch-palette {
+    overflow-y:auto;    
 }
 
 
@@ -99,9 +112,9 @@ $swatch-palette-extra-large:
 
 
 $body-grid: 
-"header header header" auto
-". palette ." 5fr
-"footer footer footer" auto 
+"header header header" 24px
+". palette ." 1fr
+"footer footer footer" 24px 
 / 1em 1fr 1em;
 
 @media all and (min-width: 0px){
@@ -122,7 +135,11 @@ $body-grid:
     }
 
     .swatch-palette {
-        grid-template: $swatch-palette-medium;    
+        grid-template-areas: $swatch-palette-medium-areas;  
+        
+
+        grid-template-rows: $swatch-palette-medium-rows;    
+        grid-template-columns: $swatch-palette-medium-columns;    
     }
 }
 
@@ -133,7 +150,9 @@ $body-grid:
     }
 
     .swatch-palette {
-        grid-template: $swatch-palette-medium;    
+        grid-template-areas: $swatch-palette-medium-areas;  
+        grid-template-rows: $picker-height-med repeat(5, $swatch-height-med);    
+        grid-template-columns: 1fr 1fr;    
     }
 }
 
