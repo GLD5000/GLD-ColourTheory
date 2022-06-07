@@ -97,6 +97,12 @@ button {
   background-color: hsl(0deg, 0%, 83.9%);
 }
 
+.btn-tiny {
+  flex: 1 1 25%;
+  font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
+  background-color: hsl(0deg, 0%, 83.9%);
+}
+
 .dice {
   align-items: center;
   border: none;
@@ -243,6 +249,35 @@ button {
   gap: 3px;
 }
 
+.clipboard {
+  position: relative;
+  display: block;
+  white-space: pre-wrap;
+  align-items: center;
+  background-color: hsl(0deg, 0%, 66.7%);
+  cursor: none;
+  padding: 0.25em 0.5em;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.clipboard::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: attr(data-content);
+  overflow: auto;
+  font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
+}
+
+.btn-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 5fr 2fr;
+}
+
 .large-picker, .btn-container {
   background-color: #000;
   font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6 * 1.6);
@@ -380,6 +415,9 @@ Grid level 2 areas
   grid-area: random;
 }
 
+/*.clipboard{
+    grid-area: clipboard;
+}*/
 .swatch-palette {
   overflow-y: auto;
 }
@@ -414,7 +452,7 @@ Grid level 2 areas
 }
 @media all and (min-width: 120em) {
   .swatch-palette {
-    grid-template-areas: "monochromeA monochromeB picker picker triadicA triadicB" "analogousA analogousB picker picker tetradicA tetradicC" "copyAll copyAll neutral random  tetradicB tetradicB";
+    grid-template-areas: "monochromeA monochromeB picker picker triadicA triadicB" "analogousA analogousB picker picker tetradicA tetradicC" "copyAll copyAll neutral random  tetradicB clipboard";
     grid-template-rows: repeat(3, 16em);
     grid-template-columns: repeat(6, 1fr);
   }

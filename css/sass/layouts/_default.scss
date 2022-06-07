@@ -69,6 +69,9 @@ Grid level 2 areas
 .btn-random{
     grid-area: random;
 }
+/*.clipboard{
+    grid-area: clipboard;
+}*/
 
 
 $picker-height-tiny: 24em;
@@ -133,7 +136,7 @@ $swatch-palette-large-columns: repeat(4,1fr);
 $swatch-palette-huge-areas: 
 "monochromeA monochromeB picker picker triadicA triadicB" 
 "analogousA analogousB picker picker tetradicA tetradicC" 
-"copyAll copyAll neutral random  tetradicB tetradicB";
+"copyAll copyAll neutral random  tetradicB clipboard";
 $swatch-palette-huge-rows: repeat(3,$swatch-height-large);
 $swatch-palette-huge-columns: repeat(6,1fr);
 

@@ -10,7 +10,7 @@ function updateLabels(){
   if (isHex === true){
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle'){//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice'){//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = document.getElementById(picker).value;
@@ -19,13 +19,14 @@ function updateLabels(){
   } else {
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle'){//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice'){//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = hexToHSLString(document.getElementById(picker).value);
       }
     });
   }
+  fillClipboard();
 }
 
 function updateColour(){
@@ -55,6 +56,7 @@ function updateColour(){
     document.getElementById(wrapper).style.backgroundColor = colour;    
     document.getElementById(label).innerHTML = (isHex)?colour:hexToHSLString(colour);
   });
+  fillClipboard();
 }
 
 function adjustHue(){
@@ -79,8 +81,8 @@ color_picker.value = HSLToHex(...satChangeHSL(...hexToHSL(color_picker.value), n
   updateColour();
 }
 
-
-function copyAll() {
+function fillClipboard(){
+  const clipboard = document.getElementById("clipboard");
   const isSCSS = (document.getElementById("SCSSToggle").innerHTML === 'SCSS');
   const cssArray = [...pickers].map(x => {
     let name = x.id.split('-')[0];
@@ -88,8 +90,24 @@ function copyAll() {
     return isSCSS?`$${name}: ${document.getElementById(label).innerHTML};`:`--${name}: ${document.getElementById(label).innerHTML};`;
   });
   const text = cssArray.join('\n');
+  clipboard.dataset.content = text;
+}
+
+function copyAll() {
+ /* const isSCSS = (document.getElementById("SCSSToggle").innerHTML === 'SCSS');
+  const cssArray = [...pickers].map(x => {
+    let name = x.id.split('-')[0];
+    let label = name + '-label';
+    return isSCSS?`$${name}: ${document.getElementById(label).innerHTML};`:`--${name}: ${document.getElementById(label).innerHTML};`;
+  });
+  const text = cssArray.join('\n');
+  navigator.clipboard.writeText(text);
+  alert(`Copied To Clipboard:\n${text}`);*/
+  const clipboard = document.getElementById("clipboard");
+  const text = clipboard.dataset.content;
   navigator.clipboard.writeText(text);
   alert(`Copied To Clipboard:\n${text}`);
+
   //console.log(text);
 }
 
@@ -123,6 +141,7 @@ function toggleHSL(e){
  } else {
   e.innerHTML = 'Hex';
   updateLabels();
+  //fillClipboard();
  }
 }
 
@@ -132,6 +151,8 @@ function toggleSCSS(e){
   } else {
    e.innerHTML = 'SCSS';
   }
+  fillClipboard();
+
  }
  
 
