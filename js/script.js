@@ -142,8 +142,8 @@ function onClickButtons(){
     if (id === 'SCSSToggle') x.onclick = () => toggleSCSS(x);
     if (id === 'HSLToggle') x.onclick = () => toggleHSL(x);
     if (id === 'randomise') x.onclick = () => randomise();
-
-    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise') x.onclick = () => copySingle(x);
+    if (id === 'dice') x.onclick = () => randomise();
+    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice') x.onclick = () => copySingle(x);
   }); 
       //Single Copy buttons
 
@@ -168,12 +168,22 @@ function onClickButtons(){
   
 }
 
-
-function randomMainColour(){
+function randomColour(){
   let hue = parseInt(Math.random() * 360);
   let sat = 48 + parseInt(Math.random() * 40); // 78
   let lum = 53 + parseInt(Math.random() * 35); // 53
-  color_picker.value = HSLToHex(hue,sat,lum);
+  return HSLToHex(hue,sat,lum);
+}
+
+
+function randomMainColour(){
+  color_picker.value = randomColour();
+}
+
+function randomDiceColours(){
+  document.getElementById('dieA').style.backgroundColor = randomColour();    
+  document.getElementById('dieB').style.backgroundColor = randomColour();    
+
 }
 
 function onLoad(){
@@ -181,11 +191,13 @@ function onLoad(){
   onClickButtons();
   randomMainColour();
   updateColour();
+  randomDiceColours();
   color_picker_hex_label.innerHTML = "Pick a Colour";
 }
 function randomise(){
   randomMainColour();
   updateColour();
+  randomDiceColours();
 }
 
 
