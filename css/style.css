@@ -92,17 +92,17 @@ button {
   border: none;
   background-color: hsl(0deg, 0%, 78.8%);
   display: flex;
-  /*grid-template:20px 1fr 20px / 20px 1fr 20px 1fr 20px;*/
-  cursor: default;
+  /*grid-template:20px 1fr 20px / 20px 1fr 20px 1fr 20px;
+  cursor:default;*/
 }
 
 .dieA, .dieB {
-  border: solid 6px black;
-  border-radius: 8%;
+  border: solid 8px black;
+  border-radius: 12px;
   background-color: hsl(0deg, 0%, 55.7%);
   display: grid;
   grid-template: repeat(5, 1fr)/repeat(5, 1fr);
-  height: 80%;
+  height: 70%;
   margin: auto;
   aspect-ratio: 1/1;
 }

@@ -142,8 +142,8 @@ function onClickButtons(){
     if (id === 'SCSSToggle') x.onclick = () => toggleSCSS(x);
     if (id === 'HSLToggle') x.onclick = () => toggleHSL(x);
     if (id === 'randomise') x.onclick = () => randomise();
-
-    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise') x.onclick = () => copySingle(x);
+    if (id === 'dice') x.onclick = () => randomise();
+    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice') x.onclick = () => copySingle(x);
   }); 
       //Single Copy buttons
 
