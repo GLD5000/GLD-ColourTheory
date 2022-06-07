@@ -83,14 +83,24 @@ button {
   align-items: center;
   border: none;
   cursor: pointer;
-  background-color: hsl(0deg, 0%, 83.9%);
   font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
+}
+
+.btn-lg {
+  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6);
+  background-color: hsl(0deg, 0%, 66.7%);
+}
+
+.btn-small {
+  flex: 1 1 50%;
+  font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
+  background-color: hsl(0deg, 0%, 83.9%);
 }
 
 .dice {
   align-items: center;
   border: none;
-  background-color: hsl(0deg, 0%, 78.8%);
+  background: linear-gradient(to right, hsl(0deg, 100%, 50%), hsl(60deg, 100%, 50%), hsl(120deg, 100%, 50%), hsl(180deg, 100%, 50%), hsl(240deg, 100%, 50%), hsl(300deg, 100%, 50%), hsl(0deg, 100%, 50%));
   display: flex;
   /*grid-template:20px 1fr 20px / 20px 1fr 20px 1fr 20px;
   cursor:default;*/
@@ -157,15 +167,6 @@ button {
   background-color: hsl(0deg, 0%, 11.8%);
   grid-area: 4/4;
   border-radius: 50%;
-}
-
-.btn-lg {
-  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6);
-  background-color: hsl(0deg, 0%, 66.7%);
-}
-
-.btn-small {
-  flex: 1 1 50%;
 }
 
 .header {

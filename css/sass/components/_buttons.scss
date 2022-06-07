@@ -5,14 +5,25 @@ button{
     align-items: center;
     border:none;
     cursor: pointer;
-    background-color: $grey-200;
     font-size: $gem;
+
   }
+
+  .btn-lg{
+    font-size: $gem2;
+    background-color: $grey-400;
+  }
+  .btn-small{
+    flex: 1 1 50%;
+    font-size: $gem;
+    background-color: $grey-200;
+  }
+  
 
 .dice {
   align-items: center;
   border:none;
-  background-color: $grey-300;
+  background: $rainbow-gradient;
   display:flex;
   /*grid-template:20px 1fr 20px / 20px 1fr 20px 1fr 20px;
   cursor:default;*/
@@ -70,12 +81,5 @@ button{
   background-color: $grey-900;
   grid-area: 4/4;
   border-radius: 50%;
-}
-.btn-lg{
-  font-size: $gem2;
-  background-color: $grey-400;
-}
-.btn-small{
-  flex: 1 1 50%;
 }
 
