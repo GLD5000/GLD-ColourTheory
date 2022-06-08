@@ -97,6 +97,11 @@ li, ol, ul {
   font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
 }
 
+.btn-dual {
+  flex: 1 1 50%;
+  font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
+}
+
 .btn-tiny {
   flex: 1 1 25%;
   font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
