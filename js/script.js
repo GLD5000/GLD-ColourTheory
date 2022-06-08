@@ -10,7 +10,7 @@ function updateLabels(){
   if (isHex === true){
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice'){//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = document.getElementById(picker).value;
@@ -19,7 +19,7 @@ function updateLabels(){
   } else {
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice'){//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = hexToHSLString(document.getElementById(picker).value);
@@ -129,9 +129,14 @@ function onChangepickers(){
 
 function copySingle(e) {
   let text = e.innerHTML;
-  navigator.clipboard.writeText(text);
-  alert('Copied: ' + text);
-  console.log(text);
+  if (text === 'Pick a Colour'){
+    randomMainColour();
+    updateColour();
+  } else {
+    navigator.clipboard.writeText(text);
+    alert('Copied: ' + text);
+    //console.log(text);
+  }
 }
 
 function toggleHSL(e){
@@ -164,7 +169,8 @@ function onClickButtons(){
     if (id === 'HSLToggle') x.onclick = () => toggleHSL(x);
     if (id === 'randomise') x.onclick = () => randomise();
     if (id === 'dice') x.onclick = () => randomise();
-    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice') x.onclick = () => copySingle(x);
+    if (id === 'mode') x.onclick = () => colourMode();
+    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice' && id !== 'mode') x.onclick = () => copySingle(x);
   }); 
       //Single Copy buttons
 
@@ -220,7 +226,9 @@ function randomise(){
   updateColour();
   randomDiceColours();
 }
-
+function colourMode(){
+  alert("Swictchable modes coming soon");
+}
 
 function customColour(e){
   let name = e.id.split('-')[0];
