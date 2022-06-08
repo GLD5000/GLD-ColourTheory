@@ -1,12 +1,12 @@
 @use '../abstracts' as *;
 
-button{
+.btn{
     white-space: normal;
     align-items: center;
     border:none;
     cursor: pointer;
     font-size: $gem;
-
+    background-color: $grey-200;
   }
 
   .btn-lg{
@@ -16,13 +16,11 @@ button{
   .btn-small{
     flex: 1 1 50%;
     font-size: $gem;
-    background-color: $grey-200;
   }
 
   .btn-tiny{
     flex: 1 1 25%;
     font-size: $gem;
-    background-color: $grey-200;
   }
 
   

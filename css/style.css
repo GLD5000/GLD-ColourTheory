@@ -78,12 +78,13 @@ li, ol, ul {
   background-color: hsl(0deg, 0%, 41.2%);
 }
 
-button {
+.btn {
   white-space: normal;
   align-items: center;
   border: none;
   cursor: pointer;
   font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
+  background-color: hsl(0deg, 0%, 83.9%);
 }
 
 .btn-lg {
@@ -94,13 +95,11 @@ button {
 .btn-small {
   flex: 1 1 50%;
   font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
-  background-color: hsl(0deg, 0%, 83.9%);
 }
 
 .btn-tiny {
   flex: 1 1 25%;
   font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
-  background-color: hsl(0deg, 0%, 83.9%);
 }
 
 .dice {
@@ -255,7 +254,7 @@ button {
   white-space: pre-wrap;
   align-items: center;
   background-color: hsl(0deg, 0%, 66.7%);
-  cursor: default;
+  cursor: pointer;
   padding: 0.25em 0.5em;
   font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
