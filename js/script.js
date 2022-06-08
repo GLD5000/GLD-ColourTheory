@@ -129,14 +129,9 @@ function onChangepickers(){
 
 function copySingle(e) {
   let text = e.innerHTML;
-  if (text === 'Pick a Colour'){
-    randomMainColour();
-    updateColour();
-  } else {
     navigator.clipboard.writeText(text);
     alert('Copied: ' + text);
     //console.log(text);
-  }
 }
 
 function toggleHSL(e){
@@ -219,7 +214,6 @@ function onLoad(){
   randomMainColour();
   updateColour();
   randomDiceColours();
-  color_picker_hex_label.innerHTML = "Pick a Colour";
 }
 function randomise(){
   randomMainColour();
