@@ -83,14 +83,22 @@ color_picker.value = HSLToHex(...satChangeHSL(...hexToHSL(color_picker.value), n
 
 function fillClipboard(){
   const clipboard = document.getElementById("clipboard");
+  const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+  //const spanText = isHex? '<span class="hex">':'<span class="hsl">';
   const isSCSS = (document.getElementById("SCSSToggle").innerHTML === 'SCSS');
-  const cssArray = [...pickers].map(x => {
+  const clipboardArr = [];
+  const innerHtmlArr = [];
+  [...pickers].forEach(x => {
     let name = x.id.split('-')[0];
     let label = name + '-label';
-    return isSCSS?`$${name}: ${document.getElementById(label).innerHTML};`:`--${name}: ${document.getElementById(label).innerHTML};`;
+    clipboardArr.push(isSCSS?`$${name}: ${document.getElementById(label).innerHTML};heleheheh`:`--${name}: ${document.getElementById(label).innerHTML};`);
+    innerHtmlArr.push(isSCSS?`$${name}: ${document.getElementById(label).innerHTML};`:`--${name}: ${document.getElementById(label).innerHTML};`);
   });
-  const text = cssArray.join('\n');
-  clipboard.dataset.content = text;
+  const clipboardText = clipboardArr.join('\n');
+  clipboard.dataset.content = clipboardText;
+  //console.log(clipboardText);
+  const innerHtmlText = innerHtmlArr.join('\n');
+  clipboard.innerHTML = innerHtmlText;
 }
 
 function copyAll() {

@@ -16,3 +16,10 @@ $rainbow-gradient: linear-gradient(to right, hsl(0,100%,50%), hsl(60,100%,50%), 
 $vscode-blue:#9cdcfe;
 $vscode-hex-orange:#ce9178;
 $vscode-hsl-green: #b5cea8;
+
+.hex{
+    color: $vscode-hex-orange;
+}
+.hsl{
+    color: $vscode-hsl-green;
+}
