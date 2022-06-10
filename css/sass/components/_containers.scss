@@ -81,11 +81,12 @@
   display: block;
   background-color: $grey-1000;
   font-family: $font-SourceCodePro,'Courier New', Courier, monospace;
-  font-size: 16px;
-  padding: .25em 0.5em;
+  font-size: 18px;
+  font-weight: 700;
+  padding: .25em 1em;
   overflow: auto;
   cursor:pointer;
-  white-space:pre-wrap;
+  white-space: pre-wrap;
   align-items: center;
 }
 

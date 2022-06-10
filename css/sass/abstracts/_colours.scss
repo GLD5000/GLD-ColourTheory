@@ -17,9 +17,26 @@ $vscode-blue:#9cdcfe;
 $vscode-hex-orange:#ce9178;
 $vscode-hsl-green: #b5cea8;
 
-.hex{
-    color: $vscode-hex-orange;
-}
-.hsl{
-    color: $vscode-hsl-green;
-}
+$mainColour: hsl(14,69.3%,68%);
+$monochromeA: hsl(14,69.2%,58%);
+$monochromeB: hsl(14,69.6%,78%);
+$analogousA: hsl(344,69.3%,68%);
+$analogousB: hsl(44,69.3%,68%);
+$triadicA: hsl(254,69.3%,68%);
+$triadicB: hsl(134,69.3%,68%);
+$tetradicA: hsl(104,69.3%,68%);
+$tetradicB: hsl(194,69.3%,68%);
+$tetradicC: hsl(284,69.3%,68%);
+$neutral: hsl(0,0%,67.8%);
+
+$mainColour: #e68f75;
+$monochromeA: #de6c4a;
+$monochromeB: #eeb2a0;
+$analogousA: #e67593;
+$analogousB: #e6c875;
+$triadicA: #8f75e6;
+$triadicB: #75e68f;
+$tetradicA: #93e675;
+$tetradicB: #75cce6;
+$tetradicC: #c875e6;
+$neutral: #adadad;

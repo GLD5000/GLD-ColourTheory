@@ -30,7 +30,7 @@ function updateLabels(){
 }
 
 function updateColour(){
-  let mainColourLabel, analogousAColourLabel, analogousBColourLabel,triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monoAColourLabel, monoBColourLabel, neutralColourLabel;
+  let mainColourLabel, analogousAColourLabel, analogousBColourLabel,triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
   const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
   const mainColour = color_picker.value;
   function getColour(name){
@@ -42,8 +42,8 @@ function updateColour(){
     } else if (name === 'tetradicA') { return hueRotateHEX(mainColour,90);
     } else if (name === 'tetradicB') { return hueRotateHEX(mainColour,180);
     } else if (name === 'tetradicC') { return hueRotateHEX(mainColour,270);
-    } else if (name === 'monoA') { return lumAdjustHEX(mainColour,-10);
-    } else if (name === 'monoB') { return lumAdjustHEX(mainColour,10);
+    } else if (name === 'monochromeA') { return lumAdjustHEX(mainColour,-10);
+    } else if (name === 'monochromeB') { return lumAdjustHEX(mainColour,10);
     } else if (name === 'neutral') { return satAdjustHEX(mainColour,-200);}
   }
   pickers.forEach((x,i) =>{
