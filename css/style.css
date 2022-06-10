@@ -116,7 +116,7 @@ li, ol, ul {
 }
 
 .dieA, .dieB {
-  border: solid 8px black;
+  border: solid calc(0.2 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem)) black;
   border-radius: 12px;
   background-color: hsl(0deg, 0%, 55.7%);
   display: grid;
@@ -186,7 +186,7 @@ li, ol, ul {
 .main-picker {
   width: 100%;
   display: grid;
-  grid-template: 1fr 10fr/1fr;
+  grid-template: 1fr 11fr/1fr;
   background-color: hsl(0deg, 0%, 55.7%);
   gap: 1em;
 }
@@ -195,6 +195,7 @@ li, ol, ul {
   width: 100%;
   display: flex;
   flex-basis: 100% 100% 100%;
+  gap: 1em;
 }
 
 .swatch-palette {
@@ -210,13 +211,18 @@ li, ol, ul {
   width: 100%;
 }
 
+/*.swatch, .btn-container{
+  grid-template-rows: 5fr 2fr;
+}
+.main-swatch{
+}*/
 .swatch, .main-swatch, .btn-container {
   position: relative;
   display: grid;
   width: 100%;
   height: 100%;
   grid-template-columns: 1fr;
-  grid-template-rows: 5fr 2fr;
+  grid-template-rows: 1fr calc(1.25 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem));
   row-gap: 3px;
   background-color: #000;
   border-radius: 10px;
@@ -256,8 +262,8 @@ li, ol, ul {
   display: block;
   background-color: #000;
   font-family: "Source Code Pro", monospace, "Courier New", Courier, monospace;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 500;
   padding: 0.25em 1em;
   overflow: auto;
   cursor: pointer;
@@ -276,12 +282,6 @@ li, ol, ul {
   left: 0;
   content: attr(data-content);
   color: #9cdcfe;
-}
-
-.btn-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 5fr 2fr;
 }
 
 .large-picker, .btn-container {
@@ -426,41 +426,33 @@ Grid level 2 areas
 }*/
 .swatch-palette {
   overflow-y: auto;
+  grid-auto-rows: calc(5 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem));
+  grid-auto-columns: 1fr;
 }
 
 @media all and (min-width: 0px) {
   .swatch-palette {
-    grid-template-areas: "picker" "monochromeA" "monochromeB" "analogousA" "analogousB" "triadicA" "triadicB" "tetradicA" "tetradicB" "tetradicC" "neutral" "copyAll" "random";
-    grid-template-rows: 24em repeat(11, 12em);
-    grid-template-columns: 1fr;
+    grid-template-areas: "picker" "picker" "monochromeA" "monochromeB" "analogousA" "analogousB" "triadicA" "triadicB" "tetradicA" "tetradicB" "tetradicC" "neutral" "copyAll" "random";
   }
 }
 @media all and (min-width: 37.5em) {
   .swatch-palette {
-    grid-template-areas: "picker picker" "monochromeA monochromeB" "analogousA analogousB" "triadicA triadicB" "tetradicA tetradicB" "tetradicC neutral" "copyAll copyAll" "random random";
-    grid-template-rows: 16em repeat(11, 8em);
-    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "picker picker" "picker picker" "monochromeA monochromeB" "analogousA analogousB" "triadicA triadicB" "tetradicA tetradicB" "tetradicC neutral" "copyAll copyAll" "random random";
   }
 }
 @media all and (min-width: 60em) {
   .swatch-palette {
-    grid-template-areas: "picker picker picker picker" "monochromeA monochromeB analogousA analogousB" "tetradicA tetradicB tetradicC neutral" "triadicA triadicB copyAll random";
-    grid-template-rows: 16em repeat(6, 12em);
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas: "picker picker picker picker" "picker picker picker picker" "monochromeA monochromeB analogousA analogousB" "tetradicA tetradicB tetradicC neutral" "triadicA triadicB copyAll random";
   }
 }
 @media all and (min-width: 80em) {
   .swatch-palette {
     grid-template-areas: "picker picker monochromeA monochromeB" "picker picker analogousA analogousB" "neutral  neutral  triadicA triadicB" "tetradicA tetradicB tetradicB tetradicC " "random random copyAll copyAll";
-    grid-template-rows: repeat(4, 16em);
-    grid-template-columns: repeat(4, 1fr);
   }
 }
 @media all and (min-width: 120em) {
   .swatch-palette {
-    grid-template-areas: "monochromeA monochromeB picker picker triadicA triadicB" "analogousA analogousB picker picker tetradicA tetradicC" "copyAll copyAll neutral random  tetradicB clipboard";
-    grid-template-rows: repeat(3, 16em);
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas: "monochromeA monochromeB picker picker triadicA triadicB" "analogousA analogousB picker picker tetradicA tetradicC" "copyAll copyAll neutral random  tetradicB tetradicB";
   }
 }
 
