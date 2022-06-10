@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script defer src="/js/script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;900&family=Source+Code+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body  onload="onLoad()">
@@ -38,17 +41,17 @@
     
 
       <container class="swatch monochromeA" name="Monochrome A">
-        <wrapper id="monoA-wrapper">
-          <input type="color" id="monoA-picker" class="picker"></input>
+        <wrapper id="monochromeA-wrapper">
+          <input type="color" id="monochromeA-picker" class="picker"></input>
         </wrapper>
-        <button class="btn btn-med" id="monoA-label" ></button>
+        <button class="btn btn-med" id="monochromeA-label" ></button>
       </container>
 
       <container class="swatch monochromeB" name="Monochrome B">
-        <wrapper id="monoB-wrapper">
-          <input type="color" id="monoB-picker" class="picker"></input>
+        <wrapper id="monochromeB-wrapper">
+          <input type="color" id="monochromeB-picker" class="picker"></input>
         </wrapper>
-        <button class="btn btn-med" id="monoB-label" ></button>
+        <button class="btn btn-med" id="monochromeB-label" ></button>
       </container>
 
       <container class="swatch analogousA" name="Analogous A">
@@ -110,7 +113,7 @@
       <container class="btn-container btn-copy">
 
 
-        <figure onclick="copyAll()" id="clipboard" class="clipboard" data-content=""></figure>
+        <figure onclick="copyAll()" id="clipboard" class="clipboard" data-content="" data-clipboard=""></figure>
 
         <wrapper class="flexbox-horizontal-btn">
           <button class="btn btn-small" id="copyAllCSS">Copy All</button>
