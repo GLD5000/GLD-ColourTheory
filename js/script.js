@@ -84,7 +84,7 @@ color_picker.value = HSLToHex(...satChangeHSL(...hexToHSL(color_picker.value), n
 function fillClipboard(){
   const clipboard = document.getElementById("clipboard");
   const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
-  //const spanText = isHex? '<span class="hex">':'<span class="hsl">';
+  clipboard.style.color = isHex? '#ce9178': '#b5cea8';
   const isSCSS = (document.getElementById("SCSSToggle").innerHTML === 'SCSS');
   const clipboardArr = [];
   const innerHtmlArr = [];
