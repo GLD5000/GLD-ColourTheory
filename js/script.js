@@ -88,35 +88,36 @@ function fillClipboard(){
   const isSCSS = (document.getElementById("SCSSToggle").innerHTML === 'SCSS');
   const clipboardArr = [];
   const innerHtmlArr = [];
+  const contentArr = [];
   [...pickers].forEach(x => {
+    let prefix = isSCSS?`$`:`--`
     let name = x.id.split('-')[0];
-    let label = name + '-label';
-    clipboardArr.push(isSCSS?`$${name}: ${document.getElementById(label).innerHTML};heleheheh`:`--${name}: ${document.getElementById(label).innerHTML};`);
-    innerHtmlArr.push(isSCSS?`$${name}: ${document.getElementById(label).innerHTML};`:`--${name}: ${document.getElementById(label).innerHTML};`);
+    let label = document.getElementById(name + '-label').innerHTML;
+    let variable = prefix + name + ': ';
+    let length = [...variable].length;
+    let spaces = ' '.repeat(16);
+    clipboardArr.push(`${variable}${label};`);
+    innerHtmlArr.push(`${spaces}${label};`);
+    contentArr.push(`${variable}`);
+
   });
+  // Set clipboard content
   const clipboardText = clipboardArr.join('\n');
-  clipboard.dataset.content = clipboardText;
-  //console.log(clipboardText);
+  clipboard.dataset.clipboard = clipboardText;
+  // Set innerHTML text
   const innerHtmlText = innerHtmlArr.join('\n');
   clipboard.innerHTML = innerHtmlText;
+  // Set ::after content element text
+  const contentText = contentArr.join('\n');
+  clipboard.dataset.content = contentText;
+  
 }
 
 function copyAll() {
- /* const isSCSS = (document.getElementById("SCSSToggle").innerHTML === 'SCSS');
-  const cssArray = [...pickers].map(x => {
-    let name = x.id.split('-')[0];
-    let label = name + '-label';
-    return isSCSS?`$${name}: ${document.getElementById(label).innerHTML};`:`--${name}: ${document.getElementById(label).innerHTML};`;
-  });
-  const text = cssArray.join('\n');
-  navigator.clipboard.writeText(text);
-  alert(`Copied To Clipboard:\n${text}`);*/
   const clipboard = document.getElementById("clipboard");
-  const text = clipboard.dataset.content;
+  const text = clipboard.dataset.clipboard;
   navigator.clipboard.writeText(text);
   alert(`Copied To Clipboard:\n${text}`);
-
-  //console.log(text);
 }
 
 function onChangepickers(){
@@ -149,7 +150,6 @@ function toggleHSL(e){
  } else {
   e.innerHTML = 'Hex';
   updateLabels();
-  //fillClipboard();
  }
 }
 
@@ -175,27 +175,7 @@ function onClickButtons(){
     if (id === 'mode') x.onclick = () => colourMode();
     if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice' && id !== 'mode') x.onclick = () => copySingle(x);
   }); 
-      //Single Copy buttons
-
-      // Copy all Button
-
-      // Toggle Hex
-
-      //Toggle Hsl
-
-      /*
-      buttons[i].onclick = e => {
-        if (e.target.tagName === 'BUTTON' && e.target.id !== 'copyAllCSS'){
-
-          let text = e.target.innerHTML;
-          navigator.clipboard.writeText(text);
-          alert('Copied: ' + text);
-        } else if (e.target.id === 'copyAllCSS'){
-          copyAll();
-        }            
-      } 
-      */
-  
+ 
 }
 
 function randomColour(){
