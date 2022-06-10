@@ -18,26 +18,25 @@
     <header class="header" name="header">head</header>
 
     <section class="swatch-palette">
-      <section class="main-picker">
 
+    
+      <container class="main-swatch" name="Main Colour">
         <container class="slider-container">
           <input oninput="adjustHue()" type="range" min="0" max="359" class="slider hue" id="hue-slider" name="Hue"></input>
           <input oninput="adjustLum()" type="range" min="45" max="89" class="slider lum" id="lum-slider" name="Luminance"></input>
           <input oninput="adjustSat()" type="range" min="0" max="99" class="slider sat" id="sat-slider" name="Saturation"></input>
         </container>
-    
-        <container class="main-swatch" name="Main Colour">
-          <wrapper id="mainColour-wrapper">
-            <input type="color" id="mainColour-picker" class="picker large-picker"></input>
+          
+        <wrapper id="mainColour-wrapper" class="mainColour-wrapper" name="Main Colour">
+          <input type="color" id="mainColour-picker" class="picker large-picker"></input>
+        </wrapper>
+        <wrapper class="flexbox-horizontal-btn">
+          <button class="btn btn-med btn-dual" id="mainColour-label" ></button>
+          <button class="btn btn-med btn-dual mode" id="mode">Mode</button>
           </wrapper>
-          <wrapper class="flexbox-horizontal-btn">
-            <button class="btn btn-med btn-dual" id="mainColour-label" ></button>
-            <button class="btn btn-med btn-dual mode" id="mode">Mode</button>
-            </wrapper>
-
-        </container>
+      </container>
     
-      </section>
+      
     
 
       <container class="swatch monochromeA" name="Monochrome A">

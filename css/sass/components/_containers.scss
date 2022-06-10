@@ -34,19 +34,13 @@
   height: 100%;
   width:100%;
 }
-/*.swatch, .btn-container{
-  grid-template-rows: 5fr 2fr;
-}
-.main-swatch{
-}*/
-.swatch, .main-swatch, .btn-container{
+.swatch, .btn-container{
   position:relative;
   display:grid;
   width: 100%;
   height: 100%;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr calc(1.25 *$gem);
-
   row-gap: 3px;
   background-color: $grey-1000;
   border-radius: 10px;
@@ -55,10 +49,27 @@
   cursor: pointer;
   overflow: hidden;
   margin:auto;
-  grid-column:span 1;
-  grid-row: span 1;
   font-size: $gem2;
 }
+
+.main-swatch{
+  position:relative;
+  display:grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: 1fr;
+  grid-template-rows: calc(1.25 *$gem) 1fr calc(1.25 *$gem);
+  row-gap: 3px;
+  background-color: $grey-1000;
+  border-radius: 10px;
+  box-shadow: $grey-1000 3px 3px 0px;
+  border: solid $grey-1000 8px;
+  cursor: pointer;
+  overflow: hidden;
+  margin:auto;
+  font-size: $gem2;
+}
+
 
 .btn-random::after{
   position: absolute;
@@ -69,7 +80,7 @@
 
 }
 
-.swatch::before, .main-swatch::before{
+.swatch::before{
   content: attr(name);
   position: absolute;
   text-align: center; 
@@ -77,6 +88,15 @@
   width:100%;
   line-height: 90%;
 }
+.mainColour-wrapper::before{
+  content: attr(name);
+  position: absolute;
+  text-align: center; 
+  top: calc(1rem + (1.25 *$gem)); 
+  width:100%;
+  line-height: 90%;
+}
+
 
 .flexbox-horizontal-btn{
   display:flex;
