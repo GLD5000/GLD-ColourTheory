@@ -262,7 +262,7 @@ li, ol, ul {
   display: block;
   background-color: #000;
   font-family: "Source Code Pro", monospace, "Courier New", Courier, monospace;
-  font-size: 20px;
+  font-size: calc(0.525 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem));
   font-weight: 500;
   padding: 0.25em 1em;
   overflow: auto;

@@ -87,7 +87,7 @@
   display: block;
   background-color: $grey-1000;
   font-family: $font-SourceCodePro,'Courier New', Courier, monospace;
-  font-size: 20px;
+  font-size: calc(0.525 * $gem);
   font-weight: 500;
   padding: .25em 1em;
   overflow: auto;
