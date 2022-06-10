@@ -40,7 +40,7 @@
   cursor:default;*/
 }
 .dieA,.dieB{
-  border: solid 8px black;
+  border: solid calc(0.2 * $gem) black;
   border-radius: 12px;
   background-color: $grey-500;
   display:grid;
