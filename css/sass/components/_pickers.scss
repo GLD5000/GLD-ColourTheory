@@ -1,8 +1,8 @@
 @use '../abstracts' as *;
 .large-picker, .btn-container{
   font-size: $gem3;
-
 }
+
 
 .picker{
   opacity:0;
@@ -13,4 +13,5 @@
   border: none;
   outline: none;
   -webkit-appearance: none;
+  z-index: +1;
 }
