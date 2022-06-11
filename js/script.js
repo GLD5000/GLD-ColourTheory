@@ -4,6 +4,16 @@ const color_picker_hex_label = document.getElementById("mainColour-label");
 const pickers = document.querySelectorAll('input[type="color"]');
 const buttons = document.querySelectorAll('button');
 
+function relativeLuminance(){
+
+}
+
+function contrastRatio(...args){
+  const L1 = Math.min(...args);
+  const L2 = Math.max(...args);
+  return (L1 + 0.05) / (L2 + 0.05);
+}
+
 function updateLabels(){
   const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
 
@@ -232,6 +242,24 @@ color_picker.onchange = () => {
   updateColour();
 }
 
+function hexToRGB(h) {
+  let r = 0, g = 0, b = 0;
+
+  // 3 digits
+  if (h.length == 4) {
+    r = "0x" + h[1] + h[1];
+    g = "0x" + h[2] + h[2];
+    b = "0x" + h[3] + h[3];
+
+  // 6 digits
+  } else if (h.length == 7) {
+    r = "0x" + h[1] + h[2];
+    g = "0x" + h[3] + h[4];
+    b = "0x" + h[5] + h[6];
+  }
+  
+  return "rgb("+ +r + "," + +g + "," + +b + ")";
+}
 function hexToHSLString(H) {
   // Convert hex to RGB first
   let r = 0, g = 0, b = 0;
@@ -405,18 +433,3 @@ function lumAdjustHEX(hex, adjustment){
 function satAdjustHEX(hex, adjustment){
   return HSLToHex(...satAdjustHSL(...hexToHSL(hex), adjustment));
 }
-
-
-
-/*
-window.onclick = e => { // if clicked item is a button, copy the inner text
-  if (e.target.tagName === 'BUTTON' && e.target.id !== 'copyAllCSS'){
-
-    let text = e.target.innerHTML;
-    navigator.clipboard.writeText(text);
-    alert('Copied: ' + text);
-  } else if (e.target.id === 'copyAllCSS'){
-    copyAll();
-  }
-}
-*/
