@@ -124,7 +124,7 @@ function updateColour(){
     const colour = getColour(name);//coloursArr[i];
     pickers[i].value = colour;
     wrapper.style.backgroundColor = colour;  
-    //console.log(textColour);  
+    //console.log(colour);  
     wrapper.style.color = textColour;
     label.innerHTML = (isHex)?colour:hexToHSLString(colour);
   });
@@ -444,7 +444,7 @@ function HSLToHex(h,s,l) {
     r = 0; g = x; b = c;
   } else if (240 <= h && h < 300) {
     r = x; g = 0; b = c;
-  } else if (300 <= h && h < 360) {
+  } else if (300 <= h && h <= 360) {
     r = c; g = 0; b = x;
   }
   // Having obtained RGB, convert channels to hex
@@ -464,11 +464,11 @@ function HSLToHex(h,s,l) {
 }
 
 function hueRotateHSL(hue,sat,lum, rotation){
-  let adjustment = parseInt(hue) + parseInt(rotation);
-
+  let adjustment = Math.round(hue) + Math.round(rotation);
+  //console.log(rotation);
   if (adjustment > 360) adjustment += -360;
   if (adjustment < 0) adjustment += 360;
-
+  //if(rotation === 180)console.log([adjustment,sat,lum]);
   return [adjustment, sat, lum]; 
 }
 
