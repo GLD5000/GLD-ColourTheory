@@ -4,6 +4,41 @@ const color_picker_hex_label = document.getElementById("mainColour-label");
 const pickers = document.querySelectorAll('input[type="color"]');
 const buttons = document.querySelectorAll('button');
 
+function relativeLuminance(hex){
+ /*
+ For the sRGB colorspace, the relative luminance of a color is defined as L = 0.2126 * R + 0.7152 * G + 0.0722 * B where R, G and B are defined as:
+ 
+  and RsRGB, GsRGB, and BsRGB are defined as:
+  
+  RsRGB = R8bit/255
+  GsRGB = G8bit/255
+  BsRGB = B8bit/255
+  The "^" character is the exponentiation operator. (Formula taken from [[IEC-4WD]]).
+  */
+ const sRGBArr = hexToSRGBArr(hex);
+//console.log(sRGBArr);
+ const RsRGB = sRGBArr[0];
+ const GsRGB = sRGBArr[1];
+ const BsRGB = sRGBArr[2];
+  
+ const R = (RsRGB <= 0.04045)? RsRGB/12.92: Math.pow((RsRGB+0.055)/1.055, 2.4);
+ const G = (GsRGB <= 0.04045)? GsRGB/12.92: Math.pow((GsRGB+0.055)/1.055, 2.4);
+ const B = (BsRGB <= 0.04045)? BsRGB/12.92: Math.pow((BsRGB+0.055)/1.055, 2.4);
+ //console.log([R,G,B]);
+ return (0.2126 * R) + (0.7152 * G) + (0.0722 * B);
+}
+//console.log(relativeLuminance('#ff0055'));
+function contrastRatio(...args){
+  /*A contrast ratio of 3:1 is the minimum level recommended by [[ISO-9241-3]] and [[ANSI-HFES-100-1988]] for standard text and vision. 
+  Large-scale text and images of large-scale text have a contrast ratio of at least 4.5:1;
+  */
+ const relativeLumArr = args.map(x => relativeLuminance(x)); 
+ //console.log(...relativeLumArr);
+  const L1 = Math.max(...relativeLumArr);
+  const L2 = Math.min(...relativeLumArr);
+  return (L1 + 0.05) / (L2 + 0.05);
+}
+
 function updateLabels(){
   const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
 
@@ -28,11 +63,28 @@ function updateLabels(){
   }
   fillClipboard();
 }
+function setTextColour(colour){
+  //console.log(colour);
+  //console.log(contrastRatio('#000',color_picker.value));
+  //console.log(contrastRatio('#fff',color_picker.value));
+  const whiteRatio = contrastRatio('#fff',colour);
+  const blackRatio = contrastRatio('#000',colour);
+  const textColour = (blackRatio > whiteRatio)? '#000': '#fff';
+  const ratio = (blackRatio > whiteRatio)? blackRatio: whiteRatio;
+  const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : '';
+  color_picker_wrapper.innerHTML =`Contrast Ratio ${ratio.toFixed(2)} ${rating}`;
+  //console.log(textColour);
+  return textColour;
+  //document.querySelector('.swatch').style.color = textColour;
+  //document.querySelector('.main-swatch').style.color = textColour;
+
+}
 
 function updateColour(){
   let mainColourLabel, analogousAColourLabel, analogousBColourLabel,triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
   const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
   const mainColour = color_picker.value;
+  const textColour = setTextColour(mainColour);
   function getColour(name){
     if (name === 'mainColour') { return mainColour;
     } else if (name === 'analogousA') { return hueRotateHEX(mainColour,-30);
@@ -48,13 +100,15 @@ function updateColour(){
   }
   pickers.forEach((x,i) =>{
     const name = pickers[i].id.split('-')[0];
-    const wrapper = name + '-wrapper';
-    const label = name + '-label';
+    const wrapper = document.getElementById(name + '-wrapper');
+    const label = document.getElementById(name + '-label');
     const colourName = name + 'Colour';
     const colour = getColour(name);//coloursArr[i];
     pickers[i].value = colour;
-    document.getElementById(wrapper).style.backgroundColor = colour;    
-    document.getElementById(label).innerHTML = (isHex)?colour:hexToHSLString(colour);
+    wrapper.style.backgroundColor = colour;  
+    //console.log(textColour);  
+    wrapper.style.color = textColour;
+    label.innerHTML = (isHex)?colour:hexToHSLString(colour);
   });
   fillClipboard();
 }
@@ -202,6 +256,8 @@ function onLoad(){
   randomMainColour();
   updateColour();
   randomDiceColours();
+
+
 }
 function randomise(){
   randomMainColour();
@@ -230,6 +286,22 @@ function customColour(e){
 
 color_picker.onchange = () => {
   updateColour();
+}
+
+function hexToSRGBArr(h) {
+  let rsRGB = 0, gsRGB = 0, bsRGB = 0;
+  // 3 digits
+  if (h.length == 4) {
+    rsRGB  = ("0x" + h[1] + h[1])/255;
+    gsRGB = ("0x" + h[2] + h[2])/255;
+    bsRGB = ("0x" + h[3] + h[3])/255;
+  // 6 digits
+  } else if (h.length == 7) {
+    rsRGB = ("0x" + h[1] + h[2])/255;
+    gsRGB = ("0x" + h[3] + h[4])/255;
+    bsRGB = ("0x" + h[5] + h[6])/255;
+  }
+  return [rsRGB,gsRGB,bsRGB];
 }
 
 function hexToHSLString(H) {
@@ -405,18 +477,3 @@ function lumAdjustHEX(hex, adjustment){
 function satAdjustHEX(hex, adjustment){
   return HSLToHex(...satAdjustHSL(...hexToHSL(hex), adjustment));
 }
-
-
-
-/*
-window.onclick = e => { // if clicked item is a button, copy the inner text
-  if (e.target.tagName === 'BUTTON' && e.target.id !== 'copyAllCSS'){
-
-    let text = e.target.innerHTML;
-    navigator.clipboard.writeText(text);
-    alert('Copied: ' + text);
-  } else if (e.target.id === 'copyAllCSS'){
-    copyAll();
-  }
-}
-*/
