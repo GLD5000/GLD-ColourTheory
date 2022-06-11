@@ -108,6 +108,7 @@ li, ol, ul {
 
 .dice {
   align-items: center;
+  width: 100%;
   border: none;
   background: linear-gradient(to right, hsl(0deg, 100%, 50%), hsl(60deg, 100%, 50%), hsl(120deg, 100%, 50%), hsl(180deg, 100%, 50%), hsl(240deg, 100%, 50%), hsl(300deg, 100%, 50%), hsl(0deg, 100%, 50%));
   display: flex;
@@ -121,61 +122,52 @@ li, ol, ul {
   background-color: hsl(0deg, 0%, 55.7%);
   display: grid;
   grid-template: repeat(5, 1fr)/repeat(5, 1fr);
-  height: 70%;
+  min-height: calc(2.5 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem));
+  max-width: 40%;
   margin: auto;
   aspect-ratio: 1/1;
 }
 
 .dieA {
-  grid-area: 2/2;
   transform: rotateZ(-7deg);
 }
 
 .dieB {
-  grid-area: 2/4;
   transform: rotateZ(4deg);
 }
 
-.dotA {
-  background-color: hsl(0deg, 0%, 11.8%);
-  grid-area: 2/2;
+.dots {
+  background-color: #fff;
+  border: 2px solid black;
   border-radius: 50%;
+}
+
+.dotA {
+  grid-area: 2/2;
 }
 
 .dotB {
-  background-color: hsl(0deg, 0%, 11.8%);
   grid-area: 3/3;
-  border-radius: 50%;
 }
 
 .dotC {
-  background-color: hsl(0deg, 0%, 11.8%);
   grid-area: 4/4;
-  border-radius: 50%;
 }
 
 .dotD {
-  background-color: hsl(0deg, 0%, 11.8%);
   grid-area: 2/2;
-  border-radius: 50%;
 }
 
 .dotE {
-  background-color: hsl(0deg, 0%, 11.8%);
   grid-area: 2/4;
-  border-radius: 50%;
 }
 
 .dotF {
-  background-color: hsl(0deg, 0%, 11.8%);
   grid-area: 4/2;
-  border-radius: 50%;
 }
 
 .dotG {
-  background-color: hsl(0deg, 0%, 11.8%);
   grid-area: 4/4;
-  border-radius: 50%;
 }
 
 .header {
@@ -202,8 +194,8 @@ li, ol, ul {
   width: 100%;
   display: grid;
   background-color: hsl(0deg, 0%, 55.7%);
-  gap: 1em;
-  padding: 1em;
+  gap: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.75);
+  padding: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.5);
 }
 
 .footer {
@@ -376,7 +368,7 @@ input[type=range]::-moz-range-thumb {
   left: 0;
   background-color: hsl(0deg, 0%, 55.7%);
   height: 100vh;
-  width: clamp(240px, 100vw, 137.5em);
+  width: clamp(240px, 100vw, 170em);
   margin-left: auto;
   margin-right: auto;
   display: grid;
@@ -474,16 +466,19 @@ $swatch-height-large: 16em;
 @media all and (min-width: 60em) {
   .swatch-palette {
     grid-template-areas: "picker picker picker picker" "picker picker picker picker" "monochromeA monochromeB analogousA analogousB" "tetradicA tetradicB tetradicC neutral" "triadicA triadicB copyAll random";
+    grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem)), 1fr);
   }
 }
 @media all and (min-width: 80em) {
   .swatch-palette {
     grid-template-areas: "picker picker monochromeA monochromeB" "picker picker analogousA analogousB" "neutral  neutral  triadicA triadicB" "tetradicA tetradicB tetradicB tetradicC " "random random copyAll copyAll";
+    grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem)), 1fr);
   }
 }
 @media all and (min-width: 120em) {
   .swatch-palette {
     grid-template-areas: "monochromeA monochromeB picker picker triadicA triadicB" "analogousA analogousB picker picker tetradicA tetradicC" "copyAll copyAll neutral random  tetradicB tetradicB";
+    grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem)), 1fr);
   }
 }
 

@@ -4,7 +4,10 @@ const color_picker_hex_label = document.getElementById("mainColour-label");
 const pickers = document.querySelectorAll('input[type="color"]');
 const buttons = document.querySelectorAll('button');
 
-function relativeLuminance(){
+function relativeLuminance(hex){
+  const sRGBArr = hexToSRGBArr(hex);
+
+  
 
 }
 
@@ -242,24 +245,22 @@ color_picker.onchange = () => {
   updateColour();
 }
 
-function hexToRGB(h) {
-  let r = 0, g = 0, b = 0;
-
+function hexToSRGBArr(h) {
+  let rsRGB = 0, gsRGB = 0, bsRGB = 0;
   // 3 digits
   if (h.length == 4) {
-    r = "0x" + h[1] + h[1];
-    g = "0x" + h[2] + h[2];
-    b = "0x" + h[3] + h[3];
-
+    rsRGB  = ("0x" + h[1] + h[1])/255;
+    gsRGB = ("0x" + h[2] + h[2])/255;
+    bsRGB = ("0x" + h[3] + h[3])/255;
   // 6 digits
   } else if (h.length == 7) {
-    r = "0x" + h[1] + h[2];
-    g = "0x" + h[3] + h[4];
-    b = "0x" + h[5] + h[6];
+    rsRGB = ("0x" + h[1] + h[2])/255;
+    gsRGB = ("0x" + h[3] + h[4])/255;
+    bsRGB = ("0x" + h[5] + h[6])/255;
   }
-  
-  return "rgb("+ +r + "," + +g + "," + +b + ")";
+  return [rsRGB,gsRGB,bsRGB];
 }
+
 function hexToHSLString(H) {
   // Convert hex to RGB first
   let r = 0, g = 0, b = 0;

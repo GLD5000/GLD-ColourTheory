@@ -33,9 +33,13 @@
 
 .dice {
   align-items: center;
+  width:100%;
+  //aspect-ratio: 2/1;
   border:none;
   background: $rainbow-gradient;
   display:flex;
+  //grid-template-columns: 1fr 1fr auto;
+  //grid-template-rows: 1fr auto;
   /*grid-template:20px 1fr 20px / 20px 1fr 20px 1fr 20px;
   cursor:default;*/
 }
@@ -45,52 +49,55 @@
   background-color: $grey-500;
   display:grid;
   grid-template:repeat(5,1fr)/repeat(5,1fr);
-  height: 70%;
+  min-height: calc(2.5 * $gem);
+  max-width: 40%;
   margin:auto;
   aspect-ratio: 1 / 1;
 }
 .dieA{
-  grid-area: 2/2;
   transform: rotateZ(-7deg);
 }
 .dieB{
-  grid-area: 2/4;
   transform: rotateZ(4deg);
+}
+.dots{
+  background-color: $grey-0;
+  border: 2px solid black;
+  border-radius: 50%;
+ 
 }
 
 .dotA{
-  background-color: $grey-900;
   grid-area: 2/2;
-  border-radius: 50%;
 }
 .dotB{
-  background-color: $grey-900;
+  
   grid-area: 3/3;
-  border-radius: 50%;
+  
 }
 .dotC{
-  background-color: $grey-900;
+  
   grid-area: 4/4;
-  border-radius: 50%;
+  
 }
 .dotD{
-  background-color: $grey-900;
+  
   grid-area: 2/2;
-  border-radius: 50%;
+  
 }
 .dotE{
-  background-color: $grey-900;
+  
   grid-area: 2/4;
-  border-radius: 50%;
+  
 }
 .dotF{
-  background-color: $grey-900;
+  
   grid-area: 4/2;
-  border-radius: 50%;
+  
 }
 .dotG{
-  background-color: $grey-900;
+  
   grid-area: 4/4;
-  border-radius: 50%;
+  
 }
 

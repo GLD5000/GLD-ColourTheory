@@ -15,7 +15,7 @@
     left:0;
     background-color: $grey-500;
     height: 100vh;
-    width: clamp(240px, 100vw, 137.5em);
+    width: clamp(240px, 100vw, 170em);
     margin-left: auto;
     margin-right: auto;
     display:grid;
@@ -175,7 +175,9 @@ $swatch-palette-extra-huge-areas:
     .swatch-palette {
         grid-template-areas: $swatch-palette-medium-areas;  
         //grid-template-rows: $swatch-palette-medium-rows;    
-        //grid-template-columns: $swatch-palette-medium-columns;    
+        //grid-template-columns: $swatch-palette-medium-columns; 
+        grid-auto-rows: minmax(calc(5 * $gem),1fr);
+   
     }
 }
 
@@ -183,7 +185,9 @@ $swatch-palette-extra-huge-areas:
     .swatch-palette {
         grid-template-areas: $swatch-palette-large-areas;  
         //grid-template-rows: $swatch-palette-large-rows;    
-        //grid-template-columns: $swatch-palette-large-columns;    
+        //grid-template-columns: $swatch-palette-large-columns;
+        grid-auto-rows: minmax(calc(5 * $gem),1fr);
+    
     }
 }
 
@@ -191,6 +195,8 @@ $swatch-palette-extra-huge-areas:
     .swatch-palette {
         grid-template-areas: $swatch-palette-huge-areas;  
         //grid-template-rows: $swatch-palette-huge-rows;    
-        //grid-template-columns: $swatch-palette-huge-columns;    
+        //grid-template-columns: $swatch-palette-huge-columns; 
+        grid-auto-rows: minmax(calc(5 * $gem),1fr);
+   
     }
 }
