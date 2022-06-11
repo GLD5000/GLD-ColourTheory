@@ -255,11 +255,7 @@ li, ol, ul {
 }
 
 .mainColour-wrapper {
-  padding: 0.1em;
   position: relative;
-  font-family: "Montserrat", sans-serif, sans-serif;
-  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.75);
-  text-align: end;
 }
 
 .mainColour-wrapper::before {
@@ -267,11 +263,23 @@ li, ol, ul {
   position: absolute;
   text-align: center;
   left: 0;
-  top: 0;
   top: calc(1.25 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem));
   width: 100%;
   line-height: 90%;
   font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6 * 1.6);
+}
+
+.mainColour-wrapper::after {
+  content: attr(data-content);
+  position: absolute;
+  text-align: center;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  line-height: 90%;
+  font-family: "Montserrat", sans-serif, sans-serif;
+  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.625);
+  font-weight: 500;
 }
 
 .flexbox-horizontal-btn {
@@ -318,7 +326,6 @@ li, ol, ul {
   border: none;
   outline: none;
   -webkit-appearance: none;
-  z-index: 1;
 }
 
 .slider {

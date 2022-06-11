@@ -44,7 +44,7 @@
   background-color: $grey-1000;
   border-radius: $gemHalf;
 
-  border: solid $grey-1000 $gemEightth;
+  border: solid $grey-1000 $gemEighth;
   box-shadow: $grey-1000 3px 3px 1px;
   cursor: pointer;
   overflow: hidden;
@@ -82,11 +82,8 @@
 }
 
 .mainColour-wrapper{
-  padding: 0.1em;
+  //padding: 0.1em;
   position: relative;
-  font-family: $font-Montserrat, sans-serif;
-  font-size: $gem3Quart;
-  text-align: end; 
   }
   
 .mainColour-wrapper::before{
@@ -94,14 +91,24 @@
   position: absolute;
   text-align: center; 
   left:0;
-  top:0;
   top: calc(1.25 *$gem); 
   width:100%;
   line-height: 90%;
   font-size: $gem3;
-
-
 }
+.mainColour-wrapper::after{
+  content: attr(data-content);
+  position: absolute;
+  text-align: center; 
+  left:0;
+  top:50%;
+  width:100%;
+  line-height: 90%;
+  font-family: $font-Montserrat, sans-serif;
+  font-size: $gem5Eighth;
+  font-weight:500;
+}
+
 
 
 .flexbox-horizontal-btn{

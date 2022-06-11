@@ -70,7 +70,7 @@ function setTextColour(colour){
   const textColour = (blackRatio > whiteRatio)? '#000000': '#ffffff';
   const ratio = (blackRatio > whiteRatio)? blackRatio: whiteRatio;
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : '';
-  color_picker_wrapper.innerHTML =`Contrast Ratio ${ratio.toFixed(2)} ${rating}`;// this disables the main colour picker
+  color_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;// this disables the main colour picker
   textPicker.value = textColour;
   document.getElementById('textColour-wrapper').dataset.content = 'Text: Auto';
   return textColour;
@@ -82,7 +82,7 @@ function customTextColour(){
   const mainColour = color_picker.value;
   const ratio = contrastRatio(textColour,mainColour);
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : '';
-  color_picker_wrapper.innerHTML =`Contrast Ratio ${ratio.toFixed(2)} ${rating}`;
+  color_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;
   //color_picker_wrapper.style.color = textColour;
   document.getElementById('textColour-wrapper').dataset.content = 'Text: Custom' ;
 
