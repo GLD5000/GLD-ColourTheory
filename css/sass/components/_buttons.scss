@@ -1,12 +1,26 @@
 @use '../abstracts' as *;
 
-.btn{
+.btn,.textColour-wrapper{
     white-space: normal;
     align-items: center;
     border:none;
     cursor: pointer;
     font-size: $gem;
     background-color: $grey-200;
+  }
+  .textColour-wrapper{
+    position:relative;
+  }
+  .textColour-wrapper::after{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    content: attr(name);
+    align-items: center;
+    text-align: center;
+    margin:auto;
   }
 
   .btn-lg{
@@ -18,10 +32,12 @@
     font-size: $gem;
   }
 
-  .btn-dual{
+  .btn-dual,.textColour-wrapper{
     flex: 1 1 50%;
     font-size: $gem;
   }
+
+  
 
 
   .btn-tiny{

@@ -100,6 +100,7 @@ function updateColour(){
   }
   pickers.forEach((x,i) =>{
     const name = pickers[i].id.split('-')[0];
+    if (name === 'textColour') return;
     const wrapper = document.getElementById(name + '-wrapper');
     const label = document.getElementById(name + '-label');
     const colourName = name + 'Colour';
@@ -146,6 +147,7 @@ function fillClipboard(){
   [...pickers].forEach(x => {
     let prefix = isSCSS?`$`:`--`
     let name = x.id.split('-')[0];
+    if (name === 'textColour') return;
     let label = document.getElementById(name + '-label').innerHTML;
     let variable = prefix + name + ': ';
     let length = [...variable].length;
