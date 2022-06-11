@@ -44,11 +44,12 @@
   cursor:default;*/
 }
 .dieA,.dieB{
-  border: solid calc(0.2 * $gem) black;
-  border-radius: 12px;
+  border: solid $grey-1000 $gemEightth;
+  border-radius: $gemHalf;
+  box-shadow: $grey-1000 3px 3px 1px;
   background-color: $grey-500;
   display:grid;
-  grid-template:repeat(5,1fr)/repeat(5,1fr);
+  grid-template:$gemQuart repeat(3,1fr) $gemQuart/ $gemQuart repeat(3,1fr) $gemQuart;
   min-height: calc(2.5 * $gem);
   max-width: 40%;
   margin:auto;
@@ -62,42 +63,23 @@
 }
 .dots{
   background-color: $grey-0;
-  border: 2px solid black;
+  border: 3px solid black;
   border-radius: 50%;
  
 }
 
-.dotA{
+.dotA,.dotD{
   grid-area: 2/2;
 }
 .dotB{
-  
   grid-area: 3/3;
-  
 }
-.dotC{
-  
+.dotC,.dotG{
   grid-area: 4/4;
-  
-}
-.dotD{
-  
-  grid-area: 2/2;
-  
 }
 .dotE{
-  
   grid-area: 2/4;
-  
 }
 .dotF{
-  
   grid-area: 4/2;
-  
 }
-.dotG{
-  
-  grid-area: 4/4;
-  
-}
-

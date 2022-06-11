@@ -34,40 +34,30 @@
   height: 100%;
   width:100%;
 }
-.swatch, .btn-container{
+
+.swatch, .btn-container, .main-swatch{
   position:relative;
   display:grid;
   width: 100%;
   height: 100%;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr calc(1.25 *$gem);
   row-gap: 3px;
   background-color: $grey-1000;
-  border-radius: 10px;
-  box-shadow: $grey-1000 3px 3px 0px;
-  border: solid $grey-1000 8px;
+  border-radius: $gemHalf;
+
+  border: solid $grey-1000 $gemEightth;
+  box-shadow: $grey-1000 3px 3px 1px;
   cursor: pointer;
   overflow: hidden;
   margin:auto;
   font-size: $gem2;
 }
+.swatch, .btn-container{
+  grid-template-rows: 1fr calc(1.25 *$gem);
+}
 
 .main-swatch{
-  position:relative;
-  display:grid;
-  width: 100%;
-  height: 100%;
-  grid-template-columns: 1fr;
   grid-template-rows: calc(1.25 *$gem) 1fr calc(1.25 *$gem);
-  row-gap: 3px;
-  background-color: $grey-1000;
-  border-radius: 10px;
-  box-shadow: $grey-1000 3px 3px 0px;
-  border: solid $grey-1000 8px;
-  cursor: pointer;
-  overflow: hidden;
-  margin:auto;
-  font-size: $gem2;
 }
 
 
@@ -79,8 +69,12 @@
   height:100%;
 
 }
+.picker-wrapper{
+  position: relative;
+  color:black;
+}
 
-.swatch::before{
+.picker-wrapper::before{
   content: attr(name);
   position: absolute;
   text-align: center; 
@@ -88,11 +82,15 @@
   width:100%;
   line-height: 90%;
 }
+
+.mainColour-wrapper{
+  position: relative;
+  }
 .mainColour-wrapper::before{
   content: attr(name);
   position: absolute;
   text-align: center; 
-  top: calc(1rem + (1.25 *$gem)); 
+  top: calc(1.25 *$gem); 
   width:100%;
   line-height: 90%;
 }
