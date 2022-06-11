@@ -18,8 +18,8 @@
  $font_mid: calc( $offset_rem + $increment_vw );
   
  $gem: clamp($font_min_rem, $font_mid, $font_max_rem );
- $gemEightth: calc($gem * 0.125);
-
+ $gemEighth: calc($gem * 0.125);
+ $gem5Eighth: calc($gem * 0.625);
  $gemHalf: calc($gem * 0.5);
  $gemQuart: calc($gem * 0.25);
  $gem3Quart: calc($gem * 0.75);

@@ -2,10 +2,7 @@
   font-family: "Bebas Neue", cursive;
 }
 
-/* Dynamic Sizing */ /* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+/* Dynamic Sizing */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -77,13 +74,29 @@ li, ol, ul {
   background-color: hsl(0deg, 0%, 41.2%);
 }
 
-.btn {
+.btn, .textColour-wrapper {
   white-space: normal;
   align-items: center;
   border: none;
   cursor: pointer;
   font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
   background-color: hsl(0deg, 0%, 83.9%);
+}
+
+.textColour-wrapper {
+  position: relative;
+  display: block;
+}
+
+.textColour-wrapper::before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  line-height: normal;
+  content: attr(data-content);
+  align-items: center;
+  text-align: center;
+  margin: 0;
 }
 
 .btn-lg {
@@ -96,7 +109,7 @@ li, ol, ul {
   font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
 }
 
-.btn-dual {
+.btn-dual, .textColour-wrapper {
   flex: 1 1 50%;
   font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
 }
@@ -243,9 +256,6 @@ li, ol, ul {
 
 .mainColour-wrapper {
   position: relative;
-  font-family: "Montserrat", sans-serif, sans-serif;
-  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.75);
-  text-align: end;
 }
 
 .mainColour-wrapper::before {
@@ -253,11 +263,23 @@ li, ol, ul {
   position: absolute;
   text-align: center;
   left: 0;
-  right: 100%;
   top: calc(1.25 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem));
   width: 100%;
   line-height: 90%;
   font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6 * 1.6);
+}
+
+.mainColour-wrapper::after {
+  content: attr(data-content);
+  position: absolute;
+  text-align: center;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  line-height: 90%;
+  font-family: "Montserrat", sans-serif, sans-serif;
+  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.625);
+  font-weight: 500;
 }
 
 .flexbox-horizontal-btn {
@@ -362,7 +384,7 @@ input[type=range]::-moz-range-thumb {
   left: 0;
   background-color: hsl(0deg, 0%, 55.7%);
   height: 100vh;
-  width: clamp(240px, 100vw, 170em);
+  width: clamp(270px, 100vw, 170em);
   margin-left: auto;
   margin-right: auto;
   display: grid;

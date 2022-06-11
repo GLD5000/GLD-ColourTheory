@@ -64,21 +64,38 @@ function updateLabels(){
   fillClipboard();
 }
 function setTextColour(colour){
-  //console.log(colour);
-  //console.log(contrastRatio('#000',color_picker.value));
-  //console.log(contrastRatio('#fff',color_picker.value));
+  const textPicker = document.getElementById('textColour-picker');
   const whiteRatio = contrastRatio('#fff',colour);
   const blackRatio = contrastRatio('#000',colour);
-  const textColour = (blackRatio > whiteRatio)? '#000': '#fff';
+  const textColour = (blackRatio > whiteRatio)? '#000000': '#ffffff';
   const ratio = (blackRatio > whiteRatio)? blackRatio: whiteRatio;
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : '';
-  color_picker_wrapper.innerHTML =`Contrast Ratio ${ratio.toFixed(2)} ${rating}`;
-  //console.log(textColour);
+  color_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;// this disables the main colour picker
+  textPicker.value = textColour;
+  document.getElementById('textColour-wrapper').dataset.content = 'Text: Auto';
   return textColour;
-  //document.querySelector('.swatch').style.color = textColour;
-  //document.querySelector('.main-swatch').style.color = textColour;
+}
+
+function customTextColour(){
+  const textPicker = document.getElementById('textColour-picker');
+  const textColour = textPicker.value;
+  const mainColour = color_picker.value;
+  const ratio = contrastRatio(textColour,mainColour);
+  const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : '';
+  color_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;
+  //color_picker_wrapper.style.color = textColour;
+  document.getElementById('textColour-wrapper').dataset.content = 'Text: Custom' ;
+
+  pickers.forEach((x,i) =>{
+    const name = pickers[i].id.split('-')[0];
+    if (name === 'textColour') return;
+    const wrapper = document.getElementById(name + '-wrapper');
+    wrapper.style.color = textColour;
+  });
+
 
 }
+
 
 function updateColour(){
   let mainColourLabel, analogousAColourLabel, analogousBColourLabel,triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
@@ -100,6 +117,7 @@ function updateColour(){
   }
   pickers.forEach((x,i) =>{
     const name = pickers[i].id.split('-')[0];
+    if (name === 'textColour') return;
     const wrapper = document.getElementById(name + '-wrapper');
     const label = document.getElementById(name + '-label');
     const colourName = name + 'Colour';
@@ -146,7 +164,12 @@ function fillClipboard(){
   [...pickers].forEach(x => {
     let prefix = isSCSS?`$`:`--`
     let name = x.id.split('-')[0];
-    let label = document.getElementById(name + '-label').innerHTML;
+    let label;
+    if (name === 'textColour'){
+      label = document.getElementById('textColour-picker').value;
+    }else{
+      label = document.getElementById(name + '-label').innerHTML;
+    }
     let variable = prefix + name + ': ';
     let length = [...variable].length;
     let spaces = ' '.repeat(16);
@@ -180,11 +203,17 @@ function onChangepickers(){
       pickers[i].onchange = () => {
         const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
         const name = pickers[i].id.split('-')[0];
-        const wrapper = name + '-wrapper';
-        const label = name + '-label';
-        const colour = pickers[i].value;
-        document.getElementById(wrapper).style.backgroundColor = colour;    
-        document.getElementById(label).innerHTML = (isHex)?colour:hexToHSLString(colour);
+        if (name === 'textColour') {
+          fillClipboard();
+          customTextColour();
+        } else {
+          const wrapper = name + '-wrapper';
+          const label = name + '-label';
+          const colour = pickers[i].value;
+          document.getElementById(wrapper).style.backgroundColor = colour;    
+          document.getElementById(label).innerHTML = (isHex)?colour:hexToHSLString(colour);
+          fillClipboard();
+        }
       } 
     }
   }

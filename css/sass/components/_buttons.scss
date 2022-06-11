@@ -1,12 +1,26 @@
 @use '../abstracts' as *;
 
-.btn{
+.btn,.textColour-wrapper{
     white-space: normal;
     align-items: center;
     border:none;
     cursor: pointer;
     font-size: $gem;
     background-color: $grey-200;
+  }
+  .textColour-wrapper{
+    position:relative;
+    display:block;
+  }
+  .textColour-wrapper::before{
+    position:absolute;
+    width:100%;
+    height:100%;
+    line-height: normal;
+    content: attr(data-content);
+    align-items: center;
+    text-align: center;
+    margin:0;
   }
 
   .btn-lg{
@@ -18,10 +32,12 @@
     font-size: $gem;
   }
 
-  .btn-dual{
+  .btn-dual,.textColour-wrapper{
     flex: 1 1 50%;
     font-size: $gem;
   }
+
+  
 
 
   .btn-tiny{
@@ -44,7 +60,7 @@
   cursor:default;*/
 }
 .dieA,.dieB{
-  border: solid $grey-1000 $gemEightth;
+  border: solid $grey-1000 $gemEighth;
   border-radius: $gemHalf;
   box-shadow: $grey-1000 3px 3px 1px;
   background-color: $grey-500;
