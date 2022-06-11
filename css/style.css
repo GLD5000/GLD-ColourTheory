@@ -274,7 +274,7 @@ li, ol, ul {
   position: absolute;
   text-align: center;
   left: 0;
-  top: 50%;
+  bottom: 55%;
   width: 100%;
   line-height: 90%;
   font-family: "Montserrat", sans-serif, sans-serif;
