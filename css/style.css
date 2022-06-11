@@ -242,6 +242,7 @@ li, ol, ul {
 }
 
 .mainColour-wrapper {
+  padding: 0.1em;
   position: relative;
   font-family: "Montserrat", sans-serif, sans-serif;
   font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.75);

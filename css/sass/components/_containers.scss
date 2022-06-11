@@ -82,12 +82,13 @@
 }
 
 .mainColour-wrapper{
+  padding: 0.1em;
   position: relative;
   font-family: $font-Montserrat, sans-serif;
-
   font-size: $gem3Quart;
   text-align: end; 
   }
+  
 .mainColour-wrapper::before{
   content: attr(name);
   position: absolute;
