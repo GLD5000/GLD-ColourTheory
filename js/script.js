@@ -70,6 +70,9 @@ function setTextColour(colour){
   const whiteRatio = contrastRatio('#fff',colour);
   const blackRatio = contrastRatio('#000',colour);
   const textColour = (blackRatio > whiteRatio)? '#000': '#fff';
+  const ratio = (blackRatio > whiteRatio)? blackRatio: whiteRatio;
+  const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : '';
+  color_picker_wrapper.innerHTML =`Contrast Ratio ${ratio.toFixed(2)} ${rating}`;
   //console.log(textColour);
   return textColour;
   //document.querySelector('.swatch').style.color = textColour;
