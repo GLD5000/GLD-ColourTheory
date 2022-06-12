@@ -115,15 +115,19 @@
   display:flex;
   gap: 3px;
 }
+.flexbox-clipboard{
+  display: flex;
+  width: 100%;
+  overflow: auto;
+}
 
-.clipboard,.clipboard::after{
+.clipboard,.clipboard-secondary{
   display: block;
   background-color: $neutral-1000;
   font-family: $font-SourceCodePro,'Courier New', Courier, monospace;
-  font-size: calc(0.525 * $gem);
+  font-size: calc(0.8 * $gem);
   font-weight: 500;
-  padding: .25em 1em;
-  overflow: auto;
+  padding: 0.25em 0 0.25em 0.5em;
   cursor:pointer;
   white-space: pre-wrap;
   align-items: center;
@@ -131,9 +135,10 @@
 
 .clipboard{
   position:relative;
-  color: $vscode-hex-orange;
+  color: $vscode-blue;
 }
 
+/*
 .clipboard::after{
   position:absolute;
   top:0;
@@ -141,4 +146,4 @@
   content: attr(data-content);
   color: $vscode-blue;
 }
-
+*/

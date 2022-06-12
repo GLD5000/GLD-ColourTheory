@@ -112,12 +112,13 @@
         
       <container class="btn-container btn-copy">
 
-
-        <figure onclick="copyAll()" id="clipboard" class="clipboard" data-content="" data-clipboard=""></figure>
+        <wrapper onclick="copyAll()" class="flexbox-horizontal flexbox-clipboard">
+          <figure onclick="copyAll()" id="clipboard" class="clipboard" data-clipboard=""></figure>
+          <figure onclick="copyAll()" id="clipboard-secondary" class="clipboard-secondary"></figure>
+        </wrapper>
 
         <wrapper class="flexbox-horizontal-btn">
           <button class="btn btn-small" id="copyAllCSS">Copy All</button>
-
           <button class="btn btn-tiny" id="SCSSToggle">SCSS</button>
           <button class="btn btn-tiny" id="HSLToggle">Hex</button>
         </wrapper>

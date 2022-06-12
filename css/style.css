@@ -287,14 +287,19 @@ li, ol, ul {
   gap: 3px;
 }
 
-.clipboard, .clipboard::after {
+.flexbox-clipboard {
+  display: flex;
+  width: 100%;
+  overflow: auto;
+}
+
+.clipboard, .clipboard-secondary {
   display: block;
   background-color: #000;
   font-family: "Source Code Pro", monospace, "Courier New", Courier, monospace;
-  font-size: calc(0.525 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem));
+  font-size: calc(0.8 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem));
   font-weight: 500;
-  padding: 0.25em 1em;
-  overflow: auto;
+  padding: 0.25em 0 0.25em 0.5em;
   cursor: pointer;
   white-space: pre-wrap;
   align-items: center;
@@ -302,17 +307,18 @@ li, ol, ul {
 
 .clipboard {
   position: relative;
-  color: #ce9178;
-}
-
-.clipboard::after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: attr(data-content);
   color: #9cdcfe;
 }
 
+/*
+.clipboard::after{
+  position:absolute;
+  top:0;
+  left:0; 
+  content: attr(data-content);
+  color: $vscode-blue;
+}
+*/
 .large-picker, .btn-container {
   font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6 * 1.6);
 }
