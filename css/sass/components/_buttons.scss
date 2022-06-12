@@ -6,7 +6,7 @@
     border:none;
     cursor: pointer;
     font-size: $gem;
-    background-color: $grey-200;
+    background-color: $neutral-200;
   }
   .textColour-wrapper{
     position:relative;
@@ -25,7 +25,7 @@
 
   .btn-lg{
     font-size: $gem2;
-    background-color: $grey-400;
+    background-color: $neutral-400;
   }
   .btn-small{
     flex: 1 1 50%;
@@ -60,10 +60,10 @@
   cursor:default;*/
 }
 .dieA,.dieB{
-  border: solid $grey-1000 $gemEighth;
+  border: solid $neutral-1000 $gemEighth;
   border-radius: $gemHalf;
-  box-shadow: $grey-1000 3px 3px 1px;
-  background-color: $grey-500;
+  box-shadow: $neutral-1000 3px 3px 1px;
+  background-color: $neutral-500;
   display:grid;
   grid-template:$gemQuart repeat(3,1fr) $gemQuart/ $gemQuart repeat(3,1fr) $gemQuart;
   min-height: calc(2.5 * $gem);
@@ -78,7 +78,7 @@
   transform: rotateZ(4deg);
 }
 .dots{
-  background-color: $grey-0;
+  background-color: $neutral-0;
   border: 3px solid black;
   border-radius: 50%;
  
