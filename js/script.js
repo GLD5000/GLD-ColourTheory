@@ -129,7 +129,21 @@ function updateColour(){
     label.innerHTML = (isHex)?colour:hexToHSLString(colour);
   });
   fillClipboard();
+  color_picker_wrapper.style.background = linearGradientTwoTone('#000000');
+
 }
+
+function linearGradientTwoTone(hex){
+  const hsl = hexToHSL(hex);
+  const hue = hsl[0];
+  const sat = hsl[1];
+  const lumA = 50;
+  const lumB = 70;
+  const gradient = `linear-gradient(to left, hsl(${hue},${sat}%,${lumA}%), 50%, hsl(${hue},${sat}%,${lumA}%),50%, hsl(${hue},${sat}%,${lumB}%))`;
+  console.log(gradient);
+  return gradient;
+}
+
 
 function adjustHue(){
   const newHue = document.getElementById("hue-slider").value;
@@ -508,3 +522,4 @@ function lumAdjustHEX(hex, adjustment){
 function satAdjustHEX(hex, adjustment){
   return HSLToHex(...satAdjustHSL(...hexToHSL(hex), adjustment));
 }
+
