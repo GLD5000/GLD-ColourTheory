@@ -129,20 +129,28 @@ function updateColour(){
     label.innerHTML = (isHex)?colour:hexToHSLString(colour);
   });
   fillClipboard();
-  color_picker_wrapper.style.background = linearGradientTwoTone('#000000');
+  color_picker_wrapper.style.background = linearGradientThreeTone(mainColour);
 
 }
 
-function linearGradientTwoTone(hex){
-  const hsl = hexToHSL(hex);
-  const hue = hsl[0];
-  const sat = hsl[1];
-  const lumA = 50;
-  const lumB = 70;
-  const gradient = `linear-gradient(to left, hsl(${hue},${sat}%,${lumA}%), 50%, hsl(${hue},${sat}%,${lumA}%),50%, hsl(${hue},${sat}%,${lumB}%))`;
+function linearGradientThreeTone(hex){
+  const variantA = lumAdjustHEX(hex,-13);
+  const variantB = lumAdjustHEX(hex,13);
+  const gradient = `linear-gradient(${hex},${hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left, ${variantA}, 50%, ${variantA},50%, ${variantB}) 0% 50% / 100% 30%`;
+  //const gradient = `linear-gradient(to left, hsl(${hue},${sat}%,${lumA}%), 50%, hsl(${hue},${sat}%,${lumA}%),50%, hsl(${hue},${sat}%,${lumB}%)) 0% 100% / 100% 50% no-repeat`;
   console.log(gradient);
   return gradient;
 }
+
+function linearGradientMultiTone(hex){
+  const variantA = lumAdjustHEX(hex,-13);
+  const variantB = lumAdjustHEX(hex,13);
+  const gradient = `linear-gradient(${hex},${hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left, ${variantA}, 50%, ${variantA},50%, ${variantB}) 0% 50% / 100% 30%`;
+  //const gradient = `linear-gradient(to left, hsl(${hue},${sat}%,${lumA}%), 50%, hsl(${hue},${sat}%,${lumA}%),50%, hsl(${hue},${sat}%,${lumB}%)) 0% 100% / 100% 50% no-repeat`;
+  console.log(gradient);
+  return gradient;
+}
+
 
 
 function adjustHue(){
@@ -271,7 +279,7 @@ function onClickButtons(){
     if (id === 'HSLToggle') x.onclick = () => toggleHSL(x);
     if (id === 'randomise') x.onclick = () => randomise();
     if (id === 'dice') x.onclick = () => randomise();
-    if (id === 'mode') x.onclick = () => colourMode();
+    if (id === 'mode') x.onclick = () => switchColourMode();
     if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice' && id !== 'mode') x.onclick = () => copySingle(x);
   }); 
  
@@ -309,8 +317,20 @@ function randomise(){
   updateColour();
   randomDiceColours();
 }
-function colourMode(){
-  alert("Swictchable modes coming soon");
+function switchColourMode(){
+  const modeSwitch = document.getElementById('mode');    
+  const modeValue = modeSwitch.innerHTML; 
+  if (modeValue === 'Mode: Single'){
+    modeSwitch.innerHTML = 'Mode: Triple';
+  } else if (modeValue === 'Mode: Triple'){
+    modeSwitch.innerHTML = 'Mode: Multi';
+  } else if (modeValue === 'Mode: Multi'){
+    modeSwitch.innerHTML = 'Mode: Single';
+  }
+
+
+  
+  //alert("Swictchable modes coming soon");
 }
 
 function customColour(e){
