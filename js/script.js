@@ -81,7 +81,7 @@ function customTextColour(){
   const textColour = textPicker.value;
   const mainColour = color_picker.value;
   const ratio = contrastRatio(textColour,mainColour);
-  const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : '';
+  const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
   color_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;
   //color_picker_wrapper.style.color = textColour;
   document.getElementById('textColour-wrapper').dataset.content = 'Text: Custom' ;

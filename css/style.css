@@ -274,7 +274,7 @@ li, ol, ul {
   position: absolute;
   text-align: center;
   left: 0;
-  bottom: 55%;
+  top: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6 * 1.6 * 1.6);
   width: 100%;
   line-height: 90%;
   font-family: "Montserrat", sans-serif, sans-serif;
