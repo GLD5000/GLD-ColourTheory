@@ -69,7 +69,7 @@ function setTextColour(colour){
   const blackRatio = contrastRatio('#000',colour);
   const textColour = (blackRatio > whiteRatio)? '#000000': '#ffffff';
   const ratio = (blackRatio > whiteRatio)? blackRatio: whiteRatio;
-  const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : '';
+  const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
   color_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;// this disables the main colour picker
   textPicker.value = textColour;
   document.getElementById('textColour-wrapper').dataset.content = 'Text: Auto';
