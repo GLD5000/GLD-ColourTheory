@@ -79,7 +79,7 @@ li, ol, ul {
   align-items: center;
   border: none;
   cursor: pointer;
-  font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
+  font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
   background-color: hsl(0deg, 0%, 83.9%);
 }
 
@@ -100,23 +100,23 @@ li, ol, ul {
 }
 
 .btn-lg {
-  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6);
+  font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6);
   background-color: hsl(0deg, 0%, 66.7%);
 }
 
 .btn-small {
   flex: 1 1 50%;
-  font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
+  font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
 }
 
 .btn-dual, .textColour-wrapper {
   flex: 1 1 50%;
-  font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
+  font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
 }
 
 .btn-tiny {
   flex: 1 1 25%;
-  font-size: clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem);
+  font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
 }
 
 .dice {
@@ -130,13 +130,13 @@ li, ol, ul {
 }
 
 .dieA, .dieB {
-  border: solid #000 calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.125);
-  border-radius: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.5);
+  border: solid #000 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
+  border-radius: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.5);
   box-shadow: #000 3px 3px 1px;
   background-color: hsl(0deg, 0%, 55.7%);
   display: grid;
-  grid-template: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.25) repeat(3, 1fr) calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.25)/calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.25) repeat(3, 1fr) calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.25);
-  min-height: calc(2.5 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem));
+  grid-template: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) repeat(3, 1fr) calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25)/calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) repeat(3, 1fr) calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25);
+  min-height: calc(2.5 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
   max-width: 40%;
   margin: auto;
   aspect-ratio: 1/1;
@@ -199,8 +199,8 @@ li, ol, ul {
   width: 100%;
   display: grid;
   background-color: hsl(0deg, 0%, 41.2%);
-  gap: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.75);
-  padding: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.5);
+  gap: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
+  padding: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.5);
 }
 
 .footer {
@@ -216,21 +216,21 @@ li, ol, ul {
   grid-template-columns: 1fr;
   row-gap: 3px;
   background-color: #000;
-  border-radius: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.5);
-  border: solid #000 calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.125);
+  border-radius: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.5);
+  border: solid #000 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
   box-shadow: #000 3px 3px 1px;
   cursor: pointer;
   overflow: hidden;
   margin: auto;
-  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6);
+  font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6);
 }
 
 .swatch, .btn-container {
-  grid-template-rows: 1fr calc(1.25 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem));
+  grid-template-rows: 1fr calc(1.25 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
 }
 
 .main-swatch {
-  grid-template-rows: calc(1.25 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem)) 1fr calc(1.25 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem));
+  grid-template-rows: calc(1.25 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)) 1fr calc(1.25 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
 }
 
 .btn-random::after {
@@ -263,10 +263,10 @@ li, ol, ul {
   position: absolute;
   text-align: center;
   left: 0;
-  top: calc(1.25 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem));
+  top: calc(1.25 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
   width: 100%;
   line-height: 90%;
-  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6 * 1.6);
+  font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 1.6);
 }
 
 .mainColour-wrapper::after {
@@ -274,11 +274,11 @@ li, ol, ul {
   position: absolute;
   text-align: center;
   left: 0;
-  top: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6 * 1.6 * 1.6);
+  top: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 1.6 * 1.6);
   width: 100%;
   line-height: 90%;
   font-family: "Montserrat", sans-serif, sans-serif;
-  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 0.625);
+  font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.625);
   font-weight: 500;
 }
 
@@ -297,7 +297,7 @@ li, ol, ul {
   display: block;
   background-color: #000;
   font-family: "Source Code Pro", monospace, "Courier New", Courier, monospace;
-  font-size: calc(0.8 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem));
+  font-size: calc(0.8 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
   font-weight: 500;
   padding: 0.25em 0 0.25em 0.5em;
   cursor: pointer;
@@ -320,7 +320,7 @@ li, ol, ul {
 }
 */
 .large-picker, .btn-container {
-  font-size: calc(clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem) * 1.6 * 1.6);
+  font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 1.6);
 }
 
 .picker {
@@ -471,7 +471,7 @@ $swatch-height-large: 16em;
 */
 .swatch-palette {
   overflow-y: auto;
-  grid-auto-rows: calc(5.4 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem));
+  grid-auto-rows: calc(5.4 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
   grid-auto-columns: 1fr;
 }
 
@@ -488,19 +488,19 @@ $swatch-height-large: 16em;
 @media all and (min-width: 60em) {
   .swatch-palette {
     grid-template-areas: "picker picker picker picker" "picker picker picker picker" "monochromeA monochromeB analogousA analogousB" "tetradicA tetradicB tetradicC neutral" "triadicA triadicB copyAll random";
-    grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem)), 1fr);
+    grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)), 1fr);
   }
 }
 @media all and (min-width: 80em) {
   .swatch-palette {
     grid-template-areas: "picker picker monochromeA monochromeB" "picker picker analogousA analogousB" "neutral  neutral  triadicA triadicB" "tetradicA tetradicB tetradicB tetradicC " "random random copyAll copyAll";
-    grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem)), 1fr);
+    grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)), 1fr);
   }
 }
 @media all and (min-width: 120em) {
   .swatch-palette {
     grid-template-areas: "monochromeA monochromeB picker picker triadicA triadicB" "analogousA analogousB picker picker tetradicA tetradicC" "copyAll copyAll neutral random  tetradicB tetradicB";
-    grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6237623762rem + 1.5841584158vw, 3rem)), 1fr);
+    grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)), 1fr);
   }
 }
 

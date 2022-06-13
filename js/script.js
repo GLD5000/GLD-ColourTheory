@@ -95,10 +95,22 @@ function customTextColour(){
 
 
 }
+function swatchModeSelector(hex,modeValue){
+  if (modeValue === 'Mode: Single'){
 
+    return hex;
+  } else if (modeValue === 'Mode: Triple'){
+    console.log(modeValue);
+
+    return linearGradientThreeTone(hex);
+  } else if (modeValue === 'Mode: Multi'){
+    return linearGradientMultiTone(hex);
+  }
+}
 
 function updateColour(){
   let mainColourLabel, analogousAColourLabel, analogousBColourLabel,triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
+  const modeValue = document.getElementById('mode').innerHTML;    
   const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
   const mainColour = color_picker.value;
   const textColour = setTextColour(mainColour);
@@ -123,13 +135,83 @@ function updateColour(){
     const colourName = name + 'Colour';
     const colour = getColour(name);//coloursArr[i];
     pickers[i].value = colour;
-    wrapper.style.backgroundColor = colour;  
+    //console.log(swatchModeSelector(colour,modeValue));
+    wrapper.style.background = swatchModeSelector(colour,modeValue);  
     //console.log(colour);  
     wrapper.style.color = textColour;
     label.innerHTML = (isHex)?colour:hexToHSLString(colour);
   });
   fillClipboard();
+  //color_picker_wrapper.style.background = linearGradientMultiTone(mainColour);
+
 }
+
+function linearGradientThreeTone(hex){
+  const variantA = lumAdjustHEX(hex,-13);
+  const variantB = lumAdjustHEX(hex,13);
+  const gradient = `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left, ${variantA} 50%, #000 50%, ${variantB} 50%) 0% 50% / 100% 30%`;
+  /*
+  `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left, ${variantA} 50%, #000 50%, #000 calc(50% + 1px), ${variantB} calc(50% + 1px)) 0% 50% / 100% 30%`
+  */
+  return gradient;
+}
+
+function linearGradientMultiTone(hex){
+  let luminance = 88;
+  let lumAdjustment = 8.25;
+  const variant50 = lumChangeHEX(hex, luminance);
+  luminance -= lumAdjustment;
+  const variant100 = lumChangeHEX(hex, luminance);
+  luminance -= lumAdjustment;
+  const variant200 = lumChangeHEX(hex, luminance);
+  luminance -= lumAdjustment;
+  const variant300 = lumChangeHEX(hex, luminance);
+  luminance -= lumAdjustment;
+  const variant400 = lumChangeHEX(hex, luminance);
+  luminance -= lumAdjustment;
+  const variant500 = lumChangeHEX(hex, luminance);
+  luminance -= lumAdjustment;
+  const variant600 = lumChangeHEX(hex, luminance);
+  luminance -= lumAdjustment;
+  const variant700 = lumChangeHEX(hex, luminance);
+  luminance -= lumAdjustment;
+  const variant800 = lumChangeHEX(hex, luminance);
+  luminance -= lumAdjustment;
+  const variant900 = lumChangeHEX(hex, luminance);
+
+
+  const gradient = `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, 
+  linear-gradient(to right,
+     ${variant50} 10%, #000 10%, #000 10%, 
+     ${variant100} 10% 20%, #000 20%, #000 20%, 
+     ${variant200} 20% 30%, #000 30%, #000 30%, 
+     ${variant300} 30% 40%, #000 40%, #000 40%, 
+     ${variant400} 40% 50%, #000 50%, #000 50%,
+     ${variant500} 50% 60%, #000 60%, #000 60%, 
+     ${variant600} 60% 70%, #000 70%, #000 70%, 
+     ${variant700} 70% 80%, #000 80%, #000 80%, 
+     ${variant800} 80% 90%, #000 90%, #000 90%, 
+     ${variant900} 90%) 0% 50% / 100% 30%`;
+
+     /*
+     `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, 
+  linear-gradient(to right,
+          ${variant50} 10%, #000 10%, #000 calc(10% + 1px), 
+     ${variant100} calc(10% + 1px) 20%, #000 20%, #000 calc(20% + 1px), 
+     ${variant200} calc(20% + 1px) 30%, #000 30%, #000 calc(30% + 1px), 
+     ${variant300} calc(30% + 1px) 40%, #000 40%, #000 calc(40% + 1px), 
+     ${variant400} calc(40% + 1px) 50%, #000 50%, #000 calc(50% + 1px),
+     ${variant500} calc(50% + 1px) 60%, #000 60%, #000 calc(60% + 1px), 
+     ${variant600} calc(60% + 1px) 70%, #000 70%, #000 calc(70% + 1px), 
+     ${variant700} calc(70% + 1px) 80%, #000 80%, #000 calc(80% + 1px), 
+     ${variant800} calc(80% + 1px) 90%, #000 90%, #000 calc(90% + 1px), 
+     ${variant900} calc(90% + 1px)) 0% 50% / 100% 30%`;
+
+     */
+  return gradient;
+}
+
+
 
 function adjustHue(){
   const newHue = document.getElementById("hue-slider").value;
@@ -257,7 +339,7 @@ function onClickButtons(){
     if (id === 'HSLToggle') x.onclick = () => toggleHSL(x);
     if (id === 'randomise') x.onclick = () => randomise();
     if (id === 'dice') x.onclick = () => randomise();
-    if (id === 'mode') x.onclick = () => colourMode();
+    if (id === 'mode') x.onclick = () => switchColourMode();
     if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice' && id !== 'mode') x.onclick = () => copySingle(x);
   }); 
  
@@ -295,8 +377,23 @@ function randomise(){
   updateColour();
   randomDiceColours();
 }
-function colourMode(){
-  alert("Swictchable modes coming soon");
+function switchColourMode(){
+  const modeSwitch = document.getElementById('mode');    
+  const modeValue = modeSwitch.innerHTML; 
+  if (modeValue === 'Mode: Single'){
+    modeSwitch.innerHTML = 'Mode: Triple';
+    updateColour();
+  } else if (modeValue === 'Mode: Triple'){
+    modeSwitch.innerHTML = 'Mode: Multi';
+    updateColour();
+  } else if (modeValue === 'Mode: Multi'){
+    modeSwitch.innerHTML = 'Mode: Single';
+    updateColour();
+  }
+
+
+  
+  //alert("Swictchable modes coming soon");
 }
 
 function customColour(e){
@@ -495,6 +592,9 @@ function lumChangeHSL(hue,sat,lum, newLum){
   return [hue, sat, newLum]; 
 }
 
+function lumChangeHEX(hex, newLum){
+  return HSLToHex(...lumChangeHSL(...hexToHSL(hex), newLum));
+}
 
 
 function hueRotateHEX(hex, rotation){
@@ -508,3 +608,4 @@ function lumAdjustHEX(hex, adjustment){
 function satAdjustHEX(hex, adjustment){
   return HSLToHex(...satAdjustHSL(...hexToHSL(hex), adjustment));
 }
+
