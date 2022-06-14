@@ -156,6 +156,53 @@ function linearGradientThreeTone(hex){
   return gradient;
 }
 
+function stableCounter(counter,inc){//pass through outer variable to inner
+
+  function innerIncrement(){
+    counter += inc;
+    return counter;
+  }
+
+  return innerIncrement;
+}
+
+function variableCounter(counter){//pass through outer variable to inner
+
+  function innerIncrement(inc){
+    counter += inc;
+    return counter;
+  }
+
+  return innerIncrement;
+}
+
+function functionBox(func,amount){
+  let operation;
+  if (func === 'x') operation = (x,y) => x * y
+  else if (func === '/') operation = (x,y) => x / y;
+  else if (func === '+') operation = (x,y) => x + y;
+  else if (func === '-') operation = (x,y) => x - y;
+
+  function innerFunction(x){
+    return operation(x,amount);
+  }
+  return innerFunction;
+}
+const xAddTwo = functionBox('+',2);
+
+console.log(xAddTwo(2));
+console.log(xAddTwo(5));
+console.log(xAddTwo(6));
+
+const counter = stableCounter(2,5);
+const counterB = variableCounter(3);
+/*
+console.log(counter());
+console.log(counter());
+console.log(counter());
+console.log(counterB(2));
+console.log(counterB(4));
+*/
 function linearGradientMultiTone(hex){
   let luminance = 88;
   let lumAdjustment = 8.25;
