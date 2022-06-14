@@ -176,9 +176,41 @@ function variableCounter(counter){//pass through outer variable to inner
   return innerIncrement;
 }
 
-function functionBox(func,amount){
+function functionBox(init,func,amount){
   let operation;
-  if (func === 'x') operation = (x,y) => x * y
+  let counter = init;
+  if (func === '*') operation = (x,y) => x * y;
+  else if (func === '/') operation = (x,y) => x / y;
+  else if (func === '+') operation = (x,y) => x + y;
+  else if (func === '-') operation = (x,y) => x - y;
+
+  function innerFunction(){
+    counter = operation(counter,amount);
+    return counter;
+  }
+  return innerFunction;
+}
+
+function HSLlumGradient(hex,luminance,func,amount){
+  let operation;
+  if (func === '*') operation = (x,y) => x * y;
+  else if (func === '/') operation = (x,y) => x / y;
+  else if (func === '+') operation = (x,y) => x + y;
+  else if (func === '-') operation = (x,y) => x - y;
+
+  function innerFunction(){
+    luminance = operation(luminance,amount);
+    return lumChangeHEX(hex,luminance);
+  }
+  return innerFunction;
+}
+
+
+
+
+function functionBoxB(func,amount){
+  let operation;
+  if (func === '*') operation = (x,y) => x * y;
   else if (func === '/') operation = (x,y) => x / y;
   else if (func === '+') operation = (x,y) => x + y;
   else if (func === '-') operation = (x,y) => x - y;
@@ -188,11 +220,12 @@ function functionBox(func,amount){
   }
   return innerFunction;
 }
-const xAddTwo = functionBox('+',2);
 
-console.log(xAddTwo(2));
-console.log(xAddTwo(5));
-console.log(xAddTwo(6));
+const xAddTwo = functionBox(100,'*',.9);
+
+console.log(xAddTwo());
+console.log(xAddTwo());
+console.log(xAddTwo());
 
 const counter = stableCounter(2,5);
 const counterB = variableCounter(3);
@@ -204,8 +237,10 @@ console.log(counterB(2));
 console.log(counterB(4));
 */
 function linearGradientMultiTone(hex){
-  let luminance = 88;
+  let luminance = 95;
   let lumAdjustment = 8.25;
+  const variantDec = HSLlumGradient(hex,luminance,'-',lumAdjustment); 
+
   const variant50 = lumChangeHEX(hex, luminance);
   luminance -= lumAdjustment;
   const variant100 = lumChangeHEX(hex, luminance);
@@ -226,19 +261,18 @@ function linearGradientMultiTone(hex){
   luminance -= lumAdjustment;
   const variant900 = lumChangeHEX(hex, luminance);
 
-
   const gradient = `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, 
   linear-gradient(to right,
-     ${variant50} 10%, #000 10%, #000 10%, 
-     ${variant100} 10% 20%, #000 20%, #000 20%, 
-     ${variant200} 20% 30%, #000 30%, #000 30%, 
-     ${variant300} 30% 40%, #000 40%, #000 40%, 
-     ${variant400} 40% 50%, #000 50%, #000 50%,
-     ${variant500} 50% 60%, #000 60%, #000 60%, 
-     ${variant600} 60% 70%, #000 70%, #000 70%, 
-     ${variant700} 70% 80%, #000 80%, #000 80%, 
-     ${variant800} 80% 90%, #000 90%, #000 90%, 
-     ${variant900} 90%) 0% 50% / 100% 30%`;
+     ${variantDec()} 10%, #000 10%, #000 10%, 
+     ${variantDec()} 10% 20%, #000 20%, #000 20%, 
+     ${variantDec()} 20% 30%, #000 30%, #000 30%, 
+     ${variantDec()} 30% 40%, #000 40%, #000 40%, 
+     ${variantDec()} 40% 50%, #000 50%, #000 50%,
+     ${variantDec()} 50% 60%, #000 60%, #000 60%, 
+     ${variantDec()} 60% 70%, #000 70%, #000 70%, 
+     ${variantDec()} 70% 80%, #000 80%, #000 80%, 
+     ${variantDec()} 80% 90%, #000 90%, #000 90%, 
+     ${variantDec()} 90%) 0% 50% / 100% 30%`;
 
      /*
      `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, 
