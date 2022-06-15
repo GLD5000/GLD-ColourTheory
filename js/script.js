@@ -100,7 +100,7 @@ function swatchModeSelector(hex,modeValue){
 
     return hex;
   } else if (modeValue === 'Mode: Triple'){
-    console.log(modeValue);
+   //console.log(modeValue);
 
     return linearGradientThreeTone(hex);
   } else if (modeValue === 'Mode: Multi'){
@@ -237,9 +237,9 @@ console.log(counterB(2));
 console.log(counterB(4));
 */
 function linearGradientMultiTone(hex){
+  const variantDec = HSLlumGradient(hex,95,'-',8.25); 
   let luminance = 95;
   let lumAdjustment = 8.25;
-  const variantDec = HSLlumGradient(hex,luminance,'-',lumAdjustment); 
 
   const variant50 = lumChangeHEX(hex, luminance);
   luminance -= lumAdjustment;
@@ -297,7 +297,7 @@ function linearGradientMultiTone(hex){
 function adjustHue(){
   const newHue = document.getElementById("hue-slider").value;
   color_picker.value = HSLToHex(...hueChangeHSL(...hexToHSL(color_picker.value), newHue));
- // console.log(newHue);
+ ////console.log(newHue);
   updateColour();
 }
 
@@ -316,45 +316,96 @@ color_picker.value = HSLToHex(...satChangeHSL(...hexToHSL(color_picker.value), n
   updateColour();
 }
 
+
 function fillClipboard(){
   const clipboard = document.getElementById("clipboard");
   const clipboardSecondary = document.getElementById("clipboard-secondary");
-
+  const modeValue = document.getElementById('mode').innerHTML;    
   const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
   clipboardSecondary.style.color = isHex? '#ce9178': '#b5cea8';
   const isSCSS = (document.getElementById("SCSSToggle").innerHTML === 'SCSS');
-  const clipboardArr = [];
-  const primaryArr = [];
-  const secondaryArr = [];
+  const clipboardArr = [[],[],[]];
   [...pickers].forEach(x => {
     let prefix = isSCSS?`$`:`--`
     let name = x.id.split('-')[0];
     let label;
+    const hex = x.value;
+
     if (name === 'textColour'){
-      label = document.getElementById('textColour-picker').value;
+      label = isHex? document.getElementById('textColour-picker').value: hexToHSLString(document.getElementById('textColour-picker').value);
     }else{
       label = document.getElementById(name + '-label').innerHTML;
     }
-    let variable = prefix + name + ': ';
-    let length = [...variable].length;
-    let spaces = ' '.repeat(16);
-    clipboardArr.push(`${variable}${label};`);
-    secondaryArr.push(`${label};`);
-    primaryArr.push(`${variable}`);
+    let variable = prefix + name;
+    clipboardArr[0].push(`${variable}: ${label};`);
+    clipboardArr[1].push(`${label};`);
+    clipboardArr[2].push(`${variable}:`);
+    if (modeValue === 'Mode: Triple' && name !== 'textColour'){
+      const variantA = isHex? lumAdjustHEX(hex,-13): hexToHSLString(lumAdjustHEX(hex,-13));
+      const variantB = isHex? lumAdjustHEX(hex,-13): hexToHSLString(lumAdjustHEX(hex,-13));
+      clipboardArr[0].push(`${variable}-light: ${variantB};`);
+      clipboardArr[0].push(`${variable}-dark: ${variantA};`);
+    } else if (modeValue === 'Mode: Multi' && name !== 'textColour'){
+     //console.log('hello');
+      let luminance = 95;
+      const lumAdjustment = 8.25;
+      const hex = x.value;
+      
+      if (isHex === true){
+        clipboardArr[0].push(`${variable}-50: `+lumChangeHEX(hex, luminance));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-100: `+lumChangeHEX(hex, luminance));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-200: `+lumChangeHEX(hex, luminance));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-300: `+lumChangeHEX(hex, luminance));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-400: `+lumChangeHEX(hex, luminance));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-500: `+lumChangeHEX(hex, luminance));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-600: `+lumChangeHEX(hex, luminance));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-700: `+lumChangeHEX(hex, luminance));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-800: `+lumChangeHEX(hex, luminance));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-900: `+lumChangeHEX(hex, luminance));
+      } else {
+        clipboardArr[0].push(`${variable}-50: `+hexToHSLString(lumChangeHEX(hex, luminance)));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-100: `+hexToHSLString(lumChangeHEX(hex, luminance)));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-200: `+hexToHSLString(lumChangeHEX(hex, luminance)));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-300: `+hexToHSLString(lumChangeHEX(hex, luminance)));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-400: `+hexToHSLString(lumChangeHEX(hex, luminance)));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-500: `+hexToHSLString(lumChangeHEX(hex, luminance)));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-600: `+hexToHSLString(lumChangeHEX(hex, luminance)));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-700: `+hexToHSLString(lumChangeHEX(hex, luminance)));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-800: `+hexToHSLString(lumChangeHEX(hex, luminance)));
+        luminance -= lumAdjustment;
+        clipboardArr[0].push(`${variable}-900: `+hexToHSLString(lumChangeHEX(hex, luminance)));
+      }
+    
+  
+    
+    }
 
   });
   // Set clipboard content
-  const clipboardText = clipboardArr.join('\n');
-  clipboard.dataset.clipboard = clipboardText;
+  clipboard.dataset.clipboard = clipboardArr[0].join('\n');
   // Set innerHTML text
-  const primaryText = primaryArr.join('\n');
-  clipboard.innerHTML = primaryText;
+  clipboard.innerHTML = clipboardArr[1].join('\n');;
   // Set ::after content element text
-  const secondaryText = secondaryArr.join('\n');
-  clipboardSecondary.innerHTML = secondaryText;
+  clipboardSecondary.innerHTML = clipboardArr[2].join('\n');;
   
 }
-
 function copyAll() {
   const clipboard = document.getElementById("clipboard");
   const text = clipboard.dataset.clipboard;
@@ -483,11 +534,11 @@ function customColour(e){
   let label = name + '-label';
   let colour = e.value;
   //e.value = colour;
-  console.log(this.value);    
+ //console.log(this.value);    
  return document.getElementById(wrapper).style.backgroundColor = colour;    
   document.getElementById(label).innerHTML = colour;
-  console.log(colour);
-  console.log(document.getElementById(wrapper).style.backgroundColor);
+ //console.log(colour);
+ //console.log(document.getElementById(wrapper).style.backgroundColor);
 }
 
 
