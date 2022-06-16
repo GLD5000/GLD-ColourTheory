@@ -147,9 +147,9 @@ function updateColour(){
 }
 
 function linearGradientThreeTone(hex){
-  const variantA = lumAdjustHEX(hex,-13);
-  const variantB = lumAdjustHEX(hex,13);
-  const gradient = `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left, ${variantA} 50%, #000 50%, ${variantB} 50%) 0% 50% / 100% 30%`;
+  const variantA = lumAdjustHEX(hex,13);
+  const variantB = lumAdjustHEX(hex,-13);
+  const gradient = `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to right, ${variantA} 50%, #000 50%, ${variantB} 50%) 0% 50% / 100% 30%`;
   /*
   `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left, ${variantA} 50%, #000 50%, #000 calc(50% + 1px), ${variantB} calc(50% + 1px)) 0% 50% / 100% 30%`
   */
@@ -338,21 +338,36 @@ function fillClipboard(){
     }
     let variable = prefix + name;
     clipboardArr[0].push(`${variable}: ${label};`);
-    clipboardArr[1].push(`${label};`);
-    clipboardArr[2].push(`${variable}:`);
+    clipboardArr[1].push(`${variable}:`);
+    clipboardArr[2].push(`${label};`);
     if (modeValue === 'Mode: Triple' && name !== 'textColour'){
-      const variantA = isHex? lumAdjustHEX(hex,-13): hexToHSLString(lumAdjustHEX(hex,-13));
+      const variantA = isHex? lumAdjustHEX(hex,13): hexToHSLString(lumAdjustHEX(hex,13));
       const variantB = isHex? lumAdjustHEX(hex,-13): hexToHSLString(lumAdjustHEX(hex,-13));
-      clipboardArr[0].push(`${variable}-light: ${variantB};`);
-      clipboardArr[0].push(`${variable}-dark: ${variantA};`);
+      clipboardArr[0].push(`${variable}-light: ${variantA};`);
+      clipboardArr[1].push(`${variable}-light:`);
+      clipboardArr[2].push(`${variantA};`);
+  
+      clipboardArr[0].push(`${variable}-dark: ${variantB};`);
+      clipboardArr[1].push(`${variable}-dark:`);
+      clipboardArr[2].push(`${variantB};`);
+
     } else if (modeValue === 'Mode: Multi' && name !== 'textColour'){
      //console.log('hello');
       let luminance = 95;
       const lumAdjustment = 8.25;
       const hex = x.value;
-      
       if (isHex === true){
-        clipboardArr[0].push(`${variable}-50: `+lumChangeHEX(hex, luminance));
+        let val;
+        const suffixArr = ['-50: ','-100: ','-200: ','-300: ','-400: ','-500: ','-600: ','-700: ','-800: ','-900: '];
+        suffixArr.forEach(x =>{
+          val = lumChangeHEX(hex, luminance);
+          clipboardArr[0].push(`${variable}${x}${val}`);
+          clipboardArr[1].push(`${variable}${x}`);
+          clipboardArr[2].push(`${val};`);
+          luminance -= lumAdjustment;
+          });
+
+        /*clipboardArr[0].push(`${variable}-50: `+lumChangeHEX(hex, luminance));
         luminance -= lumAdjustment;
         clipboardArr[0].push(`${variable}-100: `+lumChangeHEX(hex, luminance));
         luminance -= lumAdjustment;
@@ -370,9 +385,21 @@ function fillClipboard(){
         luminance -= lumAdjustment;
         clipboardArr[0].push(`${variable}-800: `+lumChangeHEX(hex, luminance));
         luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-900: `+lumChangeHEX(hex, luminance));
+        clipboardArr[0].push(`${variable}-900: `+lumChangeHEX(hex, luminance));*/
       } else {
-        clipboardArr[0].push(`${variable}-50: `+hexToHSLString(lumChangeHEX(hex, luminance)));
+        let val;
+        const suffixArr = ['-50: ','-100: ','-200: ','-300: ','-400: ','-500: ','-600: ','-700: ','-800: ','-900: '];
+        suffixArr.forEach(x =>{
+          val = hexToHSLString(lumChangeHEX(hex, luminance));
+          clipboardArr[0].push(`${variable}${x}${val}`);
+          clipboardArr[1].push(`${variable}${x}`);
+          clipboardArr[2].push(`${val};`);
+          luminance -= lumAdjustment;
+          });
+        /*val = hexToHSLString(lumChangeHEX(hex, luminance));
+        clipboardArr[0].push(`${variable}-50: `+val);
+        clipboardArr[1].push(`${val};`);
+        clipboardArr[2].push(`${variable}-50:`);
         luminance -= lumAdjustment;
         clipboardArr[0].push(`${variable}-100: `+hexToHSLString(lumChangeHEX(hex, luminance)));
         luminance -= lumAdjustment;
@@ -390,7 +417,7 @@ function fillClipboard(){
         luminance -= lumAdjustment;
         clipboardArr[0].push(`${variable}-800: `+hexToHSLString(lumChangeHEX(hex, luminance)));
         luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-900: `+hexToHSLString(lumChangeHEX(hex, luminance)));
+        clipboardArr[0].push(`${variable}-900: `+hexToHSLString(lumChangeHEX(hex, luminance)));*/
       }
     
   
