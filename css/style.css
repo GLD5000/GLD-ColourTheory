@@ -294,15 +294,18 @@ li, ol, ul {
 }
 
 .clipboard, .clipboard-secondary {
-  display: block;
+  display: flex;
+  height: fit-content;
+  width: fit-content;
   background-color: #000;
   font-family: "Source Code Pro", monospace, "Courier New", Courier, monospace;
-  font-size: calc(0.8 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
+  font-size: calc(0.65 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
   font-weight: 500;
-  padding: 0.25em 0 0.25em 0.5em;
+  padding: 0.25em;
   cursor: pointer;
-  white-space: pre-wrap;
+  white-space: pre;
   align-items: center;
+  line-height: 1.125;
 }
 
 .clipboard {

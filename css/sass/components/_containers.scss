@@ -122,15 +122,18 @@
 }
 
 .clipboard,.clipboard-secondary{
-  display: block;
+  display: flex;
+  height: fit-content;
+  width:fit-content;
   background-color: $neutral-1000;
   font-family: $font-SourceCodePro,'Courier New', Courier, monospace;
-  font-size: calc(0.8 * $gem);
+  font-size: calc(0.65 * $gem);
   font-weight: 500;
-  padding: 0.25em 0 0.25em 0.5em;
+  padding: 0.25em;
   cursor:pointer;
-  white-space: pre-wrap;
+  white-space: pre;
   align-items: center;
+  line-height: 1.125;
 }
 
 .clipboard{
