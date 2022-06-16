@@ -147,9 +147,9 @@ function updateColour(){
 }
 
 function linearGradientThreeTone(hex){
-  const variantA = lumAdjustHEX(hex,-13);
-  const variantB = lumAdjustHEX(hex,13);
-  const gradient = `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left, ${variantA} 50%, #000 50%, ${variantB} 50%) 0% 50% / 100% 30%`;
+  const variantA = lumAdjustHEX(hex,13);
+  const variantB = lumAdjustHEX(hex,-13);
+  const gradient = `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to right, ${variantA} 50%, #000 50%, ${variantB} 50%) 0% 50% / 100% 30%`;
   /*
   `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left, ${variantA} 50%, #000 50%, #000 calc(50% + 1px), ${variantB} calc(50% + 1px)) 0% 50% / 100% 30%`
   */
@@ -341,10 +341,16 @@ function fillClipboard(){
     clipboardArr[1].push(`${label};`);
     clipboardArr[2].push(`${variable}:`);
     if (modeValue === 'Mode: Triple' && name !== 'textColour'){
-      const variantA = isHex? lumAdjustHEX(hex,-13): hexToHSLString(lumAdjustHEX(hex,-13));
+      const variantA = isHex? lumAdjustHEX(hex,13): hexToHSLString(lumAdjustHEX(hex,13));
       const variantB = isHex? lumAdjustHEX(hex,-13): hexToHSLString(lumAdjustHEX(hex,-13));
-      clipboardArr[0].push(`${variable}-light: ${variantB};`);
-      clipboardArr[0].push(`${variable}-dark: ${variantA};`);
+      clipboardArr[0].push(`${variable}-light: ${variantA};`);
+      clipboardArr[1].push(`${variantA};`);
+      clipboardArr[2].push(`${variable}-light:`);
+  
+      clipboardArr[0].push(`${variable}-dark: ${variantB};`);
+      clipboardArr[1].push(`${variantB};`);
+      clipboardArr[2].push(`${variable}-dark:`);
+
     } else if (modeValue === 'Mode: Multi' && name !== 'textColour'){
      //console.log('hello');
       let luminance = 95;
