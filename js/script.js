@@ -205,7 +205,42 @@ function HSLlumGradient(hex,luminance,func,amount){
   return innerFunction;
 }
 
+function HSLMultStrFixed(hex,multHue,multSat,multLum){
+  //Returns HSL string from multiplication of HSL values
+  //repeatable due to closure
+  const HSL = hexToHSL(hex);
+  let hue = HSL[0];
+  let sat = HSL[1];
+  let lum = HSL[2];
+  function innerFunction(){
+    hue = Math.min(Math.max(0, hue * multHue), 360);
+    sat = Math.min(Math.max(0,sat * multSat), 100);
+    lum = Math.min(Math.max(0,lum * multLum), 100);
+      return `hsl(${hue},${sat}%,${lum}%)`;
+  }
+  return innerFunction;
+}
 
+function HSLMultStrVariable(hex){
+  //Returns HSL string from multiplication of HSL values
+  //repeatable due to closure
+  const HSL = hexToHSL(hex);
+  let hue = HSL[0];
+  let sat = HSL[1];
+  let lum = HSL[2];
+  function innerFunction(multHue,multSat,multLum){
+    hue = Math.min(Math.max(0, hue * multHue), 360);
+    sat = Math.min(Math.max(0,sat * multSat), 100);
+    lum = Math.min(Math.max(0,lum * multLum), 100);
+      return `hsl(${hue},${sat}%,${lum}%)`;
+  }
+  return innerFunction;
+}
+
+const gradient = HSLMultStrFixed('#33aa77',1,0.93,1.12);
+console.log(gradient());
+console.log(gradient());
+console.log(gradient());
 
 
 function functionBoxB(func,amount){
@@ -223,9 +258,9 @@ function functionBoxB(func,amount){
 
 const xAddTwo = functionBox(100,'*',.9);
 
-console.log(xAddTwo());
-console.log(xAddTwo());
-console.log(xAddTwo());
+//console.log(xAddTwo());
+//console.log(xAddTwo());
+//console.log(xAddTwo());
 
 const counter = stableCounter(2,5);
 const counterB = variableCounter(3);
@@ -237,11 +272,12 @@ console.log(counterB(2));
 console.log(counterB(4));
 */
 function linearGradientMultiTone(hex){
-  const variantDec = HSLlumGradient(hex,95,'-',8.25); 
   let luminance = 95;
-  let lumAdjustment = 8.25;
-
+  let lumAdjustment = 6;
+  
+  const variantDec = HSLlumGradient(hex,luminance,'*',0.93); 
   const variant50 = lumChangeHEX(hex, luminance);
+  /*
   luminance -= lumAdjustment;
   const variant100 = lumChangeHEX(hex, luminance);
   luminance -= lumAdjustment;
@@ -260,7 +296,7 @@ function linearGradientMultiTone(hex){
   const variant800 = lumChangeHEX(hex, luminance);
   luminance -= lumAdjustment;
   const variant900 = lumChangeHEX(hex, luminance);
-
+  */
   const gradient = `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, 
   linear-gradient(to right,
      ${variantDec()} 10%, #000 10%, #000 10%, 
@@ -354,7 +390,7 @@ function fillClipboard(){
     } else if (modeValue === 'Mode: Multi' && name !== 'textColour'){
      //console.log('hello');
       let luminance = 95;
-      const lumAdjustment = 8.25;
+      const lumAdjustment = 6;
       const hex = x.value;
       if (isHex === true){
         let val;
