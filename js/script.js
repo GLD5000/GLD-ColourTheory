@@ -213,12 +213,19 @@ function HSLMultStrFixed(hex,multHue,multSat,multLum){
   let sat = HSL[1];
   let lum = HSL[2];
   function innerFunction(){
-    hue = Math.min(Math.max(0, hue * multHue), 360);
-    sat = Math.min(Math.max(0,sat * multSat), 100);
-    lum = Math.min(Math.max(0,lum * multLum), 100);
-      return `hsl(${hue},${sat}%,${lum}%)`;
+    hue = Math.min(Math.max(0, hue * multHue), 360).toFixed(0);
+    sat = Math.min(Math.max(0,sat * multSat), 100).toFixed(1);
+    lum = Math.min(Math.max(0,lum * multLum), 100).toFixed(1);
+      return [hue,sat,lum];
   }
   return innerFunction;
+}
+
+function stringifyHSL(args){
+ // const [hue,sat,lum] = [args[0],args[1],args[2]];
+  const [hue,sat,lum] = [...args];
+ return `hsl(${hue},${sat}%,${lum}%)`;
+
 }
 
 function HSLMultStrVariable(hex){
@@ -237,10 +244,6 @@ function HSLMultStrVariable(hex){
   return innerFunction;
 }
 
-const gradient = HSLMultStrFixed('#33aa77',1,0.93,1.12);
-console.log(gradient());
-console.log(gradient());
-console.log(gradient());
 
 
 function functionBoxB(func,amount){
@@ -271,13 +274,56 @@ console.log(counter());
 console.log(counterB(2));
 console.log(counterB(4));
 */
+function hexToHue(){
+
+  // Convert hex to RGB first
+  let r = 0, g = 0, b = 0;
+  if (H.length == 4) {
+    r = "0x" + H[1] + H[1];
+    g = "0x" + H[2] + H[2];
+    b = "0x" + H[3] + H[3];
+  } else if (H.length == 7) {
+    r = "0x" + H[1] + H[2];
+    g = "0x" + H[3] + H[4];
+    b = "0x" + H[5] + H[6];
+  }
+  // Then to HSL
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  let cmin = Math.min(r,g,b),
+      cmax = Math.max(r,g,b),
+      delta = cmax - cmin,
+      h = 0,
+      s = 0,
+      l = 0;
+
+  if (delta == 0)
+    h = 0;
+  else if (cmax == r)
+    h = ((g - b) / delta) % 6;
+  else if (cmax == g)
+    h = (b - r) / delta + 2;
+  else
+    h = (r - g) / delta + 4;
+
+  h = Math.round(h * 60);
+
+  if (h < 0)
+    h += 360;
+
+    return h;
+}
+
 function linearGradientMultiTone(hex){
-  let luminance = 95;
-  let lumAdjustment = 6;
-  
-  const variantDec = HSLlumGradient(hex,luminance,'*',0.93); 
+  const luminance = 95;
+  const lumMult = 0.905; 
+  const satMult = 1.05;
+  const variantDec = HSLMultStrFixed(lumChangeHEX(hex, luminance),1,satMult,lumMult);
+  //const variantDec = HSLlumGradient(hex,luminance,'*',0.93); 
+    /*
+
   const variant50 = lumChangeHEX(hex, luminance);
-  /*
   luminance -= lumAdjustment;
   const variant100 = lumChangeHEX(hex, luminance);
   luminance -= lumAdjustment;
@@ -297,18 +343,19 @@ function linearGradientMultiTone(hex){
   luminance -= lumAdjustment;
   const variant900 = lumChangeHEX(hex, luminance);
   */
+ //console.log(stringifyHSL(variantDec()));
   const gradient = `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, 
   linear-gradient(to right,
-     ${variantDec()} 10%, #000 10%, #000 10%, 
-     ${variantDec()} 10% 20%, #000 20%, #000 20%, 
-     ${variantDec()} 20% 30%, #000 30%, #000 30%, 
-     ${variantDec()} 30% 40%, #000 40%, #000 40%, 
-     ${variantDec()} 40% 50%, #000 50%, #000 50%,
-     ${variantDec()} 50% 60%, #000 60%, #000 60%, 
-     ${variantDec()} 60% 70%, #000 70%, #000 70%, 
-     ${variantDec()} 70% 80%, #000 80%, #000 80%, 
-     ${variantDec()} 80% 90%, #000 90%, #000 90%, 
-     ${variantDec()} 90%) 0% 50% / 100% 30%`;
+     ${stringifyHSL(variantDec())} 10%, #000 10%, #000 10%,
+     ${stringifyHSL(variantDec())} 10% 20%, #000 20%, #000 20%, 
+     ${stringifyHSL(variantDec())} 20% 30%, #000 30%, #000 30%, 
+     ${stringifyHSL(variantDec())} 30% 40%, #000 40%, #000 40%, 
+     ${stringifyHSL(variantDec())} 40% 50%, #000 50%, #000 50%,
+     ${stringifyHSL(variantDec())} 50% 60%, #000 60%, #000 60%, 
+     ${stringifyHSL(variantDec())} 60% 70%, #000 70%, #000 70%, 
+     ${stringifyHSL(variantDec())} 70% 80%, #000 80%, #000 80%, 
+     ${stringifyHSL(variantDec())} 80% 90%, #000 90%, #000 90%, 
+     ${stringifyHSL(variantDec())} 90%) 0% 50% / 100% 30%`;
 
      /*
      `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, 
@@ -395,12 +442,17 @@ function fillClipboard(){
       if (isHex === true){
         let val;
         const suffixArr = ['-50: ','-100: ','-200: ','-300: ','-400: ','-500: ','-600: ','-700: ','-800: ','-900: '];
+        const luminance = 95;
+        const lumMult = 0.905; 
+        const satMult = 1.05;
+        const variantDec = HSLMultStrFixed(lumChangeHEX(hex, luminance),1,satMult,lumMult);//not working
+      
         suffixArr.forEach(x =>{
-          val = lumChangeHEX(hex, luminance);
+          val = HSLToHex(...variantDec());//not working
           clipboardArr[0].push(`${variable}${x}${val}`);
           clipboardArr[1].push(`${variable}${x}`);
           clipboardArr[2].push(`${val};`);
-          luminance -= lumAdjustment;
+          //luminance -= lumAdjustment;
           });
 
         /*clipboardArr[0].push(`${variable}-50: `+lumChangeHEX(hex, luminance));
@@ -425,12 +477,18 @@ function fillClipboard(){
       } else {
         let val;
         const suffixArr = ['-50: ','-100: ','-200: ','-300: ','-400: ','-500: ','-600: ','-700: ','-800: ','-900: '];
+        const luminance = 95;
+        const lumMult = 0.905; 
+        const satMult = 1.05;
+        const variantDec = HSLMultStrFixed(lumChangeHEX(hex, luminance),1,satMult,lumMult);
+      
         suffixArr.forEach(x =>{
-          val = hexToHSLString(lumChangeHEX(hex, luminance));
+          val = stringifyHSL(variantDec());
+       
           clipboardArr[0].push(`${variable}${x}${val}`);
           clipboardArr[1].push(`${variable}${x}`);
           clipboardArr[2].push(`${val};`);
-          luminance -= lumAdjustment;
+         // luminance -= lumAdjustment;
           });
         /*val = hexToHSLString(lumChangeHEX(hex, luminance));
         clipboardArr[0].push(`${variable}-50: `+val);
@@ -717,7 +775,9 @@ function hexToHSL(H) {
   return [h,s,l];
 }
 
-function HSLToHex(h,s,l) {
+function HSLToHex(...args) {
+  let [h,s,l] = [...args];
+  console.log(s);
   s /= 100;
   l /= 100;
 
