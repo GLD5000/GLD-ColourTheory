@@ -777,7 +777,7 @@ function hexToHSL(H) {
 
 function HSLToHex(...args) {
   let [h,s,l] = [...args];
-  console.log(s);
+  //console.log(s);
   s /= 100;
   l /= 100;
 
