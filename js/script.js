@@ -24,7 +24,7 @@ function relativeLuminance(hex){
  const R = (RsRGB <= 0.04045)? RsRGB/12.92: Math.pow((RsRGB+0.055)/1.055, 2.4);
  const G = (GsRGB <= 0.04045)? GsRGB/12.92: Math.pow((GsRGB+0.055)/1.055, 2.4);
  const B = (BsRGB <= 0.04045)? BsRGB/12.92: Math.pow((BsRGB+0.055)/1.055, 2.4);
- //console.log([R,G,B]);
+ //console.log([R, G, B]);
  return (0.2126 * R) + (0.7152 * G) + (0.0722 * B);
 }
 //console.log(relativeLuminance('#ff0055'));
@@ -65,8 +65,8 @@ function updateLabels(){
 }
 function setTextColour(colour){
   const textPicker = document.getElementById('textColour-picker');
-  const whiteRatio = contrastRatio('#fff',colour);
-  const blackRatio = contrastRatio('#000',colour);
+  const whiteRatio = contrastRatio('#fff', colour);
+  const blackRatio = contrastRatio('#000', colour);
   const textColour = (blackRatio > whiteRatio)? '#000000': '#ffffff';
   const ratio = (blackRatio > whiteRatio)? blackRatio: whiteRatio;
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
@@ -80,13 +80,13 @@ function customTextColour(){
   const textPicker = document.getElementById('textColour-picker');
   const textColour = textPicker.value;
   const mainColour = color_picker.value;
-  const ratio = contrastRatio(textColour,mainColour);
+  const ratio = contrastRatio(textColour, mainColour);
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
   color_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;
   //color_picker_wrapper.style.color = textColour;
   document.getElementById('textColour-wrapper').dataset.content = 'Text: Custom' ;
 
-  pickers.forEach((x,i) =>{
+  pickers.forEach((x, i) =>{
     const name = pickers[i].id.split('-')[0];
     if (name === 'textColour') return;
     const wrapper = document.getElementById(name + '-wrapper');
@@ -95,7 +95,7 @@ function customTextColour(){
 
 
 }
-function swatchModeSelector(hex,modeValue){
+function swatchModeSelector(hex, modeValue){
   if (modeValue === 'Mode: Single'){
 
     return hex;
@@ -109,25 +109,25 @@ function swatchModeSelector(hex,modeValue){
 }
 
 function updateColour(){
-  let mainColourLabel, analogousAColourLabel, analogousBColourLabel,triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
+  let mainColourLabel, analogousAColourLabel, analogousBColourLabel, triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
   const modeValue = document.getElementById('mode').innerHTML;    
   const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
   const mainColour = color_picker.value;
   const textColour = setTextColour(mainColour);
   function getColour(name){
     if (name === 'mainColour') { return mainColour;
-    } else if (name === 'analogousA') { return hueRotateHEX(mainColour,-30);
-    } else if (name === 'analogousB') { return hueRotateHEX(mainColour,30);
-    } else if (name === 'triadicA') { return hueRotateHEX(mainColour,-120);
-    } else if (name === 'triadicB') { return hueRotateHEX(mainColour,120);
-    } else if (name === 'tetradicA') { return hueRotateHEX(mainColour,90);
-    } else if (name === 'tetradicB') { return hueRotateHEX(mainColour,180);
-    } else if (name === 'tetradicC') { return hueRotateHEX(mainColour,270);
-    } else if (name === 'monochromeA') { return lumAdjustHEX(mainColour,-10);
-    } else if (name === 'monochromeB') { return lumAdjustHEX(mainColour,10);
-    } else if (name === 'neutral') { return satAdjustHEX(mainColour,-200);}
+    } else if (name === 'analogousA') { return hueRotateHEX(mainColour, -30);
+    } else if (name === 'analogousB') { return hueRotateHEX(mainColour, 30);
+    } else if (name === 'triadicA') { return hueRotateHEX(mainColour, -120);
+    } else if (name === 'triadicB') { return hueRotateHEX(mainColour, 120);
+    } else if (name === 'tetradicA') { return hueRotateHEX(mainColour, 90);
+    } else if (name === 'tetradicB') { return hueRotateHEX(mainColour, 180);
+    } else if (name === 'tetradicC') { return hueRotateHEX(mainColour, 270);
+    } else if (name === 'monochromeA') { return lumAdjustHEX(mainColour, -10);
+    } else if (name === 'monochromeB') { return lumAdjustHEX(mainColour, 10);
+    } else if (name === 'neutral') { return satAdjustHEX(mainColour, -200);}
   }
-  pickers.forEach((x,i) =>{
+  pickers.forEach((x, i) =>{
     const name = pickers[i].id.split('-')[0];
     if (name === 'textColour') return;
     const wrapper = document.getElementById(name + '-wrapper');
@@ -135,8 +135,8 @@ function updateColour(){
     const colourName = name + 'Colour';
     const colour = getColour(name);//coloursArr[i];
     pickers[i].value = colour;
-    //console.log(swatchModeSelector(colour,modeValue));
-    wrapper.style.background = swatchModeSelector(colour,modeValue);  
+    //console.log(swatchModeSelector(colour, modeValue));
+    wrapper.style.background = swatchModeSelector(colour, modeValue);  
     //console.log(colour);  
     wrapper.style.color = textColour;
     label.innerHTML = (isHex)?colour:hexToHSLString(colour);
@@ -147,16 +147,16 @@ function updateColour(){
 }
 
 function linearGradientThreeTone(hex){
-  const variantA = lumAdjustHEX(hex,13);
-  const variantB = lumAdjustHEX(hex,-13);
-  const gradient = `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to right, ${variantA} 50%, #000 50%, ${variantB} 50%) 0% 50% / 100% 30%`;
+  const variantA = lumAdjustHEX(hex, 13);
+  const variantB = lumAdjustHEX(hex, -13);
+  const gradient = `linear-gradient(to top, #000 1px, ${hex} 1px, ${hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to right, ${variantA} 50%, #000 50%, ${variantB} 50%) 0% 50% / 100% 30%`;
   /*
-  `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left, ${variantA} 50%, #000 50%, #000 calc(50% + 1px), ${variantB} calc(50% + 1px)) 0% 50% / 100% 30%`
+  `linear-gradient(to top, #000 1px, ${hex} 1px, ${hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left, ${variantA} 50%, #000 50%, #000 calc(50% + 1px), ${variantB} calc(50% + 1px)) 0% 50% / 100% 30%`
   */
   return gradient;
 }
 
-function stableCounter(counter,inc){//pass through outer variable to inner
+function stableCounter(counter, inc){//pass through outer variable to inner
 
   function innerIncrement(){
     counter += inc;
@@ -176,36 +176,36 @@ function variableCounter(counter){//pass through outer variable to inner
   return innerIncrement;
 }
 
-function functionBox(init,func,amount){
+function functionBox(init, func, amount){
   let operation;
   let counter = init;
-  if (func === '*') operation = (x,y) => x * y;
-  else if (func === '/') operation = (x,y) => x / y;
-  else if (func === '+') operation = (x,y) => x + y;
-  else if (func === '-') operation = (x,y) => x - y;
+  if (func === '*') operation = (x, y) => x * y;
+  else if (func === '/') operation = (x, y) => x / y;
+  else if (func === '+') operation = (x, y) => x + y;
+  else if (func === '-') operation = (x, y) => x - y;
 
   function innerFunction(){
-    counter = operation(counter,amount);
+    counter = operation(counter, amount);
     return counter;
   }
   return innerFunction;
 }
 
-function HSLlumGradient(hex,luminance,func,amount){
+function HSLlumGradient(hex, luminance, func, amount){
   let operation;
-  if (func === '*') operation = (x,y) => x * y;
-  else if (func === '/') operation = (x,y) => x / y;
-  else if (func === '+') operation = (x,y) => x + y;
-  else if (func === '-') operation = (x,y) => x - y;
+  if (func === '*') operation = (x, y) => x * y;
+  else if (func === '/') operation = (x, y) => x / y;
+  else if (func === '+') operation = (x, y) => x + y;
+  else if (func === '-') operation = (x, y) => x - y;
 
   function innerFunction(){
-    luminance = operation(luminance,amount);
-    return lumChangeHEX(hex,luminance);
+    luminance = operation(luminance, amount);
+    return lumChangeHEX(hex, luminance);
   }
   return innerFunction;
 }
 
-function HSLMultStrFixed(hex,multHue,multSat,multLum){
+function HSLMultStrFixed(hex, multHue, multSat, multLum){
   //Returns HSL string from multiplication of HSL values
   //repeatable due to closure
   const HSL = hexToHSL(hex);
@@ -214,17 +214,17 @@ function HSLMultStrFixed(hex,multHue,multSat,multLum){
   let lum = HSL[2];
   function innerFunction(){
     hue = Math.min(Math.max(0, hue * multHue), 360).toFixed(0);
-    sat = Math.min(Math.max(0,sat * multSat), 100).toFixed(1);
-    lum = Math.min(Math.max(0,lum * multLum), 100).toFixed(1);
-      return [hue,sat,lum];
+    sat = Math.min(Math.max(0, sat * multSat), 100).toFixed(1);
+    lum = Math.min(Math.max(0, lum * multLum), 100).toFixed(1);
+      return [hue, sat, lum];
   }
   return innerFunction;
 }
 
 function stringifyHSL(args){
- // const [hue,sat,lum] = [args[0],args[1],args[2]];
-  const [hue,sat,lum] = [...args];
- return `hsl(${hue},${sat}%,${lum}%)`;
+ // const [hue, sat, lum] = [args[0], args[1], args[2]];
+  const [hue, sat, lum] = [...args];
+ return `hsl(${hue}, ${sat}%, ${lum}%)`;
 
 }
 
@@ -235,37 +235,37 @@ function HSLMultStrVariable(hex){
   let hue = HSL[0];
   let sat = HSL[1];
   let lum = HSL[2];
-  function innerFunction(multHue,multSat,multLum){
+  function innerFunction(multHue, multSat, multLum){
     hue = Math.min(Math.max(0, hue * multHue), 360);
-    sat = Math.min(Math.max(0,sat * multSat), 100);
-    lum = Math.min(Math.max(0,lum * multLum), 100);
-      return `hsl(${hue},${sat}%,${lum}%)`;
+    sat = Math.min(Math.max(0, sat * multSat), 100);
+    lum = Math.min(Math.max(0, lum * multLum), 100);
+      return `hsl(${hue}, ${sat}%, ${lum}%)`;
   }
   return innerFunction;
 }
 
 
 
-function functionBoxB(func,amount){
+function functionBoxB(func, amount){
   let operation;
-  if (func === '*') operation = (x,y) => x * y;
-  else if (func === '/') operation = (x,y) => x / y;
-  else if (func === '+') operation = (x,y) => x + y;
-  else if (func === '-') operation = (x,y) => x - y;
+  if (func === '*') operation = (x, y) => x * y;
+  else if (func === '/') operation = (x, y) => x / y;
+  else if (func === '+') operation = (x, y) => x + y;
+  else if (func === '-') operation = (x, y) => x - y;
 
   function innerFunction(x){
-    return operation(x,amount);
+    return operation(x, amount);
   }
   return innerFunction;
 }
 
-const xAddTwo = functionBox(100,'*',.9);
+const xAddTwo = functionBox(100, '*', .9);
 
 //console.log(xAddTwo());
 //console.log(xAddTwo());
 //console.log(xAddTwo());
 
-const counter = stableCounter(2,5);
+const counter = stableCounter(2, 5);
 const counterB = variableCounter(3);
 /*
 console.log(counter());
@@ -291,8 +291,8 @@ function hexToHue(){
   r /= 255;
   g /= 255;
   b /= 255;
-  let cmin = Math.min(r,g,b),
-      cmax = Math.max(r,g,b),
+  let cmin = Math.min(r, g, b),
+      cmax = Math.max(r, g, b),
       delta = cmax - cmin,
       h = 0,
       s = 0,
@@ -319,8 +319,8 @@ function linearGradientMultiTone(hex){
   const luminance = 95;
   const lumMult = 0.905; 
   const satMult = 1.05;
-  const variantDec = HSLMultStrFixed(lumChangeHEX(hex, luminance),1,satMult,lumMult);
-  //const variantDec = HSLlumGradient(hex,luminance,'*',0.93); 
+  const variantDec = HSLMultStrFixed(lumChangeHEX(hex, luminance), 1, satMult, lumMult);
+  //const variantDec = HSLlumGradient(hex, luminance, '*', 0.93); 
     /*
 
   const variant50 = lumChangeHEX(hex, luminance);
@@ -344,7 +344,7 @@ function linearGradientMultiTone(hex){
   const variant900 = lumChangeHEX(hex, luminance);
   */
  //console.log(stringifyHSL(variantDec()));
-  const gradient = `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, 
+  const gradient = `linear-gradient(to top, #000 1px, ${hex} 1px, ${hex}) 0% 0% / 100% 70% no-repeat, 
   linear-gradient(to right,
      ${stringifyHSL(variantDec())} 10%, #000 10%, #000 10%,
      ${stringifyHSL(variantDec())} 10% 20%, #000 20%, #000 20%, 
@@ -358,7 +358,7 @@ function linearGradientMultiTone(hex){
      ${stringifyHSL(variantDec())} 90%) 0% 50% / 100% 30%`;
 
      /*
-     `linear-gradient(to top, #000 1px,${hex} 1px,${hex}) 0% 0% / 100% 70% no-repeat, 
+     `linear-gradient(to top, #000 1px, ${hex} 1px, ${hex}) 0% 0% / 100% 70% no-repeat, 
   linear-gradient(to right,
           ${variant50} 10%, #000 10%, #000 calc(10% + 1px), 
      ${variant100} calc(10% + 1px) 20%, #000 20%, #000 calc(20% + 1px), 
@@ -407,7 +407,7 @@ function fillClipboard(){
   const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
   clipboardSecondary.style.color = isHex? '#ce9178': '#b5cea8';
   const isSCSS = (document.getElementById("SCSSToggle").innerHTML === 'SCSS');
-  const clipboardArr = [[],[],[]];
+  const clipboardArr = [[], [], []];
   [...pickers].forEach(x => {
     let prefix = isSCSS?`$`:`--`
     let name = x.id.split('-')[0];
@@ -424,8 +424,8 @@ function fillClipboard(){
     clipboardArr[1].push(`${variable}:`);
     clipboardArr[2].push(`${label};`);
     if (modeValue === 'Mode: Triple' && name !== 'textColour'){
-      const variantA = isHex? lumAdjustHEX(hex,13): hexToHSLString(lumAdjustHEX(hex,13));
-      const variantB = isHex? lumAdjustHEX(hex,-13): hexToHSLString(lumAdjustHEX(hex,-13));
+      const variantA = isHex? lumAdjustHEX(hex, 13): hexToHSLString(lumAdjustHEX(hex, 13));
+      const variantB = isHex? lumAdjustHEX(hex, -13): hexToHSLString(lumAdjustHEX(hex, -13));
       clipboardArr[0].push(`${variable}-light: ${variantA};`);
       clipboardArr[1].push(`${variable}-light:`);
       clipboardArr[2].push(`${variantA};`);
@@ -441,11 +441,11 @@ function fillClipboard(){
       const hex = x.value;
       if (isHex === true){
         let val;
-        const suffixArr = ['-50: ','-100: ','-200: ','-300: ','-400: ','-500: ','-600: ','-700: ','-800: ','-900: '];
+        const suffixArr = ['-50: ', '-100: ', '-200: ', '-300: ', '-400: ', '-500: ', '-600: ', '-700: ', '-800: ', '-900: '];
         const luminance = 95;
         const lumMult = 0.905; 
         const satMult = 1.05;
-        const variantDec = HSLMultStrFixed(lumChangeHEX(hex, luminance),1,satMult,lumMult);//not working
+        const variantDec = HSLMultStrFixed(lumChangeHEX(hex, luminance), 1, satMult, lumMult);//not working
       
         suffixArr.forEach(x =>{
           val = HSLToHex(...variantDec());//not working
@@ -476,11 +476,11 @@ function fillClipboard(){
         clipboardArr[0].push(`${variable}-900: `+lumChangeHEX(hex, luminance));*/
       } else {
         let val;
-        const suffixArr = ['-50: ','-100: ','-200: ','-300: ','-400: ','-500: ','-600: ','-700: ','-800: ','-900: '];
+        const suffixArr = ['-50: ', '-100: ', '-200: ', '-300: ', '-400: ', '-500: ', '-600: ', '-700: ', '-800: ', '-900: '];
         const luminance = 95;
         const lumMult = 0.905; 
         const satMult = 1.05;
-        const variantDec = HSLMultStrFixed(lumChangeHEX(hex, luminance),1,satMult,lumMult);
+        const variantDec = HSLMultStrFixed(lumChangeHEX(hex, luminance), 1, satMult, lumMult);
       
         suffixArr.forEach(x =>{
           val = stringifyHSL(variantDec());
@@ -602,7 +602,7 @@ function randomColour(){
   let hue = parseInt(Math.random() * 360);
   let sat = 48 + parseInt(Math.random() * 40); // 78
   let lum = 53 + parseInt(Math.random() * 35); // 53
-  return HSLToHex(hue,sat,lum);
+  return HSLToHex(hue, sat, lum);
 }
 
 
@@ -682,7 +682,7 @@ function hexToSRGBArr(h) {
     gsRGB = ("0x" + h[3] + h[4])/255;
     bsRGB = ("0x" + h[5] + h[6])/255;
   }
-  return [rsRGB,gsRGB,bsRGB];
+  return [rsRGB, gsRGB, bsRGB];
 }
 
 function hexToHSLString(H) {
@@ -701,8 +701,8 @@ function hexToHSLString(H) {
   r /= 255;
   g /= 255;
   b /= 255;
-  let cmin = Math.min(r,g,b),
-      cmax = Math.max(r,g,b),
+  let cmin = Math.min(r, g, b),
+      cmax = Math.max(r, g, b),
       delta = cmax - cmin,
       h = 0,
       s = 0,
@@ -727,7 +727,7 @@ function hexToHSLString(H) {
   s = +(s * 100).toFixed(1);
   l = +(l * 100).toFixed(1);
 
-  return "hsl(" + h + "," + s + "%," + l + "%)";
+  return "hsl(" + h + ", " + s + "%, " + l + "%)";
 }
 
 function hexToHSL(H) {
@@ -746,8 +746,8 @@ function hexToHSL(H) {
   r /= 255;
   g /= 255;
   b /= 255;
-  let cmin = Math.min(r,g,b),
-      cmax = Math.max(r,g,b),
+  let cmin = Math.min(r, g, b),
+      cmax = Math.max(r, g, b),
       delta = cmax - cmin,
       h = 0,
       s = 0,
@@ -772,11 +772,11 @@ function hexToHSL(H) {
   s = +(s * 100).toFixed(1);
   l = +(l * 100).toFixed(1);
 
-  return [h,s,l];
+  return [h, s, l];
 }
 
 function HSLToHex(...args) {
-  let [h,s,l] = [...args];
+  let [h, s, l] = [...args];
   //console.log(s);
   s /= 100;
   l /= 100;
@@ -817,33 +817,33 @@ function HSLToHex(...args) {
   return "#" + r + g + b;
 }
 
-function hueRotateHSL(hue,sat,lum, rotation){
+function hueRotateHSL(hue, sat, lum, rotation){
   let adjustment = Math.round(hue) + Math.round(rotation);
   //console.log(rotation);
   if (adjustment > 360) adjustment += -360;
   if (adjustment < 0) adjustment += 360;
-  //if(rotation === 180)console.log([adjustment,sat,lum]);
+  //if(rotation === 180)console.log([adjustment, sat, lum]);
   return [adjustment, sat, lum]; 
 }
 
-function lumAdjustHSL(hue,sat,lum, adjustment){
-  return [hue,sat,Math.max(0,Math.min(100,lum + adjustment))]; 
+function lumAdjustHSL(hue, sat, lum, adjustment){
+  return [hue, sat, Math.max(0, Math.min(100, lum + adjustment))]; 
 }
 
-function satAdjustHSL(hue,sat,lum, adjustment){
-  return [hue,Math.max(0,Math.min(100,sat + adjustment)),lum]; 
+function satAdjustHSL(hue, sat, lum, adjustment){
+  return [hue, Math.max(0, Math.min(100, sat + adjustment)), lum]; 
 }
 
 
-function hueChangeHSL(hue,sat,lum, newHue){
+function hueChangeHSL(hue, sat, lum, newHue){
   return [newHue, sat, lum]; 
 }
 
-function satChangeHSL(hue,sat,lum, newSat){
+function satChangeHSL(hue, sat, lum, newSat){
   return [hue, newSat, lum]; 
 }
 
-function lumChangeHSL(hue,sat,lum, newLum){
+function lumChangeHSL(hue, sat, lum, newLum){
   return [hue, sat, newLum]; 
 }
 
