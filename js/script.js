@@ -1,166 +1,104 @@
-const color_picker = document.getElementById("mainColour-picker");
-const color_picker_wrapper = document.getElementById("mainColour-wrapper");
-const color_picker_hex_label = document.getElementById("mainColour-label");
+const color_picker = document.getElementById('mainColour-picker');
+const color_picker_wrapper = document.getElementById('mainColour-wrapper');
+const color_picker_hex_label = document.getElementById('mainColour-label');
 const pickers = document.querySelectorAll('input[type="color"]');
 const buttons = document.querySelectorAll('button');
 
 class colour {
   constructor(hex,name){
     this.name = name;
+    this.variableSCSS = `\$${this.name}`;
+    this.variableCSS = `\--${this.name}`;
     this.hex = hex;
-    [this.hue, this.sat, this.lum] = this.hexToHSL(this.hex);
     [this.rsRGB, this.gsRGB, this.bsRGB] = this.hexToSRGBArr(this.hex);
+    [this.hue, this.sat, this.lum] = this.hexToHSL(this.rsRGB, this.gsRGB, this.bsRGB);
     this.relativeLuminance = this.calculateRelativeLuminance(this.rsRGB, this.gsRGB, this.bsRGB);
     this.hslString = `hsl(${this.hue}, ${this.sat}%, ${this.lum}%)`
   }
-
-  hexToHSL(hex) {
-    // Convert hex to RGB first
-    let r = 0, g = 0, b = 0;
-    if (hex.length == 4) {
-      r = "0x" + hex[1] + hex[1];
-      g = "0x" + hex[2] + hex[2];
-      b = "0x" + hex[3] + hex[3];
-    } else if (hex.length == 7) {
-      r = "0x" + hex[1] + hex[2];
-      g = "0x" + hex[3] + hex[4];
-      b = "0x" + hex[5] + hex[6];
-    }
-    // Then to HSL
-    r /= 255;
-    g /= 255;
-    b /= 255;
-    let cmin = Math.min(r, g, b),
-        cmax = Math.max(r, g, b),
-        delta = cmax - cmin,
-        h = 0,
-        s = 0,
-        l = 0;
   
-    if (delta == 0)
-      h = 0;
-    else if (cmax == r)
-      h = ((g - b) / delta) % 6;
-    else if (cmax == g)
-      h = (b - r) / delta + 2;
-    else
-      h = (r - g) / delta + 4;
-  
-    h = Math.round(h * 60);
-  
-    if (h < 0)
-      h += 360;
-  
-    l = (cmax + cmin) / 2;
-    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
-    s = +(s * 100).toFixed(1);
-    l = +(l * 100).toFixed(1);
-  
-    return [h, s, l];
-  }
-
-  hexToSRGBArr(h) {
+  hexToSRGBArr(hex) {
     let rsRGB = 0, gsRGB = 0, bsRGB = 0;
     // 3 digits
-    if (h.length == 4) {
-      rsRGB  = ("0x" + h[1] + h[1])/255;
-      gsRGB = ("0x" + h[2] + h[2])/255;
-      bsRGB = ("0x" + h[3] + h[3])/255;
+    if (hex.length == 4) {
+      rsRGB  = ('0x' + hex[1] + hex[1])/255;
+      gsRGB = ('0x' + hex[2] + hex[2])/255;
+      bsRGB = ('0x' + hex[3] + hex[3])/255;
     // 6 digits
-    } else if (h.length == 7) {
-      rsRGB = ("0x" + h[1] + h[2])/255;
-      gsRGB = ("0x" + h[3] + h[4])/255;
-      bsRGB = ("0x" + h[5] + h[6])/255;
+    } else if (hex.length == 7) {
+      rsRGB = ('0x' + hex[1] + hex[2])/255;
+      gsRGB = ('0x' + hex[3] + hex[4])/255;
+      bsRGB = ('0x' + hex[5] + hex[6])/255;
     }
     return [rsRGB, gsRGB, bsRGB];
   }
+  hexToHSL(rsRGB, gsRGB, bsRGB) {
 
-  hexToHSLString(H) {
-    // Convert hex to RGB first
-    let r = 0, g = 0, b = 0;
-    if (H.length == 4) {
-      r = "0x" + H[1] + H[1];
-      g = "0x" + H[2] + H[2];
-      b = "0x" + H[3] + H[3];
-    } else if (H.length == 7) {
-      r = "0x" + H[1] + H[2];
-      g = "0x" + H[3] + H[4];
-      b = "0x" + H[5] + H[6];
-    }
-    // Then to HSL
-    r /= 255;
-    g /= 255;
-    b /= 255;
-    let cmin = Math.min(r, g, b),
-        cmax = Math.max(r, g, b),
+    let cmin = Math.min(rsRGB, gsRGB, bsRGB),
+        cmax = Math.max(rsRGB, gsRGB, bsRGB),
         delta = cmax - cmin,
-        h = 0,
-        s = 0,
-        l = 0;
+        hue = 0,
+        sat = 0,
+        lum = 0;
   
     if (delta == 0)
-      h = 0;
-    else if (cmax == r)
-      h = ((g - b) / delta) % 6;
-    else if (cmax == g)
-      h = (b - r) / delta + 2;
+      hue = 0;
+    else if (cmax == rsRGB)
+      hue = ((gsRGB - bsRGB) / delta) % 6;
+    else if (cmax == gsRGB)
+      hue = (bsRGB - rsRGB) / delta + 2;
     else
-      h = (r - g) / delta + 4;
+      hue = (rsRGB - gsRGB) / delta + 4;
   
-    h = Math.round(h * 60);
+    hue = Math.round(hue * 60);
   
-    if (h < 0)
-      h += 360;
+    if (hue < 0)
+      hue += 360;
   
-    l = (cmax + cmin) / 2;
-    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
-    s = +(s * 100).toFixed(1);
-    l = +(l * 100).toFixed(1);
+    lum = (cmax + cmin) / 2;
+    sat = delta == 0 ? 0 : delta / (1 - Math.abs(2 * lum - 1));
+    sat = +(sat * 100).toFixed(1);
+    lum = +(lum * 100).toFixed(1);
   
-    return "hsl(" + h + ", " + s + "%, " + l + "%)";
+    return [hue, sat, lum];
   }
+  HSLToHex(hue, sat, lum) {
+    sat /= 100;
+    lum /= 100;
   
+    let chroma = (1 - Math.abs(2 * lum - 1)) * sat,
+        x = chroma * (1 - Math.abs((hue / 60) % 2 - 1)),
+        lightness = lum - chroma/2,
+        red = 0,
+        green = 0, 
+        blue = 0; 
   
-  HSLToHex(...args) {
-    let [h, s, l] = [...args];
-    //console.log(s);
-    s /= 100;
-    l /= 100;
-  
-    let c = (1 - Math.abs(2 * l - 1)) * s,
-        x = c * (1 - Math.abs((h / 60) % 2 - 1)),
-        m = l - c/2,
-        r = 0,
-        g = 0, 
-        b = 0; 
-  
-    if (0 <= h && h < 60) {
-      r = c; g = x; b = 0;
-    } else if (60 <= h && h < 120) {
-      r = x; g = c; b = 0;
-    } else if (120 <= h && h < 180) {
-      r = 0; g = c; b = x;
-    } else if (180 <= h && h < 240) {
-      r = 0; g = x; b = c;
-    } else if (240 <= h && h < 300) {
-      r = x; g = 0; b = c;
-    } else if (300 <= h && h <= 360) {
-      r = c; g = 0; b = x;
+    if (0 <= hue && hue < 60) {
+      red = chroma; green = x; blue = 0;
+    } else if (60 <= hue && hue < 120) {
+      red = x; green = chroma; blue = 0;
+    } else if (120 <= hue && hue < 180) {
+      red = 0; green = chroma; blue = x;
+    } else if (180 <= hue && hue < 240) {
+      red = 0; green = x; blue = chroma;
+    } else if (240 <= hue && hue < 300) {
+      red = x; green = 0; blue = chroma;
+    } else if (300 <= hue && hue <= 360) {
+      red = chroma; green = 0; blue = x;
     }
     // Having obtained RGB, convert channels to hex
-    r = Math.round((r + m) * 255).toString(16);
-    g = Math.round((g + m) * 255).toString(16);
-    b = Math.round((b + m) * 255).toString(16);
+    red = Math.round((red + lightness) * 255).toString(16);
+    green = Math.round((green + lightness) * 255).toString(16);
+    blue = Math.round((blue + lightness) * 255).toString(16);
   
     // Prepend 0s, if necessary
-    if (r.length == 1)
-      r = "0" + r;
-    if (g.length == 1)
-      g = "0" + g;
-    if (b.length == 1)
-      b = "0" + b;
+    if (red.length == 1)
+      red = '0' + red;
+    if (green.length == 1)
+      green = '0' + green;
+    if (blue.length == 1)
+      blue = '0' + blue;
   
-    return "#" + r + g + b;
+    return '#' + red + green + blue;
   }
   
   hueRotateHSL(hue, sat, lum, rotation){
@@ -234,7 +172,7 @@ function relativeLuminance(hex){
   rsRGB = R8bit/255
   gsRGB = G8bit/255
   bsRGB = B8bit/255
-  The "^" character is the exponentiation operator. (Formula taken from [[IEC-4WD]]).
+  The '^' character is the exponentiation operator. (Formula taken from [[IEC-4WD]]).
   */
  const sRGBArr = hexToSRGBArr(hex);
 //console.log(sRGBArr);
@@ -261,7 +199,7 @@ function contrastRatio(...args){
 }
 
 function updateLabels(){
-  const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+  const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
 
   if (isHex === true){
     buttons.forEach(x =>{
@@ -332,7 +270,7 @@ function swatchModeSelector(hex, modeValue){
 function updateColour(){
   let mainColourLabel, analogousAColourLabel, analogousBColourLabel, triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
   const modeValue = document.getElementById('mode').innerHTML;    
-  const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+  const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
   const mainColour = color_picker.value;
   const textColour = setTextColour(mainColour);
   function getColour(name){
@@ -500,13 +438,13 @@ function hexToHue(){
   // Convert hex to RGB first
   let r = 0, g = 0, b = 0;
   if (H.length == 4) {
-    r = "0x" + H[1] + H[1];
-    g = "0x" + H[2] + H[2];
-    b = "0x" + H[3] + H[3];
+    r = '0x' + H[1] + H[1];
+    g = '0x' + H[2] + H[2];
+    b = '0x' + H[3] + H[3];
   } else if (H.length == 7) {
-    r = "0x" + H[1] + H[2];
-    g = "0x" + H[3] + H[4];
-    b = "0x" + H[5] + H[6];
+    r = '0x' + H[1] + H[2];
+    g = '0x' + H[3] + H[4];
+    b = '0x' + H[5] + H[6];
   }
   // Then to HSL
   r /= 255;
@@ -560,14 +498,14 @@ function linearGradientMultiTone(hex){
 
 
 function adjustHue(){
-  const newHue = document.getElementById("hue-slider").value;
+  const newHue = document.getElementById('hue-slider').value;
   color_picker.value = HSLToHex(...hueChangeHSL(...hexToHSL(color_picker.value), newHue));
  ////console.log(newHue);
   updateColour();
 }
 
 function adjustLum(){
-const newLum = document.getElementById("lum-slider").value;
+const newLum = document.getElementById('lum-slider').value;
 color_picker.value = HSLToHex(...lumChangeHSL(...hexToHSL(color_picker.value), newLum));
   //console.log(newLum);
   updateColour();
@@ -575,7 +513,7 @@ color_picker.value = HSLToHex(...lumChangeHSL(...hexToHSL(color_picker.value), n
 
 
 function adjustSat(){
-const newSat = document.getElementById("sat-slider").value;
+const newSat = document.getElementById('sat-slider').value;
 color_picker.value = HSLToHex(...satChangeHSL(...hexToHSL(color_picker.value), newSat));
   //console.log(newSat);
   updateColour();
@@ -583,12 +521,12 @@ color_picker.value = HSLToHex(...satChangeHSL(...hexToHSL(color_picker.value), n
 
 
 function fillClipboard(){
-  const clipboard = document.getElementById("clipboard");
-  const clipboardSecondary = document.getElementById("clipboard-secondary");
+  const clipboard = document.getElementById('clipboard');
+  const clipboardSecondary = document.getElementById('clipboard-secondary');
   const modeValue = document.getElementById('mode').innerHTML;    
-  const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+  const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
   clipboardSecondary.style.color = isHex? '#ce9178': '#b5cea8';
-  const isSCSS = (document.getElementById("SCSSToggle").innerHTML === 'SCSS');
+  const isSCSS = (document.getElementById('SCSSToggle').innerHTML === 'SCSS');
   const clipboardArr = [[], [], []];
   [...pickers].forEach(x => {
     let prefix = isSCSS?`$`:`--`
@@ -668,7 +606,7 @@ function fillClipboard(){
   
 }
 function copyAll() {
-  const clipboard = document.getElementById("clipboard");
+  const clipboard = document.getElementById('clipboard');
   const text = clipboard.dataset.clipboard;
   navigator.clipboard.writeText(text);
   alert(`Copied To Clipboard:\n${text}`);
@@ -678,7 +616,7 @@ function onChangepickers(){
   for (let i in pickers) {
     if (i > 0) { // skip the first one - MainColour
       pickers[i].onchange = () => {
-        const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+        const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
         const name = pickers[i].id.split('-')[0];
         if (name === 'textColour') {
           fillClipboard();
@@ -787,7 +725,7 @@ function switchColourMode(){
 
 
   
-  //alert("Swictchable modes coming soon");
+  //alert('Swictchable modes coming soon');
 }
 
 function customColour(e){
@@ -810,18 +748,18 @@ color_picker.onchange = () => {
   updateColour();
 }
 
-function hexToSRGBArr(h) {
+function hexToSRGBArr(hex) {
   let rsRGB = 0, gsRGB = 0, bsRGB = 0;
   // 3 digits
-  if (h.length == 4) {
-    rsRGB  = ("0x" + h[1] + h[1])/255;
-    gsRGB = ("0x" + h[2] + h[2])/255;
-    bsRGB = ("0x" + h[3] + h[3])/255;
+  if (hex.length == 4) {
+    rsRGB  = ('0x' + hex[1] + hex[1])/255;
+    gsRGB = ('0x' + hex[2] + hex[2])/255;
+    bsRGB = ('0x' + hex[3] + hex[3])/255;
   // 6 digits
-  } else if (h.length == 7) {
-    rsRGB = ("0x" + h[1] + h[2])/255;
-    gsRGB = ("0x" + h[3] + h[4])/255;
-    bsRGB = ("0x" + h[5] + h[6])/255;
+  } else if (hex.length == 7) {
+    rsRGB = ('0x' + hex[1] + hex[2])/255;
+    gsRGB = ('0x' + hex[3] + hex[4])/255;
+    bsRGB = ('0x' + hex[5] + hex[6])/255;
   }
   return [rsRGB, gsRGB, bsRGB];
 }
@@ -830,13 +768,13 @@ function hexToHSLString(H) {
   // Convert hex to RGB first
   let r = 0, g = 0, b = 0;
   if (H.length == 4) {
-    r = "0x" + H[1] + H[1];
-    g = "0x" + H[2] + H[2];
-    b = "0x" + H[3] + H[3];
+    r = '0x' + H[1] + H[1];
+    g = '0x' + H[2] + H[2];
+    b = '0x' + H[3] + H[3];
   } else if (H.length == 7) {
-    r = "0x" + H[1] + H[2];
-    g = "0x" + H[3] + H[4];
-    b = "0x" + H[5] + H[6];
+    r = '0x' + H[1] + H[2];
+    g = '0x' + H[3] + H[4];
+    b = '0x' + H[5] + H[6];
   }
   // Then to HSL
   r /= 255;
@@ -868,20 +806,20 @@ function hexToHSLString(H) {
   s = +(s * 100).toFixed(1);
   l = +(l * 100).toFixed(1);
 
-  return "hsl(" + h + ", " + s + "%, " + l + "%)";
+  return 'hsl(' + h + ', ' + s + '%, ' + l + '%)';
 }
 
 function hexToHSL(H) {
   // Convert hex to RGB first
   let r = 0, g = 0, b = 0;
   if (H.length == 4) {
-    r = "0x" + H[1] + H[1];
-    g = "0x" + H[2] + H[2];
-    b = "0x" + H[3] + H[3];
+    r = '0x' + H[1] + H[1];
+    g = '0x' + H[2] + H[2];
+    b = '0x' + H[3] + H[3];
   } else if (H.length == 7) {
-    r = "0x" + H[1] + H[2];
-    g = "0x" + H[3] + H[4];
-    b = "0x" + H[5] + H[6];
+    r = '0x' + H[1] + H[2];
+    g = '0x' + H[3] + H[4];
+    b = '0x' + H[5] + H[6];
   }
   // Then to HSL
   r /= 255;
@@ -949,13 +887,13 @@ function HSLToHex(...args) {
 
   // Prepend 0s, if necessary
   if (r.length == 1)
-    r = "0" + r;
+    r = '0' + r;
   if (g.length == 1)
-    g = "0" + g;
+    g = '0' + g;
   if (b.length == 1)
-    b = "0" + b;
+    b = '0' + b;
 
-  return "#" + r + g + b;
+  return '#' + r + g + b;
 }
 
 function hueRotateHSL(hue, sat, lum, rotation){
