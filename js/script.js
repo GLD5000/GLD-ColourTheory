@@ -547,6 +547,7 @@ function onChangepickers(){
           const wrapper = name + '-wrapper';
           const label = name + '-label';
           const colour = pickers[i].value;
+          //console.log(colour);
           document.getElementById(wrapper).style.backgroundColor = colour;    
           document.getElementById(label).innerHTML = (isHex)?colour:hexToHSLString(colour);
           fillClipboard();
