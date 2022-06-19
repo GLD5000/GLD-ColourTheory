@@ -4,6 +4,35 @@ const color_picker_hex_label = document.getElementById("mainColour-label");
 const pickers = document.querySelectorAll('input[type="color"]');
 const buttons = document.querySelectorAll('button');
 
+class colour {
+  constructor(hex,name){
+    this.name = name;
+    this.hex = hex;
+    this.relativeLuminance = this.calculateRelativeLuminance();
+  }
+
+  calculateRelativeLuminance(){
+    const hex = this.hex;
+    const sRGBArr = hexToSRGBArr(hex);
+
+    const RsRGB = sRGBArr[0];
+    const GsRGB = sRGBArr[1];
+    const BsRGB = sRGBArr[2];
+     
+    const R = (RsRGB <= 0.04045)? RsRGB/12.92: Math.pow((RsRGB+0.055)/1.055, 2.4);
+    const G = (GsRGB <= 0.04045)? GsRGB/12.92: Math.pow((GsRGB+0.055)/1.055, 2.4);
+    const B = (BsRGB <= 0.04045)? BsRGB/12.92: Math.pow((BsRGB+0.055)/1.055, 2.4);
+
+    return (0.2126 * R) + (0.7152 * G) + (0.0722 * B);
+   }
+   
+
+}
+
+const testColour = new colour('#22ff44','Testing');
+
+console.log(testColour);
+
 function relativeLuminance(hex){
  /*
  For the sRGB colorspace, the relative luminance of a color is defined as L = 0.2126 * R + 0.7152 * G + 0.0722 * B where R, G and B are defined as:
