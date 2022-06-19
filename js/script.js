@@ -8,8 +8,9 @@ class colour {
   constructor(hex,name){
     this.name = name;
     this.hex = hex;
-    this.relativeLuminance = this.calculateRelativeLuminance();
-    [this.hue,this.sat,this.lum] = this.hexToHSL(this.hex);
+    [this.hue, this.sat, this.lum] = this.hexToHSL(this.hex);
+    [this.rsRGB, this.gsRGB, this.bsRGB] = this.hexToSRGBArr(this.hex);
+    this.relativeLuminance = this.calculateRelativeLuminance(this.rsRGB, this.gsRGB, this.bsRGB);
     this.hslString = `hsl(${this.hue}, ${this.sat}%, ${this.lum}%)`
   }
 
@@ -209,17 +210,10 @@ class colour {
   
   
 
-  calculateRelativeLuminance(){
-    const hex = this.hex;
-    const sRGBArr = this.hexToSRGBArr(hex);
-
-    const RsRGB = sRGBArr[0];
-    const GsRGB = sRGBArr[1];
-    const BsRGB = sRGBArr[2];
-     
-    const R = (RsRGB <= 0.04045)? RsRGB/12.92: Math.pow((RsRGB+0.055)/1.055, 2.4);
-    const G = (GsRGB <= 0.04045)? GsRGB/12.92: Math.pow((GsRGB+0.055)/1.055, 2.4);
-    const B = (BsRGB <= 0.04045)? BsRGB/12.92: Math.pow((BsRGB+0.055)/1.055, 2.4);
+  calculateRelativeLuminance(rsRGB, gsRGB, bsRGB){
+    const R = (rsRGB <= 0.04045)? rsRGB/12.92: Math.pow((rsRGB+0.055)/1.055, 2.4);
+    const G = (gsRGB <= 0.04045)? gsRGB/12.92: Math.pow((gsRGB+0.055)/1.055, 2.4);
+    const B = (bsRGB <= 0.04045)? bsRGB/12.92: Math.pow((bsRGB+0.055)/1.055, 2.4);
 
     return (0.2126 * R) + (0.7152 * G) + (0.0722 * B);
    }
@@ -235,22 +229,22 @@ function relativeLuminance(hex){
  /*
  For the sRGB colorspace, the relative luminance of a color is defined as L = 0.2126 * R + 0.7152 * G + 0.0722 * B where R, G and B are defined as:
  
-  and RsRGB, GsRGB, and BsRGB are defined as:
+  and rsRGB, gsRGB, and bsRGB are defined as:
   
-  RsRGB = R8bit/255
-  GsRGB = G8bit/255
-  BsRGB = B8bit/255
+  rsRGB = R8bit/255
+  gsRGB = G8bit/255
+  bsRGB = B8bit/255
   The "^" character is the exponentiation operator. (Formula taken from [[IEC-4WD]]).
   */
  const sRGBArr = hexToSRGBArr(hex);
 //console.log(sRGBArr);
- const RsRGB = sRGBArr[0];
- const GsRGB = sRGBArr[1];
- const BsRGB = sRGBArr[2];
+ const rsRGB = sRGBArr[0];
+ const gsRGB = sRGBArr[1];
+ const bsRGB = sRGBArr[2];
   
- const R = (RsRGB <= 0.04045)? RsRGB/12.92: Math.pow((RsRGB+0.055)/1.055, 2.4);
- const G = (GsRGB <= 0.04045)? GsRGB/12.92: Math.pow((GsRGB+0.055)/1.055, 2.4);
- const B = (BsRGB <= 0.04045)? BsRGB/12.92: Math.pow((BsRGB+0.055)/1.055, 2.4);
+ const R = (rsRGB <= 0.04045)? rsRGB/12.92: Math.pow((rsRGB+0.055)/1.055, 2.4);
+ const G = (gsRGB <= 0.04045)? gsRGB/12.92: Math.pow((gsRGB+0.055)/1.055, 2.4);
+ const B = (bsRGB <= 0.04045)? bsRGB/12.92: Math.pow((bsRGB+0.055)/1.055, 2.4);
  //console.log([R, G, B]);
  return (0.2126 * R) + (0.7152 * G) + (0.0722 * B);
 }
@@ -547,30 +541,6 @@ function linearGradientMultiTone(hex){
   const lumMult = 0.905; 
   const satMult = 1.05;
   const variantDec = HSLMultStrFixed(lumChangeHEX(hex, luminance), 1, satMult, lumMult);
-  //const variantDec = HSLlumGradient(hex, luminance, '*', 0.93); 
-    /*
-
-  const variant50 = lumChangeHEX(hex, luminance);
-  luminance -= lumAdjustment;
-  const variant100 = lumChangeHEX(hex, luminance);
-  luminance -= lumAdjustment;
-  const variant200 = lumChangeHEX(hex, luminance);
-  luminance -= lumAdjustment;
-  const variant300 = lumChangeHEX(hex, luminance);
-  luminance -= lumAdjustment;
-  const variant400 = lumChangeHEX(hex, luminance);
-  luminance -= lumAdjustment;
-  const variant500 = lumChangeHEX(hex, luminance);
-  luminance -= lumAdjustment;
-  const variant600 = lumChangeHEX(hex, luminance);
-  luminance -= lumAdjustment;
-  const variant700 = lumChangeHEX(hex, luminance);
-  luminance -= lumAdjustment;
-  const variant800 = lumChangeHEX(hex, luminance);
-  luminance -= lumAdjustment;
-  const variant900 = lumChangeHEX(hex, luminance);
-  */
- //console.log(stringifyHSL(variantDec()));
   const gradient = `linear-gradient(to top, #000 1px, ${hex} 1px, ${hex}) 0% 0% / 100% 70% no-repeat, 
   linear-gradient(to right,
      ${stringifyHSL(variantDec())} 10%, #000 10%, #000 10%,
@@ -584,21 +554,6 @@ function linearGradientMultiTone(hex){
      ${stringifyHSL(variantDec())} 80% 90%, #000 90%, #000 90%, 
      ${stringifyHSL(variantDec())} 90%) 0% 50% / 100% 30%`;
 
-     /*
-     `linear-gradient(to top, #000 1px, ${hex} 1px, ${hex}) 0% 0% / 100% 70% no-repeat, 
-  linear-gradient(to right,
-          ${variant50} 10%, #000 10%, #000 calc(10% + 1px), 
-     ${variant100} calc(10% + 1px) 20%, #000 20%, #000 calc(20% + 1px), 
-     ${variant200} calc(20% + 1px) 30%, #000 30%, #000 calc(30% + 1px), 
-     ${variant300} calc(30% + 1px) 40%, #000 40%, #000 calc(40% + 1px), 
-     ${variant400} calc(40% + 1px) 50%, #000 50%, #000 calc(50% + 1px),
-     ${variant500} calc(50% + 1px) 60%, #000 60%, #000 calc(60% + 1px), 
-     ${variant600} calc(60% + 1px) 70%, #000 70%, #000 calc(70% + 1px), 
-     ${variant700} calc(70% + 1px) 80%, #000 80%, #000 calc(80% + 1px), 
-     ${variant800} calc(80% + 1px) 90%, #000 90%, #000 calc(90% + 1px), 
-     ${variant900} calc(90% + 1px)) 0% 50% / 100% 30%`;
-
-     */
   return gradient;
 }
 
@@ -682,25 +637,6 @@ function fillClipboard(){
           //luminance -= lumAdjustment;
           });
 
-        /*clipboardArr[0].push(`${variable}-50: `+lumChangeHEX(hex, luminance));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-100: `+lumChangeHEX(hex, luminance));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-200: `+lumChangeHEX(hex, luminance));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-300: `+lumChangeHEX(hex, luminance));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-400: `+lumChangeHEX(hex, luminance));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-500: `+lumChangeHEX(hex, luminance));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-600: `+lumChangeHEX(hex, luminance));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-700: `+lumChangeHEX(hex, luminance));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-800: `+lumChangeHEX(hex, luminance));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-900: `+lumChangeHEX(hex, luminance));*/
       } else {
         let val;
         const suffixArr = ['-50: ', '-100: ', '-200: ', '-300: ', '-400: ', '-500: ', '-600: ', '-700: ', '-800: ', '-900: '];
@@ -715,30 +651,7 @@ function fillClipboard(){
           clipboardArr[0].push(`${variable}${x}${val}`);
           clipboardArr[1].push(`${variable}${x}`);
           clipboardArr[2].push(`${val};`);
-         // luminance -= lumAdjustment;
           });
-        /*val = hexToHSLString(lumChangeHEX(hex, luminance));
-        clipboardArr[0].push(`${variable}-50: `+val);
-        clipboardArr[1].push(`${val};`);
-        clipboardArr[2].push(`${variable}-50:`);
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-100: `+hexToHSLString(lumChangeHEX(hex, luminance)));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-200: `+hexToHSLString(lumChangeHEX(hex, luminance)));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-300: `+hexToHSLString(lumChangeHEX(hex, luminance)));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-400: `+hexToHSLString(lumChangeHEX(hex, luminance)));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-500: `+hexToHSLString(lumChangeHEX(hex, luminance)));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-600: `+hexToHSLString(lumChangeHEX(hex, luminance)));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-700: `+hexToHSLString(lumChangeHEX(hex, luminance)));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-800: `+hexToHSLString(lumChangeHEX(hex, luminance)));
-        luminance -= lumAdjustment;
-        clipboardArr[0].push(`${variable}-900: `+hexToHSLString(lumChangeHEX(hex, luminance)));*/
       }
     
   
