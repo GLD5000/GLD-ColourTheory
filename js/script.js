@@ -22,6 +22,18 @@ class colour {
     this.contrastWhite = this.calcContrastRatio([1,1,1],this.sRGBArr);
 
   }
+  class tripleGradient{
+    constructor(hex,name){
+      this.name = name;
+    }
+  }
+  class multiGradient{
+    constructor(hex,name,stops){
+      this.name = name;
+    }
+  }
+
+
   HSLToString(hue,sat,lum){
     return `hsl(${Math.round(hue)}, ${Math.round(sat)}%, ${Math.round(lum)}%)`;
   }
@@ -67,7 +79,6 @@ class colour {
     sat = delta == 0 ? 0 : delta / (1 - Math.abs(2 * lum - 1));
     sat = +(sat * 100).toFixed(2);
     lum = +(lum * 100).toFixed(2);
-  
     return [hue, sat, lum];
   }
   HSLToHex(hue, sat, lum) {
