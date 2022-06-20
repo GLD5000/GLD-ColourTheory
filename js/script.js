@@ -13,7 +13,12 @@ class colour {
     [this.rsRGB, this.gsRGB, this.bsRGB] = this.hexToSRGBArr(this.hex);
     [this.hue, this.sat, this.lum] = this.hexToHSL(this.rsRGB, this.gsRGB, this.bsRGB);
     this.relativeLuminance = this.calculateRelativeLuminance(this.rsRGB, this.gsRGB, this.bsRGB);
-    this.hslString = `hsl(${this.hue}, ${this.sat}%, ${this.lum}%)`
+    this.hslString = this.HSLToString(this.hue, this.sat, this.lum);
+    this.hexTest = HSLToHex(this.hue, this.sat, this.lum);
+  }
+
+  HSLToString(hue,sat,lum){
+    return `hsl(${Math.round(hue)}, ${Math.round(sat)}%, ${Math.round(lum)}%)`;
   }
   
   hexToSRGBArr(hex) {
@@ -49,15 +54,15 @@ class colour {
     else
       hue = (rsRGB - gsRGB) / delta + 4;
   
-    hue = Math.round(hue * 60);
+    hue = (hue * 60).toFixed(2);//Math.round(hue * 60);
   
     if (hue < 0)
       hue += 360;
   
     lum = (cmax + cmin) / 2;
     sat = delta == 0 ? 0 : delta / (1 - Math.abs(2 * lum - 1));
-    sat = +(sat * 100).toFixed(1);
-    lum = +(lum * 100).toFixed(1);
+    sat = +(sat * 100).toFixed(2);
+    lum = +(lum * 100).toFixed(2);
   
     return [hue, sat, lum];
   }
