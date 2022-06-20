@@ -7,8 +7,10 @@ const buttons = document.querySelectorAll('button');
 class colour {
   constructor(hex,name){
     this.name = name;
-    this.variableSCSS = `\$${this.name}`;
-    this.variableCSS = `\--${this.name}`;
+    this.variablePrefixSCSS = `\$`;
+    this.variablePrefixCSS = `--`;
+    this.variableSCSS = `${this.variablePrefixSCSS}${this.name}`;
+    this.variableCSS = `${this.variablePrefixCSS}${this.name}`;
     this.hex = hex;
     this.sRGBArr = this.hexToSRGBArr(this.hex);
     [this.RsRGB, this.GsRGB, this.BsRGB] = this.sRGBArr;
@@ -22,16 +24,7 @@ class colour {
     this.contrastWhite = this.calcContrastRatio([1,1,1],this.sRGBArr);
 
   }
-  class tripleGradient{
-    constructor(hex,name){
-      this.name = name;
-    }
-  }
-  class multiGradient{
-    constructor(hex,name,stops){
-      this.name = name;
-    }
-  }
+
 
 
   HSLToString(hue,sat,lum){
@@ -171,6 +164,24 @@ class colour {
   }
   
 }
+class singleColour {
+  constructor(hex,name){
+    this.name = name;
+  }
+}
+
+
+class tripleGradient{
+  constructor(hex,name){
+    this.name = name;
+  }
+}
+class multiGradient{
+  constructor(hex,name,stops){
+    this.name = name;
+  }
+}
+
 
 function relativeLuminance(hex){
  /*
