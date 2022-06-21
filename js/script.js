@@ -63,15 +63,15 @@ class colour {
     else
       hue = (RsRGB - GsRGB) / delta + 4;
   
-    hue = (hue * 60).toFixed(2);//Math.round(hue * 60);
+    hue = (hue * 60);//Math.round(hue * 60);
   
     if (hue < 0)
       hue += 360;
   
     lum = (cmax + cmin) / 2;
     sat = delta == 0 ? 0 : delta / (1 - Math.abs(2 * lum - 1));
-    sat = +(sat * 100).toFixed(2);
-    lum = +(lum * 100).toFixed(2);
+    sat = +(sat * 100);
+    lum = +(lum * 100);
     return [hue, sat, lum];
   }
   HSLToHex(hue, sat, lum) {
