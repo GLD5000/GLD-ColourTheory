@@ -169,8 +169,6 @@ class singleColour {
     this.name = name;
   }
 }
-
-
 class tripleGradient{
   constructor(hex,name){
     this.name = name;
