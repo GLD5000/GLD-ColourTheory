@@ -5,25 +5,6 @@ const pickers = document.querySelectorAll('input[type="color"]');
 const buttons = document.querySelectorAll('button');
 
 class colour {
-  constructor(hex,name){
-    this.name = name;
-    this.variablePrefixSCSS = `\$`;
-    this.variablePrefixCSS = `--`;
-    this.variableSCSS = `${this.variablePrefixSCSS}${this.name}`;
-    this.variableCSS = `${this.variablePrefixCSS}${this.name}`;
-    this.hex = hex;
-    this.sRGBArr = this.hexToSRGBArr(this.hex);
-    [this.RsRGB, this.GsRGB, this.BsRGB] = this.sRGBArr;
-    this.hslArr = this.hexToHSL(this.RsRGB, this.GsRGB, this.BsRGB);
-    [this.hue, this.sat, this.lum] = this.hslArr;
-    this.relativeLuminance = this.calcRelativeLuminance(this.RsRGB, this.GsRGB, this.BsRGB);
-    this.hslString = this.HSLToString(this.hue, this.sat, this.lum);
-    this.hexTest = this.HSLToHex(this.hue, this.sat, this.lum);
-    this.sRGBArr = this.hexToSRGBArr(this.hex);
-    this.contrastBlack = this.calcContrastRatio([0,0,0],this.sRGBArr);
-    this.contrastWhite = this.calcContrastRatio([1,1,1],this.sRGBArr);
-
-  }
 
 
 
@@ -164,13 +145,31 @@ class colour {
   }
   
 }
-class singleColour {
+class colourSingle extends colour {
   constructor(hex,name){
+    super();
     this.name = name;
+    this.variablePrefixSCSS = `\$`;
+    this.variablePrefixCSS = `--`;
+    this.variableSCSS = `${this.variablePrefixSCSS}${this.name}`;
+    this.variableCSS = `${this.variablePrefixCSS}${this.name}`;
+    this.hex = hex;
+    this.sRGBArr = this.hexToSRGBArr(this.hex);
+    [this.RsRGB, this.GsRGB, this.BsRGB] = this.sRGBArr;
+    this.hslArr = this.hexToHSL(this.RsRGB, this.GsRGB, this.BsRGB);
+    [this.hue, this.sat, this.lum] = this.hslArr;
+    this.relativeLuminance = this.calcRelativeLuminance(this.RsRGB, this.GsRGB, this.BsRGB);
+    this.hslString = this.HSLToString(this.hue, this.sat, this.lum);
+    this.hexTest = this.HSLToHex(this.hue, this.sat, this.lum);
+    this.sRGBArr = this.hexToSRGBArr(this.hex);
+    this.contrastBlack = this.calcContrastRatio([0,0,0],this.sRGBArr);
+    this.contrastWhite = this.calcContrastRatio([1,1,1],this.sRGBArr);
+    this.tripleGradient = new tripleGradient(this.hex,this.name);
   }
 }
-class tripleGradient{
+class tripleGradient extends colour {
   constructor(hex,name){
+    super();
     this.name = name;
   }
 }
@@ -312,7 +311,7 @@ function updateColour(){
     label.innerHTML = (isHex)?colour:hexToHSLString(colour);
   });
   fillClipboard();
-  const testColour = new colour(color_picker.value,'Testing');
+  const testColour = new colourSingle(color_picker.value,'Testing');
   console.log(testColour);
 }
 
