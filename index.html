@@ -23,9 +23,9 @@
     
       <container class="main-swatch" name="Main Colour">
         <container class="slider-container">
-          <input oninput="adjustHue()" type="range" min="0" max="359" class="slider hue" id="hue-slider" name="Hue"></input>
-          <input oninput="adjustLum()" type="range" min="5" max="95" class="slider lum" id="lum-slider" name="Luminance"></input>
-          <input oninput="adjustSat()" type="range" min="0" max="99" class="slider sat" id="sat-slider" name="Saturation"></input>
+          <input type="range" min="0" max="359" class="slider hue" id="hue-slider" name="Hue"></input>
+          <input type="range" min="5" max="95" class="slider lum" id="lum-slider" name="Luminance"></input>
+          <input type="range" min="0" max="99" class="slider sat" id="sat-slider" name="Saturation"></input>
         </container>
           
         <wrapper id="mainColour-wrapper" class="mainColour-wrapper picker-wrapper" name="Main Colour" data-content="">
@@ -113,9 +113,9 @@
         
       <container class="btn-container btn-copy">
 
-        <wrapper onclick="copyAll()" class="flexbox-horizontal flexbox-clipboard">
-          <figure onclick="copyAll()" id="clipboard" class="clipboard" data-clipboard=""></figure>
-          <figure onclick="copyAll()" id="clipboard-secondary" class="clipboard-secondary"></figure>
+        <wrapper id="clipboard-flexbox" class="flexbox-horizontal flexbox-clipboard">
+          <figure id="clipboard" class="clipboard" data-clipboard=""></figure>
+          <figure id="clipboard-secondary" class="clipboard-secondary"></figure>
         </wrapper>
 
         <wrapper class="flexbox-horizontal-btn">
