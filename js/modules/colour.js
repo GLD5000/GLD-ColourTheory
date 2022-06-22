@@ -5,10 +5,10 @@
  * @class
  */
 export class colour {
-    HSLToString(hue,sat,lum){
+    _convertHslToString(hue,sat,lum){
       return `hsl(${Math.round(hue)}, ${Math.round(sat)}%, ${Math.round(lum)}%)`;
     }
-    hexToSRGBArr(hex) {
+    _convertHexToSrgb(hex) {
       let RsRGB = 0, GsRGB = 0, BsRGB = 0;
       // 3 digits
       if (hex.length == 4) {
@@ -23,7 +23,7 @@ export class colour {
       }
       return [RsRGB, GsRGB, BsRGB];
     }
-    hexToHSL(RsRGB, GsRGB, BsRGB) {
+    _convertHexToHsl(RsRGB, GsRGB, BsRGB) {
   
       let cmin = Math.min(RsRGB, GsRGB, BsRGB),
           cmax = Math.max(RsRGB, GsRGB, BsRGB),
@@ -52,7 +52,7 @@ export class colour {
       lum = +(lum * 100);
       return [hue, sat, lum];
     }
-    HSLToHex(hue, sat, lum) {
+    _convertHslToHex(hue, sat, lum) {
       sat /= 100;
       lum /= 100;
     
@@ -91,54 +91,56 @@ export class colour {
     
       return '#' + red + green + blue;
     }
-    hueRotateHSL(hue, sat, lum, rotation){
+    _adjustHslColourHue(hue, sat, lum, rotation){
       let adjustment = Math.round(hue) + Math.round(rotation);
       if (adjustment > 360) adjustment += -360;
       if (adjustment < 0) adjustment += 360;
       return [adjustment, sat, lum]; 
     }
-    lumAdjustHSL(hue, sat, lum, adjustment){
+    _adjustHslColourLuminance(hue, sat, lum, adjustment){
       return [hue, sat, Math.max(0, Math.min(100, lum + adjustment))]; 
     }
-    satAdjustHSL(hue, sat, lum, adjustment){
+    _adjustHslColourSaturation(hue, sat, lum, adjustment){
       return [hue, Math.max(0, Math.min(100, sat + adjustment)), lum]; 
     }
-    hueChangeHSL(newHue, sat, lum){
+    _setHslColourHue(newHue, sat, lum){
       return [newHue, sat, lum]; 
     }
-    satChangeHSL(hue, newSat, lum){
+    _setHslColourSaturation(hue, newSat, lum){
       return [hue, newSat, lum]; 
     }
-    lumChangeHSL(hue, sat, newLum){
+    _setHslColourLuminance(hue, sat, newLum){
       return [hue, sat, newLum]; 
     }
-    lumChangeHEX(hex, newLum){
-      return this.HSLToHex(...this.lumChangeHSL(...this.hexToHSL(hex), newLum));
+    _setHexColourLuminance(hex, newLum){
+      return this._convertHslToHex(...this._setHslColourLuminance(...this._convertHexToHsl(hex), newLum));
     }
-    hueRotateHEX(hex, rotation){
-      return this.HSLToHex(...this.hueRotateHSL(...this.hexToHSL(hex), rotation));
+    _setHexColourHue(hex, rotation){
+      return this._convertHslToHex(...this._adjustHslColourHue(...this._convertHexToHsl(hex), rotation));
     }
     lumAdjustHEX(hex, adjustment){
-      return this.HSLToHex(...this.lumAdjustHSL(...this.hexToHSL(hex), adjustment));
+      return this._convertHslToHex(...this._adjustHslColourLuminance(...this._convertHexToHsl(hex), adjustment));
     }
     satAdjustHEX(hex, adjustment){
-      return this.HSLToHex(...this.satAdjustHSL(...this.hexToHSL(hex), adjustment));
+      return this._convertHslToHex(...this._adjustHslColourSaturation(...this._convertHexToHsl(hex), adjustment));
     }
-    calcRelativeLuminance(RsRGB, GsRGB, BsRGB){
+    _calculateRelativeLuminance(RsRGB, GsRGB, BsRGB){
       const R = (RsRGB <= 0.04045)? RsRGB/12.92: Math.pow((RsRGB+0.055)/1.055, 2.4);
       const G = (GsRGB <= 0.04045)? GsRGB/12.92: Math.pow((GsRGB+0.055)/1.055, 2.4);
       const B = (BsRGB <= 0.04045)? BsRGB/12.92: Math.pow((BsRGB+0.055)/1.055, 2.4);
   
       return (0.2126 * R) + (0.7152 * G) + (0.0722 * B);
      }
-    calcContrastRatio(...args){
+    _calculateContrastRatio(...args){
       /*A contrast ratio of 3:1 is the minimum level recommended by [[ISO-9241-3]] and [[ANSI-HFES-100-1988]] for standard text and vision. 
       Large-scale text and images of large-scale text have a contrast ratio of at least 4.5:1;
       */
-      const relativeLumArr = args.map(x => this.calcRelativeLuminance(...x)); 
+      const relativeLumArr = args.map(x => this._calculateRelativeLuminance(...x)); 
       const L1 = Math.max(...relativeLumArr);
       const L2 = Math.min(...relativeLumArr);
       return (L1 + 0.05) / (L2 + 0.05);
     }
   }
       
+
+  
