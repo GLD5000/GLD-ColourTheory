@@ -4,7 +4,7 @@
  * Contains methods for colour classes to use
  * @class
  */
-export class colour {
+export class Colour {
     _convertHslToString(hue,sat,lum){
       return `hsl(${Math.round(hue)}, ${Math.round(sat)}%, ${Math.round(lum)}%)`;
     }

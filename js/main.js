@@ -1,4 +1,4 @@
-import {colour} from './modules/colour.js';
+import {Colour} from './modules/colour.js';
 
 const color_picker = document.getElementById('mainColour-picker');
 const color_picker_wrapper = document.getElementById('mainColour-wrapper');
@@ -6,9 +6,30 @@ const color_picker_hex_label = document.getElementById('mainColour-label');
 const pickers = document.querySelectorAll('input[type="color"]');
 const buttons = document.querySelectorAll('button');
 
+class ColourHex {
+  constructor(hex){
+    this.type = 'hex';
+    this.hex = hex;
+  }
+}
+
+class ColourHsl {
+  constructor(hex){
+    this.type = 'hsl';
+    this.hex = hex;
+  }
+}
+class ColourSrgb {
+  constructor(hex){
+    this.type = 'hsl';
+    this.hex = hex;
+  }
+}
 
 
-class colourSingle extends colour {
+
+
+class ColourSingle extends Colour {
   constructor(hex,name){
     super();
     this.name = name;
@@ -27,16 +48,16 @@ class colourSingle extends colour {
     this.sRGBArr = this._convertHexToSrgb(this.hex);
     this.contrastBlack = this._calculateContrastRatio([0,0,0],this.sRGBArr);
     this.contrastWhite = this._calculateContrastRatio([1,1,1],this.sRGBArr);
-    this.tripleGradient = new tripleGradient(this.hex,this.name);
+    this.tripleGradient = new TripleGradient(this.hex,this.name);
   }
 }
-class tripleGradient extends colour {
+class TripleGradient extends Colour {
   constructor(hex,name){
     super();
     this.name = name;
   }
 }
-class multiGradient{
+class MultiGradient{
   constructor(hex,name,stops){
     this.name = name;
   }
@@ -174,7 +195,7 @@ function updateColour(){
     label.innerHTML = (isHex)?colour:hexToHSLString(colour);
   });
   fillClipboard();
-  const testColour = new colourSingle(color_picker.value,'Testing');
+  const testColour = new ColourSingle(color_picker.value,'Testing');
   console.log(testColour);
 }
 
