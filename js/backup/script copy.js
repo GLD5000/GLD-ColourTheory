@@ -120,7 +120,7 @@ class colour {
   }
   
   
-  HSLToHex(...args) {
+  hslToHex(...args) {
     let [h, s, l] = [...args];
     //console.log(s);
     s /= 100;
@@ -192,19 +192,19 @@ class colour {
   }
   
   lumChangeHEX(hex, newLum){
-    return this.HSLToHex(...this.lumChangeHSL(...this.hexToHSL(hex), newLum));
+    return this.hslToHex(...this.lumChangeHSL(...this.hexToHSL(hex), newLum));
   }
   
   hueRotateHEX(hex, rotation){
-    return this.HSLToHex(...this.hueRotateHSL(...this.hexToHSL(hex), rotation));
+    return this.hslToHex(...this.hueRotateHSL(...this.hexToHSL(hex), rotation));
   }
   
   lumAdjustHEX(hex, adjustment){
-    return this.HSLToHex(...this.lumAdjustHSL(...this.hexToHSL(hex), adjustment));
+    return this.hslToHex(...this.lumAdjustHSL(...this.hexToHSL(hex), adjustment));
   }
   
   satAdjustHEX(hex, adjustment){
-    return this.HSLToHex(...this.satAdjustHSL(...this.hexToHSL(hex), adjustment));
+    return this.hslToHex(...this.satAdjustHSL(...this.hexToHSL(hex), adjustment));
   }
   
   
@@ -606,14 +606,14 @@ function linearGradientMultiTone(hex){
 
 function adjustHue(){
   const newHue = document.getElementById("hue-slider").value;
-  color_picker.value = HSLToHex(...hueChangeHSL(...hexToHSL(color_picker.value), newHue));
+  color_picker.value = hslToHex(...hueChangeHSL(...hexToHSL(color_picker.value), newHue));
  ////console.log(newHue);
   updateColour();
 }
 
 function adjustLum(){
 const newLum = document.getElementById("lum-slider").value;
-color_picker.value = HSLToHex(...lumChangeHSL(...hexToHSL(color_picker.value), newLum));
+color_picker.value = hslToHex(...lumChangeHSL(...hexToHSL(color_picker.value), newLum));
   //console.log(newLum);
   updateColour();
 }
@@ -621,7 +621,7 @@ color_picker.value = HSLToHex(...lumChangeHSL(...hexToHSL(color_picker.value), n
 
 function adjustSat(){
 const newSat = document.getElementById("sat-slider").value;
-color_picker.value = HSLToHex(...satChangeHSL(...hexToHSL(color_picker.value), newSat));
+color_picker.value = hslToHex(...satChangeHSL(...hexToHSL(color_picker.value), newSat));
   //console.log(newSat);
   updateColour();
 }
@@ -675,7 +675,7 @@ function fillClipboard(){
         const variantDec = HSLMultStrFixed(lumChangeHEX(hex, luminance), 1, satMult, lumMult);//not working
       
         suffixArr.forEach(x =>{
-          val = HSLToHex(...variantDec());//not working
+          val = hslToHex(...variantDec());//not working
           clipboardArr[0].push(`${variable}${x}${val}`);
           clipboardArr[1].push(`${variable}${x}`);
           clipboardArr[2].push(`${val};`);
@@ -830,7 +830,7 @@ function randomColour(){
   let hue = parseInt(Math.random() * 360);
   let sat = 48 + parseInt(Math.random() * 40); // 78
   let lum = 53 + parseInt(Math.random() * 35); // 53
-  return HSLToHex(hue, sat, lum);
+  return hslToHex(hue, sat, lum);
 }
 
 
@@ -1003,7 +1003,7 @@ function hexToHSL(H) {
   return [h, s, l];
 }
 
-function HSLToHex(...args) {
+function hslToHex(...args) {
   let [h, s, l] = [...args];
   //console.log(s);
   s /= 100;
@@ -1076,19 +1076,19 @@ function lumChangeHSL(hue, sat, lum, newLum){
 }
 
 function lumChangeHEX(hex, newLum){
-  return HSLToHex(...lumChangeHSL(...hexToHSL(hex), newLum));
+  return hslToHex(...lumChangeHSL(...hexToHSL(hex), newLum));
 }
 
 
 function hueRotateHEX(hex, rotation){
-  return HSLToHex(...hueRotateHSL(...hexToHSL(hex), rotation));
+  return hslToHex(...hueRotateHSL(...hexToHSL(hex), rotation));
 }
 
 function lumAdjustHEX(hex, adjustment){
-  return HSLToHex(...lumAdjustHSL(...hexToHSL(hex), adjustment));
+  return hslToHex(...lumAdjustHSL(...hexToHSL(hex), adjustment));
 }
 
 function satAdjustHEX(hex, adjustment){
-  return HSLToHex(...satAdjustHSL(...hexToHSL(hex), adjustment));
+  return hslToHex(...satAdjustHSL(...hexToHSL(hex), adjustment));
 }
 
