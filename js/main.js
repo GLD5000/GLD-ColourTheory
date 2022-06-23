@@ -13,16 +13,22 @@ class ColourHex {
   }
 }
 
-class ColourHsl {
-  constructor(hex){
+class ColourHsl extends Colour {
+  constructor(srgbArr){
+    super();
     this.type = 'hsl';
-    this.hex = hex;
+    this.hslArr = this._convertSrgbToHsl(...srgbArr);
+    [this.hue, this.sat, this.lum] = this.hslArr;
+    this.hslString = this._convertHslToString(this.hue, this.sat, this.lum);
   }
 }
-class ColourSrgb {
+class ColourSrgb extends Colour {
   constructor(hex){
-    this.type = 'hsl';
-    this.hex = hex;
+    super();
+    this.type = 'sRGB';
+    this.sRGBArr = this._convertHexToSrgb(hex);
+    [this.RsRGB, this.GsRGB, this.BsRGB] = this.sRGBArr;
+    this.sRGBArr = this._convertHexToSrgb(hex);
   }
 }
 
@@ -33,21 +39,15 @@ class ColourSingle extends Colour {
   constructor(hex,name){
     super();
     this.name = name;
-    this.variablePrefixSCSS = `\$`;
-    this.variablePrefixCSS = `--`;
-    this.variableSCSS = `${this.variablePrefixSCSS}${this.name}`;
-    this.variableCSS = `${this.variablePrefixCSS}${this.name}`;
+    this.variableNameScss = `\$${this.name}`;
+    this.variableNameCss = `--${this.name}`;
     this.hex = hex;
-    this.sRGBArr = this._convertHexToSrgb(this.hex);
-    [this.RsRGB, this.GsRGB, this.BsRGB] = this.sRGBArr;
-    this.hslArr = this._convertHexToHsl(this.RsRGB, this.GsRGB, this.BsRGB);
-    [this.hue, this.sat, this.lum] = this.hslArr;
-    this.relativeLuminance = this._calculateRelativeLuminance(this.RsRGB, this.GsRGB, this.BsRGB);
-    this.hslString = this._convertHslToString(this.hue, this.sat, this.lum);
-    this.hexTest = this._convertHslToHex(this.hue, this.sat, this.lum);
-    this.sRGBArr = this._convertHexToSrgb(this.hex);
-    this.contrastBlack = this._calculateContrastRatio([0,0,0],this.sRGBArr);
-    this.contrastWhite = this._calculateContrastRatio([1,1,1],this.sRGBArr);
+    this.sRGB = new ColourSrgb(this.hex);
+    this.hsl = new ColourHsl(this.sRGB.sRGBArr);
+    this.relativeLuminance = this._calculateRelativeLuminance(this.sRGB.sRGBArr);
+    this.hexTest = this._convertHslToHex(...this.hsl.hslArr);
+    this.contrastBlack = this._calculateContrastRatio([0,0,0],this.sRGB.sRGBArr);
+    this.contrastWhite = this._calculateContrastRatio([1,1,1],this.sRGB.sRGBArr);
     this.tripleGradient = new TripleGradient(this.hex,this.name);
   }
 }

@@ -23,7 +23,7 @@ export class Colour {
       }
       return [RsRGB, GsRGB, BsRGB];
     }
-    _convertHexToHsl(RsRGB, GsRGB, BsRGB) {
+    _convertSrgbToHsl(RsRGB, GsRGB, BsRGB) {
   
       let cmin = Math.min(RsRGB, GsRGB, BsRGB),
           cmax = Math.max(RsRGB, GsRGB, BsRGB),
@@ -111,18 +111,6 @@ export class Colour {
     }
     _setHslColourLuminance(hue, sat, newLum){
       return [hue, sat, newLum]; 
-    }
-    _setHexColourLuminance(hex, newLum){
-      return this._convertHslToHex(...this._setHslColourLuminance(...this._convertHexToHsl(hex), newLum));
-    }
-    _setHexColourHue(hex, rotation){
-      return this._convertHslToHex(...this._adjustHslColourHue(...this._convertHexToHsl(hex), rotation));
-    }
-    lumAdjustHEX(hex, adjustment){
-      return this._convertHslToHex(...this._adjustHslColourLuminance(...this._convertHexToHsl(hex), adjustment));
-    }
-    satAdjustHEX(hex, adjustment){
-      return this._convertHslToHex(...this._adjustHslColourSaturation(...this._convertHexToHsl(hex), adjustment));
     }
     _calculateRelativeLuminance(RsRGB, GsRGB, BsRGB){
       const R = (RsRGB <= 0.04045)? RsRGB/12.92: Math.pow((RsRGB+0.055)/1.055, 2.4);
