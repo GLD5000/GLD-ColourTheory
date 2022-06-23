@@ -16,19 +16,55 @@ class ColourHex extends Colour{
 class ColourHsl extends Colour{
   constructor(srgbArr){
     super();
-    this.type = 'hsl';
-    this.hslArr = this._convertSrgbToHsl(...srgbArr);
-    [this.hue, this.sat, this.lum] = this.hslArr;
-    this.hslString = this._convertHslToString(this.hue, this.sat, this.lum);
+    this._type = 'hsl';
+    this._hslArr = this._convertSrgbToHsl(...srgbArr);
+    [this._hue, this._sat, this._lum] = this._hslArr;
+    this._hslString = this._convertHslToString(this.hue, this.sat, this.lum);
+  }
+  get type(){
+    return this._type;
+  }
+  get hue(){
+    return this._hue;
+  }
+  get sat(){
+    return this._sat;
+  }
+  get lum(){
+    return this._lum;
+  }
+  get array(){
+    return this._hslArr;
+  }
+  get string(){
+    return this._hslString;
   }
 }
 class ColourSrgb extends Colour{
   constructor(hex){
     super();
-    this.type = 'srgb';
-    this.srgbArr = this._convertHexToSrgb(hex);
-    [this.Rsrgb, this.Gsrgb, this.Bsrgb] = this.srgbArr;
-    this.srgbArr = this._convertHexToSrgb(hex);
+    this._type = 'srgb';
+    this._srgbArr = this._convertHexToSrgb(hex);
+    [this._rSrgb, this._gSrgb, this._bSrgb] = this._srgbArr;
+    this._srgbString = `rgb(${255 * this._rSrgb}, ${255 * this._gSrgb}, ${255 * this._bSrgb})`
+  }
+  get type(){
+    return this._type;
+  }
+  get rSrgb(){
+    return this._rSrgb;
+  }
+  get gSrgb(){
+    return this._gSrgb;
+  }
+  get bSrgb(){
+    return this._bSrgb;
+  }
+  get array(){
+    return this._srgbArr;
+  }
+  get string(){
+    return this._hslString;
   }
 }
 class TripleGradient extends Colour{
@@ -59,10 +95,11 @@ class ColourSwatch extends Colour{
     this.variableNameCss = `--${this.name}`;
     this.hex = new ColourHex(hex);
     this.srgb = new ColourSrgb(hex);
-    this.hsl = new ColourHsl(this.srgb.srgbArr);
-    this.autoTextColour = new ColourAutoText(this.srgb.srgbArr);
+    this.hsl = new ColourHsl(this.srgb.array);
+    this.autoTextColour = new ColourAutoText(this.srgb.array);
     this.tripleGradient = new TripleGradient(this.hex,this.name);
     this.multiGradient = new MultiGradient(this.hex,this.name);
+    this.string = this.hsl.string;
   }
   updateHue(){
     //update hue in hsl
@@ -75,21 +112,21 @@ function relativeLuminance(hex){
  /*
  For the srgb colorspace, the relative luminance of a color is defined as L = 0.2126 * R + 0.7152 * G + 0.0722 * B where R, G and B are defined as:
  
-  and Rsrgb, Gsrgb, and Bsrgb are defined as:
+  and rSrgb, gSrgb, and bSrgb are defined as:
   
-  Rsrgb = R8bit/255
-  Gsrgb = G8bit/255
-  Bsrgb = B8bit/255
+  rSrgb = R8bit/255
+  gSrgb = G8bit/255
+  bSrgb = B8bit/255
   The '^' character is the exponentiation operator. (Formula taken from [[IEC-4WD]]).
   */
  const srgbArr = hexToSrgbArr(hex);
- const Rsrgb = srgbArr[0];
- const Gsrgb = srgbArr[1];
- const Bsrgb = srgbArr[2];
+ const rSrgb = srgbArr[0];
+ const gSrgb = srgbArr[1];
+ const bSrgb = srgbArr[2];
   
- const R = (Rsrgb <= 0.04045)? Rsrgb/12.92: Math.pow((Rsrgb+0.055)/1.055, 2.4);
- const G = (Gsrgb <= 0.04045)? Gsrgb/12.92: Math.pow((Gsrgb+0.055)/1.055, 2.4);
- const B = (Bsrgb <= 0.04045)? Bsrgb/12.92: Math.pow((Bsrgb+0.055)/1.055, 2.4);
+ const R = (rSrgb <= 0.04045)? rSrgb/12.92: Math.pow((rSrgb+0.055)/1.055, 2.4);
+ const G = (gSrgb <= 0.04045)? gSrgb/12.92: Math.pow((gSrgb+0.055)/1.055, 2.4);
+ const B = (bSrgb <= 0.04045)? bSrgb/12.92: Math.pow((bSrgb+0.055)/1.055, 2.4);
  return (0.2126 * R) + (0.7152 * G) + (0.0722 * B);
 }
 function contrastRatio(...args){
@@ -625,19 +662,19 @@ color_picker.onchange = () =>{
 }
 
 function hexToSrgbArr(hex){
-  let Rsrgb = 0, Gsrgb = 0, Bsrgb = 0;
+  let rSrgb = 0, gSrgb = 0, bSrgb = 0;
   // 3 digits
   if (hex.length == 4){
-    Rsrgb  = ('0x' + hex[1] + hex[1])/255;
-    Gsrgb = ('0x' + hex[2] + hex[2])/255;
-    Bsrgb = ('0x' + hex[3] + hex[3])/255;
+    rSrgb  = ('0x' + hex[1] + hex[1])/255;
+    gSrgb = ('0x' + hex[2] + hex[2])/255;
+    bSrgb = ('0x' + hex[3] + hex[3])/255;
   // 6 digits
   }else if (hex.length == 7){
-    Rsrgb = ('0x' + hex[1] + hex[2])/255;
-    Gsrgb = ('0x' + hex[3] + hex[4])/255;
-    Bsrgb = ('0x' + hex[5] + hex[6])/255;
+    rSrgb = ('0x' + hex[1] + hex[2])/255;
+    gSrgb = ('0x' + hex[3] + hex[4])/255;
+    bSrgb = ('0x' + hex[5] + hex[6])/255;
   }
-  return [Rsrgb, Gsrgb, Bsrgb];
+  return [rSrgb, gSrgb, bSrgb];
 }
 
 function hexToHSLString(H){
