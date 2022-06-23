@@ -17,9 +17,9 @@ class ColourHsl extends Colour{
   constructor(srgbArr){
     super();
     this._type = 'hsl';
-    this._hslArr = this._convertSrgbToHsl(...srgbArr);
-    [this._hue, this._sat, this._lum] = this._hslArr;
-    this._hslString = this._convertHslToString(this.hue, this.sat, this.lum);
+    this._array = this._convertSrgbToHsl(...srgbArr);
+    [this._hue, this._sat, this._lum] = this._array;
+    this._string = this._convertHslToString(this.hue, this.sat, this.lum);
   }
   get type(){
     return this._type;
@@ -34,19 +34,19 @@ class ColourHsl extends Colour{
     return this._lum;
   }
   get array(){
-    return this._hslArr;
+    return this._array;
   }
   get string(){
-    return this._hslString;
+    return this._string;
   }
 }
 class ColourSrgb extends Colour{
   constructor(hex){
     super();
     this._type = 'srgb';
-    this._srgbArr = this._convertHexToSrgb(hex);
-    [this._rSrgb, this._gSrgb, this._bSrgb] = this._srgbArr;
-    this._srgbString = `rgb(${255 * this._rSrgb}, ${255 * this._gSrgb}, ${255 * this._bSrgb})`
+    this._array = this._convertHexToSrgb(hex);
+    [this._rSrgb, this._gSrgb, this._bSrgb] = this._array;
+    this._string = `rgb(${255 * this._rSrgb}, ${255 * this._gSrgb}, ${255 * this._bSrgb})`
   }
   get type(){
     return this._type;
@@ -61,10 +61,10 @@ class ColourSrgb extends Colour{
     return this._bSrgb;
   }
   get array(){
-    return this._srgbArr;
+    return this._array;
   }
   get string(){
-    return this._hslString;
+    return this._string;
   }
 }
 class TripleGradient extends Colour{
