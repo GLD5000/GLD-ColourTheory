@@ -126,7 +126,7 @@ $;
 .header, .footer {
   display: relative;
   color: #fff;
-  background-color: hsl(0deg, 0%, 41.2%);
+  background-color: hsl(0deg, 0%, 11.8%);
 }
 
 .btn, .textColour-wrapper {
@@ -152,11 +152,6 @@ $;
   align-items: center;
   text-align: center;
   margin: 0;
-}
-
-.btn-lg {
-  font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6);
-  background-color: hsl(0deg, 0%, 66.7%);
 }
 
 .btn-small {
@@ -253,7 +248,6 @@ $;
 .swatch-palette {
   width: 100%;
   display: grid;
-  background-color: hsl(0deg, 0%, 41.2%);
   gap: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
   padding: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.5);
 }
@@ -270,7 +264,7 @@ $;
   height: 100%;
   grid-template-columns: 1fr;
   row-gap: 3px;
-  background-color: #000;
+  background-color: hsl(0deg, 0%, 23.1%);
   border-radius: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.5);
   border: solid #000 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
   box-shadow: #000 3px 3px 1px;
@@ -443,10 +437,10 @@ input[type=range]::-moz-range-thumb {
 }
 
 .body-grid {
+  background-color: hsl(0deg, 0%, 55.7%);
   position: relative;
   top: 0;
   left: 0;
-  background-color: hsl(0deg, 0%, 55.7%);
   height: 100vh;
   width: clamp(270px, 100vw, 170em);
   margin-left: auto;

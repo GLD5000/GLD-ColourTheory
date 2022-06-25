@@ -24,7 +24,6 @@
 .swatch-palette{
   width: 100%;
   display: grid;
-  background-color: $neutral-600;
   gap: $gem3Quart;
   padding: $gemHalf;
 }
@@ -41,7 +40,7 @@
   height: 100%;
   grid-template-columns: 1fr;
   row-gap: 3px;
-  background-color: $neutral-1000;
+  background-color: $neutral-800;
   border-radius: $gemHalf;
 
   border: solid $neutral-1000 $gemEighth;
