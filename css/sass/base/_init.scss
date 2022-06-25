@@ -1,0 +1,47 @@
+@use '../abstracts' as *;
+.mainColour-wrapper {    
+    background-color:$mainColour;
+}  
+.monochromeA-wrapper {    
+    background-color:$monochromeA;
+}    
+.monochromeB-wrapper {    
+    background-color:$monochromeB;
+}    
+.analogousA-wrapper {    
+    background-color:$analogousA;
+}    
+.analogousB-wrapper {    
+    background-color:$analogousB;
+}    
+.triadicA-wrapper {    
+    background-color:$triadicA;
+}    
+.triadicB-wrapper {    
+    background-color:$triadicB;
+}    
+.tetradicA-wrapper {    
+    background-color:$tetradicA;
+}    
+.tetradicB-wrapper {    
+    background-color:$tetradicB;
+}    
+.tetradicC-wrapper {    
+    background-color:$tetradicC;
+}    
+.neutral-wrapper {    
+    background-color:$neutral;
+}    
+
+
+/*
+
+
+
+$: h;
+$: h;
+$: h;
+$: h;
+$: h;
+$;
+*/
