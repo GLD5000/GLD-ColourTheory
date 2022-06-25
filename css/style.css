@@ -68,6 +68,61 @@ li, ol, ul {
   list-style: none;
 }
 
+.mainColour-wrapper {
+  background-color: #e68f75;
+}
+
+.monochromeA-wrapper {
+  background-color: #de6c4a;
+}
+
+.monochromeB-wrapper {
+  background-color: #eeb2a0;
+}
+
+.analogousA-wrapper {
+  background-color: #e67593;
+}
+
+.analogousB-wrapper {
+  background-color: #e6c875;
+}
+
+.triadicA-wrapper {
+  background-color: #8f75e6;
+}
+
+.triadicB-wrapper {
+  background-color: #75e68f;
+}
+
+.tetradicA-wrapper {
+  background-color: #93e675;
+}
+
+.tetradicB-wrapper {
+  background-color: #75cce6;
+}
+
+.tetradicC-wrapper {
+  background-color: #c875e6;
+}
+
+.neutral-wrapper {
+  background-color: #adadad;
+}
+
+/*
+
+
+
+$: h;
+$: h;
+$: h;
+$: h;
+$: h;
+$;
+*/
 .header, .footer {
   display: relative;
   color: #fff;

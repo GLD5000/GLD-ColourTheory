@@ -24,6 +24,7 @@ class ColourHsl extends Colour{
   get type(){
     return this._type;
   }
+  /*
   get hue(){
     return this._hue;
   }
@@ -33,6 +34,7 @@ class ColourHsl extends Colour{
   get lum(){
     return this._lum;
   }
+  */
   get array(){
     return this._array;
   }
