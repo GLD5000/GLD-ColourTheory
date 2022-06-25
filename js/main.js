@@ -1,10 +1,56 @@
 import{Colour}from './modules/colour.js';
 
-const color_picker = document.getElementById('mainColour-picker');
-const color_picker_wrapper = document.getElementById('mainColour-wrapper');
-const color_picker_hex_label = document.getElementById('mainColour-label');
+const colour_picker = document.getElementById('mainColour-picker');
+const colour_picker_wrapper = document.getElementById('mainColour-wrapper');
+const colour_picker_hex_label = document.getElementById('mainColour-label');
 const pickers = document.querySelectorAll('input[type="color"]');
 const buttons = document.querySelectorAll('button');
+
+class Picker {
+  constructor(name){
+    this._name = name;
+    this._id = name + '-picker';
+    this._element = document.getElementById(this._id);
+    this._element.onchange = () =>{ this.update()};
+    this._value = this._element.value; 
+    this._wrapper = new PickerWrapper(this._name, this._value);
+  }
+  update(){
+    this._value = this._element.value; 
+    this._wrapper = new PickerWrapper(this._name, this._value);
+  }
+  
+  get value(){
+    return this._value;
+  }
+  get name(){
+    return this._name;
+  }
+  set value(newValue){
+    this._element.value = newValue;
+    this._wrapper.style.backgroundColor = newValue;
+  }
+  
+}
+
+class Swatch {
+  constructor(id){
+    this._picker = new Picker(id);
+  }
+  //setWrapperColour(colour){
+    
+    //}
+  }
+  class PickerWrapper {
+    constructor(name, value){
+      this._id = name + '-wrapper';
+      this._element = document.getElementById(this._id);
+      this._colour = new ColourSwatch(value,name)
+      this._element.style.background = value;// update to respond to types later
+  }
+}
+
+
 
 class ColourHex extends Colour{
   constructor(hex){
@@ -19,7 +65,7 @@ class ColourHsl extends Colour{
     this._type = 'hsl';
     this._array = this._convertSrgbToHsl(...srgbArr);
     [this._hue, this._sat, this._lum] = this._array;
-    this._string = this._convertHslToString(this.hue, this.sat, this.lum);
+    this._string = this._convertHslToString(this._hue, this._sat, this._lum);
   }
   get type(){
     return this._type;
@@ -69,14 +115,15 @@ class ColourSrgb extends Colour{
     return this._string;
   }
 }
-class TripleGradient extends Colour{
+class ColourTripleGradient extends Colour{
   constructor(hslArr,name){
     super();
     this.name = name;
   }
 }
-class MultiGradient{
+class ColourMultiGradient extends Colour{
   constructor(hslArr,name,stops){
+    super();
     this.name = name;
   }
 }
@@ -99,8 +146,8 @@ class ColourSwatch extends Colour{
     this.srgb = new ColourSrgb(hex);
     this.hsl = new ColourHsl(this.srgb.array);
     this.autoTextColour = new ColourAutoText(this.srgb.array);
-    this.tripleGradient = new TripleGradient(this.hex,this.name);
-    this.multiGradient = new MultiGradient(this.hex,this.name);
+    this.tripleGradient = new ColourTripleGradient(this.hex,this.name);
+    this.multiGradient = new ColourMultiGradient(this.hex,this.name);
     this.string = this.hsl.string;
   }
   updateHue(){
@@ -172,7 +219,7 @@ function setTextColour(colour){
   const textColour = (blackRatio > whiteRatio)? '#000000': '#ffffff';
   const ratio = (blackRatio > whiteRatio)? blackRatio: whiteRatio;
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
-  color_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)}${rating}`;// this disables the main colour picker
+  colour_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)}${rating}`;// this disables the main colour picker
   textPicker.value = textColour;
   document.getElementById('textColour-wrapper').dataset.content = 'Text: Auto';
   return textColour;
@@ -181,11 +228,11 @@ function setTextColour(colour){
 function customTextColour(){
   const textPicker = document.getElementById('textColour-picker');
   const textColour = textPicker.value;
-  const mainColour = color_picker.value;
+  const mainColour = colour_picker.value;
   const ratio = contrastRatio(textColour, mainColour);
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
-  color_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)}${rating}`;
-  //color_picker_wrapper.style.color = textColour;
+  colour_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)}${rating}`;
+  //colour_picker_wrapper.style.color = textColour;
   document.getElementById('textColour-wrapper').dataset.content = 'Text: Custom' ;
 
   pickers.forEach((x, i) =>{
@@ -213,7 +260,7 @@ function updateColour(){
   let mainColourLabel, analogousAColourLabel, analogousBColourLabel, triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
   const modeValue = document.getElementById('mode').innerHTML;    
   const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
-  const mainColour = color_picker.value;
+  const mainColour = colour_picker.value;
   const textColour = setTextColour(mainColour);
   function getColour(name){
     if (name === 'mainColour'){ return mainColour;
@@ -241,8 +288,12 @@ function updateColour(){
     label.innerHTML = (isHex)?colour:hexToHSLString(colour);
   });
   fillClipboard();
-  const testColour = new ColourSwatch(color_picker.value,'Testing');
+  /*
+  const testColour = new ColourSwatch(colour_picker.value,'Testing');
   console.log(testColour);
+  */
+  const testSwatch = new Swatch("mainColour");
+  console.log(testSwatch);
 }
 
 function linearGradientThreeTone(hex){
@@ -427,20 +478,20 @@ function linearGradientMultiTone(hex){
 
 function adjustHue(){
   const newHue = document.getElementById('hue-slider').value;
-  color_picker.value = hslToHex(...hueChangeHSL(...hexToHSL(color_picker.value), newHue));
+  colour_picker.value = hslToHex(...hueChangeHSL(...hexToHSL(colour_picker.value), newHue));
   updateColour();
 }
 
 function adjustLum(){
   const newLum = document.getElementById('lum-slider').value;
-  color_picker.value = hslToHex(...lumChangeHSL(...hexToHSL(color_picker.value), newLum));
+  colour_picker.value = hslToHex(...lumChangeHSL(...hexToHSL(colour_picker.value), newLum));
   updateColour();
 }
 
 
 function adjustSat(){
   const newSat = document.getElementById('sat-slider').value;
-  color_picker.value = hslToHex(...satChangeHSL(...hexToHSL(color_picker.value), newSat));
+  colour_picker.value = hslToHex(...satChangeHSL(...hexToHSL(colour_picker.value), newSat));
   updateColour();
 }
 
@@ -608,7 +659,7 @@ function randomColour(){
 
 
 function randomMainColour(){
-  color_picker.value = randomColour();
+  colour_picker.value = randomColour();
 }
 
 function randomDiceColours(){
@@ -658,10 +709,12 @@ function customColour(e){
 
 
 
-
-color_picker.onchange = () =>{
+/*
+colour_picker.onchange = () =>{
   updateColour();
 }
+
+*/
 
 function hexToSrgbArr(hex){
   let rSrgb = 0, gSrgb = 0, bSrgb = 0;
