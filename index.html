@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script type="module" defer src="/js/main.js"></script>
-    <script type="module" defer src="/js/modules/colour.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;900&family=Source+Code+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -32,7 +31,7 @@
           <input type="color" id="mainColour-picker" class="picker large-picker"></input>
         </wrapper>
         <wrapper class="flexbox-horizontal-btn">
-          <button class="btn btn-med btn-dual" id="mainColour-label" ></button>
+          <button class="btn btn-med btn-dual" id="mainColour-copybtn" ></button>
           <wrapper id="textColour-wrapper" class="textColour-wrapper" data-content=""><input type="color" id="textColour-picker" class="picker textColour-picker"></input></wrapper>
           <button class="btn btn-med btn-dual mode" id="mode">Mode: Single</button>
           </wrapper>
@@ -45,70 +44,70 @@
         <wrapper id="monochromeA-wrapper" class="picker-wrapper monochromeA-wrapper" name="Monochrome A">
           <input type="color" id="monochromeA-picker" class="picker monochromeA-picker"></input>
         </wrapper>
-        <button class="btn btn-med" id="monochromeA-label" ></button>
+        <button class="btn btn-med" id="monochromeA-copybtn" ></button>
       </container>
 
       <container class="swatch monochromeB">
         <wrapper id="monochromeB-wrapper" class="picker-wrapper monochromeB-wrapper"  name="Monochrome B">
           <input type="color" id="monochromeB-picker" class="picker monochromeB-picker"></input>
         </wrapper>
-        <button class="btn btn-med" id="monochromeB-label" ></button>
+        <button class="btn btn-med" id="monochromeB-copybtn" ></button>
       </container>
 
       <container class="swatch analogousA" >
         <wrapper id="analogousA-wrapper" class="picker-wrapper analogousA-wrapper" name="Analogous A">
           <input type="color" id="analogousA-picker" class="picker analogousA-picker"></input>
         </wrapper>
-        <button class="btn btn-med" id="analogousA-label" ></button>
+        <button class="btn btn-med" id="analogousA-copybtn" ></button>
       </container>
 
       <container class="swatch analogousB" >
         <wrapper id="analogousB-wrapper" class="picker-wrapper analogousB-wrapper" name="Analogous B">
           <input type="color" id="analogousB-picker" class="picker analogousB-picker"></input>
         </wrapper>
-        <button class="btn btn-med" id="analogousB-label" ></button>
+        <button class="btn btn-med" id="analogousB-copybtn" ></button>
       </container>
 
       <wrapper class="swatch triadicA">
         <wrapper id="triadicA-wrapper" class="picker-wrapper triadicA-wrapper"  name="Triadic A">
           <input type="color" id="triadicA-picker" class="picker triadicA-picker"></input>
         </wrapper>
-        <button class="btn btn-med" id="triadicA-label" ></button>
+        <button class="btn btn-med" id="triadicA-copybtn" ></button>
       </wrapper>
 
       <container class="swatch triadicB">
         <wrapper id="triadicB-wrapper" class="picker-wrapper triadicB-wrapper"  name="Triadic B">
           <input type="color" id="triadicB-picker" class="picker triadicB-picker"></input>
         </wrapper>
-        <button class="btn btn-med" id="triadicB-label" ></button>
+        <button class="btn btn-med" id="triadicB-copybtn" ></button>
       </container>
 
       <container class="swatch tetradicA">
         <wrapper id="tetradicA-wrapper" class="picker-wrapper tetradicA-wrapper"  name="Tetradic A">
           <input type="color" id="tetradicA-picker" class="picker tetradicA-picker"></input>
         </wrapper>
-        <button class="btn btn-med" id="tetradicA-label" ></button>
+        <button class="btn btn-med" id="tetradicA-copybtn" ></button>
       </container>
 
       <container class="swatch tetradicB">
         <wrapper id="tetradicB-wrapper" class="picker-wrapper tetradicB-wrapper"  name="Tetradic B / Complement">
           <input type="color" id="tetradicB-picker" class="picker tetradicB-picker"></input>
         </wrapper>
-        <button class="btn btn-med" id="tetradicB-label" ></button>
+        <button class="btn btn-med" id="tetradicB-copybtn" ></button>
       </container>
 
       <container class="swatch tetradicC">
         <wrapper id="tetradicC-wrapper" class="picker-wrapper tetradicC-wrapper"  name="Tetradic C">
           <input type="color" id="tetradicC-picker" class="picker tetradicC-picker"></input>
         </wrapper>
-        <button class="btn btn-med" id="tetradicC-label" ></button>
+        <button class="btn btn-med" id="tetradicC-copybtn" ></button>
       </container> 
       
       <container class="swatch neutral">
         <wrapper id="neutral-wrapper" class="picker-wrapper neutral-wrapper"  name="Neutral">
           <input type="color" id="neutral-picker" class="picker neutral-picker"></input>
         </wrapper>
-        <button class="btn btn-med" id="neutral-label" ></button>
+        <button class="btn btn-med" id="neutral-copybtn" ></button>
       </container>   
         
       <container class="btn-container btn-copy">

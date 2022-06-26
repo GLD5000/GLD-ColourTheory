@@ -1,8 +1,8 @@
-import{Colour}from './modules/colour.js';
+import{Colour}from './modules/classes/colour.js';
 
 const colour_picker = document.getElementById('mainColour-picker');
 const colour_picker_wrapper = document.getElementById('mainColour-wrapper');
-const colour_picker_hex_label = document.getElementById('mainColour-label');
+const colour_picker_hex_label = document.getElementById('mainColour-copybtn');
 const pickers = document.querySelectorAll('input[type="color"]');
 const buttons = document.querySelectorAll('button');
 
@@ -32,7 +32,18 @@ class Picker {
   }
   
 }
+class CopyButton{
+  constructor(name){
+    this._name = name;
+    this._element = document.getElementById(name + '-copybtn');
+    //add mode logic for SCSS/CSS Toggle
+    this._prefixScss = `\$`;
+    this._prefixCss = `--`;
 
+    //get clipboard information from all colours/gradients
+
+  }
+}
 class Swatch {
   constructor(id){
     this._picker = new Picker(id);
@@ -50,27 +61,52 @@ class Swatch {
   }
 }
 
+class ColourSpaces extends Colour {
+  constructor(hex){
+    super();
+    this.hex = hex;
+    this.srgb = new ColourSrgb(this._convertHexToSrgb(hex));
+    this.hsl = new ColourHsl(this._convertSrgbToHsl(...this.srgb.array));
 
+  }
+
+}
 
 class ColourHex extends Colour{
   constructor(hex){
     super();
-    this.type = 'hex';
-    this.hex = hex;
+    this._type = 'hex';
+    this._hex = hex;
   }
+  get type(){
+    return this._type;
+  }
+  get hex(){
+    return this._hex;
+  }
+  set hex(x){
+    this._hex = x;
+  }
+
+
 }
 class ColourHsl extends Colour{
-  constructor(srgbArr){
+  constructor(hslArr){
     super();
     this._type = 'hsl';
-    this._array = this._convertSrgbToHsl(...srgbArr);
+    this._array = hslArr;
     [this._hue, this._sat, this._lum] = this._array;
     this._string = this._convertHslToString(this._hue, this._sat, this._lum);
   }
   get type(){
     return this._type;
   }
-  /*
+  get array(){
+    return this._array;
+  }
+  get string(){
+    return this._string;
+  }
   get hue(){
     return this._hue;
   }
@@ -80,19 +116,41 @@ class ColourHsl extends Colour{
   get lum(){
     return this._lum;
   }
-  */
-  get array(){
-    return this._array;
+  set hue(x){
+    this._array[0] = this._hue = x;
+    this.updateString();
   }
-  get string(){
-    return this._string;
+  set sat(x){
+    this._array[1] = this._sat = x;
+    this.updateString();
+  }
+  set lum(x){
+    this._array[2] = this._lum = x;
+    this.updateString();
+  }
+  changeHue(x){
+    this._array[0] = this._hue = Math.min(Math.max(0, x), 100);
+    this.updateString();
+  }
+  changeSat(x){
+    this._array[1] = this._sat = Math.min(Math.max(0, x), 100);
+    this.updateString();
+  }
+  changeSum(x){
+    this._array[2] = this._lum = Math.min(Math.max(0, x), 100);
+    this.updateString();
+  }
+
+
+  updateString(){
+    this._string = this._convertHslToString(this._hue, this._sat, this._lum);
   }
 }
 class ColourSrgb extends Colour{
-  constructor(hex){
+  constructor(srgbArr){
     super();
     this._type = 'srgb';
-    this._array = this._convertHexToSrgb(hex);
+    this._array = srgbArr;
     [this._rSrgb, this._gSrgb, this._bSrgb] = this._array;
     this._string = `rgb(${255 * this._rSrgb}, ${255 * this._gSrgb}, ${255 * this._bSrgb})`
   }
@@ -116,15 +174,19 @@ class ColourSrgb extends Colour{
   }
 }
 class ColourTripleGradient extends Colour{
-  constructor(hslArr,name){
+  constructor(colourSpaces,name){
     super();
     this.name = name;
+    [this._hue,this._sat,this._lum] = [...colourSpaces.hsl.array];
+
   }
 }
 class ColourMultiGradient extends Colour{
-  constructor(hslArr,name,stops){
+  constructor(colourSpaces,name,stops){
     super();
     this.name = name;
+    [this._hue,this._sat,this._lum] = [...colourSpaces.hsl.array];
+    //for stops loop
   }
 }
 class ColourAutoText extends Colour{
@@ -140,15 +202,10 @@ class ColourSwatch extends Colour{
   constructor(hex,name){
     super();
     this.name = name;
-    this.variableNameScss = `\$${this.name}`;
-    this.variableNameCss = `--${this.name}`;
-    this.hex = new ColourHex(hex);
-    this.srgb = new ColourSrgb(hex);
-    this.hsl = new ColourHsl(this.srgb.array);
-    this.autoTextColour = new ColourAutoText(this.srgb.array);
-    this.tripleGradient = new ColourTripleGradient(this.hex,this.name);
-    this.multiGradient = new ColourMultiGradient(this.hex,this.name);
-    this.string = this.hsl.string;
+    this.colour = new ColourSpaces(hex);
+    this.autoTextColour = new ColourAutoText(this.colour.srgb.array);
+    this.tripleGradient = new ColourTripleGradient(this.colour,this.name);
+    this.multiGradient = new ColourMultiGradient(this.colour,this.name);
   }
   updateHue(){
     //update hue in hsl
@@ -279,7 +336,7 @@ function updateColour(){
     const name = pickers[i].id.split('-')[0];
     if (name === 'textColour') return;
     const wrapper = document.getElementById(name + '-wrapper');
-    const label = document.getElementById(name + '-label');
+    const label = document.getElementById(name + '-copybtn');
     const colourName = name + 'Colour';
     const colour = getColour(name);//coloursArr[i];
     pickers[i].value = colour;
@@ -513,7 +570,7 @@ function fillClipboard(){
     if (name === 'textColour'){
       label = isHex? document.getElementById('textColour-picker').value: hexToHSLString(document.getElementById('textColour-picker').value);
     }else{
-      label = document.getElementById(name + '-label').innerHTML;
+      label = document.getElementById(name + '-copybtn').innerHTML;
     }
     let variable = prefix + name;
     clipboardArr[0].push(`${variable}: ${label};`);
@@ -598,7 +655,7 @@ function onChangepickers(){
           customTextColour();
         }else{
           const wrapper = name + '-wrapper';
-          const label = name + '-label';
+          const label = name + '-copybtn';
           const colour = pickers[i].value;
           document.getElementById(wrapper).style.backgroundColor = colour;    
           document.getElementById(label).innerHTML = (isHex)?colour:hexToHSLString(colour);
