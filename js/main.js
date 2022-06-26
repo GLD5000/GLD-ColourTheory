@@ -1,4 +1,4 @@
-import{Colour}from './modules/classes/colour.js';
+import{ColourFunctions}from './modules/classes/colour.js';
 
 const colour_picker = document.getElementById('mainColour-picker');
 const colour_picker_wrapper = document.getElementById('mainColour-wrapper');
@@ -44,7 +44,7 @@ class CopyButton{
 
   }
 }
-class Swatch {
+class Swatch{
   constructor(id){
     this._picker = new Picker(id);
   }
@@ -52,7 +52,7 @@ class Swatch {
     
     //}
   }
-  class PickerWrapper {
+  class PickerWrapper{
     constructor(name, value){
       this._id = name + '-wrapper';
       this._element = document.getElementById(this._id);
@@ -61,7 +61,7 @@ class Swatch {
   }
 }
 
-class ColourSpaces extends Colour {
+class ColourSpaces extends ColourFunctions{
   constructor(hex){
     super();
     this.hex = hex;
@@ -72,9 +72,8 @@ class ColourSpaces extends Colour {
 
 }
 
-class ColourHex extends Colour{
+class ColourHex{
   constructor(hex){
-    super();
     this._type = 'hex';
     this._hex = hex;
   }
@@ -90,13 +89,12 @@ class ColourHex extends Colour{
 
 
 }
-class ColourHsl extends Colour{
+class ColourHsl{
   constructor(hslArr){
-    super();
     this._type = 'hsl';
     this._array = hslArr;
     [this._hue, this._sat, this._lum] = this._array;
-    this._string = this._convertHslToString(this._hue, this._sat, this._lum);
+    this._string = `hsl(${Math.round(this._hue)}, ${Math.round(this._sat)}%, ${Math.round(this._lum)}%)`;
   }
   get type(){
     return this._type;
@@ -143,12 +141,11 @@ class ColourHsl extends Colour{
 
 
   updateString(){
-    this._string = this._convertHslToString(this._hue, this._sat, this._lum);
+    this._string = `hsl(${Math.round(this._hue)}, ${Math.round(this._sat)}%, ${Math.round(this._lum)}%)`;
   }
 }
-class ColourSrgb extends Colour{
+class ColourSrgb{
   constructor(srgbArr){
-    super();
     this._type = 'srgb';
     this._array = srgbArr;
     [this._rSrgb, this._gSrgb, this._bSrgb] = this._array;
@@ -173,23 +170,21 @@ class ColourSrgb extends Colour{
     return this._string;
   }
 }
-class ColourTripleGradient extends Colour{
+class ColourTripleGradient{
   constructor(colourSpaces,name){
-    super();
     this.name = name;
     [this._hue,this._sat,this._lum] = [...colourSpaces.hsl.array];
 
   }
 }
-class ColourMultiGradient extends Colour{
+class ColourMultiGradient{
   constructor(colourSpaces,name,stops){
-    super();
     this.name = name;
     [this._hue,this._sat,this._lum] = [...colourSpaces.hsl.array];
     //for stops loop
   }
 }
-class ColourAutoText extends Colour{
+class ColourAutoText extends ColourFunctions{
   constructor(srgbArr){
     super();
     this.contrastBlack = this._calculateContrastRatio([0,0,0],srgbArr);
@@ -198,9 +193,8 @@ class ColourAutoText extends Colour{
     this.autoContrast = Math.max(this.contrastBlack,this.contrastWhite);
   }
 }
-class ColourSwatch extends Colour{
+class ColourSwatch {
   constructor(hex,name){
-    super();
     this.name = name;
     this.colour = new ColourSpaces(hex);
     this.autoTextColour = new ColourAutoText(this.colour.srgb.array);
