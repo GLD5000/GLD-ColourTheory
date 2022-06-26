@@ -65,7 +65,7 @@ class ColourSpaces {
   constructor(hex){
     this.hex = hex;
     this.srgb = new ColourSrgb(this._convertHexToSrgb(hex));
-    this.hsl = new ColourHsl(this._convertSrgbToHsl(...this.srgb.array));
+    this.hsl = new ColourHsl(this._convertSrgbToHsl(this.srgb.red,this.srgb.green,this.srgb.blue));
   }
   _convertHexToSrgb(hex) {
     let RsRGB = 0, GsRGB = 0, BsRGB = 0;
@@ -174,35 +174,14 @@ class ColourSpaces {
 
 }
 
-class ColourHex{
-  constructor(hex){
-    this._type = 'hex';
-    this._hex = hex;
-  }
-  get type(){
-    return this._type;
-  }
-  get hex(){
-    return this._hex;
-  }
-  set hex(x){
-    this._hex = x;
-  }
-
-
-}
 class ColourHsl{
   constructor(hslArr){
     this._type = 'hsl';
-    this._array = hslArr;
-    [this._hue, this._sat, this._lum] = this._array;
+    [this._hue, this._sat, this._lum] = hslArr;
     this._string = `hsl(${Math.round(this._hue)}, ${Math.round(this._sat)}%, ${Math.round(this._lum)}%)`;
   }
   get type(){
     return this._type;
-  }
-  get array(){
-    return this._array;
   }
   get string(){
     return this._string;
@@ -249,24 +228,20 @@ class ColourHsl{
 class ColourSrgb{
   constructor(srgbArr){
     this._type = 'srgb';
-    this._array = srgbArr;
-    [this._rSrgb, this._gSrgb, this._bSrgb] = this._array;
+    [this._rSrgb, this._gSrgb, this._bSrgb] = srgbArr;
     this._string = `rgb(${255 * this._rSrgb}, ${255 * this._gSrgb}, ${255 * this._bSrgb})`
   }
   get type(){
     return this._type;
   }
-  get rSrgb(){
+  get red(){
     return this._rSrgb;
   }
-  get gSrgb(){
+  get green(){
     return this._gSrgb;
   }
-  get bSrgb(){
+  get blue(){
     return this._bSrgb;
-  }
-  get array(){
-    return this._array;
   }
   get string(){
     return this._string;
@@ -275,14 +250,14 @@ class ColourSrgb{
 class ColourTripleGradient{
   constructor(colourSpaces,name){
     this.name = name;
-    [this._hue,this._sat,this._lum] = [...colourSpaces.hsl.array];
+    [this._hue,this._sat,this._lum] = [colourSpaces.hsl.hue,colourSpaces.hsl.sat,colourSpaces.hsl.lum];
 
   }
 }
 class ColourMultiGradient{
   constructor(colourSpaces,name,stops){
     this.name = name;
-    [this._hue,this._sat,this._lum] = [...colourSpaces.hsl.array];
+    [this._hue,this._sat,this._lum] = [colourSpaces.hsl.hue,colourSpaces.hsl.sat,colourSpaces.hsl.lum];
     //for stops loop
   }
 }
@@ -299,7 +274,7 @@ class PickerWrapperBackground {
   constructor(hex,name){
     this.name = name;
     this.colour = new ColourSpaces(hex);
-    this.autoTextColour = new ColourAutoText(this.colour.srgb.array);
+    this.autoTextColour = new ColourAutoText([this.colour.srgb.red,this.colour.srgb.green,this.colour.srgb.blue]);
     this.tripleGradient = new ColourTripleGradient(this.colour,this.name);
     this.multiGradient = new ColourMultiGradient(this.colour,this.name);
   }
