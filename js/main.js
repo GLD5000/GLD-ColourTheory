@@ -18,17 +18,14 @@ class PickerWrapper{
 }
 
 const randomButton = {
-  _button: document.getElementById('randomise-btn'),
-  _dieA: document.getElementById('dieA'),    
-  _dieB: document.getElementById('dieB'),    
   _randomDiceColours(){
-    this._dieA = document.getElementById('dieA').style.backgroundColor = makeRandomColour();    
-    this._dieB = document.getElementById('dieB').style.backgroundColor = makeRandomColour();    
+    this._dieA = document.getElementById('dieA').style.backgroundColor = this._makeRandomColour();    
+    this._dieB = document.getElementById('dieB').style.backgroundColor = this._makeRandomColour();    
   },
   _makeRandomColour(){
     const hue = parseInt(Math.random() * 360);
-    const sat = 48 + parseInt(Math.random() * 40); // 78
-    const lum = 53 + parseInt(Math.random() * 35); // 53
+    const sat = 48 + parseInt(Math.random() * 40); // 48 - 87
+    const lum = 53 + parseInt(Math.random() * 35); // 53 - 87
     return this._convertHslToHex(hue, sat, lum);
   },
   _convertHslToHex(hue, sat, lum) {
@@ -69,10 +66,25 @@ const randomButton = {
       blue = '0' + blue;
   
     return '#' + red + green + blue;
+  },
+  _randomise(){
+    this._randomDiceColours();
+    mainColourSwatch._updateBackgroundColour(this._makeRandomColour());
+
+  },
+  init(){
+    this._button = document.getElementById('randomise-btn');
+    this._button.onclick = () => {this._randomise()};
+    this._diceButton = document.getElementById('dice-btn');
+    this._diceButton.onclick = () => {this._randomise()};
+    this._dieA = document.getElementById('dieA');
+    this._dieB = document.getElementById('dieB');    
   }
-
-
 }
+
+randomButton.init();
+//console.log(randomButton);
+
 class MainSwatch{
   constructor(name){
     this._hueSlider = document.getElementById('hue-slider');
@@ -171,8 +183,40 @@ class MainSwatch{
   
 }
 
-const mainSwatch = new MainSwatch('mainColour');
-console.log(mainSwatch);
+class SmallSwatch{
+  constructor(name){
+    this._picker = document.getElementById(name + '-picker');
+    this._wrapper = document.getElementById(name + '-wrapper');
+    this._copyButton = document.getElementById(name + '-copybtn');
+    this._updateBackgroundColour(this._picker.value);
+    this._setOnChange();
+  }
+  _updateBackgroundColour(hex){
+    this._picker.value = hex;
+    this._wrapper.style.backgroundColor = hex; 
+    //contrast ratio
+    
+  }
+  _updateTextColour(hex){
+    this._picker.value = hex;
+    this._wrapper.style.backgroundColor = hex; 
+    //contrast ratio
+  }
+  _setOnChange(){
+    this._picker.oninput = () =>{this._onChangePicker()};
+    this._copyButton.onclick = () =>{this._onChange()};
+  }
+  _onChange(e){
+    console.log(e);
+  }
+  _onChangePicker(){
+    this._updateBackgroundColour(this._picker.value);
+  }
+}
+
+
+const mainColourSwatch = new MainSwatch('mainColour');
+console.log(mainColourSwatch);
 
 class Picker {
   constructor(name){
@@ -484,7 +528,7 @@ function updateLabels(){
   if (isHex === true){
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise-btn' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise-btn' && id !== 'dice-btn' && id !== 'mode'){//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = document.getElementById(picker).value;
@@ -493,7 +537,7 @@ function updateLabels(){
   }else{
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise-btn' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise-btn' && id !== 'dice-btn' && id !== 'mode'){//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = hexToHSLString(document.getElementById(picker).value);
@@ -930,10 +974,10 @@ function onClickButtons(){
     if (id === 'copyAllCSS') x.onclick = () => copyAll();
     if (id === 'SCSSToggle') x.onclick = () => toggleScss(x);
     if (id === 'HSLToggle') x.onclick = () => toggleHsl(x);
-    if (id === 'randomise-btn') x.onclick = () => randomise();
-    if (id === 'dice') x.onclick = () => randomise();
+  //  if (id === 'randomise-btn') x.onclick = () => randomise();
+    //if (id === 'dice-btn') x.onclick = () => randomise();
     if (id === 'mode') x.onclick = () => switchColourMode();
-    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise-btn' && id !== 'dice' && id !== 'mode') x.onclick = () => copySingle(x);
+    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise-btn' && id !== 'dice-btn' && id !== 'mode') x.onclick = () => copySingle(x);
   }); 
  
 }
