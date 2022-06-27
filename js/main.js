@@ -185,21 +185,24 @@ class MainSwatch{
 
 class SmallSwatch{
   constructor(name){
+    this._name = name;
     this._picker = document.getElementById(name + '-picker');
     this._wrapper = document.getElementById(name + '-wrapper');
     this._copyButton = document.getElementById(name + '-copybtn');
     this._updateBackgroundColour(this._picker.value);
     this._setOnChange();
+    this._customName = 'custom';
+
   }
   _updateBackgroundColour(hex){
+    this._picker.dataset.title = this._name;
     this._picker.value = hex;
     this._wrapper.style.backgroundColor = hex; 
     //contrast ratio
     
   }
   _updateTextColour(hex){
-    this._picker.value = hex;
-    this._wrapper.style.backgroundColor = hex; 
+    this._wrapper.style.color = hex; 
     //contrast ratio
   }
   _setOnChange(){
@@ -210,10 +213,14 @@ class SmallSwatch{
     console.log(e);
   }
   _onChangePicker(){
+    this._picker.dataset.title = 'help';//not working
+    this._customBackgroundColour = this._picker.value;
     this._updateBackgroundColour(this._picker.value);
+    console.log(`picker changed ${this._picker.dataset.title}`);
   }
 }
-
+const tetradicASwatch = new SmallSwatch('tetradicA');
+console.log(tetradicASwatch);
 
 const mainColourSwatch = new MainSwatch('mainColour');
 console.log(mainColourSwatch);
