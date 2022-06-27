@@ -6,6 +6,174 @@ const colour_picker_hex_label = document.getElementById('mainColour-copybtn');
 const pickers = document.querySelectorAll('input[type="color"]');
 const buttons = document.querySelectorAll('button');
 
+class PickerWrapper{
+  constructor(name, value){
+    this._id = name + '-wrapper';
+    this._element = document.getElementById(this._id);
+    this._background = new PickerWrapperBackground(value,name)
+    this._autoTextColour = new ColourAutoText([this._background.colour.srgb.red,this._background.colour.srgb.green,this._background.colour.srgb.blue]);
+
+    this._element.style.background = value;// update to respond to types later
+}
+}
+
+const randomButton = {
+  _button: document.getElementById('randomise-btn'),
+  _dieA: document.getElementById('dieA'),    
+  _dieB: document.getElementById('dieB'),    
+  _randomDiceColours(){
+    this._dieA = document.getElementById('dieA').style.backgroundColor = makeRandomColour();    
+    this._dieB = document.getElementById('dieB').style.backgroundColor = makeRandomColour();    
+  },
+  _makeRandomColour(){
+    const hue = parseInt(Math.random() * 360);
+    const sat = 48 + parseInt(Math.random() * 40); // 78
+    const lum = 53 + parseInt(Math.random() * 35); // 53
+    return this._convertHslToHex(hue, sat, lum);
+  },
+  _convertHslToHex(hue, sat, lum) {
+    sat /= 100;
+    lum /= 100;
+  
+    let chroma = (1 - Math.abs(2 * lum - 1)) * sat,
+        x = chroma * (1 - Math.abs((hue / 60) % 2 - 1)),
+        lightness = lum - chroma/2,
+        red = 0,
+        green = 0, 
+        blue = 0; 
+  
+    if (0 <= hue && hue < 60) {
+      red = chroma; green = x; blue = 0;
+    } else if (60 <= hue && hue < 120) {
+      red = x; green = chroma; blue = 0;
+    } else if (120 <= hue && hue < 180) {
+      red = 0; green = chroma; blue = x;
+    } else if (180 <= hue && hue < 240) {
+      red = 0; green = x; blue = chroma;
+    } else if (240 <= hue && hue < 300) {
+      red = x; green = 0; blue = chroma;
+    } else if (300 <= hue && hue <= 360) {
+      red = chroma; green = 0; blue = x;
+    }
+    // Having obtained RGB, convert channels to hex
+    red = Math.round((red + lightness) * 255).toString(16);
+    green = Math.round((green + lightness) * 255).toString(16);
+    blue = Math.round((blue + lightness) * 255).toString(16);
+  
+    // Prepend 0s, if necessary
+    if (red.length == 1)
+      red = '0' + red;
+    if (green.length == 1)
+      green = '0' + green;
+    if (blue.length == 1)
+      blue = '0' + blue;
+  
+    return '#' + red + green + blue;
+  }
+
+
+}
+class MainSwatch{
+  constructor(name){
+    this._hueSlider = document.getElementById('hue-slider');
+    this._satSlider = document.getElementById('sat-slider');
+    this._lumSlider = document.getElementById('lum-slider');
+    this._picker = document.getElementById(name + '-picker');
+    this._wrapper = document.getElementById(name + '-wrapper');
+    this._copyButton = document.getElementById(name + '-copybtn');
+    this._textPicker = document.getElementById('textColour-picker');
+    this._textWrapper = document.getElementById('textColour-wrapper');
+    this._modeButton = document.getElementById(name + '-mode');
+    this._updateBackgroundColour(this._picker.value);
+    this._setOnChange();
+  }
+  _updateBackgroundColour(hex){
+    this._picker.value = hex;
+    this._wrapper.style.backgroundColor = hex; 
+    //contrast ratio
+    
+  }
+  _updateTextColour(hex){
+    this._picker.value = hex;
+    this._wrapper.style.backgroundColor = hex; 
+    //contrast ratio
+  }
+  _setOnChange(){
+    this._hueSlider.oninput = () =>{this._onChangeSlider()};
+    this._satSlider.oninput = () =>{this._onChangeSlider()};
+    this._lumSlider.oninput = () =>{this._onChangeSlider()};
+    this._picker.oninput = () =>{this._onChangePicker()};
+    this._copyButton.onclick = () =>{this._onChange()};
+    this._textPicker.oninput = () =>{this._onChange()};
+    this._modeButton.onchange = () =>{this._onChange()};
+  }
+  _onChange(e){
+    console.log(e);
+  }
+  _onChangeSlider(){
+    const hex = this._convertHslToHex(this._hueSlider.value,this._satSlider.value,this._lumSlider.value);
+    this._updateBackgroundColour(hex);
+  }
+  _onChangePicker(){
+    this._updateBackgroundColour(this._picker.value);
+  }
+  _convertHslToHex(hue, sat, lum) {
+    sat /= 100;
+    lum /= 100;
+  
+    let chroma = (1 - Math.abs(2 * lum - 1)) * sat,
+        x = chroma * (1 - Math.abs((hue / 60) % 2 - 1)),
+        lightness = lum - chroma/2,
+        red = 0,
+        green = 0, 
+        blue = 0; 
+  
+    if (0 <= hue && hue < 60) {
+      red = chroma; green = x; blue = 0;
+    } else if (60 <= hue && hue < 120) {
+      red = x; green = chroma; blue = 0;
+    } else if (120 <= hue && hue < 180) {
+      red = 0; green = chroma; blue = x;
+    } else if (180 <= hue && hue < 240) {
+      red = 0; green = x; blue = chroma;
+    } else if (240 <= hue && hue < 300) {
+      red = x; green = 0; blue = chroma;
+    } else if (300 <= hue && hue <= 360) {
+      red = chroma; green = 0; blue = x;
+    }
+    // Having obtained RGB, convert channels to hex
+    red = Math.round((red + lightness) * 255).toString(16);
+    green = Math.round((green + lightness) * 255).toString(16);
+    blue = Math.round((blue + lightness) * 255).toString(16);
+  
+    // Prepend 0s, if necessary
+    if (red.length == 1)
+      red = '0' + red;
+    if (green.length == 1)
+      green = '0' + green;
+    if (blue.length == 1)
+      blue = '0' + blue;
+  
+    return '#' + red + green + blue;
+  }
+  /**
+   * interact with other modules
+   * 
+   * 
+   * 
+   */
+  _makeRandomColour(){
+    const hue = parseInt(Math.random() * 360);
+    const sat = 48 + parseInt(Math.random() * 40); // 78
+    const lum = 53 + parseInt(Math.random() * 35); // 53
+    this._updateBackgroundColour(this._convertHslToHex(hue, sat, lum));
+  }
+  
+}
+
+const mainSwatch = new MainSwatch('mainColour');
+console.log(mainSwatch);
+
 class Picker {
   constructor(name){
     this._name = name;
@@ -44,22 +212,17 @@ class CopyButton{
 
   }
 }
+
 class Swatch{
   constructor(id){
     this._picker = new Picker(id);
+
+
   }
   //setWrapperColour(colour){
     
     //}
   }
-class PickerWrapper{
-    constructor(name, value){
-      this._id = name + '-wrapper';
-      this._element = document.getElementById(this._id);
-      this._background = new PickerWrapperBackground(value,name)
-      this._element.style.background = value;// update to respond to types later
-  }
-}
 
 class ColourSpaces {
   constructor(hex){
@@ -274,7 +437,6 @@ class PickerWrapperBackground {
   constructor(hex,name){
     this.name = name;
     this.colour = new ColourSpaces(hex);
-    this.autoTextColour = new ColourAutoText([this.colour.srgb.red,this.colour.srgb.green,this.colour.srgb.blue]);
     this.tripleGradient = new ColourTripleGradient(this.colour,this.name);
     this.multiGradient = new ColourMultiGradient(this.colour,this.name);
   }
@@ -322,7 +484,7 @@ function updateLabels(){
   if (isHex === true){
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise-btn' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = document.getElementById(picker).value;
@@ -331,7 +493,7 @@ function updateLabels(){
   }else{
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise-btn' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = hexToHSLString(document.getElementById(picker).value);
@@ -386,7 +548,7 @@ function swatchModeSelector(hex, modeValue){
 
 function updateColour(){
   let mainColourLabel, analogousAColourLabel, analogousBColourLabel, triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
-  const modeValue = document.getElementById('mode').innerHTML;    
+  const modeValue = document.getElementById('mainColour-mode').innerHTML;    
   const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
   const mainColour = colour_picker.value;
   const textColour = setTextColour(mainColour);
@@ -420,8 +582,6 @@ function updateColour(){
   const testColour = new PickerWrapperBackground(colour_picker.value,'Testing');
   console.log(testColour);
   */
-  const testSwatch = new Swatch("mainColour");
-  console.log(testSwatch);
 }
 
 function linearGradientThreeTone(hex){
@@ -627,7 +787,7 @@ function adjustSat(){
 function fillClipboard(){
   const clipboard = document.getElementById('clipboard');
   const clipboardSecondary = document.getElementById('clipboard-secondary');
-  const modeValue = document.getElementById('mode').innerHTML;    
+  const modeValue = document.getElementById('mainColour-mode').innerHTML;    
   const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
   clipboardSecondary.style.color = isHex? '#ce9178': '#b5cea8';
   const isSCSS = (document.getElementById('SCSSToggle').innerHTML === 'SCSS');
@@ -770,15 +930,15 @@ function onClickButtons(){
     if (id === 'copyAllCSS') x.onclick = () => copyAll();
     if (id === 'SCSSToggle') x.onclick = () => toggleScss(x);
     if (id === 'HSLToggle') x.onclick = () => toggleHsl(x);
-    if (id === 'randomise') x.onclick = () => randomise();
+    if (id === 'randomise-btn') x.onclick = () => randomise();
     if (id === 'dice') x.onclick = () => randomise();
     if (id === 'mode') x.onclick = () => switchColourMode();
-    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice' && id !== 'mode') x.onclick = () => copySingle(x);
+    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise-btn' && id !== 'dice' && id !== 'mode') x.onclick = () => copySingle(x);
   }); 
  
 }
 
-function randomColour(){
+function makeRandomColour(){
   let hue = parseInt(Math.random() * 360);
   let sat = 48 + parseInt(Math.random() * 40); // 78
   let lum = 53 + parseInt(Math.random() * 35); // 53
@@ -787,12 +947,12 @@ function randomColour(){
 
 
 function randomMainColour(){
-  colour_picker.value = randomColour();
+  colour_picker.value = makeRandomColour();
 }
 
 function randomDiceColours(){
-  document.getElementById('dieA').style.backgroundColor = randomColour();    
-  document.getElementById('dieB').style.backgroundColor = randomColour();    
+  document.getElementById('dieA').style.backgroundColor = makeRandomColour();    
+  document.getElementById('dieB').style.backgroundColor = makeRandomColour();    
 
 }
 
@@ -810,7 +970,7 @@ function randomise(){
   randomDiceColours();
 }
 function switchColourMode(){
-  const modeSwitch = document.getElementById('mode');    
+  const modeSwitch = document.getElementById('mainColour-mode');    
   const modeValue = modeSwitch.innerHTML; 
   if (modeValue === 'Mode: Single'){
     modeSwitch.innerHTML = 'Mode: Triple';
