@@ -192,10 +192,12 @@ class SmallSwatch{
     this._updateBackgroundColour(this._picker.value);
     this._setOnChange();
     this._customName = 'custom';
+    this._wrapper.dataset.content = this._name;
+
 
   }
   _updateBackgroundColour(hex){
-    this._picker.dataset.title = this._name;
+
     this._picker.value = hex;
     this._wrapper.style.backgroundColor = hex; 
     //contrast ratio
@@ -213,10 +215,10 @@ class SmallSwatch{
     console.log(e);
   }
   _onChangePicker(){
-    this._picker.dataset.title = 'help';//not working
+    this._wrapper.dataset.content = `${this._customName}`;
     this._customBackgroundColour = this._picker.value;
     this._updateBackgroundColour(this._picker.value);
-    console.log(`picker changed ${this._picker.dataset.title}`);
+    console.log(`picker changed ${this._wrapper.dataset.content}`);
   }
 }
 const tetradicASwatch = new SmallSwatch('tetradicA');
