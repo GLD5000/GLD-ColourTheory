@@ -295,7 +295,7 @@ $;
 }
 
 .picker-wrapper::before {
-  content: attr(name);
+  content: attr(data-content);
   position: absolute;
   text-align: center;
   top: 1rem;
