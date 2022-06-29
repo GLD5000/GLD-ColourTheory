@@ -33,12 +33,16 @@ class MainSwatch{
     this._textWrapper = document.getElementById('textColour-wrapper');
     this._modeButton = document.getElementById(name + '-mode');
     this._backgroundColour = this._picker.value;
-    // init
-    this._updateBackgroundColour(this._picker.value);
-    this._setOnChange();
+    //Random dice
+    this._randomButton = document.getElementById('randomise-btn');
+    this._diceButton = document.getElementById('dice-btn');
+    this._dieA = document.getElementById('dieA');
+    this._dieB = document.getElementById('dieB');
     //properties
     [this._textColour, this._contrastRatio] = [...this._autoTextColour(this._backgroundColour)];
-    
+    // init
+    this._setOnChange();
+    this._updateBackgroundColour(this._picker.value);
   }
   _updateBackgroundColour(hex){
     
@@ -51,8 +55,8 @@ class MainSwatch{
     this._wrapper.style.color = this._textColour; 
     // Update text picker button text
     this._textWrapper.dataset.content = 'Text: Auto';
-
-
+    
+    
     tetradicBSwatch.changeSwatchColour(hex);
     tetradicBSwatch.changeSwatchTextColour(this._textColour);
     
@@ -65,6 +69,9 @@ class MainSwatch{
     this._copyButton.onclick = () =>{this._onChange()};
     this._textPicker.oninput = () =>{this._onChangeTextPicker()};
     this._modeButton.onchange = () =>{this._onChange()};
+    this._randomButton.onclick = () => {this._randomise()};
+    this._diceButton.onclick = () => {this._randomise()};
+    
   }
   _onChange(e){
     console.log(e);
@@ -88,7 +95,7 @@ class MainSwatch{
     this._wrapper.style.color = hex; 
     // Update text picker button text
     this._textWrapper.dataset.content = 'Text: Custom'//Text: Auto;
-
+    
   }
   _autoTextColour(hex){
     let srgbArr = this._convertHexToSrgb(hex);
@@ -105,7 +112,7 @@ class MainSwatch{
       RsRGB  = ('0x' + hex[1] + hex[1])/255;
       GsRGB = ('0x' + hex[2] + hex[2])/255;
       BsRGB = ('0x' + hex[3] + hex[3])/255;
-    // 6 digits
+      // 6 digits
     } else if (hex.length == 7) {
       RsRGB = ('0x' + hex[1] + hex[2])/255;
       GsRGB = ('0x' + hex[3] + hex[4])/255;
@@ -114,28 +121,28 @@ class MainSwatch{
     return [RsRGB, GsRGB, BsRGB];
   }
   _convertSrgbToHsl(RsRGB, GsRGB, BsRGB) {
-
+    
     let cmin = Math.min(RsRGB, GsRGB, BsRGB),
-        cmax = Math.max(RsRGB, GsRGB, BsRGB),
-        delta = cmax - cmin,
-        hue = 0,
-        sat = 0,
-        lum = 0;
-  
+    cmax = Math.max(RsRGB, GsRGB, BsRGB),
+    delta = cmax - cmin,
+    hue = 0,
+    sat = 0,
+    lum = 0;
+    
     if (delta == 0)
-      hue = 0;
+    hue = 0;
     else if (cmax == RsRGB)
-      hue = ((GsRGB - BsRGB) / delta) % 6;
+    hue = ((GsRGB - BsRGB) / delta) % 6;
     else if (cmax == GsRGB)
-      hue = (BsRGB - RsRGB) / delta + 2;
+    hue = (BsRGB - RsRGB) / delta + 2;
     else
-      hue = (RsRGB - GsRGB) / delta + 4;
-  
+    hue = (RsRGB - GsRGB) / delta + 4;
+    
     hue = (hue * 60);//Math.round(hue * 60);
-  
+    
     if (hue < 0)
-      hue += 360;
-  
+    hue += 360;
+    
     lum = (cmax + cmin) / 2;
     sat = delta == 0 ? 0 : delta / (1 - Math.abs(2 * lum - 1));
     sat = +(sat * 100);
@@ -145,14 +152,14 @@ class MainSwatch{
   _convertHslToHex(hue, sat, lum) {
     sat /= 100;
     lum /= 100;
-  
+    
     let chroma = (1 - Math.abs(2 * lum - 1)) * sat,
-        x = chroma * (1 - Math.abs((hue / 60) % 2 - 1)),
-        lightness = lum - chroma/2,
-        red = 0,
-        green = 0, 
-        blue = 0; 
-  
+    x = chroma * (1 - Math.abs((hue / 60) % 2 - 1)),
+    lightness = lum - chroma/2,
+    red = 0,
+    green = 0, 
+    blue = 0; 
+    
     if (0 <= hue && hue < 60) {
       red = chroma; green = x; blue = 0;
     } else if (60 <= hue && hue < 120) {
@@ -170,24 +177,23 @@ class MainSwatch{
     red = Math.round((red + lightness) * 255).toString(16);
     green = Math.round((green + lightness) * 255).toString(16);
     blue = Math.round((blue + lightness) * 255).toString(16);
-  
+    
     // Prepend 0s, if necessary
     if (red.length == 1)
-      red = '0' + red;
+    red = '0' + red;
     if (green.length == 1)
-      green = '0' + green;
+    green = '0' + green;
     if (blue.length == 1)
-      blue = '0' + blue;
-  
+    blue = '0' + blue;
     return '#' + red + green + blue;
   }
   _calculateRelativeLuminance(RsRGB, GsRGB, BsRGB){
     const R = (RsRGB <= 0.04045)? RsRGB/12.92: Math.pow((RsRGB+0.055)/1.055, 2.4);
     const G = (GsRGB <= 0.04045)? GsRGB/12.92: Math.pow((GsRGB+0.055)/1.055, 2.4);
     const B = (BsRGB <= 0.04045)? BsRGB/12.92: Math.pow((BsRGB+0.055)/1.055, 2.4);
-
+    
     return (0.2126 * R) + (0.7152 * G) + (0.0722 * B);
-   }
+  }
   _calculateContrastRatio(...args){
     /*A contrast ratio of 3:1 is the minimum level recommended by [[ISO-9241-3]] and [[ANSI-HFES-100-1988]] for standard text and vision. 
     Large-scale text and images of large-scale text have a contrast ratio of at least 4.5:1;
@@ -200,7 +206,7 @@ class MainSwatch{
   _makeContrastRatioString(ratio){
     const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
     return `Contrast Ratio: ${ratio.toFixed(2)}${rating}`;
-    }
+  }
   /**
    * interact with other modules
    * 
@@ -209,15 +215,23 @@ class MainSwatch{
    */
   _makeRandomColour(){
     const hue = parseInt(Math.random() * 360);
-    const sat = 48 + parseInt(Math.random() * 40); // 78
-    const lum = 53 + parseInt(Math.random() * 35); // 53
-    this._updateBackgroundColour(this._convertHslToHex(hue, sat, lum));
+    const sat = 48 + parseInt(Math.random() * 40); // 48 - 87
+    const lum = 53 + parseInt(Math.random() * 35); // 53 - 87
+    return this._convertHslToHex(hue, sat, lum);
+  }
+  _randomDiceColours(){
+    this._dieA.style.backgroundColor = this._makeRandomColour();    
+    this._dieB.style.backgroundColor = this._makeRandomColour();    
+  }
+  _randomise(){
+    this._updateBackgroundColour(this._makeRandomColour());
+    this._randomDiceColours();
   }
   
 }
 
 class SmallSwatch{
-    static instanceCounter = 0;
+  static instanceCounter = 0;
   constructor(name){
     this._name = name;
     this._picker = document.getElementById(name + '-picker');
@@ -1069,6 +1083,7 @@ const tetradicASwatch = new SmallSwatch('tetradicA');
 console.log(tetradicASwatch);
 const mainColourSwatch = new MainSwatch('mainColour');
 console.log(mainColourSwatch);
+/*
 const randomButton = {
   _randomDiceColours(){
     this._dieA = document.getElementById('dieA').style.backgroundColor = this._makeRandomColour();    
@@ -1122,7 +1137,6 @@ const randomButton = {
   _randomise(){
     this._randomDiceColours();
     mainColourSwatch._updateBackgroundColour(this._makeRandomColour());
-
   },
   init(){
     this._button = document.getElementById('randomise-btn');
@@ -1135,6 +1149,7 @@ const randomButton = {
 }
 
 randomButton.init();
+*/
 
 
 }
