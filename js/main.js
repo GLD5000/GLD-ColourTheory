@@ -232,7 +232,9 @@ class MainSwatch{
 
 class SmallSwatch{
   static instanceCounter = 0;
-  constructor(name){
+  constructor(name,func, functionVariable){
+    this._function = func;
+    this._functionVaraiable = functionVariable;
     this._name = name;
     this._picker = document.getElementById(name + '-picker');
     this._wrapper = document.getElementById(name + '-wrapper');
@@ -287,6 +289,34 @@ class SmallSwatch{
   }
 
 }
+
+class Palette{
+  constructor(){
+      this._smallSwatchList ={
+      analogousA:  [hueRotateHEX,-30],
+      analogousB:   [hueRotateHEX, 30],
+      triadicA:    [hueRotateHEX, -120],
+      triadicB:    [hueRotateHEX, 120],
+      tetradicA:   [hueRotateHEX, 90],
+      tetradicB:   [hueRotateHEX, 180],
+      tetradicC:   [hueRotateHEX, 270],
+      monochromeA:   [lumAdjustHEX, -10],
+      monochromeB:   [lumAdjustHEX, 10],
+      neutral:    [satAdjustHEX, -200],
+    }
+    this._smallSwatches = Object.keys(this._smallSwatchList).map(x => new SmallSwatch(x, this._smallSwatchList[x][0], this._smallSwatchList[x][1]));
+    console.log(this._smallSwatches);
+
+  }
+}
+
+const test = new Palette;
+
+
+
+
+
+
 
 class Picker {
   constructor(name){
