@@ -233,8 +233,8 @@ class MainSwatch{
 class SmallSwatch{
   static instanceCounter = 0;
   constructor(name,func, functionVariable){
-    this._function = func;
-    this._functionVaraiable = functionVariable;
+    this._func = func;
+    this._functionVariable = functionVariable;
     this._name = name;
     this._picker = document.getElementById(name + '-picker');
     this._wrapper = document.getElementById(name + '-wrapper');
@@ -281,8 +281,12 @@ class SmallSwatch{
     this._updateBackgroundColour(this._picker.value);
   }
   changeSwatchColour(hex){
+    let variable = this._functionVariable;
+    let fn =  this._func;
+    const modifiedHex = ()=> fn(hex, variable);
+    console.log(modifiedHex);
     this._wrapper.dataset.content = this._name;
-    this._updateBackgroundColour(hex);
+    this._updateBackgroundColour(modifiedHex);
   }
   changeSwatchTextColour(hex){
     this._updateTextColour(hex);
@@ -308,6 +312,7 @@ class Palette{
     console.log(this._smallSwatches);
 
   }
+  
 }
 
 const test = new Palette;
