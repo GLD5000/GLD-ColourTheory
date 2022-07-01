@@ -17,35 +17,127 @@ class PickerWrapper{
 }
 }
 
-
-//console.log(randomButton);
-
-class MainSwatch{
-  constructor(name){
-    //elements
-    this._hueSlider = document.getElementById('hue-slider');
-    this._satSlider = document.getElementById('sat-slider');
-    this._lumSlider = document.getElementById('lum-slider');
+class SmallSwatch{
+  static instanceCounter = 0;
+  constructor(name, func, functionVariable){
+    this._func = func;
+    this._functionVariable = functionVariable;
+    this._name = name;
     this._picker = document.getElementById(name + '-picker');
     this._wrapper = document.getElementById(name + '-wrapper');
     this._copyButton = document.getElementById(name + '-copybtn');
-    this._textPicker = document.getElementById('textColour-picker');
-    this._textWrapper = document.getElementById('textColour-wrapper');
-    this._modeButton = document.getElementById(name + '-mode');
-    this._backgroundColour = this._picker.value;
-    //Random dice
-    this._randomButton = document.getElementById('randomise-btn');
-    this._diceButton = document.getElementById('dice-btn');
-    this._dieA = document.getElementById('dieA');
-    this._dieB = document.getElementById('dieB');
-    //properties
-    [this._textColour, this._contrastRatio] = [...this._autoTextColour(this._backgroundColour)];
-    // init
-    this._setOnChange();
     this._updateBackgroundColour(this._picker.value);
+    this._setOnChange();
+    this._wrapper.dataset.content = this._name;
+    this._customised = 0;
+
+
   }
   _updateBackgroundColour(hex){
+    this._picker.value = hex;
+    this._wrapper.style.backgroundColor = hex; 
+    //contrast ratio
+  }
+  _updateTextColour(hex){
+    this._wrapper.style.color = hex; 
+    //contrast ratio
+  }
+  _setOnChange(){
+    this._picker.onclick = () =>{this._onClickPicker()};
+    this._picker.oninput = () =>{this._onChangePicker()};
+    this._copyButton.onclick = () =>{this._onChange()};
+  }
+  _onChange(e){
+    console.log(e);
+  }
+ _onClickPicker(){
+  if(this._customised === 1) {
+    this._wrapper.dataset.content = `${this._customName}`;
+    this._picker.value = this._customBackgroundColour;
+    this._updateBackgroundColour(this._picker.value);
+  }
+  }
+
+  _onChangePicker(){
+    if(this._customised === 0) {
+      this._customName = 'custom ' + ++SmallSwatch.instanceCounter;
+      this._customised = 1;
+    }
+    this._wrapper.dataset.content = `${this._customName}`;
+    this._customBackgroundColour = this._picker.value;
+    this._updateBackgroundColour(this._picker.value);
+  }
+  changeSwatchColour(hex){
+    const modifiedHex = this._func(hex, this._functionVariable);
+    this._wrapper.dataset.content = this._name;
+    this._updateBackgroundColour(modifiedHex);
+  }
+  changeSwatchTextColour(hex){
+    this._updateTextColour(hex);
+  }
+
+}
+class SmallSwatchesGroup{
+  constructor(){
+    this._smallSwatchList ={
+      analogousA:  [hueRotateHEX,-30],
+      analogousB:   [hueRotateHEX, 30],
+      triadicA:    [hueRotateHEX, -120],
+      triadicB:    [hueRotateHEX, 120],
+      tetradicA:   [hueRotateHEX, 90],
+      tetradicB:   [hueRotateHEX, 180],
+      tetradicC:   [hueRotateHEX, 270],
+      monochromeA:   [lumAdjustHEX, -10],
+      monochromeB:   [lumAdjustHEX, 10],
+      neutral:    [satAdjustHEX, -200],
+    }
+    this._smallSwatches = Object.keys(this._smallSwatchList).map(x => new SmallSwatch(x, this._smallSwatchList[x][0], this._smallSwatchList[x][1]));
     
+  }
+  updateSwatches(hex){
+    this._smallSwatches.forEach(x =>{
+      x.changeSwatchColour(hex)
+      });
+
+  }
+} 
+
+
+class MainSwatch{
+  constructor(name){
+    // init
+    this._smallSwatchesGroup = new SmallSwatchesGroup();
+    this._getElements(name);
+
+    this._setOnChange();
+    this._updateBackgroundColour(this._picker.value);
+    this._hex = this._picker.value;
+  }
+  get hex(){
+    return this._hex;
+  }
+  _getElements(name){
+        //elements
+        this._hueSlider = document.getElementById('hue-slider');
+        this._satSlider = document.getElementById('sat-slider');
+        this._lumSlider = document.getElementById('lum-slider');
+        this._picker = document.getElementById(name + '-picker');
+        this._wrapper = document.getElementById(name + '-wrapper');
+        this._copyButton = document.getElementById(name + '-copybtn');
+        this._textPicker = document.getElementById('textColour-picker');
+        this._textWrapper = document.getElementById('textColour-wrapper');
+        this._modeButton = document.getElementById(name + '-mode');
+        this._backgroundColour = this._picker.value;
+        //Random dice
+        this._randomButton = document.getElementById('randomise-btn');
+        this._diceButton = document.getElementById('dice-btn');
+        this._dieA = document.getElementById('dieA');
+        this._dieB = document.getElementById('dieB');
+        //properties
+        [this._textColour, this._contrastRatio] = [...this._autoTextColour(this._backgroundColour)];
+    
+  }
+  _updateBackgroundColour(hex){
     this._picker.value = hex;
     this._wrapper.style.backgroundColor = hex; 
     [this._textColour, this._contrastRatio] = [...this._autoTextColour(hex)];
@@ -55,11 +147,8 @@ class MainSwatch{
     this._wrapper.style.color = this._textColour; 
     // Update text picker button text
     this._textWrapper.dataset.content = 'Text: Auto';
-    
-    
-    tetradicBSwatch.changeSwatchColour(hex);
-    tetradicBSwatch.changeSwatchTextColour(this._textColour);
-    
+
+    this._smallSwatchesGroup.updateSwatches(hex);
   }
   _setOnChange(){
     this._hueSlider.oninput = () =>{this._onChangeSlider()};
@@ -230,97 +319,16 @@ class MainSwatch{
   
 }
 
-class SmallSwatch{
-  static instanceCounter = 0;
-  constructor(name,func, functionVariable){
-    this._func = func;
-    this._functionVariable = functionVariable;
-    this._name = name;
-    this._picker = document.getElementById(name + '-picker');
-    this._wrapper = document.getElementById(name + '-wrapper');
-    this._copyButton = document.getElementById(name + '-copybtn');
-    this._updateBackgroundColour(this._picker.value);
-    this._setOnChange();
-    this._wrapper.dataset.content = this._name;
-    this._customised = 0;
-
-
-  }
-  _updateBackgroundColour(hex){
-    this._picker.value = hex;
-    this._wrapper.style.backgroundColor = hex; 
-    //contrast ratio
-  }
-  _updateTextColour(hex){
-    this._wrapper.style.color = hex; 
-    //contrast ratio
-  }
-  _setOnChange(){
-    this._picker.onclick = () =>{this._onClickPicker()};
-    this._picker.oninput = () =>{this._onChangePicker()};
-    this._copyButton.onclick = () =>{this._onChange()};
-  }
-  _onChange(e){
-    console.log(e);
-  }
- _onClickPicker(){
-  if(this._customised === 1) {
-    this._wrapper.dataset.content = `${this._customName}`;
-    this._picker.value = this._customBackgroundColour;
-    this._updateBackgroundColour(this._picker.value);
-  }
-  }
-
-  _onChangePicker(){
-    if(this._customised === 0) {
-      this._customName = 'custom ' + ++SmallSwatch.instanceCounter;
-      this._customised = 1;
-    }
-    this._wrapper.dataset.content = `${this._customName}`;
-    this._customBackgroundColour = this._picker.value;
-    this._updateBackgroundColour(this._picker.value);
-  }
-  changeSwatchColour(hex){
-    let variable = this._functionVariable;
-    let fn =  this._func;
-    const modifiedHex = ()=> fn(hex, variable);
-    console.log(modifiedHex);
-    this._wrapper.dataset.content = this._name;
-    this._updateBackgroundColour(modifiedHex);
-  }
-  changeSwatchTextColour(hex){
-    this._updateTextColour(hex);
-  }
-
-}
-
 class Palette{
   constructor(){
-      this._smallSwatchList ={
-      analogousA:  [hueRotateHEX,-30],
-      analogousB:   [hueRotateHEX, 30],
-      triadicA:    [hueRotateHEX, -120],
-      triadicB:    [hueRotateHEX, 120],
-      tetradicA:   [hueRotateHEX, 90],
-      tetradicB:   [hueRotateHEX, 180],
-      tetradicC:   [hueRotateHEX, 270],
-      monochromeA:   [lumAdjustHEX, -10],
-      monochromeB:   [lumAdjustHEX, 10],
-      neutral:    [satAdjustHEX, -200],
-    }
-    this._smallSwatches = Object.keys(this._smallSwatchList).map(x => new SmallSwatch(x, this._smallSwatchList[x][0], this._smallSwatchList[x][1]));
-    console.log(this._smallSwatches);
-
+    
+    this._mainColourSwatch = new MainSwatch('mainColour');
   }
   
 }
 
 const test = new Palette;
-
-
-
-
-
+console.log(test);
 
 
 class Picker {
@@ -729,7 +737,6 @@ function updateColour(){
   fillClipboard();
   /*
   const testColour = new PickerWrapperBackground(colour_picker.value,'Testing');
-  console.log(testColour);
   */
 }
 
@@ -1104,8 +1111,6 @@ function randomDiceColours(){
   document.getElementById('dieB').style.backgroundColor = makeRandomColour();    
 
 }
-const tetradicBSwatch = new SmallSwatch('tetradicB');
-console.log(tetradicBSwatch);
 
 function onLoad(){
   onChangepickers();
@@ -1114,10 +1119,6 @@ function onLoad(){
   updateColour();
   randomDiceColours();
 
-const tetradicASwatch = new SmallSwatch('tetradicA');
-console.log(tetradicASwatch);
-const mainColourSwatch = new MainSwatch('mainColour');
-console.log(mainColourSwatch);
 /*
 const randomButton = {
   _randomDiceColours(){
