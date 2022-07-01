@@ -100,6 +100,12 @@ class SmallSwatchesGroup{
       });
 
   }
+  updateSwatchesText(hex){
+    this._smallSwatches.forEach(x =>{
+      x.changeSwatchTextColour(hex)
+      });
+
+  }
 } 
 
 
@@ -149,6 +155,8 @@ class MainSwatch{
     this._textWrapper.dataset.content = 'Text: Auto';
     [this._hueSlider.value,this._satSlider.value,this._lumSlider.value] = this._convertHexToHsl(hex);
     this._smallSwatchesGroup.updateSwatches(hex);
+    this._smallSwatchesGroup.updateSwatchesText(this._textColour);
+
   }
   _setOnChange(){
     this._hueSlider.oninput = () =>{this._onChangeSlider()};
