@@ -346,7 +346,6 @@ $;
   display: flex;
   height: fit-content;
   width: fit-content;
-  background-color: #000;
   font-family: "Source Code Pro", monospace, "Courier New", Courier, monospace;
   font-size: calc(0.65 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
   font-weight: 500;
