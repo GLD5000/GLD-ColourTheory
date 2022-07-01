@@ -147,7 +147,7 @@ class MainSwatch{
     this._wrapper.style.color = this._textColour; 
     // Update text picker button text
     this._textWrapper.dataset.content = 'Text: Auto';
-
+    [this._hueSlider.value,this._satSlider.value,this._lumSlider.value] = this._convertHexToHsl(hex);
     this._smallSwatchesGroup.updateSwatches(hex);
   }
   _setOnChange(){
@@ -275,6 +275,10 @@ class MainSwatch{
     if (blue.length == 1)
     blue = '0' + blue;
     return '#' + red + green + blue;
+  }
+
+  _convertHexToHsl(hex){
+    return this._convertSrgbToHsl(this._convertHexToSrgb(hex));
   }
   _calculateRelativeLuminance(RsRGB, GsRGB, BsRGB){
     const R = (RsRGB <= 0.04045)? RsRGB/12.92: Math.pow((RsRGB+0.055)/1.055, 2.4);
