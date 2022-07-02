@@ -1,8 +1,8 @@
 import{ColourFunctions}from './modules/classes/colour.js';
 
-const colour_picker = document.getElementById('mainColour-picker');
-const colour_picker_wrapper = document.getElementById('mainColour-wrapper');
-const colour_picker_hex_label = document.getElementById('mainColour-copybtn');
+const colour_picker = document.getElementById('primaryColour-picker');
+const colour_picker_wrapper = document.getElementById('primaryColour-wrapper');
+const colour_picker_hex_label = document.getElementById('primaryColour-copybtn');
 const pickers = document.querySelectorAll('input[type="color"]');
 const buttons = document.querySelectorAll('button');
 
@@ -109,7 +109,7 @@ class SmallSwatchesGroup{
 } 
 
 
-class MainSwatch{
+class primarySwatch{
   constructor(name){
     // init
     this._smallSwatchesGroup = new SmallSwatchesGroup();
@@ -334,7 +334,7 @@ class MainSwatch{
 class Palette{
   constructor(){
     
-    this._mainColourSwatch = new MainSwatch('mainColour');
+    this._primaryColourSwatch = new primarySwatch('primaryColour');
   }
   
 }
@@ -586,6 +586,42 @@ class ColourTripleGradient{
 
   }
 }
+
+class MultiplierStops{
+  constructor(stops,multiplier){
+    const halfStops = 0.5 * stops;
+    this._even = (stops % 2 === 0)? 1: 0;
+    this._powerArr = [...Array(stops)].map((x,i,arr) => arr[i] = multiplier ** (((i + 1 > halfStops)? this._even: 0) + i - Math.floor(halfStops)));
+  }
+}
+
+class SuffixStops{
+  constructor(stops){
+    this._stops = Math.min(Math.max(2, stops),10);
+    this._names = {
+      2: ['light','dark'],
+      3: ['light','normal','dark'],
+      4: ['lighter','light','dark','darker'],
+      5: ['lighter','light','normal','dark','darker'],
+      6: ['lightest','lighter','light','dark','darker','darkest'],
+      7: ['lightest','lighter','light','normal','dark','darker','darkest'],
+      8: ['100','200','300','400','500','600','700','800'],
+      9: ['100','200','300','400','500','600','700','800','900'],
+      10: ['50','100','200','300','400','500','600','700','800','900'],
+      
+    }
+    this._suffixes = this._suffixise(this._names[stops]);
+
+  }
+  _suffixise(arr){
+    return arr.map(x => `-${x}: `);
+  }
+}
+const suffStops =new SuffixStops(5);
+console.log(suffStops);
+
+const multStops =new MultiplierStops(5,0.9);
+console.log(multStops);
 class ColourMultiGradient{
   constructor(hex,name,stops){
     this._name = name;
@@ -593,9 +629,23 @@ class ColourMultiGradient{
     this._suffixes = this._getStops(stops);
     //for stops loop
   }
-  _getStops(stops){
+  _getStops(stops, lumMultiplier, satMultiplier){
+    const lumMultiplierReverse = 1 / lumMultiplier;
+    const satMultiplierReverse = 1 / satMultiplier;
     const stopsLimited = Math.min(Math.max(2, stops), 10);
+    const stopInformation = {
+      2: {suffixes: ['light','dark'],
+          lumMultipliers: [lumMultiplierReverse,lumMultiplier],
+          satMultipliers: [satMultiplierReverse,satMultiplier],
+      },
+      3: {suffixes: ['light','main','dark'],
+      lumMultipliers: [lumMultiplierReverse,lumMultiplier],
+      satMultipliers: [satMultiplierReverse,satMultiplier],
+  },
+
+    }
     const suffixArr = ['-50: ', '-100: ', '-200: ', '-300: ', '-400: ', '-500: ', '-600: ', '-700: ', '-800: ', '-900: '];
+    const suffixArrShort = ['-50: ', '-100: ', '-200: ', '-300: ', '-400: ', '-500: ', '-600: ', '-700: ', '-800: ', '-900: '];
     return suffixArr.splice(5 - Math.floor(stopsLimited * 0.5), stopsLimited);
   }
 }
@@ -699,8 +749,8 @@ function setTextColour(colour){
 function customTextColour(){
   const textPicker = document.getElementById('textColour-picker');
   const textColour = textPicker.value;
-  const mainColour = colour_picker.value;
-  const ratio = contrastRatio(textColour, mainColour);
+  const primaryColour = colour_picker.value;
+  const ratio = contrastRatio(textColour, primaryColour);
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
   colour_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)}${rating}`;
   //colour_picker_wrapper.style.color = textColour;
@@ -728,23 +778,23 @@ function swatchModeSelector(hex, modeValue){
 }
 
 function updateColour(){
-  let mainColourLabel, analogousAColourLabel, analogousBColourLabel, triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
-  const modeValue = document.getElementById('mainColour-mode').innerHTML;    
+  let primaryColourLabel, analogousAColourLabel, analogousBColourLabel, triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
+  const modeValue = document.getElementById('primaryColour-mode').innerHTML;    
   const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
-  const mainColour = colour_picker.value;
-  const textColour = setTextColour(mainColour);
+  const primaryColour = colour_picker.value;
+  const textColour = setTextColour(primaryColour);
   function getColour(name){
-    if (name === 'mainColour'){ return mainColour;
-    }else if (name === 'analogousA'){ return hueRotateHEX(mainColour, -30);
-    }else if (name === 'analogousB'){ return hueRotateHEX(mainColour, 30);
-    }else if (name === 'triadicA'){ return hueRotateHEX(mainColour, -120);
-    }else if (name === 'triadicB'){ return hueRotateHEX(mainColour, 120);
-    }else if (name === 'tetradicA'){ return hueRotateHEX(mainColour, 90);
-    }else if (name === 'tetradicB'){ return hueRotateHEX(mainColour, 180);
-    }else if (name === 'tetradicC'){ return hueRotateHEX(mainColour, 270);
-    }else if (name === 'monochromeA'){ return lumAdjustHEX(mainColour, -10);
-    }else if (name === 'monochromeB'){ return lumAdjustHEX(mainColour, 10);
-    }else if (name === 'neutral'){ return satAdjustHEX(mainColour, -200);}
+    if (name === 'primaryColour'){ return primaryColour;
+    }else if (name === 'analogousA'){ return hueRotateHEX(primaryColour, -30);
+    }else if (name === 'analogousB'){ return hueRotateHEX(primaryColour, 30);
+    }else if (name === 'triadicA'){ return hueRotateHEX(primaryColour, -120);
+    }else if (name === 'triadicB'){ return hueRotateHEX(primaryColour, 120);
+    }else if (name === 'tetradicA'){ return hueRotateHEX(primaryColour, 90);
+    }else if (name === 'tetradicB'){ return hueRotateHEX(primaryColour, 180);
+    }else if (name === 'tetradicC'){ return hueRotateHEX(primaryColour, 270);
+    }else if (name === 'monochromeA'){ return lumAdjustHEX(primaryColour, -10);
+    }else if (name === 'monochromeB'){ return lumAdjustHEX(primaryColour, 10);
+    }else if (name === 'neutral'){ return satAdjustHEX(primaryColour, -200);}
   }
   pickers.forEach((x, i) =>{
     const name = pickers[i].id.split('-')[0];
@@ -967,7 +1017,7 @@ function adjustSat(){
 function fillClipboard(){
   const clipboard = document.getElementById('clipboard');
   const clipboardSecondary = document.getElementById('clipboard-secondary');
-  const modeValue = document.getElementById('mainColour-mode').innerHTML;    
+  const modeValue = document.getElementById('primaryColour-mode').innerHTML;    
   const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
   clipboardSecondary.style.color = isHex? '#ce9178': '#b5cea8';
   const isSCSS = (document.getElementById('SCSSToggle').innerHTML === 'SCSS');
@@ -1057,7 +1107,7 @@ function copyAll(){
 
 function onChangepickers(){
   for (let i in pickers){
-    if (i > 0){ // skip the first one - MainColour
+    if (i > 0){ // skip the first one - primaryColour
       pickers[i].onchange = () =>{
         const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
         const name = pickers[i].id.split('-')[0];
@@ -1126,7 +1176,7 @@ function makeRandomColour(){
 }
 
 
-function randomMainColour(){
+function randomprimaryColour(){
   colour_picker.value = makeRandomColour();
 }
 
@@ -1139,7 +1189,7 @@ function randomDiceColours(){
 function onLoad(){
   onChangepickers();
   onClickButtons();
-  randomMainColour();
+  randomprimaryColour();
   updateColour();
   randomDiceColours();
 
@@ -1196,7 +1246,7 @@ const randomButton = {
   },
   _randomise(){
     this._randomDiceColours();
-    mainColourSwatch._updateBackgroundColour(this._makeRandomColour());
+    primaryColourSwatch._updateBackgroundColour(this._makeRandomColour());
   },
   init(){
     this._button = document.getElementById('randomise-btn');
@@ -1215,12 +1265,12 @@ randomButton.init();
 }
 window.onLoad = onLoad();
 function randomise(){
-  randomMainColour();
+  randomprimaryColour();
   updateColour();
   randomDiceColours();
 }
 function switchColourMode(){
-  const modeSwitch = document.getElementById('mainColour-mode');    
+  const modeSwitch = document.getElementById('primaryColour-mode');    
   const modeValue = modeSwitch.innerHTML; 
   if (modeValue === 'Mode: Single'){
     modeSwitch.innerHTML = 'Mode: Triple';
