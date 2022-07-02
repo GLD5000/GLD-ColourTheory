@@ -587,12 +587,24 @@ class ColourTripleGradient{
   }
 }
 class ColourMultiGradient{
-  constructor(colourSpaces,name,stops){
-    this.name = name;
-    [this._hue,this._sat,this._lum] = [colourSpaces.hsl.hue,colourSpaces.hsl.sat,colourSpaces.hsl.lum];
+  constructor(hex,name,stops){
+    this._name = name;
+    //[this._hue,this._sat,this._lum] = [colourSpaces.hsl.hue,colourSpaces.hsl.sat,colourSpaces.hsl.lum];
+    this._suffixes = this._getStops(stops);
     //for stops loop
   }
+  _getStops(stops){
+    const stopsLimited = Math.min(Math.max(2, stops), 10);
+    const suffixArr = ['-50: ', '-100: ', '-200: ', '-300: ', '-400: ', '-500: ', '-600: ', '-700: ', '-800: ', '-900: '];
+    return suffixArr.splice(5 - Math.floor(stopsLimited * 0.5), stopsLimited);
+  }
 }
+
+
+const testGradient = new ColourMultiGradient('#ddaa66','friendylyl',1);
+console.log(testGradient);
+
+
 class ColourAutoText extends ColourFunctions{
   constructor(srgbArr){
     super();
