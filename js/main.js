@@ -393,6 +393,8 @@ class Swatch{
     //}
   }
 
+
+
 class ColourSpaces {
   constructor(hex){
     this.hex = hex;
@@ -584,6 +586,13 @@ class ColourTripleGradient{
     this.name = name;
     [this._hue,this._sat,this._lum] = [colourSpaces.hsl.hue,colourSpaces.hsl.sat,colourSpaces.hsl.lum];
 
+  }
+}
+
+class GradientStop{
+  constructor(name,suffix,{colour = undefined, satMult = 1, lumMult =1}){
+    this._name = name + suffix;
+    this._colour = new Colour(colour.hue, colour.sat * satMult, colour.lum * lumMult);
   }
 }
 
