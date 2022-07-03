@@ -403,9 +403,7 @@ class Colour {
     this._green = green;
     this._blue = blue;
     this._name = name;
-    this._initHex();
-    this._initSrgb();
-    this._initHsl();
+    this._initAll();
   } 
   _initHex(){
     if (this._hex !== undefined) return;
@@ -420,6 +418,11 @@ class Colour {
   _initHsl(){
     if (this._hue !== undefined && this._sat !== undefined && this._lum !== undefined) return;
     [this._hue, this._sat, this._lum] = this._convertSrgbToHsl(this._red, this._green, this._blue);
+  }
+  _initAll(){
+    this._initHex();
+    this._initSrgb();
+    this._initHsl();
   }
   _convertHexToSrgb(hex) {
     let RsRGB = 0, GsRGB = 0, BsRGB = 0;
@@ -509,7 +512,67 @@ class Colour {
   }
   //get set methods for Hex HSL RGB
   //Adjust methods for HSL RGB
+    get hex(){
+      return this._hex;
+    }
+    get hue(){
+      return this._hue;
+    }
+    get sat(){
+      return this._sat;
+    }
+    get lum(){
+      return this._lum;
+    }
+    get red(){
+      return this._red;
+    }
+    get green(){
+      return this._green;
+    }
+    get blue(){
+      return this._blue;
+    }
+    get name(){
+      return this._name;
+    }
 
+    set hex(x){
+      this._clearProperties();
+      this._hex = x;
+      this._initAll();
+    }
+    set hue(x){
+      return this._hue;
+    }
+    set sat(x){
+      return this._sat;
+    }
+    set lum(x){
+      return this._lum;
+    }
+    set red(x){
+      return this._red;
+    }
+    set green(x){
+      return this._green;
+    }
+    set blue(x){
+      return this._blue;
+    }
+    set name(x){
+      return this._name;
+    }
+    
+  _clearProperties(){
+    this._hex = undefined; 
+    this._hue = undefined; 
+    this._sat = undefined; 
+    this._lum = undefined; 
+    this._red = undefined; 
+    this._green = undefined; 
+    this._blue = undefined;
+  }
   _adjustHslColourHue(hue, sat, lum, rotation){
     let adjustment = Math.round(hue) + Math.round(rotation);
     if (adjustment > 360) adjustment += -360;
