@@ -6,7 +6,7 @@
   width:100%;
 }
 
-.main-picker{
+.primary-picker{
   width: 100%;
   display: grid;
   grid-template: 1fr 11fr / 1fr;
@@ -33,7 +33,7 @@
   width:100%;
 }
 
-.swatch, .btn-container, .main-swatch{
+.swatch, .btn-container, .primary-swatch{
   position:relative;
   display:grid;
   width: 100%;
@@ -54,7 +54,7 @@
   grid-template-rows: 1fr calc(1.25 *$gem);
 }
 
-.main-swatch{
+.primary-swatch{
   grid-template-rows: calc(1.25 *$gem) 1fr calc(1.25 *$gem);
 }
 
@@ -80,12 +80,12 @@
   line-height: 90%;
 }
 
-.mainColour-wrapper{
+.primaryColour-wrapper{
   //padding: 0.1em;
   position: relative;
   }
   
-.mainColour-wrapper::before{
+.primaryColour-wrapper::before{
   content: attr(name);
   position: absolute;
   text-align: center; 
@@ -95,7 +95,7 @@
   line-height: 90%;
   font-size: $gem3;
 }
-.mainColour-wrapper::after{
+.primaryColour-wrapper::after{
   content: attr(data-content);
   position: absolute;
   text-align: center; 

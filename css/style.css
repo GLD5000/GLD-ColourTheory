@@ -68,7 +68,7 @@ li, ol, ul {
   list-style: none;
 }
 
-.mainColour-wrapper {
+.primaryColour-wrapper {
   background-color: #e68f75;
 }
 
@@ -231,7 +231,7 @@ $;
   width: 100%;
 }
 
-.main-picker {
+.primary-picker {
   width: 100%;
   display: grid;
   grid-template: 1fr 11fr/1fr;
@@ -257,7 +257,7 @@ $;
   width: 100%;
 }
 
-.swatch, .btn-container, .main-swatch {
+.swatch, .btn-container, .primary-swatch {
   position: relative;
   display: grid;
   width: 100%;
@@ -278,7 +278,7 @@ $;
   grid-template-rows: 1fr calc(1.25 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
 }
 
-.main-swatch {
+.primary-swatch {
   grid-template-rows: calc(1.25 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)) 1fr calc(1.25 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
 }
 
@@ -303,11 +303,11 @@ $;
   line-height: 90%;
 }
 
-.mainColour-wrapper {
+.primaryColour-wrapper {
   position: relative;
 }
 
-.mainColour-wrapper::before {
+.primaryColour-wrapper::before {
   content: attr(name);
   position: absolute;
   text-align: center;
@@ -318,7 +318,7 @@ $;
   font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 1.6);
 }
 
-.mainColour-wrapper::after {
+.primaryColour-wrapper::after {
   content: attr(data-content);
   position: absolute;
   text-align: center;
@@ -451,7 +451,7 @@ input[type=range]::-moz-range-thumb {
 /*
 Grid level 2 areas
 */
-.main-swatch {
+.primary-swatch {
   grid-area: picker;
 }
 
