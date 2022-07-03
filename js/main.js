@@ -512,63 +512,89 @@ class Colour {
   }
   //get set methods for Hex HSL RGB
   //Adjust methods for HSL RGB
-    get hex(){
-      return this._hex;
-    }
-    get hue(){
-      return this._hue;
-    }
-    get sat(){
-      return this._sat;
-    }
-    get lum(){
-      return this._lum;
-    }
-    get red(){
-      return this._red;
-    }
-    get green(){
-      return this._green;
-    }
-    get blue(){
-      return this._blue;
-    }
-    get name(){
-      return this._name;
-    }
+  get hex(){
+    return this._hex;
+  }
+  get hue(){
+    return this._hue;
+  }
+  get sat(){
+    return this._sat;
+  }
+  get lum(){
+    return this._lum;
+  }
+  get red(){
+    return this._red;
+  }
+  get green(){
+    return this._green;
+  }
+  get blue(){
+    return this._blue;
+  }
+  get name(){
+    return this._name;
+  }
 
-    set hex(x){
-      this._clearProperties();
-      this._hex = x;
-      this._initAll();
-    }
-    set hue(x){
-      return this._hue;
-    }
-    set sat(x){
-      return this._sat;
-    }
-    set lum(x){
-      return this._lum;
-    }
-    set red(x){
-      return this._red;
-    }
-    set green(x){
-      return this._green;
-    }
-    set blue(x){
-      return this._blue;
-    }
-    set name(x){
-      return this._name;
-    }
-    
-  _clearProperties(){
+  set hex(x){
+    this._clearHsl();
+    this._clearSrgb();
+    this._hex = x;
+    this._initAll();
+  }
+  set hue(x){
+    this._clearHex();
+    this._clearSrgb();
+    this._hue = this._clamp(0, x, 360);
+    this._initAll();
+
+  }
+  set sat(x){
+    this._clearHex();
+    this._clearSrgb();
+    this._sat = this._clamp(0, x, 100);
+    this._initAll();
+  }
+  set lum(x){
+    this._clearHex();
+    this._clearSrgb();
+    this._lum = this._clamp(0, x, 100);
+    this._initAll();
+  }
+  set red(x){
+    this._clearHsl();
+    this._clearHex();
+    this._red = this._clamp(0, x, 1);
+    this._initAll();
+  }
+  set green(x){
+    this._clearHsl();
+    this._clearHex();
+    this._green = this._clamp(0, x, 1);
+    this._initAll();
+  }
+  set blue(x){
+    this._clearHsl();
+    this._clearHex();
+    this._blue = this._clamp(0, x, 1);
+    this._initAll();
+  }
+  set name(x){
+    this._name = x;
+  }
+  _clamp(min, value, max){
+    return Math.min(Math.max(min, value),max);
+  }
+  _clearHex(){
     this._hex = undefined; 
+  }
+  _clearHsl(){
     this._hue = undefined; 
     this._sat = undefined; 
     this._lum = undefined; 
+  }
+  _clearSrgb(){
     this._red = undefined; 
     this._green = undefined; 
     this._blue = undefined;
@@ -598,8 +624,10 @@ class Colour {
 }
 //const testNewColour = new Colour('name',{hex: '#33dd66'});
 //const testNewColour = new Colour('name',{red: 1, blue: 0.5, green: 0.2});
-const testNewColour = new Colour('name',{hue: 34, sat: 50, lum: 90});
-console.log(testNewColour);
+const testNewColour = new Colour('name',{hue: 0, sat: 50, lum: 50});
+console.log(testNewColour.red);
+testNewColour.hue += 100; 
+console.log(testNewColour.red)
 
 class ColourSpaces {
   constructor(hex){
