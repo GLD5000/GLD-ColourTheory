@@ -348,10 +348,6 @@ class ColoursSingleton{
   }
 }
 
-const testSingleton = new ColoursSingleton('yoyoy');
-console.log(testSingleton);
-const testSingletonb = new ColoursSingleton('wawawa');
-console.log(testSingletonb);
 
 
 
@@ -362,8 +358,8 @@ class PrimarySwatch{
     this._getElements(name);
 
     this._setOnChange();
+    this._colourBackground = new Colour(name,{hex: this._picker.value});
     this._updateBackgroundColour(this._picker.value);
-    this._colour = new Colour(name,{hex: this._picker.value});
     this._hex = this._picker.value;
   }
   get hex() { 
@@ -375,22 +371,23 @@ class PrimarySwatch{
         this._satSlider = document.getElementById('sat-slider');
         this._lumSlider = document.getElementById('lum-slider');
         this._picker = document.getElementById(name + '-picker');
-        this._wrapper = document.getElementById(name + '-wrapper');
         this._copyButton = document.getElementById(name + '-copybtn');
         this._textPicker = document.getElementById('textColour-picker');
         this._textWrapper = document.getElementById('textColour-wrapper');
         this._modeButton = document.getElementById(name + '-mode');
-        this._backgroundColour = this._picker.value;
-        //Random dice
         this._randomButton = document.getElementById('randomise-btn');
         this._diceButton = document.getElementById('dice-btn');
         this._dieA = document.getElementById('dieA');
         this._dieB = document.getElementById('dieB');
+          this._wrapper = document.getElementById(name + '-wrapper');
         //properties
+        this._backgroundColour = this._picker.value;
+        //Random dice
         [this._textColour, this._contrastRatio] = [...this._autoTextColour(this._backgroundColour)];
     
   }
   _updateBackgroundColour(hex) {
+    this._colourBackground.hex = hex;
     this._picker.value = hex;
     this._wrapper.style.backgroundColor = hex; 
     [this._textColour, this._contrastRatio] = [...this._autoTextColour(hex)];
@@ -400,15 +397,18 @@ class PrimarySwatch{
     this._wrapper.style.color = this._textColour; 
     // Update text picker button text
     this._textWrapper.dataset.content = 'Text: Auto';
-    [this._hueSlider.value,this._satSlider.value,this._lumSlider.value] = this._convertHexToHsl(hex);
+    this._updateSliders();    
     this._smallSwatchesGroup.updateSwatches(hex);
     this._smallSwatchesGroup.updateSwatchesText(this._textColour);
 
   }
+  _updateSliders(){
+    [this._hueSlider.value,this._satSlider.value,this._lumSlider.value] = [this._colourBackground.hue, this._colourBackground.sat, this._colourBackground.lum];
+  }
   _setOnChange() {
-    this._hueSlider.oninput = () =>{this._onChangeSlider()};
-    this._satSlider.oninput = () =>{this._onChangeSlider()};
-    this._lumSlider.oninput = () =>{this._onChangeSlider()};
+    this._hueSlider.oninput = () =>{this._onChangeSliderHue()};
+    this._satSlider.oninput = () =>{this._onChangeSliderSat()};
+    this._lumSlider.oninput = () =>{this._onChangeSliderLum()};
     this._picker.oninput = () =>{this._onChangePicker()};
     this._copyButton.onclick = () =>{this._onChange()};
     this._textPicker.oninput = () =>{this._onChangeTextPicker()};
@@ -420,10 +420,20 @@ class PrimarySwatch{
   _onChange() {
     console.log('sddodslsldlsd');
   }
-  _onChangeSlider() {
-    const hex = this._convertHslToHex(this._hueSlider.value,this._satSlider.value,this._lumSlider.value);
-    this._updateBackgroundColour(hex);
+  _onChangeSliderHue() {
+    this._colourBackground.hue = this._hueSlider.value;
+    this._updateBackgroundColour(this._colourBackground.hex);
   }
+  _onChangeSliderSat() {
+    this._colourBackground.sat = this._satSlider.value;
+    this._updateBackgroundColour(this._colourBackground.hex);
+  }
+  _onChangeSliderLum() {
+    this._colourBackground.lum = this._lumSlider.value;
+    this._updateBackgroundColour(this._colourBackground.hex);
+  }
+
+
   _onChangePicker() {
     this._updateBackgroundColour(this._picker.value);
   }
@@ -1757,3 +1767,9 @@ console.log(multStops);
 
 const test = new Palette;
 console.log(test);
+
+const testSingleton = new ColoursSingleton('yoyoy');
+console.log(testSingleton);
+const testSingletonb = new ColoursSingleton('wawawa');
+console.log(testSingletonb);
+
