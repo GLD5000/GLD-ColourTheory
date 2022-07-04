@@ -359,6 +359,7 @@ class PrimarySwatch{
 
     this._setOnChange();
     this._colourBackground = new Colour(name,{hex: this._picker.value});
+    this._colourText = new Colour(name + 'Text',{hex: '#000'});
     this._updateBackgroundColour(this._picker.value);
     this._hex = this._picker.value;
   }
@@ -390,16 +391,16 @@ class PrimarySwatch{
     this._colourBackground.hex = hex;
     this._picker.value = hex;
     this._wrapper.style.backgroundColor = hex; 
-    [this._textColour, this._contrastRatio] = [...this._autoTextColour(hex)];
+    [this._colourText.hex, this._contrastRatio] = [...this._autoTextColour(hex)];
     // update contrast Ratio text
     this._wrapper.dataset.content = this._makeContrastRatioString(this._contrastRatio);
     // set text colour
-    this._wrapper.style.color = this._textColour; 
+    this._wrapper.style.color = this._colourText.hex; 
     // Update text picker button text
     this._textWrapper.dataset.content = 'Text: Auto';
     this._updateSliders();    
     this._smallSwatchesGroup.updateSwatches(hex);
-    this._smallSwatchesGroup.updateSwatchesText(this._textColour);
+    this._smallSwatchesGroup.updateSwatchesText(this._colourText.hex);
 
   }
   _updateSliders(){
@@ -432,17 +433,13 @@ class PrimarySwatch{
     this._colourBackground.lum = this._lumSlider.value;
     this._updateBackgroundColour(this._colourBackground.hex);
   }
-
-
   _onChangePicker() {
     this._updateBackgroundColour(this._picker.value);
   }
   _onChangeTextPicker() {
-    const hex = this._textPicker.value;
-    // update text colour
-    this._textColour = hex;
+    this._colourText.hex = this._textPicker.value;
     // update contrast ratio
-    this._contrastRatio = this._calculateContrastRatio(this._convertHexToSrgb(this._textColour),this._convertHexToSrgb(this._backgroundColour));
+    this._contrastRatio = this._calculateContrastRatio(this._colourText,this._colourBackground);
     // update contrast Ratio text
     this._wrapper.dataset.content = this._makeContrastRatioString(this._contrastRatio);
     // set text colour
@@ -556,7 +553,7 @@ class PrimarySwatch{
     /*A contrast ratio of 3:1 is the minimum level recommended by [[ISO-9241-3]] and [[ANSI-HFES-100-1988]] for standard text and vision. 
     Large-scale text and images of large-scale text have a contrast ratio of at least 4.5:1;
     */
-    const relativeLumArr = args.map(x => this._calculateRelativeLuminance(...x)); 
+    const relativeLumArr = args.map(x => this._calculateRelativeLuminance(x.red, x.green, x.blue)); 
     const L1 = Math.max(...relativeLumArr);
     const L2 = Math.min(...relativeLumArr);
     return (L1 + 0.05) / (L2 + 0.05);
