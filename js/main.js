@@ -26,10 +26,12 @@ class Colour {
   _initSrgb() {
     if (this._red !== undefined && this._green !== undefined && this._blue !== undefined) return;
     [this._red, this._green, this._blue] = this._convertHexToSrgb(this._hex);
+    this._rgb = `rgb(${this._red * 255},${this._green * 255},${this._blue * 255})`
   }
   _initHsl() {
     if (this._hue !== undefined && this._sat !== undefined && this._lum !== undefined) return;
     [this._hue, this._sat, this._lum] = this._convertSrgbToHsl(this._red, this._green, this._blue);
+    this._hsl = `hsl(${Math.round(this._hue)},${this._sat.toFixed(1)}%,${this._lum.toFixed(1)}%)`
   }
   _initAll() {
     this._initHex();
@@ -148,7 +150,6 @@ class Colour {
   get name() {
     return this._name;
   }
-
   set hex(x) {
     this._clearHsl();
     this._clearSrgb();
@@ -232,9 +233,15 @@ class Colour {
   _setHslColourLuminance(hue, sat, newLum) {
     return [hue, sat, newLum]; 
   }
-
+  randomise() {
+    this._hue = parseInt(Math.random() * 360);
+    this._sat = 48 + parseInt(Math.random() * 40); // 48 - 87
+    this._lum = 53 + parseInt(Math.random() * 35); // 53 - 87
+    this._clearHex();
+    this._clearSrgb();
+    this._initAll();
+  }
 }
-
 class PickerWrapper{
   constructor(name, value) {
     this._id = name + '-wrapper';
@@ -245,7 +252,6 @@ class PickerWrapper{
     this._element.style.background = value;// update to respond to types later
 }
 }
-
 class SmallSwatch{
   static instanceCounter = 0;
   constructor(name, func, functionVariable) {
@@ -336,7 +342,6 @@ class SmallSwatchesGroup{
 
   }
 } 
-
 class ColoursSingleton{
   constructor(string) {
     if (ColoursSingleton.instance === undefined) {
@@ -347,10 +352,6 @@ class ColoursSingleton{
     return ColoursSingleton.instance;
   }
 }
-
-
-
-
 class PrimarySwatch{
   constructor(name) {
     // init
@@ -387,10 +388,8 @@ class PrimarySwatch{
         [this._textColour, this._contrastRatio] = [...this._autoTextColour(this._backgroundColour)];
     
   }
-  _updateBackgroundColour(hex) {
-    this._colourBackground.hex = hex;
-    this._picker.value = hex;
-    this._wrapper.style.backgroundColor = hex; 
+  _updateBackgroundColour() {
+    this._wrapper.style.backgroundColor = this._picker.value = this._colourBackground.hex;
     [this._colourText.hex, this._contrastRatio] = [...this._autoTextColour(this._colourBackground.red, this._colourBackground.green, this._colourBackground.blue)];
     // update contrast Ratio text
     this._wrapper.dataset.content = this._makeContrastRatioString(this._contrastRatio);
@@ -399,7 +398,7 @@ class PrimarySwatch{
     // Update text picker button text
     this._textWrapper.dataset.content = 'Text: Auto';
     this._updateSliders();    
-    this._smallSwatchesGroup.updateSwatches(hex);
+    this._smallSwatchesGroup.updateSwatches(this._colourBackground.hex);
     this._smallSwatchesGroup.updateSwatchesText(this._colourText.hex);
 
   }
@@ -455,92 +454,6 @@ class PrimarySwatch{
     let autoContrast = Math.max(contrastBlack,contrastWhite);
     return [autoColour, autoContrast];
   }
-  _convertHexToSrgb(hex) {
-    let RsRGB = 0, GsRGB = 0, BsRGB = 0;
-    // 3 digits
-    if (hex.length == 4) {
-      RsRGB  = ('0x' + hex[1] + hex[1])/255;
-      GsRGB = ('0x' + hex[2] + hex[2])/255;
-      BsRGB = ('0x' + hex[3] + hex[3])/255;
-      // 6 digits
-    } else if (hex.length == 7) {
-      RsRGB = ('0x' + hex[1] + hex[2])/255;
-      GsRGB = ('0x' + hex[3] + hex[4])/255;
-      BsRGB = ('0x' + hex[5] + hex[6])/255;
-    }
-    return [RsRGB, GsRGB, BsRGB];
-  }
-  _convertSrgbToHsl(RsRGB, GsRGB, BsRGB) {
-    
-    let cmin = Math.min(RsRGB, GsRGB, BsRGB),
-    cmax = Math.max(RsRGB, GsRGB, BsRGB),
-    delta = cmax - cmin,
-    hue = 0,
-    sat = 0,
-    lum = 0;
-    
-    if (delta == 0)
-    hue = 0;
-    else if (cmax == RsRGB)
-    hue = ((GsRGB - BsRGB) / delta) % 6;
-    else if (cmax == GsRGB)
-    hue = (BsRGB - RsRGB) / delta + 2;
-    else
-    hue = (RsRGB - GsRGB) / delta + 4;
-    
-    hue = (hue * 60);//Math.round(hue * 60);
-    
-    if (hue < 0)
-    hue += 360;
-    
-    lum = (cmax + cmin) / 2;
-    sat = delta == 0 ? 0 : delta / (1 - Math.abs(2 * lum - 1));
-    sat = +(sat * 100);
-    lum = +(lum * 100);
-    return [hue, sat, lum];
-  }
-  _convertHslToHex(hue, sat, lum) {
-    sat /= 100;
-    lum /= 100;
-    
-    let chroma = (1 - Math.abs(2 * lum - 1)) * sat,
-    x = chroma * (1 - Math.abs((hue / 60) % 2 - 1)),
-    lightness = lum - chroma/2,
-    red = 0,
-    green = 0, 
-    blue = 0; 
-    
-    if (0 <= hue && hue < 60) {
-      red = chroma; green = x; blue = 0;
-    } else if (60 <= hue && hue < 120) {
-      red = x; green = chroma; blue = 0;
-    } else if (120 <= hue && hue < 180) {
-      red = 0; green = chroma; blue = x;
-    } else if (180 <= hue && hue < 240) {
-      red = 0; green = x; blue = chroma;
-    } else if (240 <= hue && hue < 300) {
-      red = x; green = 0; blue = chroma;
-    } else if (300 <= hue && hue <= 360) {
-      red = chroma; green = 0; blue = x;
-    }
-    // Having obtained RGB, convert channels to hex
-    red = Math.round((red + lightness) * 255).toString(16);
-    green = Math.round((green + lightness) * 255).toString(16);
-    blue = Math.round((blue + lightness) * 255).toString(16);
-    
-    // Prepend 0s, if necessary
-    if (red.length == 1)
-    red = '0' + red;
-    if (green.length == 1)
-    green = '0' + green;
-    if (blue.length == 1)
-    blue = '0' + blue;
-    return '#' + red + green + blue;
-  }
-
-  _convertHexToHsl(hex) {
-    return this._convertSrgbToHsl(this._convertHexToSrgb(hex));
-  }
   _calculateRelativeLuminance(RsRGB, GsRGB, BsRGB) {
     const R = (RsRGB <= 0.04045)? RsRGB/12.92: Math.pow((RsRGB+0.055)/1.055, 2.4);
     const G = (GsRGB <= 0.04045)? GsRGB/12.92: Math.pow((GsRGB+0.055)/1.055, 2.4);
@@ -561,29 +474,22 @@ class PrimarySwatch{
     const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
     return `Contrast Ratio: ${ratio.toFixed(2)}${rating}`;
   }
-  /**
-   * interact with other modules
-   * 
-   * 
-   * 
-   */
-  _makeRandomColour() {
+  _makeRandomHsl() {
     const hue = parseInt(Math.random() * 360);
     const sat = 48 + parseInt(Math.random() * 40); // 48 - 87
     const lum = 53 + parseInt(Math.random() * 35); // 53 - 87
-    return this._convertHslToHex(hue, sat, lum);
+    return `hsl(${Math.round(hue)},${sat.toFixed(1)}%,${lum.toFixed(1)}%)`//this._convertHslToHex(hue, sat, lum);
   }
   _randomDiceColours() {
-    this._dieA.style.backgroundColor = this._makeRandomColour();    
-    this._dieB.style.backgroundColor = this._makeRandomColour();    
+    this._dieA.style.backgroundColor = this._makeRandomHsl();    
+    this._dieB.style.backgroundColor = this._makeRandomHsl();    
   }
   _randomise() {
-    this._updateBackgroundColour(this._makeRandomColour());
+    this._colourBackground.randomise();
+    this._updateBackgroundColour();
     this._randomDiceColours();
   }
-  
 }
-
 class Palette{
   constructor() {
     
@@ -591,9 +497,6 @@ class Palette{
   }
   
 }
-
-
-
 class Picker {
   constructor(name) {
     this._name = name;
@@ -632,7 +535,6 @@ class CopyButton{
 
   }
 }
-
 class Swatch{
   constructor(id) {
     this._picker = new Picker(id);
@@ -644,193 +546,6 @@ class Swatch{
     //}
   }
 
-
-class ColourSpaces {
-  constructor(hex) {
-    this.hex = hex;
-    this.srgb = new ColourSrgb(this._convertHexToSrgb(hex));
-    this.hsl = new ColourHsl(this._convertSrgbToHsl(this.srgb.red,this.srgb.green,this.srgb.blue));
-  }
-  _convertHexToSrgb(hex) {
-    let RsRGB = 0, GsRGB = 0, BsRGB = 0;
-    // 3 digits
-    if (hex.length == 4) {
-      RsRGB  = ('0x' + hex[1] + hex[1])/255;
-      GsRGB = ('0x' + hex[2] + hex[2])/255;
-      BsRGB = ('0x' + hex[3] + hex[3])/255;
-    // 6 digits
-    } else if (hex.length == 7) {
-      RsRGB = ('0x' + hex[1] + hex[2])/255;
-      GsRGB = ('0x' + hex[3] + hex[4])/255;
-      BsRGB = ('0x' + hex[5] + hex[6])/255;
-    }
-    return [RsRGB, GsRGB, BsRGB];
-  }
-  _convertSrgbToHsl(RsRGB, GsRGB, BsRGB) {
-
-    let cmin = Math.min(RsRGB, GsRGB, BsRGB),
-        cmax = Math.max(RsRGB, GsRGB, BsRGB),
-        delta = cmax - cmin,
-        hue = 0,
-        sat = 0,
-        lum = 0;
-  
-    if (delta == 0)
-      hue = 0;
-    else if (cmax == RsRGB)
-      hue = ((GsRGB - BsRGB) / delta) % 6;
-    else if (cmax == GsRGB)
-      hue = (BsRGB - RsRGB) / delta + 2;
-    else
-      hue = (RsRGB - GsRGB) / delta + 4;
-  
-    hue = (hue * 60);//Math.round(hue * 60);
-  
-    if (hue < 0)
-      hue += 360;
-  
-    lum = (cmax + cmin) / 2;
-    sat = delta == 0 ? 0 : delta / (1 - Math.abs(2 * lum - 1));
-    sat = +(sat * 100);
-    lum = +(lum * 100);
-    return [hue, sat, lum];
-  }
-  _convertHslToHex(hue, sat, lum) {
-    sat /= 100;
-    lum /= 100;
-  
-    let chroma = (1 - Math.abs(2 * lum - 1)) * sat,
-        x = chroma * (1 - Math.abs((hue / 60) % 2 - 1)),
-        lightness = lum - chroma/2,
-        red = 0,
-        green = 0, 
-        blue = 0; 
-  
-    if (0 <= hue && hue < 60) {
-      red = chroma; green = x; blue = 0;
-    } else if (60 <= hue && hue < 120) {
-      red = x; green = chroma; blue = 0;
-    } else if (120 <= hue && hue < 180) {
-      red = 0; green = chroma; blue = x;
-    } else if (180 <= hue && hue < 240) {
-      red = 0; green = x; blue = chroma;
-    } else if (240 <= hue && hue < 300) {
-      red = x; green = 0; blue = chroma;
-    } else if (300 <= hue && hue <= 360) {
-      red = chroma; green = 0; blue = x;
-    }
-    // Having obtained RGB, convert channels to hex
-    red = Math.round((red + lightness) * 255).toString(16);
-    green = Math.round((green + lightness) * 255).toString(16);
-    blue = Math.round((blue + lightness) * 255).toString(16);
-  
-    // Prepend 0s, if necessary
-    if (red.length == 1)
-      red = '0' + red;
-    if (green.length == 1)
-      green = '0' + green;
-    if (blue.length == 1)
-      blue = '0' + blue;
-  
-    return '#' + red + green + blue;
-  }
-  _adjustHslColourHue(hue, sat, lum, rotation) {
-    let adjustment = Math.round(hue) + Math.round(rotation);
-    if (adjustment > 360) adjustment += -360;
-    if (adjustment < 0) adjustment += 360;
-    return [adjustment, sat, lum]; 
-  }
-  _adjustHslColourLuminance(hue, sat, lum, adjustment) {
-    return [hue, sat, Math.max(0, Math.min(100, lum + adjustment))]; 
-  }
-  _adjustHslColourSaturation(hue, sat, lum, adjustment) {
-    return [hue, Math.max(0, Math.min(100, sat + adjustment)), lum]; 
-  }
-  _setHslColourHue(newHue, sat, lum) {
-    return [newHue, sat, lum]; 
-  }
-  _setHslColourSaturation(hue, newSat, lum) {
-    return [hue, newSat, lum]; 
-  }
-  _setHslColourLuminance(hue, sat, newLum) {
-    return [hue, sat, newLum]; 
-  }
-
-}
-
-class ColourHsl{
-  constructor(hslArr) {
-    this._type = 'hsl';
-    [this._hue, this._sat, this._lum] = hslArr;
-    this._string = `hsl(${Math.round(this._hue)}, ${Math.round(this._sat)}%, ${Math.round(this._lum)}%)`;
-  }
-  get type() {
-    return this._type;
-  }
-  get string() {
-    return this._string;
-  }
-  get hue() {
-    return this._hue;
-  }
-  get sat() {
-    return this._sat;
-  }
-  get lum() {
-    return this._lum;
-  }
-  set hue(x) {
-    this._array[0] = this._hue = x;
-    this.updateString();
-  }
-  set sat(x) {
-    this._array[1] = this._sat = x;
-    this.updateString();
-  }
-  set lum(x) {
-    this._array[2] = this._lum = x;
-    this.updateString();
-  }
-  changeHue(x) {
-    this._array[0] = this._hue = Math.min(Math.max(0, x), 100);
-    this.updateString();
-  }
-  changeSat(x) {
-    this._array[1] = this._sat = Math.min(Math.max(0, x), 100);
-    this.updateString();
-  }
-  changeSum(x) {
-    this._array[2] = this._lum = Math.min(Math.max(0, x), 100);
-    this.updateString();
-  }
-
-
-  updateString() {
-    this._string = `hsl(${Math.round(this._hue)}, ${Math.round(this._sat)}%, ${Math.round(this._lum)}%)`;
-  }
-}
-class ColourSrgb{
-  constructor(srgbArr) {
-    this._type = 'srgb';
-    [this._rSrgb, this._gSrgb, this._bSrgb] = srgbArr;
-    this._string = `rgb(${255 * this._rSrgb}, ${255 * this._gSrgb}, ${255 * this._bSrgb})`
-  }
-  get type() {
-    return this._type;
-  }
-  get red() {
-    return this._rSrgb;
-  }
-  get green() {
-    return this._gSrgb;
-  }
-  get blue() {
-    return this._bSrgb;
-  }
-  get string() {
-    return this._string;
-  }
-}
 class ColourTripleGradient{
   constructor(colourSpaces,name) {
     this.name = name;
@@ -838,14 +553,12 @@ class ColourTripleGradient{
 
   }
 }
-
 class GradientStop{
   constructor(name,suffix,{colour = undefined, satMult = 1, lumMult =1}) {
     this._name = name + suffix;
     this._colour = new Colour(colour.hue, colour.sat * satMult, colour.lum * lumMult);
   }
 }
-
 class MultiplierStops{
   constructor(stops,multiplier) {
     const halfStops = 0.5 * stops;
@@ -853,7 +566,6 @@ class MultiplierStops{
     this._powerArr = [...Array(stops)].map((x,i,arr) => arr[i] = multiplier ** (((i + 1 > halfStops)? this._even: 0) + i - Math.floor(halfStops)));
   }
 }
-
 class SuffixStops{
   constructor(stops) {
     this._stops = Math.min(Math.max(2, stops),10);
@@ -903,10 +615,6 @@ class ColourMultiGradient{
     return suffixArr.splice(5 - Math.floor(stopsLimited * 0.5), stopsLimited);
   }
 }
-
-
-
-
 class ColourAutoText extends ColourFunctions{
   constructor(srgbArr) {
     super();
@@ -930,37 +638,6 @@ class PickerWrapperBackground {
     //update gradients
   }
 }
-function relativeLuminance(hex) {
- /*
- For the srgb colorspace, the relative luminance of a color is defined as L = 0.2126 * R + 0.7152 * G + 0.0722 * B where R, G and B are defined as:
- 
-  and rSrgb, gSrgb, and bSrgb are defined as:
-  
-  rSrgb = R8bit/255
-  gSrgb = G8bit/255
-  bSrgb = B8bit/255
-  The '^' character is the exponentiation operator. (Formula taken from [[IEC-4WD]]).
-  */
- const srgbArr = hexToSrgbArr(hex);
- const rSrgb = srgbArr[0];
- const gSrgb = srgbArr[1];
- const bSrgb = srgbArr[2];
-  
- const R = (rSrgb <= 0.04045)? rSrgb/12.92: Math.pow((rSrgb+0.055)/1.055, 2.4);
- const G = (gSrgb <= 0.04045)? gSrgb/12.92: Math.pow((gSrgb+0.055)/1.055, 2.4);
- const B = (bSrgb <= 0.04045)? bSrgb/12.92: Math.pow((bSrgb+0.055)/1.055, 2.4);
- return (0.2126 * R) + (0.7152 * G) + (0.0722 * B);
-}
-function contrastRatio(...args) {
-  /*A contrast ratio of 3:1 is the minimum level recommended by [[ISO-9241-3]] and [[ANSI-HFES-100-1988]] for standard text and vision. 
-  Large-scale text and images of large-scale text have a contrast ratio of at least 4.5:1;
-  */
-  const relativeLumArr = args.map(x => relativeLuminance(x)); 
-  const L1 = Math.max(...relativeLumArr);
-  const L2 = Math.min(...relativeLumArr);
-  return (L1 + 0.05) / (L2 + 0.05);
-}
-
 function updateLabels() {
   const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
 
@@ -997,7 +674,6 @@ function setTextColour(colour) {
   document.getElementById('textColour-wrapper').dataset.content = 'Text: Auto';
   return textColour;
 }
-
 function customTextColour() {
   const textPicker = document.getElementById('textColour-picker');
   const textColour = textPicker.value;
@@ -1028,7 +704,6 @@ function swatchModeSelector(hex, modeValue) {
     return linearGradientMultiTone(hex);
   }
 }
-
 function updateColour() {
   let primaryColourLabel, analogousAColourLabel, analogousBColourLabel, triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
   const modeValue = document.getElementById('primaryColour-mode').innerHTML;    
@@ -1065,7 +740,6 @@ function updateColour() {
   const testColour = new PickerWrapperBackground(colour_picker.value,'Testing');
   */
 }
-
 function linearGradientThreeTone(hex) {
   const variantA = lumAdjustHEX(hex, 13);
   const variantB = lumAdjustHEX(hex, -13);
@@ -1075,7 +749,6 @@ function linearGradientThreeTone(hex) {
   */
   return gradient;
 }
-
 function stableCounter(counter, inc) {//pass through outer variable to inner
 
   function innerIncrement() {
@@ -1085,7 +758,6 @@ function stableCounter(counter, inc) {//pass through outer variable to inner
 
   return innerIncrement;
 }
-
 function variableCounter(counter) {//pass through outer variable to inner
 
   function innerIncrement(inc) {
@@ -1095,7 +767,6 @@ function variableCounter(counter) {//pass through outer variable to inner
 
   return innerIncrement;
 }
-
 function functionBox(init, func, amount) {
   let operation;
   let counter = init;
@@ -1110,7 +781,6 @@ function functionBox(init, func, amount) {
   }
   return innerFunction;
 }
-
 function hslLumGradient(hex, luminance, func, amount) {
   let operation;
   if (func === '*') operation = (x, y) => x * y;
@@ -1124,7 +794,6 @@ function hslLumGradient(hex, luminance, func, amount) {
   }
   return innerFunction;
 }
-
 function hslMultStrFixed(hex, multHue, multSat, multLum) {
   //Returns hsl string from multiplication of hsl values
   //repeatable due to closure
@@ -1140,14 +809,12 @@ function hslMultStrFixed(hex, multHue, multSat, multLum) {
   }
   return innerFunction;
 }
-
 function stringifyHsl(args) {
  // const [hue, sat, lum] = [args[0], args[1], args[2]];
   const [hue, sat, lum] = [...args];
  return `hsl(${hue}, ${sat}%, ${lum}%)`;
 
 }
-
 function hslMultStrVariable(hex) {
   //Returns hsl string from multiplication of hsl values
   //repeatable due to closure
@@ -1163,9 +830,6 @@ function hslMultStrVariable(hex) {
   }
   return innerFunction;
 }
-
-
-
 function functionBoxB(func, amount) {
   let operation;
   if (func === '*') operation = (x, y) => x * y;
@@ -1178,9 +842,7 @@ function functionBoxB(func, amount) {
   }
   return innerFunction;
 }
-
 const xAddTwo = functionBox(100, '*', .9);
-
 const counter = stableCounter(2, 5);
 const counterB = variableCounter(3);
 function hexToHue(H) {
@@ -1222,7 +884,6 @@ function hexToHue(H) {
 
     return h;
 }
-
 function linearGradientMultiTone(hex) {
   const luminance = 95;
   const lumMult = 0.905; 
@@ -1243,29 +904,6 @@ function linearGradientMultiTone(hex) {
 
   return gradient;
 }
-
-
-
-function adjustHue() {
-  const newHue = document.getElementById('hue-slider').value;
-  colour_picker.value = hslToHex(...hueChangeHSL(...hexToHSL(colour_picker.value), newHue));
-  updateColour();
-}
-
-function adjustLum() {
-  const newLum = document.getElementById('lum-slider').value;
-  colour_picker.value = hslToHex(...lumChangeHSL(...hexToHSL(colour_picker.value), newLum));
-  updateColour();
-}
-
-
-function adjustSat() {
-  const newSat = document.getElementById('sat-slider').value;
-  colour_picker.value = hslToHex(...satChangeHSL(...hexToHSL(colour_picker.value), newSat));
-  updateColour();
-}
-
-
 function fillClipboard() {
   const clipboard = document.getElementById('clipboard');
   const clipboardSecondary = document.getElementById('clipboard-secondary');
@@ -1356,7 +994,6 @@ function copyAll() {
   navigator.clipboard.writeText(text);
   alert(`Copied To Clipboard:\n${text}`);
 }
-
 function onChangepickers() {
   for (let i in pickers) {
     if (i > 0) { // skip the first one - primaryColour
@@ -1378,13 +1015,11 @@ function onChangepickers() {
     }
   }
 }
-
 function copySingle(e) {
   let text = e.innerHTML;
     navigator.clipboard.writeText(text);
     alert('Copied: ' + text);
 }
-
 function toggleHsl(e) {
  if (e.innerHTML === 'Hex') {
   e.innerHTML = 'HSL';
@@ -1394,7 +1029,6 @@ function toggleHsl(e) {
   updateLabels();
  }
 }
-
 function toggleScss(e) {
   if (e.innerHTML === 'SCSS') {
    e.innerHTML = 'CSS';
@@ -1404,8 +1038,6 @@ function toggleScss(e) {
   fillClipboard();
 
  }
- 
-
 function onClickButtons() {
   buttons.forEach(x =>{//Assign a function to each button onclick
     const id = x.id;
@@ -1419,27 +1051,7 @@ function onClickButtons() {
   }); 
  
 }
-
-function makeRandomColour() {
-  let hue = parseInt(Math.random() * 360);
-  let sat = 48 + parseInt(Math.random() * 40); // 78
-  let lum = 53 + parseInt(Math.random() * 35); // 53
-  return hslToHex(hue, sat, lum);
-}
-
-
-function randomprimaryColour() {
-  colour_picker.value = makeRandomColour();
-}
-
-function randomDiceColours() {
-  document.getElementById('dieA').style.backgroundColor = makeRandomColour();    
-  document.getElementById('dieB').style.backgroundColor = makeRandomColour();    
-
-}
-
 function onLoad() {
-  onChangepickers();
   onClickButtons();
   randomprimaryColour();
   updateColour();
@@ -1539,214 +1151,14 @@ function switchColourMode() {
   
   //alert('Swictchable modes coming soon');
 }
-
 function customColour(e) {
   let name = e.id.split('-')[0];
   let wrapper = name + '-wrapper';
   let colour = e.value;
  return document.getElementById(wrapper).style.backgroundColor = colour;    
 }
-
-
-
-/*
-colour_picker.onchange = () =>{
-  updateColour();
-}
-
-*/
-
-function hexToSrgbArr(hex) {
-  let rSrgb = 0, gSrgb = 0, bSrgb = 0;
-  // 3 digits
-  if (hex.length == 4) {
-    rSrgb  = ('0x' + hex[1] + hex[1])/255;
-    gSrgb = ('0x' + hex[2] + hex[2])/255;
-    bSrgb = ('0x' + hex[3] + hex[3])/255;
-  // 6 digits
-  }else if (hex.length == 7) {
-    rSrgb = ('0x' + hex[1] + hex[2])/255;
-    gSrgb = ('0x' + hex[3] + hex[4])/255;
-    bSrgb = ('0x' + hex[5] + hex[6])/255;
-  }
-  return [rSrgb, gSrgb, bSrgb];
-}
-
-function hexToHSLString(H) {
-  // Convert hex to rgb first
-  let r = 0, g = 0, b = 0;
-  if (H.length == 4) {
-    r = '0x' + H[1] + H[1];
-    g = '0x' + H[2] + H[2];
-    b = '0x' + H[3] + H[3];
-  }else if (H.length == 7) {
-    r = '0x' + H[1] + H[2];
-    g = '0x' + H[3] + H[4];
-    b = '0x' + H[5] + H[6];
-  }
-  // Then to hsl
-  r /= 255;
-  g /= 255;
-  b /= 255;
-  let cmin = Math.min(r, g, b),
-      cmax = Math.max(r, g, b),
-      delta = cmax - cmin,
-      h = 0,
-      s = 0,
-      l = 0;
-
-  if (delta == 0)
-    h = 0;
-  else if (cmax == r)
-    h = ((g - b) / delta) % 6;
-  else if (cmax == g)
-    h = (b - r) / delta + 2;
-  else
-    h = (r - g) / delta + 4;
-
-  h = Math.round(h * 60);
-
-  if (h < 0)
-    h += 360;
-
-  l = (cmax + cmin) / 2;
-  s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
-  s = +(s * 100).toFixed(1);
-  l = +(l * 100).toFixed(1);
-
-  return 'hsl(' + h + ', ' + s + '%, ' + l + '%)';
-}
-
-function hexToHSL(H) {
-  // Convert hex to rgb first
-  let r = 0, g = 0, b = 0;
-  if (H.length == 4) {
-    r = '0x' + H[1] + H[1];
-    g = '0x' + H[2] + H[2];
-    b = '0x' + H[3] + H[3];
-  }else if (H.length == 7) {
-    r = '0x' + H[1] + H[2];
-    g = '0x' + H[3] + H[4];
-    b = '0x' + H[5] + H[6];
-  }
-  // Then to hsl
-  r /= 255;
-  g /= 255;
-  b /= 255;
-  let cmin = Math.min(r, g, b),
-      cmax = Math.max(r, g, b),
-      delta = cmax - cmin,
-      h = 0,
-      s = 0,
-      l = 0;
-
-  if (delta == 0)
-    h = 0;
-  else if (cmax == r)
-    h = ((g - b) / delta) % 6;
-  else if (cmax == g)
-    h = (b - r) / delta + 2;
-  else
-    h = (r - g) / delta + 4;
-
-  h = Math.round(h * 60);
-
-  if (h < 0)
-    h += 360;
-
-  l = (cmax + cmin) / 2;
-  s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
-  s = +(s * 100).toFixed(1);
-  l = +(l * 100).toFixed(1);
-
-  return [h, s, l];
-}
-
-function hslToHex(...args) {
-  let [h, s, l] = [...args];
-  s /= 100;
-  l /= 100;
-
-  let c = (1 - Math.abs(2 * l - 1)) * s,
-      x = c * (1 - Math.abs((h / 60) % 2 - 1)),
-      m = l - c/2,
-      r = 0,
-      g = 0, 
-      b = 0; 
-
-  if (0 <= h && h < 60) {
-    r = c; g = x; b = 0;
-  }else if (60 <= h && h < 120) {
-    r = x; g = c; b = 0;
-  }else if (120 <= h && h < 180) {
-    r = 0; g = c; b = x;
-  }else if (180 <= h && h < 240) {
-    r = 0; g = x; b = c;
-  }else if (240 <= h && h < 300) {
-    r = x; g = 0; b = c;
-  }else if (300 <= h && h <= 360) {
-    r = c; g = 0; b = x;
-  }
-  // Having obtained rgb, convert channels to hex
-  r = Math.round((r + m) * 255).toString(16);
-  g = Math.round((g + m) * 255).toString(16);
-  b = Math.round((b + m) * 255).toString(16);
-
-  // Prepend 0s, if necessary
-  if (r.length == 1)
-    r = '0' + r;
-  if (g.length == 1)
-    g = '0' + g;
-  if (b.length == 1)
-    b = '0' + b;
-
-  return '#' + r + g + b;
-}
-
-function hueRotateHSL(hue, sat, lum, rotation) {
-  let adjustment = Math.round(hue) + Math.round(rotation);
-  if (adjustment > 360) adjustment += -360;
-  if (adjustment < 0) adjustment += 360;
-  return [adjustment, sat, lum]; 
-}
-
-function lumAdjustHSL(hue, sat, lum, adjustment) {
-  return [hue, sat, Math.max(0, Math.min(100, lum + adjustment))]; 
-}
-
-function satAdjustHSL(hue, sat, lum, adjustment) {
-  return [hue, Math.max(0, Math.min(100, sat + adjustment)), lum]; 
-}
-
-
-function hueChangeHSL(hue, sat, lum, newHue) {
-  return [newHue, sat, lum]; 
-}
-
-function satChangeHSL(hue, sat, lum, newSat) {
-  return [hue, newSat, lum]; 
-}
-
-function lumChangeHSL(hue, sat, lum, newLum) {
-  return [hue, sat, newLum]; 
-}
-
-function lumChangeHex(hex, newLum) {
-  return hslToHex(...lumChangeHSL(...hexToHSL(hex), newLum));
-}
-function hueRotateHEX(hex, rotation) {
-  return hslToHex(...hueRotateHSL(...hexToHSL(hex), rotation));
-}
-function lumAdjustHEX(hex, adjustment) {
-  return hslToHex(...lumAdjustHSL(...hexToHSL(hex), adjustment));
-}
-function satAdjustHEX(hex, adjustment) {
-  return hslToHex(...satAdjustHSL(...hexToHSL(hex), adjustment));
-}
 const test = new Palette;
 console.log(test);
-
-
 /*
 //const testNewColour = new Colour('name',{hex: '#33dd66'});
 //const testNewColour = new Colour('name',{red: 1, blue: 0.5, green: 0.2});
@@ -1771,4 +1183,3 @@ console.log(testSingleton);
 const testSingletonb = new ColoursSingleton('wawawa');
 console.log(testSingletonb);
 */
-
