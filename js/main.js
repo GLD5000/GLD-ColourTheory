@@ -391,7 +391,7 @@ class PrimarySwatch{
     this._colourBackground.hex = hex;
     this._picker.value = hex;
     this._wrapper.style.backgroundColor = hex; 
-    [this._colourText.hex, this._contrastRatio] = [...this._autoTextColour(hex)];
+    [this._colourText.hex, this._contrastRatio] = [...this._autoTextColour(this._colourBackground.red, this._colourBackground.green, this._colourBackground.blue)];
     // update contrast Ratio text
     this._wrapper.dataset.content = this._makeContrastRatioString(this._contrastRatio);
     // set text colour
@@ -448,10 +448,9 @@ class PrimarySwatch{
     this._textWrapper.dataset.content = 'Text: Custom'//Text: Auto;
     
   }
-  _autoTextColour(hex) {
-    let srgbArr = this._convertHexToSrgb(hex);
-    let contrastBlack = this._calculateContrastRatio([0,0,0],srgbArr);
-    let contrastWhite = this._calculateContrastRatio([1,1,1],srgbArr);
+  _autoTextColour(red, green, blue) {
+    let contrastBlack = this._calculateContrastRatio([0,0,0],[red, green, blue]);
+    let contrastWhite = this._calculateContrastRatio([1,1,1],[red, green, blue]);
     let autoColour = (contrastBlack > contrastWhite)? '#000': '#fff';
     let autoContrast = Math.max(contrastBlack,contrastWhite);
     return [autoColour, autoContrast];
@@ -553,7 +552,7 @@ class PrimarySwatch{
     /*A contrast ratio of 3:1 is the minimum level recommended by [[ISO-9241-3]] and [[ANSI-HFES-100-1988]] for standard text and vision. 
     Large-scale text and images of large-scale text have a contrast ratio of at least 4.5:1;
     */
-    const relativeLumArr = args.map(x => this._calculateRelativeLuminance(x.red, x.green, x.blue)); 
+    const relativeLumArr = args.map(x => this._calculateRelativeLuminance(...x)); 
     const L1 = Math.max(...relativeLumArr);
     const L2 = Math.min(...relativeLumArr);
     return (L1 + 0.05) / (L2 + 0.05);
@@ -1744,7 +1743,11 @@ function lumAdjustHEX(hex, adjustment) {
 function satAdjustHEX(hex, adjustment) {
   return hslToHex(...satAdjustHSL(...hexToHSL(hex), adjustment));
 }
+const test = new Palette;
+console.log(test);
 
+
+/*
 //const testNewColour = new Colour('name',{hex: '#33dd66'});
 //const testNewColour = new Colour('name',{red: 1, blue: 0.5, green: 0.2});
 const testNewColour = new Colour('name',{hue: 0, sat: 50, lum: 50});
@@ -1762,11 +1765,10 @@ console.log(suffStops);
 const multStops =new MultiplierStops(5,0.9);
 console.log(multStops);
 
-const test = new Palette;
-console.log(test);
 
 const testSingleton = new ColoursSingleton('yoyoy');
 console.log(testSingleton);
 const testSingletonb = new ColoursSingleton('wawawa');
 console.log(testSingletonb);
+*/
 
