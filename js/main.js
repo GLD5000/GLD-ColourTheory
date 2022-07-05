@@ -159,7 +159,7 @@ class Colour {
   set hue(x) {
     this._clearHex();
     this._clearSrgb();
-    this._hue = this._clamp(0, x, 360);
+    this._hue = this._rotateDegrees(x);
     this._initAll();
 
   }
@@ -199,6 +199,12 @@ class Colour {
   _clamp(min, value, max) {
     return Math.min(Math.max(min, value),max);
   }
+  _rotateDegrees(x, degrees = 360) {
+    if (x > degrees) x -= degrees;
+    if (x < 0) x += degrees;
+    return x;
+  }
+
   _clearHex() {
     this._hex = undefined; 
   }
@@ -254,13 +260,18 @@ class PickerWrapper{
 }
 class SmallSwatch{
   static instanceCounter = 0;
-  constructor(name, func, functionVariable) {
-    this._func = func;
-    this._functionVariable = functionVariable;
+  constructor(name, property, propertyAdjustment) {
     this._name = name;
+    this._property = property;
+    this._propertyAdjustment = propertyAdjustment;
     this._picker = document.getElementById(name + '-picker');
     this._wrapper = document.getElementById(name + '-wrapper');
     this._copyButton = document.getElementById(name + '-copybtn');
+    this._colourBackground = new Colour(name,{hex: this._picker.value});
+    this._colourBackground[property] += propertyAdjustment;
+    this._colourBackgroundCustom = new Colour('custom',{hex: this._picker.value});
+    this._colourText = new Colour(name + 'Text',{hex: '#000'});
+
     this._updateBackgroundColour(this._picker.value);
     this._setOnChange();
     this._wrapper.dataset.content = this._name;
@@ -287,27 +298,29 @@ class SmallSwatch{
   }
  _onClickPicker() {
   if(this._customised === 1) {
-    this._wrapper.dataset.content = `${this._customName}`;
-    this._picker.value = this._customBackgroundColour;
+    this._wrapper.dataset.content = `${this._colourBackgroundCustom.name}`;
+    this._picker.value = this._colourBackgroundCustom.hex;
     this._updateBackgroundColour(this._picker.value);
   }
   }
 
   _onChangePicker() {
     if(this._customised === 0) {
-      this._customName = 'custom ' + ++SmallSwatch.instanceCounter;
+      this._colourBackgroundCustom.name = 'custom ' + ++SmallSwatch.instanceCounter;
       this._customised = 1;
     }
-    this._wrapper.dataset.content = `${this._customName}`;
-    this._customBackgroundColour = this._picker.value;
+    this._wrapper.dataset.content = `${this._colourBackgroundCustom.name}`;
+    this._colourBackgroundCustom.hex = this._picker.value;
     this._updateBackgroundColour(this._picker.value);
   }
   changeSwatchColour(hex) {
-    const modifiedHex = this._func(hex, this._functionVariable);
+    this._colourBackground.hex = hex;
+    this._colourBackground[this._property] += this._propertyAdjustment;
     this._wrapper.dataset.content = this._name;
-    this._updateBackgroundColour(modifiedHex);
+    this._updateBackgroundColour(this._colourBackground.hex);
   }
   changeSwatchTextColour(hex) {
+    this._colourText.hex = hex;
     this._updateTextColour(hex);
   }
 
@@ -315,16 +328,16 @@ class SmallSwatch{
 class SmallSwatchesGroup{
   constructor() {
     this._smallSwatchList ={
-      analogousA:  [hueRotateHEX,-30],
-      analogousB:   [hueRotateHEX, 30],
-      triadicA:    [hueRotateHEX, -120],
-      triadicB:    [hueRotateHEX, 120],
-      tetradicA:   [hueRotateHEX, 90],
-      tetradicB:   [hueRotateHEX, 180],
-      tetradicC:   [hueRotateHEX, 270],
-      monochromeA:   [lumAdjustHEX, -10],
-      monochromeB:   [lumAdjustHEX, 10],
-      neutral:    [satAdjustHEX, -200],
+      analogousA:  ['hue',-30],
+      analogousB:   ['hue', 30],
+      triadicA:    ['hue', -120],
+      triadicB:    ['hue', 120],
+      tetradicA:   ['hue', 90],
+      tetradicB:   ['hue', 180],
+      tetradicC:   ['hue', 270],
+      monochromeA:   ['lum', -10],
+      monochromeB:   ['lum', 10],
+      neutral:    ['sat', -200],
     }
     this._smallSwatches = Object.keys(this._smallSwatchList).map(x => new SmallSwatch(x, this._smallSwatchList[x][0], this._smallSwatchList[x][1]));
     
@@ -359,13 +372,13 @@ class PrimarySwatch{
     this._getElements(name);
 
     this._setOnChange();
-    this._colourBackground = new Colour(name,{hex: this._picker.value});
+    this._colourBackground = new Colour(name,{hex: '#e68f75'});
+    this._colourBackground.randomise();
     this._colourText = new Colour(name + 'Text',{hex: '#000'});
-    this._updateBackgroundColour(this._picker.value);
-    this._hex = this._picker.value;
+    this._updateBackgroundColour();
   }
   get hex() { 
-    return this._hex;
+    return this._colourBackground.hex;
   }
   _getElements(name) {
         //elements
@@ -1052,10 +1065,8 @@ function onClickButtons() {
  
 }
 function onLoad() {
+  
   onClickButtons();
-  randomprimaryColour();
-  updateColour();
-  randomDiceColours();
 
 /*
 const randomButton = {
@@ -1114,7 +1125,7 @@ const randomButton = {
   },
   init() {
     this._button = document.getElementById('randomise-btn');
-    this._button.onclick = () => {this._randomise()};
+        this._button.onclick = () => {this._randomise()};
     this._diceButton = document.getElementById('dice-btn');
     this._diceButton.onclick = () => {this._randomise()};
     this._dieA = document.getElementById('dieA');
@@ -1157,8 +1168,11 @@ function customColour(e) {
   let colour = e.value;
  return document.getElementById(wrapper).style.backgroundColor = colour;    
 }
-const test = new Palette;
-console.log(test);
+
+const palette = new Palette;
+console.log(palette);
+
+
 /*
 //const testNewColour = new Colour('name',{hex: '#33dd66'});
 //const testNewColour = new Colour('name',{red: 1, blue: 0.5, green: 0.2});
