@@ -248,6 +248,33 @@ class Colour {
     this._initAll();
   }
 }
+class CopyButton{
+  constructor(name) {
+    this._name = name;
+    this._colourSpace = 'hex';
+    this._styleSheetType = 'css';
+    this._element = document.getElementById(name + '-copybtn');
+    //add mode logic for SCSS/CSS Toggle
+    this._prefixScss = `\$`;
+    this._prefixCss = `--`;
+    //get clipboard information from all colours/gradients
+    this._text = 'test'
+    this._element.onclick = () =>{this._onClick()};
+  }
+  _onClick(){
+    navigator.clipboard.writeText(this._text);
+    alert(`Copied To Clipboard:\n${this._text}`);
+
+  };
+  get text(){
+    return this._text;
+  }
+  set text(x){
+    this._text = x;
+    this._element.innerHTML = x;
+  }
+}
+
 class SmallSwatch{
   static instanceCounter = 0;
   constructor(name, property, propertyAdjustment) {
@@ -256,7 +283,7 @@ class SmallSwatch{
     this._propertyAdjustment = propertyAdjustment;
     this._picker = document.getElementById(name + '-picker');
     this._wrapper = document.getElementById(name + '-wrapper');
-    this._copyButton = document.getElementById(name + '-copybtn');
+    this._copyButton = new CopyButton(name);
     this._colourBackground = new Colour(name,{hex: this._picker.value});
     this._colourBackground[property] += propertyAdjustment;
     this._colourBackgroundCustom = new Colour('custom',{hex: this._picker.value});
@@ -273,7 +300,7 @@ class SmallSwatch{
     this._picker.value = hex;
     this._wrapper.style.backgroundColor = hex; 
     //contrast ratio
-    this._copyButton.innerHTML = hex;
+    this._copyButton.text = hex;
   }
   _updateTextColour(hex) {
     this._wrapper.style.color = hex; 
@@ -377,7 +404,7 @@ class PrimarySwatch{
         this._satSlider = document.getElementById('sat-slider');
         this._lumSlider = document.getElementById('lum-slider');
         this._picker = document.getElementById(name + '-picker');
-        this._copyButton = document.getElementById(name + '-copybtn');
+        this._copyButton = new CopyButton(name);
         this._textPicker = document.getElementById('textColour-picker');
         this._textWrapper = document.getElementById('textColour-wrapper');
         this._modeButton = document.getElementById(name + '-mode');
@@ -385,7 +412,7 @@ class PrimarySwatch{
         this._diceButton = document.getElementById('dice-btn');
         this._dieA = document.getElementById('dieA');
         this._dieB = document.getElementById('dieB');
-          this._wrapper = document.getElementById(name + '-wrapper');
+        this._wrapper = document.getElementById(name + '-wrapper');
         //properties
         this._backgroundColour = this._picker.value;
         //Random dice
@@ -404,7 +431,7 @@ class PrimarySwatch{
     this._updateSliders();    
     this._smallSwatchesGroup.updateSwatches(this._colourBackground.hex);
     this._smallSwatchesGroup.updateSwatchesText(this._colourText.hex);
-    this._copyButton.innerHTML = this._colourBackground.hex;
+    this._copyButton.text = this._colourBackground.hex;
 
   }
   _updateSliders(){
@@ -415,7 +442,6 @@ class PrimarySwatch{
     this._satSlider.oninput = () =>{this._onChangeSliderSat()};
     this._lumSlider.oninput = () =>{this._onChangeSliderLum()};
     this._picker.oninput = () =>{this._onChangePicker()};
-    this._copyButton.onclick = () =>{this._onChange()};
     this._textPicker.oninput = () =>{this._onChangeTextPicker()};
     this._modeButton.onchange = () =>{this._onChange()};
     this._randomButton.onclick = () => {this._randomise()};
@@ -501,18 +527,6 @@ class Palette{
     this._primaryColourSwatch = new PrimarySwatch('primaryColour');
   }
   
-}
-class CopyButton{
-  constructor(name) {
-    this._name = name;
-    this._element = document.getElementById(name + '-copybtn');
-    //add mode logic for SCSS/CSS Toggle
-    this._prefixScss = `\$`;
-    this._prefixCss = `--`;
-
-    //get clipboard information from all colours/gradients
-
-  }
 }
 class Swatch{
   constructor(id) {
