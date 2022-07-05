@@ -248,16 +248,6 @@ class Colour {
     this._initAll();
   }
 }
-class PickerWrapper{
-  constructor(name, value) {
-    this._id = name + '-wrapper';
-    this._element = document.getElementById(this._id);
-    this._background = new PickerWrapperBackground(value,name)
-    this._autoTextColour = new ColourAutoText([this._background.colour.srgb.red,this._background.colour.srgb.green,this._background.colour.srgb.blue]);
-
-    this._element.style.background = value;// update to respond to types later
-}
-}
 class SmallSwatch{
   static instanceCounter = 0;
   constructor(name, property, propertyAdjustment) {
@@ -283,6 +273,7 @@ class SmallSwatch{
     this._picker.value = hex;
     this._wrapper.style.backgroundColor = hex; 
     //contrast ratio
+    this._copyButton.innerHTML = hex;
   }
   _updateTextColour(hex) {
     this._wrapper.style.color = hex; 
@@ -413,6 +404,7 @@ class PrimarySwatch{
     this._updateSliders();    
     this._smallSwatchesGroup.updateSwatches(this._colourBackground.hex);
     this._smallSwatchesGroup.updateSwatchesText(this._colourText.hex);
+    this._copyButton.innerHTML = this._colourBackground.hex;
 
   }
   _updateSliders(){
@@ -507,32 +499,6 @@ class Palette{
   constructor() {
     
     this._primaryColourSwatch = new PrimarySwatch('primaryColour');
-  }
-  
-}
-class Picker {
-  constructor(name) {
-    this._name = name;
-    this._id = name + '-picker';
-    this._element = document.getElementById(this._id);
-    this._element.onchange = () =>{ this.update()};
-    this._value = this._element.value; 
-    this._wrapper = new PickerWrapper(this._name, this._value);
-  }
-  update() {
-    this._value = this._element.value; 
-    this._wrapper = new PickerWrapper(this._name, this._value);
-  }
-  
-  get value() {
-    return this._value;
-  }
-  get name() {
-    return this._name;
-  }
-  set value(newValue) {
-    this._element.value = newValue;
-    this._wrapper.style.backgroundColor = newValue;
   }
   
 }
@@ -637,20 +603,6 @@ class ColourAutoText extends ColourFunctions{
     this.autoContrast = Math.max(this.contrastBlack,this.contrastWhite);
   }
 }
-class PickerWrapperBackground {
-  constructor(hex,name) {
-    this.name = name;
-    this.colour = new ColourSpaces(hex);
-    this.tripleGradient = new ColourTripleGradient(this.colour,this.name);
-    this.multiGradient = new ColourMultiGradient(this.colour,this.name);
-  }
-  updateHue() {
-    //update hue in hsl
-    //update srgb
-    //update hex
-    //update gradients
-  }
-}
 function updateLabels() {
   const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
 
@@ -749,9 +701,6 @@ function updateColour() {
     label.innerHTML = (isHex)?colour:hexToHSLString(colour);
   });
   fillClipboard();
-  /*
-  const testColour = new PickerWrapperBackground(colour_picker.value,'Testing');
-  */
 }
 function linearGradientThreeTone(hex) {
   const variantA = lumAdjustHEX(hex, 13);
