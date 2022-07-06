@@ -537,30 +537,7 @@ class Palette{
   }
   
 }
-class Swatch{
-  constructor(id) {
-    this._picker = new Picker(id);
 
-
-  }
-  //setWrapperColour(colour) {
-    
-    //}
-  }
-
-class ColourTripleGradient{
-  constructor(colourSpaces,name) {
-    this.name = name;
-    [this._hue,this._sat,this._lum] = [colourSpaces.hsl.hue,colourSpaces.hsl.sat,colourSpaces.hsl.lum];
-
-  }
-}
-class GradientStop{
-  constructor(name,suffix,{colour = undefined, satMult = 1, lumMult =1}) {
-    this._name = name + suffix;
-    this._colour = new Colour(colour.hue, colour.sat * satMult, colour.lum * lumMult);
-  }
-}
 class MultiplierStops{  
   constructor(stops,multiplier) {
     const halfStops = 0.5 * stops;
@@ -568,8 +545,10 @@ class MultiplierStops{
     this._powerArr = [...Array(stops)].map((x,i,arr) => arr[i] = multiplier ** (((i + 1 > halfStops)? this._even: 0) + i - Math.floor(halfStops)));
   }
 }
+
+
 class BackgroundGradient{
-  constructor(colour,stops,satMult,lumMult){
+  constructor(colour,stops, satMult = 1, lumMult = 1){
     this._name = colour.name;
     this._mainHex = colour.hex;
     this._suffixes = new SuffixStops(stops);
