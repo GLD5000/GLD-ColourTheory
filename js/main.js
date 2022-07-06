@@ -125,7 +125,15 @@ class Colour {
     return this._convertHslToHex(...this._convertSrgbToHsl(red, green, blue));
   }
   //get set methods for Hex HSL RGB
+
   //Adjust methods for HSL RGB
+  get hsl(){
+    return this._hsl;
+  }
+  get rgb(){
+    return this._rgb;
+  }
+
   get hex() {
     return this._hex;
   }
@@ -248,6 +256,33 @@ class Colour {
     this._initAll();
   }
 }
+class CopyButton{
+  constructor(name) {
+    this._name = name;
+    this._colourSpace = 'hex';
+    this._styleSheetType = 'css';
+    this._element = document.getElementById(name + '-copybtn');
+    //add mode logic for SCSS/CSS Toggle
+    this._prefixScss = `\$`;
+    this._prefixCss = `--`;
+    //get clipboard information from all colours/gradients
+    this._text = 'test'
+    this._element.onclick = () =>{this._onClick()};
+  }
+  _onClick(){
+    navigator.clipboard.writeText(this._text);
+    alert(`Copied To Clipboard:\n${this._text}`);
+
+  };
+  get text(){
+    return this._text;
+  }
+  set text(x){
+    this._text = x;
+    this._element.innerHTML = x;
+  }
+}
+
 class SmallSwatch{
   static instanceCounter = 0;
   constructor(name, property, propertyAdjustment) {
@@ -256,7 +291,7 @@ class SmallSwatch{
     this._propertyAdjustment = propertyAdjustment;
     this._picker = document.getElementById(name + '-picker');
     this._wrapper = document.getElementById(name + '-wrapper');
-    this._copyButton = document.getElementById(name + '-copybtn');
+    this._copyButton = new CopyButton(name);
     this._colourBackground = new Colour(name,{hex: this._picker.value});
     this._colourBackground[property] += propertyAdjustment;
     this._colourBackgroundCustom = new Colour('custom',{hex: this._picker.value});
@@ -273,7 +308,7 @@ class SmallSwatch{
     this._picker.value = hex;
     this._wrapper.style.backgroundColor = hex; 
     //contrast ratio
-    this._copyButton.innerHTML = hex;
+    this._copyButton.text = hex;
   }
   _updateTextColour(hex) {
     this._wrapper.style.color = hex; 
@@ -359,12 +394,13 @@ class ColoursSingleton{
 class PrimarySwatch{
   constructor(name) {
     // init
-    this._smallSwatchesGroup = new SmallSwatchesGroup();
     this._getElements(name);
+    this._smallSwatchesGroup = new SmallSwatchesGroup();
 
     this._setOnChange();
     this._colourBackground = new Colour(name,{hex: '#e68f75'});
     this._colourBackground.randomise();
+    this._backgroundGradient = new BackgroundGradient(this._colourBackground,2,0.96,1.04);
     this._colourText = new Colour(name + 'Text',{hex: '#000'});
     this._updateBackgroundColour();
   }
@@ -377,7 +413,7 @@ class PrimarySwatch{
         this._satSlider = document.getElementById('sat-slider');
         this._lumSlider = document.getElementById('lum-slider');
         this._picker = document.getElementById(name + '-picker');
-        this._copyButton = document.getElementById(name + '-copybtn');
+        this._copyButton = new CopyButton(name);
         this._textPicker = document.getElementById('textColour-picker');
         this._textWrapper = document.getElementById('textColour-wrapper');
         this._modeButton = document.getElementById(name + '-mode');
@@ -385,7 +421,7 @@ class PrimarySwatch{
         this._diceButton = document.getElementById('dice-btn');
         this._dieA = document.getElementById('dieA');
         this._dieB = document.getElementById('dieB');
-          this._wrapper = document.getElementById(name + '-wrapper');
+        this._wrapper = document.getElementById(name + '-wrapper');
         //properties
         this._backgroundColour = this._picker.value;
         //Random dice
@@ -404,7 +440,7 @@ class PrimarySwatch{
     this._updateSliders();    
     this._smallSwatchesGroup.updateSwatches(this._colourBackground.hex);
     this._smallSwatchesGroup.updateSwatchesText(this._colourText.hex);
-    this._copyButton.innerHTML = this._colourBackground.hex;
+    this._copyButton.text = this._colourBackground.hex;
 
   }
   _updateSliders(){
@@ -415,7 +451,6 @@ class PrimarySwatch{
     this._satSlider.oninput = () =>{this._onChangeSliderSat()};
     this._lumSlider.oninput = () =>{this._onChangeSliderLum()};
     this._picker.oninput = () =>{this._onChangePicker()};
-    this._copyButton.onclick = () =>{this._onChange()};
     this._textPicker.oninput = () =>{this._onChangeTextPicker()};
     this._modeButton.onchange = () =>{this._onChange()};
     this._randomButton.onclick = () => {this._randomise()};
@@ -502,18 +537,6 @@ class Palette{
   }
   
 }
-class CopyButton{
-  constructor(name) {
-    this._name = name;
-    this._element = document.getElementById(name + '-copybtn');
-    //add mode logic for SCSS/CSS Toggle
-    this._prefixScss = `\$`;
-    this._prefixCss = `--`;
-
-    //get clipboard information from all colours/gradients
-
-  }
-}
 class Swatch{
   constructor(id) {
     this._picker = new Picker(id);
@@ -538,11 +561,32 @@ class GradientStop{
     this._colour = new Colour(colour.hue, colour.sat * satMult, colour.lum * lumMult);
   }
 }
-class MultiplierStops{
+class MultiplierStops{  
   constructor(stops,multiplier) {
     const halfStops = 0.5 * stops;
     this._even = (stops % 2 === 0)? 1: 0;
     this._powerArr = [...Array(stops)].map((x,i,arr) => arr[i] = multiplier ** (((i + 1 > halfStops)? this._even: 0) + i - Math.floor(halfStops)));
+  }
+}
+class BackgroundGradient{
+  constructor(colour,stops,satMult,lumMult){
+    this._name = colour.name;
+    this._mainHex = colour.hex;
+    this._suffixes = new SuffixStops(stops);
+    this._satMultStops  = new MultiplierStops(stops,satMult);
+    this._lumMultStops  = new MultiplierStops(stops,lumMult);
+    this._gradientColours = []; 
+    this._suffixes._suffixesArr.forEach((suffix, i) => {
+      this._gradientColours.push(new Colour(this._name + suffix,{hex: this._mainHex}));
+      this._gradientColours[i].sat *= this._satMultStops._powerArr[i];
+      this._gradientColours[i].lum *= this._lumMultStops._powerArr[i];
+    });
+    this._gradientString = `linear-gradient(to top, #000 1px, ${this._mainHex}1px, ${this._mainHex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to right`;
+    this._stopWidth = 100 / stops;
+    this._gradientColours.forEach((x, i)=>{
+      this._gradientString += `, ${x.hsl}, ${i * this._stopWidth}% ${this._stopWidth + (i * this._stopWidth)}%`
+    });
+    this._gradientString += `) 0% 50% / 100% 30%`;
   }
 }
 class SuffixStops{
@@ -560,11 +604,11 @@ class SuffixStops{
       10: ['50','100','200','300','400','500','600','700','800','900'],
       
     }
-    this._suffixes = this._suffixise(this._names[stops]);
+    this._suffixesArr = this._suffixise(this._names[stops]);
 
   }
   _suffixise(arr) {
-    return arr.map(x => `-${x}: `);
+    return arr.map(x => `-${x}`);
   }
 }
 class ColourMultiGradient{
@@ -1016,7 +1060,9 @@ function onClickButtons() {
 function onLoad() {
   
   onClickButtons();
-
+  const palette = new Palette;
+  console.log(palette);
+  
 /*
 const randomButton = {
   _randomDiceColours() {
@@ -1087,7 +1133,6 @@ randomButton.init();
 
 
 }
-window.onLoad = onLoad();
 function randomise() {
   randomprimaryColour();
   updateColour();
@@ -1106,8 +1151,8 @@ function switchColourMode() {
     modeSwitch.innerHTML = 'Mode: Single';
     updateColour();
   }
-
-
+  
+  
   
   //alert('Swictchable modes coming soon');
 }
@@ -1115,12 +1160,11 @@ function customColour(e) {
   let name = e.id.split('-')[0];
   let wrapper = name + '-wrapper';
   let colour = e.value;
- return document.getElementById(wrapper).style.backgroundColor = colour;    
+  return document.getElementById(wrapper).style.backgroundColor = colour;    
 }
 
-const palette = new Palette;
-console.log(palette);
 
+window.onLoad = onLoad();
 
 /*
 //const testNewColour = new Colour('name',{hex: '#33dd66'});
