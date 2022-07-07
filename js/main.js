@@ -26,17 +26,21 @@ class Colour {
   _initSrgb() {
     if (this._red !== undefined && this._green !== undefined && this._blue !== undefined) return;
     [this._red, this._green, this._blue] = this._convertHexToSrgb(this._hex);
-    this._rgb = `rgb(${this._red * 255},${this._green * 255},${this._blue * 255})`
   }
   _initHsl() {
     if (this._hue !== undefined && this._sat !== undefined && this._lum !== undefined) return;
     [this._hue, this._sat, this._lum] = this._convertSrgbToHsl(this._red, this._green, this._blue);
+  }
+  _initStrings(){
+    this._rgb = `rgb(${this._red * 255},${this._green * 255},${this._blue * 255})`
     this._hsl = `hsl(${Math.round(this._hue)},${this._sat.toFixed(1)}%,${this._lum.toFixed(1)}%)`
   }
+
   _initAll() {
     this._initHex();
     this._initSrgb();
     this._initHsl();
+    this._initStrings();
   }
   _convertHexToSrgb(hex) {
     let RsRGB = 0, GsRGB = 0, BsRGB = 0;
@@ -400,7 +404,7 @@ class PrimarySwatch{
     this._setOnChange();
     this._colourBackground = new Colour(name,{hex: '#e68f75'});
     this._colourBackground.randomise();
-    this._backgroundGradient = new BackgroundGradient(this._colourBackground,2,0.96,1.04);
+    this._backgroundGradient = new BackgroundGradient(name, this._colourBackground.hex, 2,0.96,1.04);
     this._colourText = new Colour(name + 'Text',{hex: '#000'});
     this._updateBackgroundColour();
   }
@@ -548,24 +552,29 @@ class MultiplierStops{
 
 
 class BackgroundGradient{
-  constructor(colour,stops, satMult = 1, lumMult = 1){
-    this._name = colour.name;
-    this._mainHex = colour.hex;
-    this._suffixes = new SuffixStops(stops);
-    this._satMultStops  = new MultiplierStops(stops,satMult);
-    this._lumMultStops  = new MultiplierStops(stops,lumMult);
-    this._gradientColours = []; 
-    this._suffixes._suffixesArr.forEach((suffix, i) => {
-      this._gradientColours.push(new Colour(this._name + suffix,{hex: this._mainHex}));
-      this._gradientColours[i].sat *= this._satMultStops._powerArr[i];
-      this._gradientColours[i].lum *= this._lumMultStops._powerArr[i];
-    });
-    this._gradientString = `linear-gradient(to top, #000 1px, ${this._mainHex}1px, ${this._mainHex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to right`;
-    this._stopWidth = 100 / stops;
-    this._gradientColours.forEach((x, i)=>{
-      this._gradientString += `, ${x.hsl}, ${i * this._stopWidth}% ${this._stopWidth + (i * this._stopWidth)}%`
-    });
-    this._gradientString += `) 0% 50% / 100% 30%`;
+  constructor(name, hex, stops, satMult = 1, lumMult = 1){
+    this._mainColour = new Colour(name, {hex: hex});
+    this._name = this._mainColour.name;
+    if (stops < 2) {
+    this._gradientString = this._mainColour.hex;
+    } else {
+      this._suffixes = new SuffixStops(stops);
+      this._satMultStops  = new MultiplierStops(stops,satMult);
+      this._lumMultStops  = new MultiplierStops(stops,lumMult);
+      this._gradientColours = []; 
+      this._suffixes._suffixesArr.forEach((suffix, i) => {
+        this._gradientColours.push(new Colour(this._name + suffix,{
+          hue: this._mainColour.hue,
+          sat: this._mainColour.sat * this._satMultStops._powerArr[i],
+          lum: this._mainColour.lum * this._lumMultStops._powerArr[i]}));
+      });
+      this._gradientString = `linear-gradient(to top, #000 1px, ${this._mainColour.hex}1px, ${this._mainColour.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to right`;
+      this._stopWidth = 100 / stops;
+      this._gradientColours.forEach((x, i)=>{
+        this._gradientString += `, ${x.hsl}, ${i * this._stopWidth}% ${this._stopWidth + (i * this._stopWidth)}%`
+      });
+      this._gradientString += `) 0% 50% / 100% 30%`;
+    } 
   }
 }
 class SuffixStops{
