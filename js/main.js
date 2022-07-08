@@ -216,7 +216,9 @@ class Colour {
     if (x < 0) x += degrees;
     return x;
   }
-
+  newCopyHslmult(suffix, {lum = 1, hue = 1, sat = 1}){
+    return new Colour(this.name + suffix,{hue: this.hue * hue, sat: this.sat * sat, lum: this.lum * lum});
+  }
   _clearHex() {
     this._hex = undefined; 
   }
@@ -563,10 +565,11 @@ class BackgroundGradient{
       this._lumMultStops  = new MultiplierStops(stops,lumMult);
       this._gradientColours = []; 
       this._suffixes._suffixesArr.forEach((suffix, i) => {
-        this._gradientColours.push(new Colour(this._name + suffix,{
-          hue: this._mainColour.hue,
-          sat: this._mainColour.sat * this._satMultStops._powerArr[i],
-          lum: this._mainColour.lum * this._lumMultStops._powerArr[i]}));
+        this._gradientColours.push(this._mainColour.newCopyHslmult(suffix, {lum: this._lumMultStops._powerArr[i], sat: this._satMultStops._powerArr[i]}));
+       // this._gradientColours.push(new Colour(this._name + suffix,{
+         // hue: this._mainColour.hue,
+         // sat: this._mainColour.sat * this._satMultStops._powerArr[i],
+         // lum: this._mainColour.lum * this._lumMultStops._powerArr[i]}));
       });
       this._gradientString = `linear-gradient(to top, #000 1px, ${this._mainColour.hex}1px, ${this._mainColour.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to right`;
       this._stopWidth = 100 / stops;
