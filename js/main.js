@@ -1,267 +1,13 @@
-import{ColourFunctions}from './modules/classes/colour.js';
+import {Colour} from './modules/classes/colour.js';
+import {ColourBackground} from './modules/classes/colourbackground.js';
+import {ColourSimple} from './modules/classes/coloursimple.js';
 
 const colour_picker = document.getElementById('primaryColour-picker');
 const colour_picker_wrapper = document.getElementById('primaryColour-wrapper');
 const colour_picker_hex_label = document.getElementById('primaryColour-copybtn');
 const pickers = document.querySelectorAll('input[type="color"]');
 const buttons = document.querySelectorAll('button');
-class Colour {
-  constructor (name, {hex = undefined, hue = undefined, sat = undefined, lum = undefined, red = undefined, green = undefined, blue = undefined}) {
-    this._hex = hex;
-    this._hue = hue;
-    this._sat = sat;
-    this._lum = lum;
-    this._red = red;
-    this._green = green;
-    this._blue = blue;
-    this._name = name;
-    this._initAll();
-  } 
-  _initHex() {
-    if (this._hex !== undefined) return;
-    this._hex = (this._hue !== undefined)? 
-    this._convertHslToHex(this._hue, this._sat, this._lum): 
-    this._convertSrgbToHex(this._red, this._green, this._blue);
-  }
-  _initSrgb() {
-    if (this._red !== undefined && this._green !== undefined && this._blue !== undefined) return;
-    [this._red, this._green, this._blue] = this._convertHexToSrgb(this._hex);
-  }
-  _initHsl() {
-    if (this._hue !== undefined && this._sat !== undefined && this._lum !== undefined) return;
-    [this._hue, this._sat, this._lum] = this._convertSrgbToHsl(this._red, this._green, this._blue);
-  }
-  _initStrings(){
-    this._rgb = `rgb(${this._red * 255},${this._green * 255},${this._blue * 255})`
-    this._hsl = `hsl(${Math.round(this._hue)},${this._sat.toFixed(1)}%,${this._lum.toFixed(1)}%)`
-  }
 
-  _initAll() {
-    this._initHex();
-    this._initSrgb();
-    this._initHsl();
-    this._initStrings();
-  }
-  _convertHexToSrgb(hex) {
-    let RsRGB = 0, GsRGB = 0, BsRGB = 0;
-    // 3 digits
-    if (hex.length == 4) {
-      RsRGB  = ('0x' + hex[1] + hex[1])/255;
-      GsRGB = ('0x' + hex[2] + hex[2])/255;
-      BsRGB = ('0x' + hex[3] + hex[3])/255;
-    // 6 digits
-    } else if (hex.length == 7) {
-      RsRGB = ('0x' + hex[1] + hex[2])/255;
-      GsRGB = ('0x' + hex[3] + hex[4])/255;
-      BsRGB = ('0x' + hex[5] + hex[6])/255;
-    }
-    return [RsRGB, GsRGB, BsRGB];
-  }
-  _convertSrgbToHsl(RsRGB, GsRGB, BsRGB) {
-
-    let cmin = Math.min(RsRGB, GsRGB, BsRGB),
-        cmax = Math.max(RsRGB, GsRGB, BsRGB),
-        delta = cmax - cmin,
-        hue = 0,
-        sat = 0,
-        lum = 0;
-  
-    if (delta == 0)
-      hue = 0;
-    else if (cmax == RsRGB)
-      hue = ((GsRGB - BsRGB) / delta) % 6;
-    else if (cmax == GsRGB)
-      hue = (BsRGB - RsRGB) / delta + 2;
-    else
-      hue = (RsRGB - GsRGB) / delta + 4;
-  
-    hue = (hue * 60);//Math.round(hue * 60);
-  
-    if (hue < 0)
-      hue += 360;
-  
-    lum = (cmax + cmin) / 2;
-    sat = delta == 0 ? 0 : delta / (1 - Math.abs(2 * lum - 1));
-    sat = +(sat * 100);
-    lum = +(lum * 100);
-    return [hue, sat, lum];
-  }
-  _convertHslToHex(hue, sat, lum) {
-    sat /= 100;
-    lum /= 100;
-  
-    let chroma = (1 - Math.abs(2 * lum - 1)) * sat,
-        x = chroma * (1 - Math.abs((hue / 60) % 2 - 1)),
-        lightness = lum - chroma/2,
-        red = 0,
-        green = 0, 
-        blue = 0; 
-  
-    if (0 <= hue && hue < 60) {
-      red = chroma; green = x; blue = 0;
-    } else if (60 <= hue && hue < 120) {
-      red = x; green = chroma; blue = 0;
-    } else if (120 <= hue && hue < 180) {
-      red = 0; green = chroma; blue = x;
-    } else if (180 <= hue && hue < 240) {
-      red = 0; green = x; blue = chroma;
-    } else if (240 <= hue && hue < 300) {
-      red = x; green = 0; blue = chroma;
-    } else if (300 <= hue && hue <= 360) {
-      red = chroma; green = 0; blue = x;
-    }
-    // Having obtained RGB, convert channels to hex
-    red = Math.round((red + lightness) * 255).toString(16);
-    green = Math.round((green + lightness) * 255).toString(16);
-    blue = Math.round((blue + lightness) * 255).toString(16);
-  
-    // Prepend 0s, if necessary
-    if (red.length == 1)
-      red = '0' + red;
-    if (green.length == 1)
-      green = '0' + green;
-    if (blue.length == 1)
-      blue = '0' + blue;
-  
-    return '#' + red + green + blue;
-  }
-  _convertSrgbToHex(red, green, blue) {
-    return this._convertHslToHex(...this._convertSrgbToHsl(red, green, blue));
-  }
-  //get set methods for Hex HSL RGB
-
-  //Adjust methods for HSL RGB
-  get hsl(){
-    return this._hsl;
-  }
-  get rgb(){
-    return this._rgb;
-  }
-
-  get hex() {
-    return this._hex;
-  }
-  get hue() {
-    return this._hue;
-  }
-  get sat() {
-    return this._sat;
-  }
-  get lum() {
-    return this._lum;
-  }
-  get red() {
-    return this._red;
-  }
-  get green() {
-    return this._green;
-  }
-  get blue() {
-    return this._blue;
-  }
-  get name() {
-    return this._name;
-  }
-  set hex(x) {
-    this._clearHsl();
-    this._clearSrgb();
-    this._hex = x;
-    this._initAll();
-  }
-  set hue(x) {
-    this._clearHex();
-    this._clearSrgb();
-    this._hue = this._rotateDegrees(x);
-    this._initAll();
-
-  }
-  set sat(x) {
-    this._clearHex();
-    this._clearSrgb();
-    this._sat = this._clamp(0, x, 100);
-    this._initAll();
-  }
-  set lum(x) {
-    this._clearHex();
-    this._clearSrgb();
-    this._lum = this._clamp(0, x, 100);
-    this._initAll();
-  }
-  set red(x) {
-    this._clearHsl();
-    this._clearHex();
-    this._red = this._clamp(0, x, 1);
-    this._initAll();
-  }
-  set green(x) {
-    this._clearHsl();
-    this._clearHex();
-    this._green = this._clamp(0, x, 1);
-    this._initAll();
-  }
-  set blue(x) {
-    this._clearHsl();
-    this._clearHex();
-    this._blue = this._clamp(0, x, 1);
-    this._initAll();
-  }
-  set name(x) {
-    this._name = x;
-  }
-  _clamp(min, value, max) {
-    return Math.min(Math.max(min, value),max);
-  }
-  _rotateDegrees(x, degrees = 360) {
-    if (x > degrees) x -= degrees;
-    if (x < 0) x += degrees;
-    return x;
-  }
-  newCopyHslmult(suffix, {lum = 1, hue = 1, sat = 1}){
-    return new Colour(this.name + suffix,{hue: this.hue * hue, sat: this.sat * sat, lum: this.lum * lum});
-  }
-  _clearHex() {
-    this._hex = undefined; 
-  }
-  _clearHsl() {
-    this._hue = undefined; 
-    this._sat = undefined; 
-    this._lum = undefined; 
-  }
-  _clearSrgb() {
-    this._red = undefined; 
-    this._green = undefined; 
-    this._blue = undefined;
-  }
-  _adjustHslColourHue(hue, sat, lum, rotation) {
-    let adjustment = Math.round(hue) + Math.round(rotation);
-    if (adjustment > 360) adjustment += -360;
-    if (adjustment < 0) adjustment += 360;
-    return [adjustment, sat, lum]; 
-  }
-  _adjustHslColourLuminance(hue, sat, lum, adjustment) {
-    return [hue, sat, Math.max(0, Math.min(100, lum + adjustment))]; 
-  }
-  _adjustHslColourSaturation(hue, sat, lum, adjustment) {
-    return [hue, Math.max(0, Math.min(100, sat + adjustment)), lum]; 
-  }
-  _setHslColourHue(newHue, sat, lum) {
-    return [newHue, sat, lum]; 
-  }
-  _setHslColourSaturation(hue, newSat, lum) {
-    return [hue, newSat, lum]; 
-  }
-  _setHslColourLuminance(hue, sat, newLum) {
-    return [hue, sat, newLum]; 
-  }
-  randomise() {
-    this._hue = parseInt(Math.random() * 360);
-    this._sat = 48 + parseInt(Math.random() * 40); // 48 - 87
-    this._lum = 53 + parseInt(Math.random() * 35); // 53 - 87
-    this._clearHex();
-    this._clearSrgb();
-    this._initAll();
-  }
-}
 class CopyButton{
   constructor(name) {
     this._name = name;
@@ -298,7 +44,7 @@ class SmallSwatch{
     this._picker = document.getElementById(name + '-picker');
     this._wrapper = document.getElementById(name + '-wrapper');
     this._copyButton = new CopyButton(name);
-    this._colourBackground = new Colour(name,{hex: this._picker.value});
+    this._colourBackground = new ColourBackground(name,{hex: this._picker.value});
     this._colourBackground[property] += propertyAdjustment;
     this._colourBackgroundCustom = new Colour('custom',{hex: this._picker.value});
     this._colourText = new Colour(name + 'Text',{hex: '#000'});
@@ -404,10 +150,10 @@ class PrimarySwatch{
     this._smallSwatchesGroup = new SmallSwatchesGroup();
 
     this._setOnChange();
-    this._colourBackground = new Colour(name,{hex: '#e68f75'});
+    this._colourBackground = new ColourBackground(name,{hex: '#e68f75'});
     this._colourBackground.randomise();
     this._backgroundGradient = new BackgroundGradient(name, this._colourBackground.hex, 4,0.96,1.04);
-    this._colourText = new Colour(name + 'Text',{hex: '#000'});
+    this._colourText = new ColourBackground(name + 'Text',{hex: '#000'});
     this._updateBackgroundColour();
   }
   get hex() { ``
@@ -555,7 +301,7 @@ class MultiplierStops{
 
 class BackgroundGradient{
   constructor(name, hex, stops = 1, satMult = 1, lumMult = 1){
-    this._mainColour = new Colour(name, {hex: hex});
+    this._mainColour = new ColourBackground(name, {hex: hex});
     this._name = this._mainColour.name;
     if (stops < 2) {
     this._gradientString = this._mainColour.hex;
@@ -629,7 +375,7 @@ class ColourMultiGradient{
     return suffixArr.splice(5 - Math.floor(stopsLimited * 0.5), stopsLimited);
   }
 }
-class ColourAutoText extends ColourFunctions{
+class ColourAutoText extends Colour{
   constructor(srgbArr) {
     super();
     this.contrastBlack = this._calculateContrastRatio([0,0,0],srgbArr);
