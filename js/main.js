@@ -44,7 +44,7 @@ class SmallSwatch{
     this._picker = document.getElementById(name + '-picker');
     this._wrapper = document.getElementById(name + '-wrapper');
     this._copyButton = new CopyButton(name);
-    this._colourBackground = new ColourBackground(name,{hex: this._picker.value});
+    this._colourBackground = new ColourBackground({name: name, hex: this._picker.value});
     this._colourBackground[property] += propertyAdjustment;
     this._colourBackgroundCustom = new Colour('custom',{hex: this._picker.value});
     this._colourText = new Colour(name + 'Text',{hex: '#000'});
@@ -150,10 +150,10 @@ class PrimarySwatch{
     this._smallSwatchesGroup = new SmallSwatchesGroup();
 
     this._setOnChange();
-    this._colourBackground = new ColourBackground(name,{hex: '#e68f75'});
+    this._colourBackground = new ColourBackground({stops: 4, name: name, hex: '#e68f75'});
     this._colourBackground.randomise();
-    this._backgroundGradient = new BackgroundGradient(name, this._colourBackground.hex, 4,0.96,1.04);
-    this._colourText = new ColourBackground(name + 'Text',{hex: '#000'});
+    //this._backgroundGradient = new BackgroundGradient(name, this._colourBackground.hex, 4,0.96,1.04);
+    this._colourText = new ColourBackground({name: name + 'Text', hex: '#000'});
     this._updateBackgroundColour();
   }
   get hex() { ``
@@ -299,33 +299,6 @@ class MultiplierStops{
 }
 
 
-class BackgroundGradient{
-  constructor(name, hex, stops = 1, satMult = 1, lumMult = 1){
-    this._mainColour = new ColourBackground(name, {hex: hex});
-    this._name = this._mainColour.name;
-    if (stops < 2) {
-    this._gradientString = this._mainColour.hex;
-    } else {
-      this._suffixes = new SuffixStops(stops);
-      this._satMultStops  = new MultiplierStops(stops,satMult);
-      this._lumMultStops  = new MultiplierStops(stops,lumMult);
-      this._gradientColours = []; 
-      this._suffixes._suffixesArr.forEach((suffix, i) => {
-        this._gradientColours.push(this._mainColour.newCopyHslmult(suffix, {lum: this._lumMultStops._powerArr[i], sat: this._satMultStops._powerArr[i]}));
-       // this._gradientColours.push(new Colour(this._name + suffix,{
-         // hue: this._mainColour.hue,
-         // sat: this._mainColour.sat * this._satMultStops._powerArr[i],
-         // lum: this._mainColour.lum * this._lumMultStops._powerArr[i]}));
-      });
-      this._gradientString = `linear-gradient(to top, #000 1px, ${this._mainColour.hex}1px, ${this._mainColour.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to right`;
-      this._stopWidth = 100 / stops;
-      this._gradientColours.forEach((x, i)=>{
-        this._gradientString += `, ${x.hsl}, ${i * this._stopWidth}% ${this._stopWidth + (i * this._stopWidth)}%`
-      });
-      this._gradientString += `) 0% 50% / 100% 30%`;
-    } 
-  }
-}
 class SuffixStops{
   constructor(stops) {
     this._stops = Math.min(Math.max(2, stops),10);
