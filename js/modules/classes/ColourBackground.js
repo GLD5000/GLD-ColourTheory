@@ -1,4 +1,6 @@
 import{Colour}from './colour.js';
+import{ColourSimple}from './ColourSimple.js';
+
 
 
 export class ColourBackground extends Colour {
@@ -14,5 +16,9 @@ export class ColourBackground extends Colour {
       this._name = name;
       this._initAll();
     } 
+    newCopyHslmult(suffix, {lum = 1, hue = 1, sat = 1}){
+      return new ColourSimple(this.name + suffix,{hue: this.hue * hue, sat: this.sat * sat, lum: this.lum * lum});
+    }
+  
   }
   

@@ -200,9 +200,6 @@
     if (x < 0) x += degrees;
     return x;
   }
-  newCopyHslmult(suffix, {lum = 1, hue = 1, sat = 1}){
-    return new Colour(this.name + suffix,{hue: this.hue * hue, sat: this.sat * sat, lum: this.lum * lum});
-  }
   _clearHex() {
     this._hex = undefined; 
   }
