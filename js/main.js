@@ -216,7 +216,9 @@ class Colour {
     if (x < 0) x += degrees;
     return x;
   }
-
+  newCopyHslmult(suffix, {lum = 1, hue = 1, sat = 1}){
+    return new Colour(this.name + suffix,{hue: this.hue * hue, sat: this.sat * sat, lum: this.lum * lum});
+  }
   _clearHex() {
     this._hex = undefined; 
   }
@@ -404,11 +406,11 @@ class PrimarySwatch{
     this._setOnChange();
     this._colourBackground = new Colour(name,{hex: '#e68f75'});
     this._colourBackground.randomise();
-    this._backgroundGradient = new BackgroundGradient(name, this._colourBackground.hex, 2,0.96,1.04);
+    this._backgroundGradient = new BackgroundGradient(name, this._colourBackground.hex, 4,0.96,1.04);
     this._colourText = new Colour(name + 'Text',{hex: '#000'});
     this._updateBackgroundColour();
   }
-  get hex() { 
+  get hex() { ``
     return this._colourBackground.hex;
   }
   _getElements(name) {
@@ -552,7 +554,7 @@ class MultiplierStops{
 
 
 class BackgroundGradient{
-  constructor(name, hex, stops, satMult = 1, lumMult = 1){
+  constructor(name, hex, stops = 1, satMult = 1, lumMult = 1){
     this._mainColour = new Colour(name, {hex: hex});
     this._name = this._mainColour.name;
     if (stops < 2) {
@@ -563,10 +565,11 @@ class BackgroundGradient{
       this._lumMultStops  = new MultiplierStops(stops,lumMult);
       this._gradientColours = []; 
       this._suffixes._suffixesArr.forEach((suffix, i) => {
-        this._gradientColours.push(new Colour(this._name + suffix,{
-          hue: this._mainColour.hue,
-          sat: this._mainColour.sat * this._satMultStops._powerArr[i],
-          lum: this._mainColour.lum * this._lumMultStops._powerArr[i]}));
+        this._gradientColours.push(this._mainColour.newCopyHslmult(suffix, {lum: this._lumMultStops._powerArr[i], sat: this._satMultStops._powerArr[i]}));
+       // this._gradientColours.push(new Colour(this._name + suffix,{
+         // hue: this._mainColour.hue,
+         // sat: this._mainColour.sat * this._satMultStops._powerArr[i],
+         // lum: this._mainColour.lum * this._lumMultStops._powerArr[i]}));
       });
       this._gradientString = `linear-gradient(to top, #000 1px, ${this._mainColour.hex}1px, ${this._mainColour.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to right`;
       this._stopWidth = 100 / stops;
