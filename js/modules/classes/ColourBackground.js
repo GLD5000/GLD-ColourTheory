@@ -15,8 +15,10 @@ export class ColourBackground extends Colour {
       lum = undefined,
       red = undefined,
       green = undefined,
-      blue = undefined }
-      ) 
+      blue = undefined,
+      colourMode = 'hex',
+      isCss = true
+     }) 
     {
       super();
       this._stops = stops;
@@ -30,6 +32,8 @@ export class ColourBackground extends Colour {
       this._green = green;
       this._blue = blue;
       this._name = name;
+      this._colourMode = colourMode;
+      this._isCss = isCss;
       this._initAll();
       this._makeGradient({stops: this._stops});
     } 
@@ -81,9 +85,10 @@ export class ColourBackground extends Colour {
     }
     get backgroundString(){
       this._makeGradient({stops: this._stops});
-
       return this._gradientString;
     }
-  
+    get clipboardStringArr(){
+      return this._clipboardString;
+    }
   }
   
