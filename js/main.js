@@ -406,11 +406,11 @@ class PrimarySwatch{
     this._setOnChange();
     this._colourBackground = new Colour(name,{hex: '#e68f75'});
     this._colourBackground.randomise();
-    this._backgroundGradient = new BackgroundGradient(name, this._colourBackground.hex, 2,0.96,1.04);
+    this._backgroundGradient = new BackgroundGradient(name, this._colourBackground.hex, 4,0.96,1.04);
     this._colourText = new Colour(name + 'Text',{hex: '#000'});
     this._updateBackgroundColour();
   }
-  get hex() { 
+  get hex() { ``
     return this._colourBackground.hex;
   }
   _getElements(name) {
@@ -554,7 +554,7 @@ class MultiplierStops{
 
 
 class BackgroundGradient{
-  constructor(name, hex, stops, satMult = 1, lumMult = 1){
+  constructor(name, hex, stops = 1, satMult = 1, lumMult = 1){
     this._mainColour = new Colour(name, {hex: hex});
     this._name = this._mainColour.name;
     if (stops < 2) {
