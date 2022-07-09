@@ -150,9 +150,8 @@ class PrimarySwatch{
     this._smallSwatchesGroup = new SmallSwatchesGroup();
 
     this._setOnChange();
-    this._colourBackground = new ColourBackground({stops: 4, name: name, hex: '#e68f75'});
+    this._colourBackground = new ColourBackground({stops: 7, name: name, hex: '#e68f75'});
     this._colourBackground.randomise();
-    //this._backgroundGradient = new BackgroundGradient(name, this._colourBackground.hex, 4,0.96,1.04);
     this._colourText = new ColourBackground({name: name + 'Text', hex: '#000'});
     this._updateBackgroundColour();
   }
@@ -174,14 +173,16 @@ class PrimarySwatch{
         this._dieA = document.getElementById('dieA');
         this._dieB = document.getElementById('dieB');
         this._wrapper = document.getElementById(name + '-wrapper');
-        //properties
-        this._backgroundColour = this._picker.value;
         //Random dice
-        [this._textColour, this._contrastRatio] = [...this._autoTextColour(this._backgroundColour)];
+        [this._textColour, this._contrastRatio] = [...this._autoTextColour(this._picker.value)];
     
   }
   _updateBackgroundColour() {
-    this._wrapper.style.backgroundColor = this._picker.value = this._colourBackground.hex;
+    this._picker.value = this._colourBackground.hex;
+    //console.log(this._colourBackground.backgroundString);
+    this._wrapper.style.background = this._colourBackground.backgroundString;
+    //console.log(this._wrapper);
+
     [this._colourText.hex, this._contrastRatio] = [...this._autoTextColour(this._colourBackground.red, this._colourBackground.green, this._colourBackground.blue)];
     // update contrast Ratio text
     this._wrapper.dataset.content = this._makeContrastRatioString(this._contrastRatio);

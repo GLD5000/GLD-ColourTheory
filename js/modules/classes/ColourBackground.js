@@ -31,14 +31,12 @@ export class ColourBackground extends Colour {
       this._blue = blue;
       this._name = name;
       this._initAll();
-      this._makeGradient({stops: 3});
+      this._makeGradient({stops: this._stops});
     } 
     _newCopyHslmult(suffix, {lum = 1, hue = 1, sat = 1}){
       return new ColourSimple(this.name + suffix,{hue: this.hue * hue, sat: this.sat * sat, lum: this.lum * lum});
     }
     _multiplierStops(stops,multiplier) {
-      console.log(multiplier);
-
       const halfStops = 0.5 * stops;
       let even = (stops % 2 === 0)? 1: 0;
       return [...Array(stops)].map((x,i,arr) => arr[i] = multiplier ** (((i + 1 > halfStops)? even: 0) + i - Math.floor(halfStops)));
@@ -62,7 +60,7 @@ export class ColourBackground extends Colour {
       }
       return this._suffixise(this._names[this._stops]);
     }
-    _makeGradient(stops = 1, satMult = 0.96, lumMult = 1.04){
+    _makeGradient(stops = 1, satMult = 0.98, lumMult = 1.04){
       if (this._stops < 2) {
       this._gradientString = this.hex;
       } else {
@@ -73,15 +71,19 @@ export class ColourBackground extends Colour {
         suffixes.forEach((suffix, i) => {
         this._gradientColours.push(this._newCopyHslmult(suffix, {lum: lumMultStops[i], sat: satMultStops[i]}));
         });
-        this._gradientString = `linear-gradient(to top, #000 1px, ${this.hex}1px, ${this.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to right`;
-        const stopWidth = 100 / stops;
+        this._gradientString = `linear-gradient(to top, #000 1px, ${this.hex} 1px, ${this.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;
+        const stopWidth = 100 / this._stops;
         this._gradientColours.forEach((x, i)=>{
-          this._gradientString += `, ${x.hsl}, ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
+          this._gradientString += `, ${x.hsl} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
         });
         this._gradientString += `) 0% 50% / 100% 30%`;
       } 
     }
-  
+    get backgroundString(){
+      this._makeGradient({stops: this._stops});
+
+      return this._gradientString;
+    }
   
   }
   
