@@ -150,7 +150,7 @@ class PrimarySwatch{
     this._smallSwatchesGroup = new SmallSwatchesGroup();
 
     this._setOnChange();
-    this._colourBackground = new ColourBackground({stops: 7, name: name, hex: '#e68f75'});
+    this._colourBackground = new ColourBackground({stops: 10, name: name, hex: '#e68f75'});
     this._colourBackground.randomise();
     this._colourText = new ColourBackground({name: name + 'Text', hex: '#000'});
     this._updateBackgroundColour();

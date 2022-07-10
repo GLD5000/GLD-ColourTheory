@@ -64,21 +64,21 @@ export class ColourBackground extends Colour {
       }
       return this._suffixise(this._names[this._stops]);
     }
-    _makeGradient(stops = 1, satMult = 0.98, lumMult = 1.04){
+    _makeGradient({stops = 1, satMult = 0.98, lumMult = 1.04}){
       if (this._stops < 2) {
       this._gradientString = this.hex;
       } else {
         const suffixes = this._suffixStops(this._stops);
         const satMultStops  = this._multiplierStops(this._stops,satMult);
         const lumMultStops  = this._multiplierStops(this._stops,lumMult);
-        this._gradientColours = []; 
+        this._gradientColours = {}; 
         suffixes.forEach((suffix, i) => {
-        this._gradientColours.push(this._newCopyHslmult(suffix, {lum: lumMultStops[i], sat: satMultStops[i]}));
+        this._gradientColours[this.name + suffix] = this._newCopyHslmult(suffix, {lum: lumMultStops[i], sat: satMultStops[i]});
         });
         this._gradientString = `linear-gradient(to top, #000 1px, ${this.hex} 1px, ${this.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;
         const stopWidth = 100 / this._stops;
-        this._gradientColours.forEach((x, i)=>{
-          this._gradientString += `, ${x.hsl} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
+        Object.keys(this._gradientColours).forEach((x, i)=>{
+          this._gradientString += `, ${this._gradientColours[x].hsl} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
         });
         this._gradientString += `) 0% 50% / 100% 30%`;
       } 
