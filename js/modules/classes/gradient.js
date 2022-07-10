@@ -6,7 +6,7 @@
  * 
  */
 export class Gradient {
-    constructor({{stops = 1}}){
+    constructor({stops = 1}){
         this._satMin = 0.63;
         this._satMax = 0.74;
         this._lumMin = 0.53;
