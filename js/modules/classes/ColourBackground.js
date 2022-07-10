@@ -91,4 +91,5 @@ export class ColourBackground extends Colour {
       return this._clipboardString;
     }
   }
+  console.log('hello');
   
