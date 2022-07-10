@@ -64,7 +64,7 @@ export class ColourBackground extends Colour {
       }
       return this._suffixise(this._names[this._stops]);
     }
-    _makeGradient(stops = 1, satMult = 0.98, lumMult = 1.04){
+    _makeGradient({stops = 1, satMult = 0.98, lumMult = 1.04}){
       if (this._stops < 2) {
       this._gradientString = this.hex;
       } else {
