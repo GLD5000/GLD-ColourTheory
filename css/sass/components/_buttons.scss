@@ -56,9 +56,9 @@
   cursor:default;*/
 }
 .dieA,.dieB{
-  border: solid $neutral-1000 $gemEighth;
-  border-radius: $gemHalf;
-  box-shadow: $neutral-1000 3px 3px 1px;
+  border: $border;
+  //border-radius: $gemHalf;
+  box-shadow: $box-shadow;
   background-color: $neutral-500;
   display:grid;
   grid-template:$gemQuart repeat(3,1fr) $gemQuart/ $gemQuart repeat(3,1fr) $gemQuart;
@@ -75,7 +75,7 @@
 }
 .dots{
   background-color: $neutral-0;
-  border: 3px solid black;
+  border: $border;
   border-radius: 50%;
  
 }

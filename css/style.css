@@ -112,17 +112,6 @@ li, ol, ul {
   background-color: #adadad;
 }
 
-/*
-
-
-
-$: h;
-$: h;
-$: h;
-$: h;
-$: h;
-$;
-*/
 .header, .footer {
   display: relative;
   color: #fff;
@@ -181,8 +170,7 @@ $;
 
 .dieA, .dieB {
   border: solid #000 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
-  border-radius: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.5);
-  box-shadow: #000 3px 3px 1px;
+  box-shadow: #000 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) 0px;
   background-color: hsl(0deg, 0%, 55.7%);
   display: grid;
   grid-template: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) repeat(3, 1fr) calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25)/calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) repeat(3, 1fr) calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25);
@@ -202,7 +190,7 @@ $;
 
 .dots {
   background-color: #fff;
-  border: 3px solid black;
+  border: solid #000 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
   border-radius: 50%;
 }
 
@@ -235,14 +223,15 @@ $;
   width: 100%;
   display: grid;
   grid-template: 1fr 11fr/1fr;
-  gap: 1em;
+  gap: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
 }
 
 .slider-container {
   width: 100%;
   display: flex;
   flex-basis: 100% 100% 100%;
-  gap: 3px;
+  gap: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
+  padding: 1px 2px 2px 1px;
 }
 
 .swatch-palette {
@@ -263,11 +252,10 @@ $;
   width: 100%;
   height: 100%;
   grid-template-columns: 1fr;
-  row-gap: 3px;
+  row-gap: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
   background-color: hsl(0deg, 0%, 23.1%);
-  border-radius: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.5);
   border: solid #000 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
-  box-shadow: #000 3px 3px 1px;
+  box-shadow: #000 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) 0px;
   cursor: pointer;
   overflow: hidden;
   margin: auto;
@@ -388,11 +376,9 @@ $;
 .slider {
   position: relative;
   opacity: 100%;
-  padding: 0;
   width: 100%;
   height: 100%;
   cursor: pointer;
-  border: none;
   outline: none;
   -webkit-appearance: none;
   grid-row: 1/span 1;

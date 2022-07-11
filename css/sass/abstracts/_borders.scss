@@ -1,0 +1,7 @@
+@use './units' as *;
+@use './colours' as *;
+
+$border: solid $neutral-1000 $gemEighth;
+$box-shadow: $neutral-1000 $gemQuart $gemQuart 0px;
+$gap: $gemEighth;
+
