@@ -662,7 +662,6 @@ function fillClipboard(){
       clipboardArr[2].push(`${variantB};`);
 
     } else if (modeValue === 'Mode: Multi' && name !== 'textColour'){
-     //console.log('hello');
       let luminance = 95;
       const lumAdjustment = 6;
       const hex = x.value;
