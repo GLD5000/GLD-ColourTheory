@@ -75,7 +75,8 @@ export class ColourBackground extends Colour {
         suffixes.forEach((suffix, i) => {
         this._gradientColours[this.name + suffix] = this._newCopyHslmult(suffix, {lum: lumMultStops[i], sat: satMultStops[i]});
         });
-        this._gradientString = `linear-gradient(to top, #000 1px, ${this.hex} 1px, ${this.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;
+        const gap = getComputedStyle(document.querySelector('.slider-container')).gap;
+        this._gradientString = `linear-gradient(to top, #000 ${gap}, ${this.hex} ${gap}, ${this.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;
         const stopWidth = 100 / this._stops;
         Object.keys(this._gradientColours).forEach((x, i)=>{
           this._gradientString += `, ${this._gradientColours[x].hsl} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`

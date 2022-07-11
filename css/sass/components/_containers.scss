@@ -113,7 +113,7 @@
 
 .flexbox-horizontal-btn{
   display:flex;
-  gap: 3px;
+  gap: $gap;
 }
 .flexbox-clipboard{
   display: flex;
