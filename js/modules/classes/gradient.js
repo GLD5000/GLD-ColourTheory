@@ -59,8 +59,9 @@ export class Gradient {
           suffixes.forEach((suffix, i) => {
           this._gradientColours.push(this._newCopyHslmult(suffix, {lum: lumMultStops[i], sat: satMultStops[i]}));
           });
-          this._gradientString = `linear-gradient(to top, #000 1px, ${this.hex} 1px, ${this.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;
-          const stopWidth = 100 / this._stops;
+          const gap = getComputedStyle(document.querySelector('.slider-container')).gap;
+          this._gradientString = `linear-gradient(to top, #000 ${gap}, ${this.hex} ${gap}, ${this.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;
+            const stopWidth = 100 / this._stops;
           this._gradientColours.forEach((x, i)=>{
             this._gradientString += `, ${x.hsl} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
           });
