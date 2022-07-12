@@ -178,6 +178,9 @@ li, ol, ul {
   max-width: 40%;
   margin: auto;
   aspect-ratio: 1/1;
+  -webkit-backface-visibility: hidden;
+  /* Safari */
+  backface-visibility: hidden;
 }
 
 .dieA {
@@ -231,7 +234,7 @@ li, ol, ul {
   display: flex;
   flex-basis: 100% 100% 100%;
   gap: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
-  padding: 0px 1px 0px 1px;
+  padding: 1px 2px 2px 1px;
 }
 
 .swatch-palette {

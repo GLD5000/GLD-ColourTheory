@@ -66,6 +66,9 @@
   max-width: 40%;
   margin:auto;
   aspect-ratio: 1 / 1;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+
 }
 .dieA{
   transform: rotateZ(-7deg);
