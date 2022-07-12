@@ -4,6 +4,7 @@ import {ColourSimple} from './modules/classes/coloursimple.js';
 import { ImmutableObject } from './modules/classes/immutableobject.js';
 import { throttle } from './modules/classes/throttledebounce.js';
 import {debounce} from './modules/classes/throttledebounce.js';
+import {interval} from './modules/classes/throttledebounce.js'
 //const test = new ImmutableObject({hex:'#000',sat:100});
 //console.log(test.hex);
 //console.log(test);
@@ -12,7 +13,7 @@ function hello(message){
   helloe funytown`);
 }
 
-const db = debounce((x) => hello(x), 1000);
+const db = interval((x) => hello(x));
 
 for (let i = 0; i < 10; i++){
   db('initial state');
