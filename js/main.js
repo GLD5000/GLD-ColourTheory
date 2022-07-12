@@ -2,13 +2,23 @@ import {Colour} from './modules/classes/colour.js';
 import {ColourBackground} from './modules/classes/colourbackground.js';
 import {ColourSimple} from './modules/classes/coloursimple.js';
 import { ImmutableObject } from './modules/classes/immutableobject.js';
+import { throttle } from './modules/classes/throttledebounce.js';
+import {debounce} from './modules/classes/throttledebounce.js';
+//const test = new ImmutableObject({hex:'#000',sat:100});
+//console.log(test.hex);
+//console.log(test);
+function hello(message){
+  console.log(`${message}   
+  helloe funytown`);
+}
 
+const db = debounce((x) => hello(x), 1000);
 
-const test = new ImmutableObject({hex:'#000',sat:100});
-console.log(test.hex);
-console.log(test);
-
-
+for (let i = 0; i < 10; i++){
+  db('initial state');
+  db('intermediateeeee state');
+};
+db('final state');
 
 const colour_picker = document.getElementById('primaryColour-picker');
 const colour_picker_wrapper = document.getElementById('primaryColour-wrapper');
