@@ -168,6 +168,14 @@ li, ol, ul {
   cursor:default;*/
 }
 
+.dieA {
+  transform: rotateZ(-2deg);
+}
+
+.dieB {
+  transform: rotateZ(1deg);
+}
+
 .dieA, .dieB {
   border: solid #000 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
   box-shadow: #000 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) 0px;
@@ -181,14 +189,6 @@ li, ol, ul {
   -webkit-backface-visibility: hidden;
   /* Safari */
   backface-visibility: hidden;
-}
-
-.dieA {
-  transform: rotateZ(-7deg);
-}
-
-.dieB {
-  transform: rotateZ(4deg);
 }
 
 .dots {

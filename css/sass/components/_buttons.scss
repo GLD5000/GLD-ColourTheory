@@ -55,6 +55,13 @@
   /*grid-template:20px 1fr 20px / 20px 1fr 20px 1fr 20px;
   cursor:default;*/
 }
+.dieA{
+  transform: rotateZ(-2deg);
+}
+.dieB{
+  transform: rotateZ(1deg);
+}
+
 .dieA,.dieB{
   border: $border;
   //border-radius: $gemHalf;
@@ -69,12 +76,6 @@
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
 
-}
-.dieA{
-  transform: rotateZ(-7deg);
-}
-.dieB{
-  transform: rotateZ(4deg);
 }
 .dots{
   background-color: $neutral-0;
