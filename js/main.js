@@ -1,6 +1,14 @@
 import {Colour} from './modules/classes/colour.js';
 import {ColourBackground} from './modules/classes/colourbackground.js';
 import {ColourSimple} from './modules/classes/coloursimple.js';
+import { ImmutableObject } from './modules/classes/immutableobject.js';
+
+
+const test = new ImmutableObject({hex:'#000',sat:100});
+console.log(test.hex);
+console.log(test);
+
+
 
 const colour_picker = document.getElementById('primaryColour-picker');
 const colour_picker_wrapper = document.getElementById('primaryColour-wrapper');
