@@ -7,7 +7,13 @@ import { ImmutableObject } from './modules/classes/immutableobject.js';
 const test = new ImmutableObject({hex:'#000',sat:100});
 console.log(test.hex);
 console.log(test);
-
+const maths = {
+  '*': (a,b) =>  a * b,
+  '+': (a,b) =>  a + b,
+  '-': (a,b) =>  a - b,
+  '/': (a,b) =>  a / b
+}
+console.log(maths['+'](2,4));
 
 
 const colour_picker = document.getElementById('primaryColour-picker');
