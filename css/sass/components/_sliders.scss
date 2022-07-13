@@ -31,4 +31,31 @@
 .sat{
   background:$desaturated-rainbow-gradient;
 }
+input[type=range]:focus, input[type=range]:hover{
+  border: solid 1px #fff;
+}
+input[type=range]:hover::before{
+  padding:0;
+  content: attr(name);
+  position: absolute;
+  text-align: center; 
+  width:100%;
+  height: 100%;
+  font-size: $gem;
+  line-height: 120%;
+  color: $neutral-0;
+}
 
+
+input[type=range]:focus::before{
+  padding:0;
+  content: attr(name);
+  position: absolute;
+  text-align: center; 
+  width:100%;
+  height: 100%;
+  font-size: $gem;
+  line-height: 120%;
+  color: $neutral-1000;
+
+}
