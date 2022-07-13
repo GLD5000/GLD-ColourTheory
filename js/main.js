@@ -8,18 +8,26 @@ import {interval} from './modules/classes/throttledebounce.js'
 //const test = new ImmutableObject({hex:'#000',sat:100});
 //console.log(test.hex);
 //console.log(test);
-function hello(message){
-  console.log(`${message}   
-  helloe funytown`);
-}
+let pureSum = (...args) => [...args].reduce((acc, current) => acc + current);
 
-const db = interval((x) => hello(x));
+console.log(pureSum(1,2,3));
 
-for (let i = 0; i < 10; i++){
-  db('initial state');
-  db('intermediateeeee state');
+const loggerWrapper = (callbackFunction) => {
+  let outerCounter = 0;
+  return (...args) => {
+    console.log(`Called ${callbackFunction.name} function ${++outerCounter} times.`);
+    return (callbackFunction(...args));
+  }
 };
-db('final state');
+
+pureSum = loggerWrapper(pureSum);
+
+const arr = Object.keys([...Array(10)]);
+
+let count = 0;
+
+arr.forEach(x => console.log(pureSum(3, parseInt(x) + 1)));
+
 
 const colour_picker = document.getElementById('primaryColour-picker');
 const colour_picker_wrapper = document.getElementById('primaryColour-wrapper');
