@@ -7,31 +7,66 @@ export const debounce = (callbackFunction,delayTime = 1000) =>{
     };
 }
 
-export const throttle = (callbackFunction, delayTime = 1000) => {
-    let runFunction = true;
+export const throttleIncomplete = (callbackFunction, delayTime = 1000) => {
+    let execute = true;
     return (...args) => {
-        if (runFunction === true) {
-            runFunction = false;
+        if (execute === true) {
+            execute = false;
             callbackFunction(args);
-            setTimeout(() => {runFunction = true;}, delayTime)
+            setTimeout(() => {execute = true;}, delayTime)
         } 
     }
 }
-
-export const interval = (callbackFunction, delayTime = 1000) => {
-    let runFunction = true;
-    let oldArgs = 0;
-    return (...args) => {
-        if (args === oldArgs) callbackFunction(args);
-
-        if (runFunction === true) {
-            runFunction = false;
-            callbackFunction(args);
-            setTimeout(() => {runFunction = true;}, delayTime)
+export const throttle = (callbackFunction, delayTime = 1000) => {
+    let execute = true;
+    let waitingArgs;
+    const waitHandler = () => {
+        if (waitingArgs == null) {
+            execute = true;
         } else {
-            oldArgs = args;
-            console.log(oldArgs);
+            callbackFunction(...waitingArgs); 
+
+            waitingArgs = null;
         }
+    } 
+    return (...args) => {
+        if (execute === false) {
+            waitingArgs = args; 
+            return;
+        } // do not run function
+
+
+            execute = false; // already run
+
+            setTimeout(waitHandler, delayTime); // reset
+            return callbackFunction(args); // run function
+
     }
 }
 
+
+export const throttleB = (callbackFunction, delayTime = 1000) => {
+    let execute = true;
+    let waitingArgs;
+    const waitHandler = () => {
+        if (waitingArgs == null) {
+            execute = true;
+        } else {
+            callbackFunction(...waitingArgs); 
+            waitingArgs = null;
+            setTimeout(waitHandler, delayTime);
+        }
+    } 
+    return (...args) => {
+        if (execute === false) {
+            waitingArgs = args; 
+            return;
+        } // do not run function
+
+            callbackFunction(args); // run function
+
+            execute = false; // already run
+
+            setTimeout(waitHandler, delayTime); // reset
+    }
+}

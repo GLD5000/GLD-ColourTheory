@@ -4,7 +4,6 @@ import {ColourSimple} from './modules/classes/coloursimple.js';
 import { ImmutableObject } from './modules/classes/immutableobject.js';
 import { throttle } from './modules/classes/throttledebounce.js';
 import {debounce} from './modules/classes/throttledebounce.js';
-import {interval} from './modules/classes/throttledebounce.js'
 //const test = new ImmutableObject({hex:'#000',sat:100});
 //console.log(test.hex);
 //console.log(test);
@@ -27,6 +26,26 @@ const arr = Object.keys([...Array(10)]);
 let count = 0;
 
 arr.forEach(x => console.log(pureSum(3, parseInt(x) + 1)));
+
+function hello(message){
+  const dateMs = Date.now()/100000
+  const seconds = ((dateMs - parseInt(dateMs)) *100).toFixed(2) ;
+  console.log(`${message}   
+  ${seconds} seconds`);
+  return message;
+}
+
+const db = throttle((x) => hello(x));
+  db('initial state');
+
+for (let i = 0; i < 10; i++){
+  db('intermediateeeee state');
+};
+  db('final state');
+
+
+
+
 
 
 const colour_picker = document.getElementById('primaryColour-picker');
