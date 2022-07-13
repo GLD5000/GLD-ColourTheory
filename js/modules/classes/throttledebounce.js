@@ -17,35 +17,10 @@ export const throttleIncomplete = (callbackFunction, delayTime = 1000) => {
         } 
     }
 }
-export const throttle = (callbackFunction, delayTime = 1000) => {
-    let execute = true;
-    let waitingArgs;
-    const waitHandler = () => {
-        if (waitingArgs == null) {
-            execute = true;
-        } else {
-            callbackFunction(...waitingArgs); 
-
-            waitingArgs = null;
-        }
-    } 
-    return (...args) => {
-        if (execute === false) {
-            waitingArgs = args; 
-            return;
-        } // do not run function
 
 
-            execute = false; // already run
 
-            setTimeout(waitHandler, delayTime); // reset
-            return callbackFunction(args); // run function
-
-    }
-}
-
-
-export const throttleB = (callbackFunction, delayTime = 1000) => {
+export const throttle = (callbackFunction, delayTime = 250) => {
     let execute = true;
     let waitingArgs;
     const waitHandler = () => {

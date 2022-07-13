@@ -23,12 +23,12 @@
   }
 
 .hue{
-    background:linear-gradient(to right, hsl(0,100%,50%), hsl(60,100%,50%), hsl(120,100%,50%), hsl(180,100%,50%), hsl(240,100%,50%),hsl(300,100%,50%),hsl(360,100%,50%));
+    background:$rainbow-gradient;
   }
 .lum{
   background:linear-gradient(to left, #fff,#555);
 }
 .sat{
-  background:linear-gradient(to right, hsl(0,0%,50%), hsl(60,10%,50%), hsl(120,20%,50%), hsl(180,40%,50%), hsl(240,80%,50%),hsl(300,100%,50%),hsl(360,100%,50%));
+  background:$desaturated-rainbow-gradient;
 }
 

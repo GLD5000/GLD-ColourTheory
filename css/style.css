@@ -162,7 +162,7 @@ li, ol, ul {
   align-items: center;
   width: 100%;
   border: none;
-  background: linear-gradient(to right, hsl(0deg, 100%, 80%), hsl(60deg, 100%, 80%), hsl(120deg, 100%, 80%), hsl(180deg, 100%, 80%), hsl(240deg, 100%, 80%), hsl(300deg, 100%, 80%), hsl(0deg, 100%, 80%));
+  background: linear-gradient(to right, hsl(0deg, 70%, 70%), hsl(60deg, 70%, 70%), hsl(120deg, 70%, 70%), hsl(180deg, 70%, 70%), hsl(240deg, 70%, 70%), hsl(300deg, 70%, 70%), hsl(0deg, 70%, 70%));
   display: flex;
   /*grid-template:20px 1fr 20px / 20px 1fr 20px 1fr 20px;
   cursor:default;*/
@@ -400,7 +400,7 @@ input[type=range]::-moz-range-thumb {
 }
 
 .hue {
-  background: linear-gradient(to right, hsl(0deg, 100%, 50%), hsl(60deg, 100%, 50%), hsl(120deg, 100%, 50%), hsl(180deg, 100%, 50%), hsl(240deg, 100%, 50%), hsl(300deg, 100%, 50%), hsl(0deg, 100%, 50%));
+  background: linear-gradient(to right, hsl(0deg, 70%, 70%), hsl(60deg, 70%, 70%), hsl(120deg, 70%, 70%), hsl(180deg, 70%, 70%), hsl(240deg, 70%, 70%), hsl(300deg, 70%, 70%), hsl(0deg, 70%, 70%));
 }
 
 .lum {
@@ -408,7 +408,7 @@ input[type=range]::-moz-range-thumb {
 }
 
 .sat {
-  background: linear-gradient(to right, hsl(0deg, 0%, 50%), hsl(60deg, 10%, 50%), hsl(120deg, 20%, 50%), hsl(180deg, 40%, 50%), hsl(240deg, 80%, 50%), hsl(300deg, 100%, 50%), hsl(0deg, 100%, 50%));
+  background: linear-gradient(to right, hsl(0deg, 0%, 70%), hsl(60deg, 10%, 70%), hsl(120deg, 20%, 70%), hsl(180deg, 40%, 70%), hsl(240deg, 80%, 70%), hsl(300deg, 100%, 70%), hsl(0deg, 100%, 70%));
 }
 
 /* Grid areas */

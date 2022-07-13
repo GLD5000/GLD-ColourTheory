@@ -199,9 +199,11 @@ class PrimarySwatch{
     this._colourBackground = new ColourBackground({stops: 10, name: name, hex: '#e68f75'});
     this._colourBackground.randomise();
     this._colourText = new ColourBackground({name: name + 'Text', hex: '#000'});
-    this._updateBackgroundColour();
+    this._updateBackgroundColour(this._colourBackground.hex);
+    this._throttledUpdate = throttle(() => this._updateBackgroundColour(),100);
+
   }
-  get hex() { ``
+  get hex() { 
     return this._colourBackground.hex;
   }
   _getElements(name) {
@@ -221,9 +223,8 @@ class PrimarySwatch{
         this._wrapper = document.getElementById(name + '-wrapper');
         //Random dice
         [this._textColour, this._contrastRatio] = [...this._autoTextColour(this._picker.value)];
-    
   }
-  _updateBackgroundColour() {
+  _updateBackgroundColour(hex) {
     this._picker.value = this._colourBackground.hex;
     //console.log(this._colourBackground.backgroundString);
     this._wrapper.style.background = this._colourBackground.backgroundString;
@@ -261,18 +262,20 @@ class PrimarySwatch{
   }
   _onChangeSliderHue() {
     this._colourBackground.hue = this._hueSlider.value;
-    this._updateBackgroundColour(this._colourBackground.hex);
+    this._throttledUpdate();
   }
   _onChangeSliderSat() {
     this._colourBackground.sat = this._satSlider.value;
-    this._updateBackgroundColour(this._colourBackground.hex);
+    this._throttledUpdate();
   }
   _onChangeSliderLum() {
     this._colourBackground.lum = this._lumSlider.value;
-    this._updateBackgroundColour(this._colourBackground.hex);
+    this._throttledUpdate();
   }
   _onChangePicker() {
-    this._updateBackgroundColour(this._picker.value);
+    this._colourBackground.hex = this._picker.value;
+
+    this._throttledUpdate();
   }
   _onChangeTextPicker() {
     this._colourText.hex = this._textPicker.value;
@@ -325,7 +328,7 @@ class PrimarySwatch{
   }
   _randomise() {
     this._colourBackground.randomise();
-    this._updateBackgroundColour();
+    this._throttledUpdate();
     this._randomDiceColours();
   }
 }
