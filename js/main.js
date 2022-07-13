@@ -2,6 +2,48 @@ import {Colour} from './modules/classes/colour.js';
 import {ColourBackground} from './modules/classes/colourbackground.js';
 import {ColourSimple} from './modules/classes/coloursimple.js';
 import { ImmutableObject } from './modules/classes/immutableobject.js';
+import { throttle } from './modules/classes/throttledebounce.js';
+import {debounce} from './modules/classes/throttledebounce.js';
+//const test = new ImmutableObject({hex:'#000',sat:100});
+//console.log(test.hex);
+//console.log(test);
+let pureSum = (...args) => [...args].reduce((acc, current) => acc + current);
+
+console.log(pureSum(1,2,3));
+
+const loggerWrapper = (callbackFunction) => {
+  let outerCounter = 0;
+  return (...args) => {
+    console.log(`Called ${callbackFunction.name} function ${++outerCounter} times.`);
+    return (callbackFunction(...args));
+  }
+};
+
+pureSum = loggerWrapper(pureSum);
+
+const arr = Object.keys([...Array(10)]);
+
+let count = 0;
+
+arr.forEach(x => console.log(pureSum(3, parseInt(x) + 1)));
+
+function hello(message){
+  const dateMs = Date.now()/100000
+  const seconds = ((dateMs - parseInt(dateMs)) *100).toFixed(2) ;
+  console.log(`${message}   
+  ${seconds} seconds`);
+  return message;
+}
+
+const db = throttle((x) => hello(x));
+  db('initial state');
+
+for (let i = 0; i < 10; i++){
+  db('intermediateeeee state');
+};
+  db('final state');
+
+
 
 
 const test = new ImmutableObject({hex:'#000',sat:100});
@@ -14,6 +56,7 @@ const maths = {
   '/': (a,b) =>  a / b
 }
 console.log(maths['+'](2,4));
+
 
 
 const colour_picker = document.getElementById('primaryColour-picker');
@@ -167,9 +210,11 @@ class PrimarySwatch{
     this._colourBackground = new ColourBackground({stops: 10, name: name, hex: '#e68f75'});
     this._colourBackground.randomise();
     this._colourText = new ColourBackground({name: name + 'Text', hex: '#000'});
-    this._updateBackgroundColour();
+    this._updateBackgroundColour(this._colourBackground.hex);
+    this._throttledUpdate = throttle(() => this._updateBackgroundColour(),100);
+    this._randomDiceColours();
   }
-  get hex() { ``
+  get hex() { 
     return this._colourBackground.hex;
   }
   _getElements(name) {
@@ -189,9 +234,8 @@ class PrimarySwatch{
         this._wrapper = document.getElementById(name + '-wrapper');
         //Random dice
         [this._textColour, this._contrastRatio] = [...this._autoTextColour(this._picker.value)];
-    
   }
-  _updateBackgroundColour() {
+  _updateBackgroundColour(hex) {
     this._picker.value = this._colourBackground.hex;
     //console.log(this._colourBackground.backgroundString);
     this._wrapper.style.background = this._colourBackground.backgroundString;
@@ -229,18 +273,20 @@ class PrimarySwatch{
   }
   _onChangeSliderHue() {
     this._colourBackground.hue = this._hueSlider.value;
-    this._updateBackgroundColour(this._colourBackground.hex);
+    this._throttledUpdate();
   }
   _onChangeSliderSat() {
     this._colourBackground.sat = this._satSlider.value;
-    this._updateBackgroundColour(this._colourBackground.hex);
+    this._throttledUpdate();
   }
   _onChangeSliderLum() {
     this._colourBackground.lum = this._lumSlider.value;
-    this._updateBackgroundColour(this._colourBackground.hex);
+    this._throttledUpdate();
   }
   _onChangePicker() {
-    this._updateBackgroundColour(this._picker.value);
+    this._colourBackground.hex = this._picker.value;
+
+    this._throttledUpdate();
   }
   _onChangeTextPicker() {
     this._colourText.hex = this._textPicker.value;
@@ -293,7 +339,7 @@ class PrimarySwatch{
   }
   _randomise() {
     this._colourBackground.randomise();
-    this._updateBackgroundColour();
+    this._throttledUpdate();
     this._randomDiceColours();
   }
 }
