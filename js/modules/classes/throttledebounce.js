@@ -7,7 +7,7 @@ export const debounce = (callbackFunction,delayTime = 1000) =>{
     };
 }
 
-export const throttleIncomplete = (callbackFunction, delayTime = 1000) => {
+export const throttleIncomplete = (callbackFunction, delayTime = 200) => {
     let execute = true;
     return (...args) => {
         if (execute === true) {

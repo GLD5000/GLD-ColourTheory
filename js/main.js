@@ -211,7 +211,7 @@ class PrimarySwatch{
     this._colourBackground.randomise();
     this._colourText = new ColourBackground({name: name + 'Text', hex: '#000'});
     this._updateBackgroundColour(this._colourBackground.hex);
-    this._throttledUpdate = throttle(() => this._updateBackgroundColour(),100);
+    this._throttledUpdate = throttle(() => this._updateBackgroundColour(),65);
     this._randomDiceColours();
   }
   get hex() { 
