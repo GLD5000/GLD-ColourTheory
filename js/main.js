@@ -4,6 +4,7 @@ import {ColourSimple} from './modules/classes/coloursimple.js';
 import { ImmutableObject } from './modules/classes/immutableobject.js';
 import { throttle } from './modules/classes/throttledebounce.js';
 import {debounce} from './modules/classes/throttledebounce.js';
+import {debounceB} from './modules/classes/throttledebounce.js';
 //const test = new ImmutableObject({hex:'#000',sat:100});
 //console.log(test.hex);
 //console.log(test);
@@ -57,8 +58,11 @@ const maths = {
 }
 console.log(maths['+'](2,4));
 
-
-
+console.log(null == undefined);
+let nulled = true;
+[1,'w',true, false, null, undefined, ' ', '',].forEach((x) => {
+  console.log(`!![${x}] evaluates to [${!!x}] boolean`);
+});
 const colour_picker = document.getElementById('primaryColour-picker');
 const colour_picker_wrapper = document.getElementById('primaryColour-wrapper');
 const colour_picker_hex_label = document.getElementById('primaryColour-copybtn');
@@ -153,6 +157,7 @@ class SmallSwatch{
     this._colourBackground[this._property] += this._propertyAdjustment;
     this._wrapper.dataset.content = this._name;
     this._updateBackgroundColour(this._colourBackground.hex);
+
   }
   changeSwatchTextColour(hex) {
     this._colourText.hex = hex;
@@ -211,11 +216,18 @@ class PrimarySwatch{
     this._colourBackground.randomise();
     this._colourText = new ColourBackground({name: name + 'Text', hex: '#000'});
     this._updateBackgroundColour(this._colourBackground.hex);
-    this._throttledUpdate = throttle(() => this._updateBackgroundColour(),65);
     this._randomDiceColours();
+    this._throttle();
+    this._updateSmallSwatches();
   }
   get hex() { 
     return this._colourBackground.hex;
+  }
+  _throttle(){
+    this._throttledUpdateBackgroundColour = throttle(() => this._updateBackgroundColour(),85);
+    this._debouncedUpdateSmallSwatches = debounceB(() => this._updateSmallSwatches(),250);
+    this._debounceOnChangeTextPicker = debounceB(() => this._onChangeTextPicker(),250);
+    
   }
   _getElements(name) {
         //elements
@@ -235,6 +247,10 @@ class PrimarySwatch{
         //Random dice
         [this._textColour, this._contrastRatio] = [...this._autoTextColour(this._picker.value)];
   }
+  _updateSmallSwatches(){
+    this._smallSwatchesGroup.updateSwatches(this._colourBackground.hex);
+    this._smallSwatchesGroup.updateSwatchesText(this._colourText.hex);
+  }
   _updateBackgroundColour(hex) {
     this._picker.value = this._colourBackground.hex;
     //console.log(this._colourBackground.backgroundString);
@@ -249,8 +265,6 @@ class PrimarySwatch{
     // Update text picker button text
     this._textWrapper.dataset.content = 'Text: Auto';
     this._updateSliders();    
-    this._smallSwatchesGroup.updateSwatches(this._colourBackground.hex);
-    this._smallSwatchesGroup.updateSwatchesText(this._colourText.hex);
     this._copyButton.text = this._colourBackground.hex;
 
   }
@@ -262,7 +276,7 @@ class PrimarySwatch{
     this._satSlider.oninput = () =>{this._onChangeSliderSat()};
     this._lumSlider.oninput = () =>{this._onChangeSliderLum()};
     this._picker.oninput = () =>{this._onChangePicker()};
-    this._textPicker.oninput = () =>{this._onChangeTextPicker()};
+    this._textPicker.oninput = () =>{this._debounceOnChangeTextPicker()};
     this._modeButton.onchange = () =>{this._onChange()};
     this._randomButton.onclick = () => {this._randomise()};
     this._diceButton.onclick = () => {this._randomise()};
@@ -273,31 +287,39 @@ class PrimarySwatch{
   }
   _onChangeSliderHue() {
     this._colourBackground.hue = this._hueSlider.value;
-    this._throttledUpdate();
+    this._throttledUpdateBackgroundColour();
+    this._debouncedUpdateSmallSwatches();
   }
   _onChangeSliderSat() {
     this._colourBackground.sat = this._satSlider.value;
-    this._throttledUpdate();
+    this._throttledUpdateBackgroundColour();
+    this._debouncedUpdateSmallSwatches();
+
   }
   _onChangeSliderLum() {
     this._colourBackground.lum = this._lumSlider.value;
-    this._throttledUpdate();
+    this._throttledUpdateBackgroundColour();
+    this._debouncedUpdateSmallSwatches();
+
   }
   _onChangePicker() {
     this._colourBackground.hex = this._picker.value;
+    this._throttledUpdateBackgroundColour();
+    this._debouncedUpdateSmallSwatches();
 
-    this._throttledUpdate();
   }
   _onChangeTextPicker() {
     this._colourText.hex = this._textPicker.value;
     // update contrast ratio
-    this._contrastRatio = this._calculateContrastRatio(this._colourText,this._colourBackground);
+    this._contrastRatio = this._calculateContrastRatio([this._colourText.red, this._colourText.green, this._colourText.blue],[this._colourBackground.red, this._colourBackground.green, this._colourBackground.blue]);
     // update contrast Ratio text
     this._wrapper.dataset.content = this._makeContrastRatioString(this._contrastRatio);
     // set text colour
-    this._wrapper.style.color = hex; 
+    this._wrapper.style.color = this._colourText.hex; 
     // Update text picker button text
     this._textWrapper.dataset.content = 'Text: Custom'//Text: Auto;
+    this._smallSwatchesGroup.updateSwatchesText(this._colourText.hex);
+
     
   }
   _autoTextColour(red, green, blue) {
@@ -339,7 +361,9 @@ class PrimarySwatch{
   }
   _randomise() {
     this._colourBackground.randomise();
-    this._throttledUpdate();
+    this._updateBackgroundColour();
+    this._updateSmallSwatches();
+
     this._randomDiceColours();
   }
 }
