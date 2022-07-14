@@ -175,16 +175,16 @@ class SmallSwatch{
 class SmallSwatchesGroup{
   constructor() {
     this._smallSwatchList ={
-      analogousA:  ['hue',-30],
-      analogousB:   ['hue', 30],
-      triadicA:    ['hue', -120],
-      triadicB:    ['hue', 120],
-      tetradicA:   ['hue', 90],
-      tetradicB:   ['hue', 180],
-      tetradicC:   ['hue', 270],
-      monochromeA:   ['lum', -10],
-      monochromeB:   ['lum', 10],
-      neutral:    ['sat', -200],
+      analogousA: ['hue',-30],
+      analogousB: ['hue', 30],
+      triadicA: ['hue', -120],
+      triadicB: ['hue', 120],
+      tetradicA: ['hue', 90],
+      tetradicB: ['hue', 180],
+      tetradicC: ['hue', 270],
+      monochromeA: ['lum', -10],
+      monochromeB: ['lum', 10],
+      neutral: ['sat', -200],
     }
     this._smallSwatches = Object.keys(this._smallSwatchList).map(x => new SmallSwatch(x, this._smallSwatchList[x][0], this._smallSwatchList[x][1]));
     
