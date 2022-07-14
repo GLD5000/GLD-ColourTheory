@@ -58,10 +58,15 @@ table {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  box-shadow: none;
+  border: none;
 }
 
 :root {
   background: #000;
+  box-shadow: none;
+  border: none;
+  outline: none;
 }
 
 li, ol, ul {
@@ -217,6 +222,18 @@ li, ol, ul {
   grid-area: 4/2;
 }
 
+.btn:focus-within, .textColour-wrapper:focus-within {
+  outline: none;
+  background-color: #000;
+  color: #fff;
+}
+
+.btn:hover, .textColour-wrapper:hover {
+  outline: none;
+  color: #fff;
+  background-color: hsl(0deg, 0%, 55.7%);
+}
+
 .header {
   height: 100%;
   width: 100%;
@@ -286,12 +303,11 @@ li, ol, ul {
 }
 
 .primaryColour-wrapper:hover, .picker-wrapper:hover {
-  transform: scale(0.99);
+  border: solid 2px hsl(0deg, 0%, 55.7%);
 }
 
 .primaryColour-wrapper:focus-within, .picker-wrapper:focus-within {
-  border: dashed 4px white;
-  transform: scale(0.99);
+  border: solid 4px white;
 }
 
 .picker-wrapper::before {
@@ -421,7 +437,7 @@ input[type=range]::-moz-range-thumb {
 }
 
 input[type=range]:focus, input[type=range]:hover {
-  border: solid 1px #fff;
+  border: solid 2px #fff;
 }
 
 input[type=range]:hover::before {

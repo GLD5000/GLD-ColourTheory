@@ -72,11 +72,10 @@
   color:black;
 }
 .primaryColour-wrapper:hover, .picker-wrapper:hover{
-    transform: scale(0.99);
+  border: solid 2px $neutral-500;
 }
 .primaryColour-wrapper:focus-within, .picker-wrapper:focus-within {
-  border: dashed 4px white;
-  transform: scale(0.99);
+  border: solid 4px white;
 }
 
 .picker-wrapper::before{
