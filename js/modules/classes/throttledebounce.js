@@ -1,11 +1,24 @@
 
 export const debounce = (callbackFunction,delayTime = 1000) =>{
-    let timer; // create timer here for closure so there is only one
+    let timer; 
     return (...args) => { //create inner function
         clearTimeout(timer); // rest timer each time function is called
         timer  = setTimeout(() => { callbackFunction.apply(this, args); }, delayTime);//which this is applied
     };
 }
+
+export const debounceB = (callbackFunction,delayTime = 1000) =>{
+    let timer; 
+    let counter = 0;
+    return (...args) => { //create inner function
+        if (counter === 0) callbackFunction.apply(this, args);//get first click
+        counter = 1;
+        clearTimeout(timer); // rest timer each time function is called
+        timer  = setTimeout(() => { callbackFunction.apply(this, args); counter = 0;
+        }, delayTime);//which this is applied
+    };
+}
+
 
 export const throttleIncomplete = (callbackFunction, delayTime = 200) => {
     let execute = true;
@@ -17,8 +30,6 @@ export const throttleIncomplete = (callbackFunction, delayTime = 200) => {
         } 
     }
 }
-
-
 
 export const throttle = (callbackFunction, delayTime = 250) => {
     let execute = true;
