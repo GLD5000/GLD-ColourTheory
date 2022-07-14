@@ -99,3 +99,20 @@
 .dotF{
   grid-area: 4/2;
 }
+.btn:focus-within, .textColour-wrapper:focus-within{
+  //box-shadow: none;
+  //border: none;
+  outline: none;
+
+  background-color: $neutral-1000;
+  color: $neutral-0;  
+}
+
+
+.btn:hover, .textColour-wrapper:hover{
+  //box-shadow: none;
+  //border: none;
+  outline: none;
+  color: $neutral-0;
+  background-color: $neutral-500;
+}
