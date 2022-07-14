@@ -1,12 +1,3 @@
-
-export const debounce = (callbackFunction,delayTime = 1000) =>{
-    let timer; 
-    return (...args) => { //create inner function
-        clearTimeout(timer); // rest timer each time function is called
-        timer  = setTimeout(() => { callbackFunction.apply(this, args); }, delayTime);//which this is applied
-    };
-}
-
 export const debounceB = (callbackFunction,delayTime = 1000) =>{
     let timer; 
     let counter = 0;
@@ -18,19 +9,6 @@ export const debounceB = (callbackFunction,delayTime = 1000) =>{
         }, delayTime);//which this is applied
     };
 }
-
-
-export const throttleIncomplete = (callbackFunction, delayTime = 200) => {
-    let execute = true;
-    return (...args) => {
-        if (execute === true) {
-            execute = false;
-            callbackFunction(args);
-            setTimeout(() => {execute = true;}, delayTime)
-        } 
-    }
-}
-
 export const throttle = (callbackFunction, delayTime = 250) => {
     let execute = true;
     let waitingArgs;
@@ -56,3 +34,21 @@ export const throttle = (callbackFunction, delayTime = 250) => {
             setTimeout(waitHandler, delayTime); // reset
     }
 }
+const debounce = (callbackFunction,delayTime = 1000) =>{
+    let timer; 
+    return (...args) => { //create inner function
+        clearTimeout(timer); // rest timer each time function is called
+        timer  = setTimeout(() => { callbackFunction.apply(this, args); }, delayTime);//which this is applied
+    };
+}
+const throttleIncomplete = (callbackFunction, delayTime = 200) => {
+    let execute = true;
+    return (...args) => {
+        if (execute === true) {
+            execute = false;
+            callbackFunction(args);
+            setTimeout(() => {execute = true;}, delayTime)
+        } 
+    }
+}
+

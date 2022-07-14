@@ -3,7 +3,6 @@ import {ColourBackground} from './modules/classes/colourbackground.js';
 import {ColourSimple} from './modules/classes/coloursimple.js';
 import { ImmutableObject } from './modules/classes/immutableobject.js';
 import { throttle } from './modules/classes/throttledebounce.js';
-import {debounce} from './modules/classes/throttledebounce.js';
 import {debounceB} from './modules/classes/throttledebounce.js';
 //const test = new ImmutableObject({hex:'#000',sat:100});
 //console.log(test.hex);
