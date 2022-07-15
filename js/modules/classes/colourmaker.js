@@ -16,11 +16,11 @@ export const colourMaker= {
         'add': (oldVal, newVal) =>  oldVal + newVal,
         'subtract': (oldVal, newVal) =>  oldVal - newVal,
         'divide': (oldVal, newVal) =>  oldVal / newVal,
-        'replace': (oldVal, newVal) =>  newVal,
-        'keep': (oldVal, newVal) =>  oldVal
+        'replace': (_, newVal) =>  newVal,
+        'keep': (oldVal, _) =>  oldVal
       },
       testOldHsl: {hue: 2, sat: 2, lum: 3},
-      testNewHsl: {hue: 500, sat: 500, operation: 'multiply'},
+      testNewHsl: {hue: 500, sat: 500, operation: 'keep'},
       _clamp(value, min = 0, max = 100) {
         return Math.min(Math.max(min, value),max);
       },
