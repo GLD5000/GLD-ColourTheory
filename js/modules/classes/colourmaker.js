@@ -33,9 +33,9 @@ export const colourMaker= {
 
       _combineHSL ({oldColour, newColour}) {
         return {
-          hue: (!newColour.hue)? oldColour.hue: this._rotate(this.operations[newColour.operation || 'add'](oldColour.hue,newColour.hue)),
-          sat: (!newColour.sat)? oldColour.sat: this._clamp(this.operations[newColour.operation || 'add'](oldColour.sat,newColour.sat)),
-          lum: (!newColour.lum)? oldColour.lum: this._clamp(this.operations[newColour.operation || 'add'](oldColour.lum,newColour.lum)),
+          hue: (newColour.hue == null)? oldColour.hue: this._rotate(this.operations[newColour.operation || 'add'](oldColour.hue,newColour.hue)),
+          sat: (newColour.sat == null)? oldColour.sat: this._clamp(this.operations[newColour.operation || 'add'](oldColour.sat,newColour.sat)),
+          lum: (newColour.lum == null)? oldColour.lum: this._clamp(this.operations[newColour.operation || 'add'](oldColour.lum,newColour.lum)),
         };
       },
       //log () {console.log(this._rotate(380))}
