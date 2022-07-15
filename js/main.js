@@ -5,10 +5,9 @@ import { ImmutableObject } from './modules/classes/immutableobject.js';
 import { throttle } from './modules/classes/throttledebounce.js';
 import {debounceB} from './modules/classes/throttledebounce.js';
 import {colourMaker} from './modules/classes/colourmaker.js';
-
-colourMaker();
-
+colourMaker.log();
 /*
+console.log(colourMaker);
   
   
 const test = new ImmutableObject({hex:'#000',sat:100});
