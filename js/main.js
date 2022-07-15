@@ -6,18 +6,22 @@ import { throttle } from './modules/classes/throttledebounce.js';
 import {debounceB} from './modules/classes/throttledebounce.js';
 import {colourMaker} from './modules/classes/colourmaker.js';
 colourMaker.log();
+
+/*
+//console.log(new Map().set('a',1).size);  
+console.log(colourMaker);
+
 const obj = Object.create({a: 1});
 console.log(obj.a);  
-console.log(new Array(2));
+const arr = new Array(10).fill();
+arr.length = 0;
+console.log(arr);
 console.log(new Set());
 const weakAF = new WeakSet();
 const thing = {2:'vgsdsvoinvsiovsd'};
 weakAF.add(thing);
 console.log(weakAF);
 
-//console.log(new Map().set('a',1).size);  
-/*
-console.log(colourMaker);
   
 const test = new ImmutableObject({hex:'#000',sat:100});
 console.log(test.hex);
