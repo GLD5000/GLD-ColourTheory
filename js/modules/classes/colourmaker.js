@@ -38,19 +38,6 @@ export const colourMaker= {
           lum: (newColour.lum == null)? oldColour.lum: this._clamp(this.operations[newColour.operation || 'add'](oldColour.lum,newColour.lum)),
         };
       },
-      //log () {console.log(this._rotate(380))}
       log () {console.log(this._combineHSL({oldColour: this.testOldHsl, newColour: this.testNewHsl}))}
-
-/*       combineHSL ({hue,sat,lum},{newHue = undefined, newSat = undefined, newLum = undefined, operation = 'add'}) {
-        return {
-          hue: (!newHue)? hue: this.operations[operation](hue,newHue),
-          sat: (!newSat)? sat: this.operations[operation](sat,newLum),
-          lum: (!newLum)? lum: this.operations[operation](lum,newLum),
-        };
-      },
-      log () {console.log(this.combineHSL(this.testOldHsl, this.testNewHsl))}
- */
-
-
 }
 
