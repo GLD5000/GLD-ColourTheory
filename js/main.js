@@ -4,9 +4,28 @@ import {ColourSimple} from './modules/classes/coloursimple.js';
 import { ImmutableObject } from './modules/classes/immutableobject.js';
 import { throttle } from './modules/classes/throttledebounce.js';
 import {debounceB} from './modules/classes/throttledebounce.js';
-//const test = new ImmutableObject({hex:'#000',sat:100});
-//console.log(test.hex);
-//console.log(test);
+import {colourMaker} from './modules/classes/colourmaker.js';
+colourMaker.log();
+
+/*
+//console.log(new Map().set('a',1).size);  
+console.log(colourMaker);
+
+const obj = Object.create({a: 1});
+console.log(obj.a);  
+const arr = new Array(10).fill();
+arr.length = 0;
+console.log(arr);
+console.log(new Set());
+const weakAF = new WeakSet();
+const thing = {2:'vgsdsvoinvsiovsd'};
+weakAF.add(thing);
+console.log(weakAF);
+
+  
+const test = new ImmutableObject({hex:'#000',sat:100});
+console.log(test.hex);
+console.log(test);
 let pureSum = (...args) => [...args].reduce((acc, current) => acc + current);
 
 console.log(pureSum(1,2,3));
@@ -61,7 +80,8 @@ console.log(null == undefined);
 let nulled = true;
 [1,'w',true, false, null, undefined, ' ', '',].forEach((x) => {
   console.log(`!![${x}] evaluates to [${!!x}] boolean`);
-});
+}); 
+ */
 const colour_picker = document.getElementById('primaryColour-picker');
 const colour_picker_wrapper = document.getElementById('primaryColour-wrapper');
 const colour_picker_hex_label = document.getElementById('primaryColour-copybtn');
@@ -167,16 +187,16 @@ class SmallSwatch{
 class SmallSwatchesGroup{
   constructor() {
     this._smallSwatchList ={
-      analogousA:  ['hue',-30],
-      analogousB:   ['hue', 30],
-      triadicA:    ['hue', -120],
-      triadicB:    ['hue', 120],
-      tetradicA:   ['hue', 90],
-      tetradicB:   ['hue', 180],
-      tetradicC:   ['hue', 270],
-      monochromeA:   ['lum', -10],
-      monochromeB:   ['lum', 10],
-      neutral:    ['sat', -200],
+      analogousA: ['hue',-30],
+      analogousB: ['hue', 30],
+      triadicA: ['hue', -120],
+      triadicB: ['hue', 120],
+      tetradicA: ['hue', 90],
+      tetradicB: ['hue', 180],
+      tetradicC: ['hue', 270],
+      monochromeA: ['lum', -10],
+      monochromeB: ['lum', 10],
+      neutral: ['sat', -200],
     }
     this._smallSwatches = Object.keys(this._smallSwatchList).map(x => new SmallSwatch(x, this._smallSwatchList[x][0], this._smallSwatchList[x][1]));
     
