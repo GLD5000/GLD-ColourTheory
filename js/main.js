@@ -6,7 +6,19 @@ import { throttle } from './modules/classes/throttledebounce.js';
 import {debounceB} from './modules/classes/throttledebounce.js';
 import {colourMaker} from './modules/classes/colourmaker.js';
 colourMaker.log();
+Object.defineProperty(colourMaker, '_clamp', {enumerable: false});
+for (const key in colourMaker) {
+  if (Object.hasOwnProperty.call(colourMaker, key) && key[0] === '_') {
+    Object.defineProperty(colourMaker, key, {enumerable: false, writable: false});
+  }
+}
 
+for (const key in colourMaker) {
+  if (Object.hasOwnProperty.call(colourMaker, key)) {
+    console.log(colourMaker[key]);
+  } 
+};
+console.log(colourMaker._combineHSL);
 /*
 //console.log(new Map().set('a',1).size);  
 console.log(colourMaker);
