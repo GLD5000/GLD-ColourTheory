@@ -6,6 +6,46 @@ import { throttle } from './modules/classes/throttledebounce.js';
 import {debounceB} from './modules/classes/throttledebounce.js';
 import {colourMaker} from './modules/classes/colourmaker.js';
 colourMaker.log();
+Object.defineProperty(colourMaker, '_clamp', {enumerable: false});
+for (const key in colourMaker) {
+  if (Object.hasOwnProperty.call(colourMaker, key) && key[0] === '_') {
+    Object.defineProperty(colourMaker, key, {enumerable: false, writable: false});
+  }
+}
+
+for (const key in colourMaker) {
+  if (Object.hasOwnProperty.call(colourMaker, key)) {
+    //console.log(colourMaker[key]);
+  } 
+};
+//console.log(colourMaker._combineHSL);
+
+
+class FreezableMap extends Map {
+  set(...args){
+      if (Object.isFrozen(this)) return;
+
+      return super.set(...args);
+  }
+  delete(...args){
+      if (Object.isFrozen(this)) return;
+
+      return super.delete(...args);
+  }
+  clear(){
+      if (Object.isFrozen(this)) return;
+
+      return super.clear();
+  }
+  freeze(){
+    Object.freeze(this);
+  }
+}
+const testMap = new FreezableMap([['fudge', 34],['apple', 28],['monkey', 56]]);
+testMap.freeze();
+console.log(testMap.set('fudge',0));
+console.log(testMap);
+
 
 /*
 //console.log(new Map().set('a',1).size);  

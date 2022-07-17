@@ -128,7 +128,7 @@ export const colourMaker= {
       //log () {console.log(this._combineHSL({oldColour: this.testOldHsl, newColour: this.testNewHsl}))}
       log () {
         this._makeColourFromHSL();
-        console.log(this._map);
+        //console.log(this._map);
       }
 }
 
