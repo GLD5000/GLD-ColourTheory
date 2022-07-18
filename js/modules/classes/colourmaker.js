@@ -1,5 +1,3 @@
-import { ImmutableObject } from "./immutableobject.js";
-
 export const colourMaker= {
     swatches: {
         analogousA: {hue: -30, operation: 'add'},
@@ -130,7 +128,7 @@ export const colourMaker= {
         const colourObject = this._combineHSL(oldColour, newColour);
         this._convertHslToHex(colourObject);
         this._convertHexToSrgb(colourObject);
-        return new ImmutableObject(colourObject);
+        return Object.freeze(colourObject);
       },
       //log () {console.log(this._combineHSL({oldColour: this.testOldHsl, newColour: this.testNewHsl}))}
       //log () {

@@ -11,6 +11,8 @@ const newColour = {hue: 300, hueOperation: 'replace', lum: 40, lumOperation: 're
 const freshColour = colourMaker.makeColourFromHSL(oldColour, newColour);// h:300, s:55, l:40
 
 console.log(freshColour);
+console.log(freshColour.hex);
+//freshColour.hex = 0; //error
 
 
 Object.defineProperty(colourMaker, '_clamp', {enumerable: false});
