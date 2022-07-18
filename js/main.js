@@ -5,7 +5,14 @@ import { ImmutableObject } from './modules/classes/immutableobject.js';
 import { throttle } from './modules/classes/throttledebounce.js';
 import {debounceB} from './modules/classes/throttledebounce.js';
 import {colourMaker} from './modules/classes/colourmaker.js';
-colourMaker.log();
+//colourMaker.log();
+const oldColour = {hue: 20, sat: 50, lum: 10};
+const newColour = {hue: 300, hueOperation: 'replace', lum: 40, lumOperation: 'replace', sat: 1.1, operation: 'multiply'};
+const freshColour = colourMaker.makeColourFromHSL(oldColour, newColour);// h:300, s:55, l:40
+
+console.log(freshColour);
+
+
 Object.defineProperty(colourMaker, '_clamp', {enumerable: false});
 for (const key in colourMaker) {
   if (Object.hasOwnProperty.call(colourMaker, key) && key[0] === '_') {
@@ -43,8 +50,8 @@ class FreezableMap extends Map {
 }
 const testMap = new FreezableMap([['fudge', 34],['apple', 28],['monkey', 56]]);
 testMap.freeze();
-console.log(testMap.set('fudge',0));
-console.log(testMap);
+//console.log(testMap.set('fudge',0));
+//console.log(testMap);
 
 
 /*

@@ -1,3 +1,5 @@
+import { ImmutableObject } from "./immutableobject.js";
+
 export const colourMaker= {
     swatches: {
         analogousA: {hue: -30, operation: 'add'},
@@ -29,25 +31,25 @@ export const colourMaker= {
         if (x < min) x -= parseInt(x/max)*max -max;
         return x;
       },
-      _convertHexToSrgb(hex) {
-        let RsRGB = 0, GsRGB = 0, BsRGB = 0;
+      _convertHexToSrgb(colourObject) {
+        const hex = colourObject.hex;
         // 3 digits
         if (hex.length == 4) {
-          RsRGB  = ('0x' + hex[1] + hex[1])/255;
-          GsRGB = ('0x' + hex[2] + hex[2])/255;
-          BsRGB = ('0x' + hex[3] + hex[3])/255;
+          colourObject.red  = ('0x' + hex[1] + hex[1])/255;
+          colourObject.green = ('0x' + hex[2] + hex[2])/255;
+          colourObject.blue = ('0x' + hex[3] + hex[3])/255;
         // 6 digits
         } else if (hex.length == 7) {
-          RsRGB = ('0x' + hex[1] + hex[2])/255;
-          GsRGB = ('0x' + hex[3] + hex[4])/255;
-          BsRGB = ('0x' + hex[5] + hex[6])/255;
+          colourObject.red = ('0x' + hex[1] + hex[2])/255;
+          colourObject.green = ('0x' + hex[3] + hex[4])/255;
+          colourObject.blue = ('0x' + hex[5] + hex[6])/255;
         }
-        return [RsRGB, GsRGB, BsRGB];
+        return colourObject;
       },
-      _convertSrgbToHsl(RsRGB, GsRGB, BsRGB) {
-    
-        let cmin = Math.min(RsRGB, GsRGB, BsRGB),
-            cmax = Math.max(RsRGB, GsRGB, BsRGB),
+      _convertSrgbToHsl(colourObject) {
+        const {red, green, blue} = colourObject;
+        let cmin = Math.min(red, green, blue),
+            cmax = Math.max(red, green, blue),
             delta = cmax - cmin,
             hue = 0,
             sat = 0,
@@ -55,12 +57,12 @@ export const colourMaker= {
       
         if (delta == 0)
           hue = 0;
-        else if (cmax == RsRGB)
-          hue = ((GsRGB - BsRGB) / delta) % 6;
-        else if (cmax == GsRGB)
-          hue = (BsRGB - RsRGB) / delta + 2;
+        else if (cmax == red)
+          hue = ((green - blue) / delta) % 6;
+        else if (cmax == green)
+          hue = (blue - red) / delta + 2;
         else
-          hue = (RsRGB - GsRGB) / delta + 4;
+          hue = (red - green) / delta + 4;
       
         hue = (hue * 60);//Math.round(hue * 60);
       
@@ -71,12 +73,14 @@ export const colourMaker= {
         sat = delta == 0 ? 0 : delta / (1 - Math.abs(2 * lum - 1));
         sat = +(sat * 100);
         lum = +(lum * 100);
-        return [hue, sat, lum];
+        [colourObject.hue, colourObject.sat, colourObject.lum] = [hue, sat, lum];
+        return colourObject;
       },
-      _convertHslToHex(hue, sat, lum) {
+      _convertHslToHex(colourObject) {
+        let {hue, sat, lum} = colourObject;
         sat /= 100;
         lum /= 100;
-      
+      console.log(hue);
         let chroma = (1 - Math.abs(2 * lum - 1)) * sat,
             x = chroma * (1 - Math.abs((hue / 60) % 2 - 1)),
             lightness = lum - chroma/2,
@@ -109,26 +113,29 @@ export const colourMaker= {
           green = '0' + green;
         if (blue.length == 1)
           blue = '0' + blue;
-      
-        return '#' + red + green + blue;
+          colourObject.hex = '#' + red + green + blue;
+        return colourObject;
       },
-      _convertSrgbToHex(red, green, blue) {
-        return this._convertHslToHex(...this._convertSrgbToHsl(red, green, blue));
+      _convertSrgbToHex(colourObject) {
+        return this._convertHslToHex(this._convertSrgbToHsl(colourObject));
       },
-      _combineHSL ({oldColour, newColour}) {
+      _combineHSL (oldColour, newColour) {
         return {
-          hue: (newColour.hue == null)? oldColour.hue: this._rotate(this.operations[newColour.operation || 'add'](oldColour.hue,newColour.hue)),
-          sat: (newColour.sat == null)? oldColour.sat: this._clamp(this.operations[newColour.operation || 'add'](oldColour.sat,newColour.sat)),
-          lum: (newColour.lum == null)? oldColour.lum: this._clamp(this.operations[newColour.operation || 'add'](oldColour.lum,newColour.lum)),
+          hue: (newColour.hue == null)? oldColour.hue: this._rotate(this.operations[newColour.hueOperation || newColour.operation || 'add'](oldColour.hue,newColour.hue)),
+          sat: (newColour.sat == null)? oldColour.sat: this._clamp(this.operations[newColour.satOperation || newColour.operation || 'add'](oldColour.sat,newColour.sat)),
+          lum: (newColour.lum == null)? oldColour.lum: this._clamp(this.operations[newColour.lumOperation || newColour.operation || 'add'](oldColour.lum,newColour.lum)),
         };
       },
-      _makeColourFromHSL(hue, sat, lum){
-      this._map = new Map();
+      makeColourFromHSL(oldColour, newColour){
+        const colourObject = this._combineHSL(oldColour, newColour);
+        this._convertHslToHex(colourObject);
+        this._convertHexToSrgb(colourObject);
+        return new ImmutableObject(colourObject);
       },
       //log () {console.log(this._combineHSL({oldColour: this.testOldHsl, newColour: this.testNewHsl}))}
-      log () {
-        this._makeColourFromHSL();
+      //log () {
+        //this._makeColourFromHSL();
         //console.log(this._map);
-      }
+      //}
 }
 
