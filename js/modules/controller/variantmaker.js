@@ -1,4 +1,4 @@
-import { colourMaker } from "./colourmaker.js";
+import { colourObject } from "./colourObject.js";
 export const variantMaker= {
   _swatchRecipeMap: new Map([
     ['analogousA', {hue: -30, operation: 'add'}],
@@ -39,13 +39,13 @@ export const variantMaker= {
   _newColourFromHslObjects(oldColour, newColour, name){
     const hslObject = this._updateHSL(oldColour, newColour);
     hslObject.name = name;
-    return colourMaker.makeColourFromHSL(hslObject);
+    return colourObject.fromHsl(hslObject);
   },
   //newSwatchFromHex(hex){},
   updateSwatchFromHsl(oldColour, newColour){
     const primaryHslObject = this._updateHSL (oldColour, newColour); //Get new HSL from Primary Colour
     primaryHslObject.name = oldColour.name;//Put old name into object
-    const primaryColour = colourMaker.makeColourFromHSL(primaryHslObject);
+    const primaryColour = colourObject.fromHsl(primaryHslObject);
     const swatchColoursMap = new Map([[primaryHslObject.name, primaryColour]]);//create map and add primary colour
     this._swatchRecipeMap.forEach((value, key) => { // Create colours for all variations
       swatchColoursMap.set(key, this._newColourFromHslObjects(swatchColoursMap.get(primaryHslObject.name), value, key));

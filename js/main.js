@@ -4,16 +4,16 @@ import {ColourSimple} from './modules/classes/coloursimple.js';
 import { ImmutableObject } from './modules/classes/immutableobject.js';
 import { throttle } from './modules/classes/throttledebounce.js';
 import {debounceB} from './modules/classes/throttledebounce.js';
-import {colourMaker} from './modules/controller/colourmaker.js';
+import {colourObject} from './modules/controller/colourobject.js';
 import { variantMaker } from './modules/controller/variantmaker.js';
-//colourMaker.log();
+//colourObject.log();
 //const oldColour = {hue: 20, sat: 50, lum: 10};
 //const newColour = {hue: 300, hueOperation: 'replace', lum: 40, lumOperation: 'replace', sat: 1.1, operation: 'multiply'};
-//const freshColour = colourMaker.makeColourFromHSL({hue: 20, sat: 50, lum: 40});
-//const freshColour = colourMaker.makeColourFromSrgb({red: 20, green: 50, blue: 40});
-//const freshColour = colourMaker.makeColourFromSrgb({red: .2, green: .50, blue: .40});
-//const freshColour = colourMaker.makeColourFromHex({hex: '#3ad'});
-const freshColour = colourMaker.makeColourFromHex({name: 'Dr Funky Town', hex: '#3fd'});
+//const freshColour = colourObject.fromHsl({hue: 20, sat: 50, lum: 40});
+//const freshColour = colourObject.fromSrgb({red: 20, green: 50, blue: 40});
+//const freshColour = colourObject.fromSrgb({red: .2, green: .50, blue: .40});
+//const freshColour = colourObject.fromHex({hex: '#3ad'});
+const freshColour = colourObject.fromHex({name: 'Dr Funky Town', hex: '#3fd'});
 
 console.log(freshColour);
 //console.log(freshColour.hex);
@@ -22,19 +22,19 @@ console.log(freshColour);
 //console.log(variantMaker);
 console.log(variantMaker.updateSwatchFromHsl({name: 'funky', hue: 3, sat: 2, lum: 1}, {name: 'new', hue: 4}));
 
-Object.defineProperty(colourMaker, '_clamp', {enumerable: false});
-for (const key in colourMaker) {
-  if (Object.hasOwnProperty.call(colourMaker, key) && key[0] === '_') {
-    Object.defineProperty(colourMaker, key, {enumerable: false, writable: false});
+Object.defineProperty(colourObject, '_clamp', {enumerable: false});
+for (const key in colourObject) {
+  if (Object.hasOwnProperty.call(colourObject, key) && key[0] === '_') {
+    Object.defineProperty(colourObject, key, {enumerable: false, writable: false});
   }
 }
 
-for (const key in colourMaker) {
-  if (Object.hasOwnProperty.call(colourMaker, key)) {
-    //console.log(colourMaker[key]);
+for (const key in colourObject) {
+  if (Object.hasOwnProperty.call(colourObject, key)) {
+    //console.log(colourObject[key]);
   } 
 };
-//console.log(colourMaker._combineHSL);
+//console.log(colourObject._combineHSL);
 
 
 class FreezableMap extends Map {
@@ -65,7 +65,7 @@ testMap.freeze();
 
 /*
 //console.log(new Map().set('a',1).size);  
-console.log(colourMaker);
+console.log(colourObject);
 
 const obj = Object.create({a: 1});
 console.log(obj.a);  
