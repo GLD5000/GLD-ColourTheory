@@ -13,14 +13,14 @@ import { variantMaker } from './modules/controller/variantmaker.js';
 //const freshColour = colourMaker.makeColourFromSrgb({red: 20, green: 50, blue: 40});
 //const freshColour = colourMaker.makeColourFromSrgb({red: .2, green: .50, blue: .40});
 //const freshColour = colourMaker.makeColourFromHex({hex: '#3ad'});
-//const freshColour = colourMaker.makeColourFromHex({name: 'Dr Funky Town', hex: '#3fd'});
+const freshColour = colourMaker.makeColourFromHex({name: 'Dr Funky Town', hex: '#3fd'});
 
-//console.log(freshColour);
+console.log(freshColour);
 //console.log(freshColour.hex);
 //freshColour.hex = 0; //error
 
 //console.log(variantMaker);
-console.log(variantMaker.newSwatchFromHsl({name: 'funky', hue: 3, sat: 2, lum: 1}, {name: 'new', hue: 4}));
+console.log(variantMaker.updateSwatchFromHsl({name: 'funky', hue: 3, sat: 2, lum: 1}, {name: 'new', hue: 4}));
 
 Object.defineProperty(colourMaker, '_clamp', {enumerable: false});
 for (const key in colourMaker) {

@@ -1,3 +1,4 @@
+
 export const colourMaker= {
   _clamp(value, min = 0, max = 100) {
     return Math.min(Math.max(min, value),max);
@@ -106,20 +107,23 @@ export const colourMaker= {
   _convertSrgbToHex(colourObject) {
     return this._convertHslToHex(this._convertSrgbToHsl(colourObject));
   },
+  _return(colourObject) {
+    return Object.freeze(colourObject);
+  },
   makeColourFromHSL(colourObject){
     this._convertHslToHex(colourObject);
     this._convertHexToSrgb(colourObject);
-    return Object.freeze(colourObject);
+    return this._return(colourObject);
   },
   makeColourFromHex(colourObject){
     this._convertHexToSrgb(colourObject);
     this._convertSrgbToHsl(colourObject);
-    return Object.freeze(colourObject);
+    return this._return(colourObject);
   },
   makeColourFromSrgb(colourObject){
     this._convertSrgbToHsl(colourObject);
     this._convertHslToHex(colourObject);
-    return Object.freeze(colourObject);
+    return this._return(colourObject);
   },
 }
 

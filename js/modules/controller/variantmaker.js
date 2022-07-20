@@ -42,7 +42,7 @@ export const variantMaker= {
     return colourMaker.makeColourFromHSL(hslObject);
   },
   //newSwatchFromHex(hex){},
-  newSwatchFromHsl(oldColour, newColour){
+  updateSwatchFromHsl(oldColour, newColour){
     const primaryHslObject = this._updateHSL (oldColour, newColour); //Get new HSL from Primary Colour
     primaryHslObject.name = oldColour.name;//Put old name into object
     const primaryColour = colourMaker.makeColourFromHSL(primaryHslObject);
@@ -53,3 +53,21 @@ export const variantMaker= {
     return swatchColoursMap;
   },
 }
+const mathsChain = {
+  startNumber(x){
+    this.number = x; 
+    return this
+  },
+  add(y){
+    this.number += y;
+    return this
+  },
+  sub(y){this.number -= y
+    return this
+  },
+  answer(){
+    return this.number;
+  }
+}
+
+console.log(mathsChain.startNumber(5).add(2).sub(3).answer());
