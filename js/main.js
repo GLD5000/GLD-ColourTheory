@@ -4,14 +4,18 @@ import {ColourSimple} from './modules/classes/coloursimple.js';
 import { ImmutableObject } from './modules/classes/immutableobject.js';
 import { throttle } from './modules/classes/throttledebounce.js';
 import {debounceB} from './modules/classes/throttledebounce.js';
-import {colourMaker} from './modules/classes/colourmaker.js';
+import {colourMaker} from './modules/controller/colourmaker.js';
 //colourMaker.log();
-const oldColour = {hue: 20, sat: 50, lum: 10};
-const newColour = {hue: 300, hueOperation: 'replace', lum: 40, lumOperation: 'replace', sat: 1.1, operation: 'multiply'};
-const freshColour = colourMaker.makeColourFromHSL(oldColour, newColour);// h:300, s:55, l:40
+//const oldColour = {hue: 20, sat: 50, lum: 10};
+//const newColour = {hue: 300, hueOperation: 'replace', lum: 40, lumOperation: 'replace', sat: 1.1, operation: 'multiply'};
+//const freshColour = colourMaker.makeColourFromHSL({hue: 20, sat: 50, lum: 40});
+//const freshColour = colourMaker.makeColourFromSrgb({red: 20, green: 50, blue: 40});
+//const freshColour = colourMaker.makeColourFromSrgb({red: .2, green: .50, blue: .40});
+//const freshColour = colourMaker.makeColourFromHex({hex: '#3ad'});
+const freshColour = colourMaker.makeColourFromHex({hex: '#3fd'});
 
 console.log(freshColour);
-console.log(freshColour.hex);
+//console.log(freshColour.hex);
 //freshColour.hex = 0; //error
 
 
