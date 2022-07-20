@@ -12,7 +12,7 @@ import {colourMaker} from './modules/controller/colourmaker.js';
 //const freshColour = colourMaker.makeColourFromSrgb({red: 20, green: 50, blue: 40});
 //const freshColour = colourMaker.makeColourFromSrgb({red: .2, green: .50, blue: .40});
 //const freshColour = colourMaker.makeColourFromHex({hex: '#3ad'});
-const freshColour = colourMaker.makeColourFromHex({hex: '#3fd'});
+const freshColour = colourMaker.makeColourFromHex({name: 'Dr Funky Town', hex: '#3fd'});
 
 console.log(freshColour);
 //console.log(freshColour.hex);
