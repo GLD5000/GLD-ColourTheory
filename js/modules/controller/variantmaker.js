@@ -1,17 +1,17 @@
 import { colourMaker } from "./colourmaker.js";
 export const variantMaker= {
-  _swatchRecipeMap: new Map(
-    [analogousA, {hue: -30, operation: 'add'}],
-    [analogousB, {hue: 30, operation: 'add'}],
-    [triadicA, {hue: -120, operation: 'add'}],
-    [triadicB, {hue: 120, operation: 'add'}],
-    [tetradicA, {hue: 90, operation: 'add'}],
-    [tetradicB, {hue: 180, operation: 'add'}],
-    [tetradicC, {hue: 270, operation: 'add'}],
-    [monochromeA, {lum: -10, operation: 'add'}],
-    [monochromeB, {lum: 10, operation: 'add'}],
-    [neutral, {sat: 0, operation: 'replace'}]
-  ), 
+  _swatchRecipeMap: new Map([
+    ['analogousA', {hue: -30, operation: 'add'}],
+    ['analogousB', {hue: 30, operation: 'add'}],
+    ['triadicA', {hue: -120, operation: 'add'}],
+    ['triadicB', {hue: 120, operation: 'add'}],
+    ['tetradicA', {hue: 90, operation: 'add'}],
+    ['tetradicB', {hue: 180, operation: 'add'}],
+    ['tetradicC', {hue: 270, operation: 'add'}],
+    ['monochromeA', {lum: -10, operation: 'add'}],
+    ['monochromeB', {lum: 10, operation: 'add'}],
+    ['neutral', {sat: 0}]
+  ]), 
 
   _operations: {
     'multiply': (oldVal, newVal) =>  oldVal * newVal,
@@ -29,24 +29,27 @@ export const variantMaker= {
     if (x < min) x -= parseInt(x/max)*max -max;
     return x;
   },
-  _combineHSL(oldColour, newColour) {
+  _updateHSL(oldColour, newColour) {
     return {
-    hue: (newColour.hue == null)? oldColour.hue: this._rotate(this._operations[newColour.hueOperation || newColour.operation || 'add'](oldColour.hue,newColour.hue)),
-    sat: (newColour.sat == null)? oldColour.sat: this._clamp(this._operations[newColour.satOperation || newColour.operation || 'add'](oldColour.sat,newColour.sat)),
-    lum: (newColour.lum == null)? oldColour.lum: this._clamp(this._operations[newColour.lumOperation || newColour.operation || 'add'](oldColour.lum,newColour.lum)),
+    hue: (newColour.hue == null)? oldColour.hue: this._rotate(this._operations[newColour.hueOperation || newColour.operation || 'replace'](oldColour.hue, newColour.hue)),
+    sat: (newColour.sat == null)? oldColour.sat: this._clamp(this._operations[newColour.satOperation || newColour.operation || 'replace'](oldColour.sat, newColour.sat)),
+    lum: (newColour.lum == null)? oldColour.lum: this._clamp(this._operations[newColour.lumOperation || newColour.operation || 'replace'](oldColour.lum, newColour.lum)),
     };
   },
-  _newColourFromHslObjects (oldColour, newColour){
-    const hslObject = this._combineHSL(oldColour, newColour);
-
-  }
-  newSwatchFromHex(hex){},
+  _newColourFromHslObjects(oldColour, newColour, name){
+    const hslObject = this._updateHSL(oldColour, newColour);
+    hslObject.name = name;
+    return colourMaker.makeColourFromHSL(hslObject);
+  },
+  //newSwatchFromHex(hex){},
   newSwatchFromHsl(oldColour, newColour){
-    const primaryHslObject = this._combineHSL (oldColour, newColour); //Get new HSL from Primary Colour
-    primaryHslObject.name = oldColour.name;
-    const swatchColoursMap = new Map(oldColour.name, colourMaker.makeColourFromHSL(primaryHslObject));//create map and add primary colour
-    this._swatchRecipeMap.forEach((value, key) => { // Create 
-            
+    const primaryHslObject = this._updateHSL (oldColour, newColour); //Get new HSL from Primary Colour
+    primaryHslObject.name = oldColour.name;//Put old name into object
+    const primaryColour = colourMaker.makeColourFromHSL(primaryHslObject);
+    const swatchColoursMap = new Map([[primaryHslObject.name, primaryColour]]);//create map and add primary colour
+    this._swatchRecipeMap.forEach((value, key) => { // Create colours for all variations
+      swatchColoursMap.set(key, this._newColourFromHslObjects(swatchColoursMap.get(primaryHslObject.name), value, key));
     });
+    return swatchColoursMap;
   },
 }

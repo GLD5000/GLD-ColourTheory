@@ -5,6 +5,7 @@ import { ImmutableObject } from './modules/classes/immutableobject.js';
 import { throttle } from './modules/classes/throttledebounce.js';
 import {debounceB} from './modules/classes/throttledebounce.js';
 import {colourMaker} from './modules/controller/colourmaker.js';
+import { variantMaker } from './modules/controller/variantmaker.js';
 //colourMaker.log();
 //const oldColour = {hue: 20, sat: 50, lum: 10};
 //const newColour = {hue: 300, hueOperation: 'replace', lum: 40, lumOperation: 'replace', sat: 1.1, operation: 'multiply'};
@@ -12,12 +13,14 @@ import {colourMaker} from './modules/controller/colourmaker.js';
 //const freshColour = colourMaker.makeColourFromSrgb({red: 20, green: 50, blue: 40});
 //const freshColour = colourMaker.makeColourFromSrgb({red: .2, green: .50, blue: .40});
 //const freshColour = colourMaker.makeColourFromHex({hex: '#3ad'});
-const freshColour = colourMaker.makeColourFromHex({name: 'Dr Funky Town', hex: '#3fd'});
+//const freshColour = colourMaker.makeColourFromHex({name: 'Dr Funky Town', hex: '#3fd'});
 
-console.log(freshColour);
+//console.log(freshColour);
 //console.log(freshColour.hex);
 //freshColour.hex = 0; //error
 
+//console.log(variantMaker);
+console.log(variantMaker.newSwatchFromHsl({name: 'funky', hue: 3, sat: 2, lum: 1}, {name: 'new', hue: 4}));
 
 Object.defineProperty(colourMaker, '_clamp', {enumerable: false});
 for (const key in colourMaker) {
