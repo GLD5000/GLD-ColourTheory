@@ -145,33 +145,33 @@ export const colourObject= {
     this._rgbArr = ['red','green','blue'];
   },
   assign(oldColour, newColour) {
-    
     if (newColour.hasOwnProperty('hex')) return 'Error: Hex found in newColour object';//Exit for Hex
-    
     if (this._operationsLookup == undefined) this._createLookupObjects();//build lookup objects if needed
     const colourName = newColour.name || oldColour.name;// set colour name
     let mode, keysArray;
-
     Object.keys(newColour).forEach(x =>{//Loop through object keys of newColour to check for hsl or rgb
       if (this._hslArr.includes(x)){
         mode = 'hsl'; // set mode
         keysArray = this._hslArr; // set keys to hsl
       } else if (this._rgbArr.includes(x)){
-        console.log(x);
         mode = 'rgb'; // set mode
         keysArray = this._rgbArr; // set keys to rgb
       }
       if (mode != null) return;//exit outer loop if assignment has been made
     });
 
-    const returnArray = keysArray.map(x => [x, (newColour[x] == null)? oldColour[x]: this._constraintLookupB[x](this._operationsLookup[newColour[`${x}Operation`] || newColour.operation || 'replace'](oldColour[x], newColour[x]))]);
+    const returnArray = keysArray.map(x => 
+      [x, 
+        (newColour[x] == null)? 
+          oldColour[x]: 
+          this._constraintLookupB[x](this._operationsLookup[newColour[`${x}Operation`] || newColour.operation || 'replace'](oldColour[x], newColour[x]))
+      ]
+    );
 
     const returnObj = Object.fromEntries([['name', colourName],...returnArray]);
 
     return (mode === 'hsl')? 
-    this.fromHsl({...returnObj}):
-    this.fromSrgb({...returnObj});
+      this.fromHsl({...returnObj}): 
+      this.fromSrgb({...returnObj});
   },
  }
- //console.log(colourObject.assign({name: 'fred',hue: 20, sat: 50, lum: 40},{name: 'newFred', hue: 3, hueOperation: 'subtract', sat: 50, operation: 'add'}));
- //console.log(colourObject.assign({name: 'fred',red: 0.5, green: 0.2, blue: 0.4},{name: 'newFred', red: .3, redOperation: 'subtract', green: 0.1, operation: 'add'}));

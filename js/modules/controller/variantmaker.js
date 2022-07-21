@@ -22,21 +22,3 @@ export const variantMaker= {
     return swatchColoursMap;
   },
 }
-/* const mathsChain = {
-  startNumber(x){
-    this.number = x; 
-    return this
-  },
-  add(y){
-    this.number += y;
-    return this
-  },
-  sub(y){this.number -= y
-    return this
-  },
-  answer(){
-    return this.number;
-  }
-}
-
-console.log(mathsChain.startNumber(5).add(2).sub(3).answer()); */
