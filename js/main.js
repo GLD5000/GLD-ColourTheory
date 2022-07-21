@@ -15,12 +15,12 @@ import { variantMaker } from './modules/controller/variantmaker.js';
 //const freshColour = colourObject.fromHex({hex: '#3ad'});
 const freshColour = colourObject.fromHex({name: 'Dr Funky Town', hex: '#3fd'});
 
-console.log(freshColour);
+//console.log(freshColour);
 //console.log(freshColour.hex);
 //freshColour.hex = 0; //error
 
 //console.log(variantMaker);
-console.log(variantMaker.updateSwatchFromHsl({name: 'funky', hue: 3, sat: 2, lum: 1}, {name: 'new', hue: 4}));
+//console.log(variantMaker.updateSwatchFromHsl({name: 'funky', hue: 3, sat: 2, lum: 1}, {name: 'Primary', hue: 4}));
 
 Object.defineProperty(colourObject, '_clamp', {enumerable: false});
 for (const key in colourObject) {
