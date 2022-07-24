@@ -267,12 +267,12 @@ function contrastRatio(...args){
 }
 
 function updateLabels(){
-  const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+  const isHex = (document.getElementById("colourspace-selector").innerHTML === 'Hex');
 
   if (isHex === true){
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'prefix-selector' && id !== 'colourspace-selector' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = document.getElementById(picker).value;
@@ -281,7 +281,7 @@ function updateLabels(){
   } else {
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'prefix-selector' && id !== 'colourspace-selector' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = hexToHSLString(document.getElementById(picker).value);
@@ -338,7 +338,7 @@ function swatchModeSelector(hex, modeValue){
 function updateColour(){
   let mainColourLabel, analogousAColourLabel, analogousBColourLabel, triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
   const modeValue = document.getElementById('mode').innerHTML;    
-  const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+  const isHex = (document.getElementById("colourspace-selector").innerHTML === 'Hex');
   const mainColour = color_picker.value;
   const textColour = setTextColour(mainColour);
   function getColour(name){
@@ -631,9 +631,9 @@ function fillClipboard(){
   const clipboard = document.getElementById("clipboard");
   const clipboardSecondary = document.getElementById("clipboard-secondary");
   const modeValue = document.getElementById('mode').innerHTML;    
-  const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+  const isHex = (document.getElementById("colourspace-selector").innerHTML === 'Hex');
   clipboardSecondary.style.color = isHex? '#ce9178': '#b5cea8';
-  const isSCSS = (document.getElementById("SCSSToggle").innerHTML === 'SCSS');
+  const isSCSS = (document.getElementById("prefix-selector").innerHTML === 'SCSS');
   const clipboardArr = [[], [], []];
   [...pickers].forEach(x => {
     let prefix = isSCSS?`$`:`--`
@@ -764,7 +764,7 @@ function onChangepickers(){
   for (let i in pickers) {
     if (i > 0) { // skip the first one - MainColour
       pickers[i].onchange = () => {
-        const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+        const isHex = (document.getElementById("colourspace-selector").innerHTML === 'Hex');
         const name = pickers[i].id.split('-')[0];
         if (name === 'textColour') {
           fillClipboard();
@@ -815,12 +815,12 @@ function onClickButtons(){
   buttons.forEach(x => {//Assign a function to each button onclick
     const id = x.id;
     if (id === 'copyAllCSS') x.onclick = () => copyAll();
-    if (id === 'SCSSToggle') x.onclick = () => toggleSCSS(x);
-    if (id === 'HSLToggle') x.onclick = () => toggleHSL(x);
+    if (id === 'prefix-selector') x.onclick = () => toggleSCSS(x);
+    if (id === 'colourspace-selector') x.onclick = () => toggleHSL(x);
     if (id === 'randomise') x.onclick = () => randomise();
     if (id === 'dice') x.onclick = () => randomise();
     if (id === 'mode') x.onclick = () => switchColourMode();
-    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice' && id !== 'mode') x.onclick = () => copySingle(x);
+    if (id !== 'copyAllCSS' && id !== 'prefix-selector' && id !== 'colourspace-selector' && id !== 'randomise' && id !== 'dice' && id !== 'mode') x.onclick = () => copySingle(x);
   }); 
  
 }

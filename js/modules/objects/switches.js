@@ -1,3 +1,5 @@
 export const switches = {
-    _modeButton: document.getElementById('primary-mode'),
+    gradientButton: document.getElementById('gradient-selector'),
+    prefixButton: document.getElementById('prefix-selector'),
+    colourspaceButton: document.getElementById('colourspace-selector'),
 }
