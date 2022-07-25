@@ -23,7 +23,7 @@ import{paletteUi} from './modules/view/userobjects.js'
 console.log(paletteUi);//.value
 
 //console.log(variantMaker);
-//console.log(variantMaker.updateSwatchFromHsl({name: 'funky', hue: 3, sat: 2, lum: 1}, {name: 'Primary', hue: 4}));
+//console.log(variantMaker.updateVariants({name: 'funky', hue: 3, sat: 2, lum: 1}, {name: 'Primary', hue: 4}));
 Object.defineProperty(colourObject, '_clamp', {enumerable: false});
 for (const key in colourObject) {
   if (Object.hasOwnProperty.call(colourObject, key) && key[0] === '_') {

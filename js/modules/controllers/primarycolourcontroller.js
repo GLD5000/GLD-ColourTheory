@@ -3,28 +3,17 @@ import { paletteUi } from "../view/userobjects.js";
 import { throttle } from '../classes/throttledebounce.js';
 import {debounceB} from '../classes/throttledebounce.js';
 import { paletteData } from "./storeData.js";
-/* 
-    paletteUi.hueSlider: document.getElementById('slider-a'),//.value
-    paletteUi.satSlider: document.getElementById('slider-b'),//.value
-    paletteUi.lumSlider: document.getElementById('slider-c'),//.value
-    paletteUi.primaryPicker: document.getElementById('primary-picker'),//.value
-    paletteUi.textPicker: document.getElementById('textColour-picker'),//.value
-    paletteUi.textLabel: document.getElementById('textColour-label'),//.dataset.content
-    paletteUi.randomButton: document.getElementById('randomise-btn'),
-    paletteUi.diceButton: document.getElementById('dice-btn'),
-    paletteUi.dieWrapperA: document.getElementById('dieA'),//.value
-    paletteUi.dieWrapperB: document.getElementById('dieB'),//.value
-
-    paletteUi
-*/
-
 export const primaryColourController = {
-    _onInputColour(oldColourObject,colourType){
-        //throttled
-    },
+    _onInputSlider(){
+        const selectColourObject = {
+            hsl: colourObject.fromHsl(...paletteUi.sliders),
+            rgb: colourObject.fromSrgb(...paletteUi.sliders),
+        }
+        paletteData.backgroundColours.set('primary', selectColourObject[paletteUi.buttons[colourspace-selector]]);
 
+    },
     _throttle(){
-        this._throttledOnInputSlider = throttle(() => this._onInputColour(oldColourObject,colourType),85);
+        this._throttledOnInputSlider = throttle(() => this._onInputColour(),85);
         this._throttledUpdateBackgroundColour = throttle(() => this._updateBackgroundColour(),85);
         this._debouncedUpdateSmallSwatches = debounceB(() => this._updateSmallSwatches(),250);
         this._debounceOnChangeTextPicker = debounceB(() => this._onChangeTextPicker(),250);
@@ -37,6 +26,12 @@ export const primaryColourController = {
     },
     _convertHslToString(hue,sat,lum) {
         return `hsl(${Math.round(hue)},${sat.toFixed(1)}%,${lum.toFixed(1)}%)`//this._convertHslToHex(hue, sat, lum);
+    },
+    _convertHslToColourObject(hue,sat,lum){
+      return  {'name': 'primary', 'hue': hue, 'sat': sat, 'lum': lum};
+    },
+    _makeRandomPrimaryColour(){
+        return colourObject.fromHsl(this._convertHslToColourObject(...this._makeRandomHsl()));
     },
     _setRandomDiceColours() {
         this._dieA.style.backgroundColor = this._convertHslToString(...this._makeRandomHsl());    
@@ -72,7 +67,8 @@ export const primaryColourController = {
     },
     
     init() {
-        paletteData.backgroundColours.set('primary', paletteUi.pickers['primary-picker'].value);
+        const newColour = this._makeRandomPrimaryColour();
+        paletteData.addColour(newColour);
         //this._setOnChange();  
         this._throttle();  
     }
