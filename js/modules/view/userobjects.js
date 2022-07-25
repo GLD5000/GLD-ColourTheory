@@ -19,4 +19,4 @@ function setAll(){
 };
 
 
-export const paletteUi = setAll();
+export const userObjects = setAll();
