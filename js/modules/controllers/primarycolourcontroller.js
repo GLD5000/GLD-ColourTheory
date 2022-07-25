@@ -1,11 +1,12 @@
 import { colourObject } from "./colourobject.js";
-import { paletteUi } from "../view/userobjects.js";
+import { paletteUi } from "./paletteui.js";
 import { throttle } from '../classes/throttledebounce.js';
 import {debounceB} from '../classes/throttledebounce.js';
 import { paletteData } from "./storeData.js";
 export const primaryColourController = {
     _onInputSlider(){
         const selectColourObject = {
+            hex: colourObject.fromHsl(...paletteUi.sliders),//fix this will not give valid colour object
             hsl: colourObject.fromHsl(...paletteUi.sliders),
             rgb: colourObject.fromSrgb(...paletteUi.sliders),
         }
@@ -69,6 +70,7 @@ export const primaryColourController = {
     init() {
         const newColour = this._makeRandomPrimaryColour();
         paletteData.addColour(newColour);
+        paletteUi.addColour(newColour);
         //this._setOnChange();  
         this._throttle();  
     }
