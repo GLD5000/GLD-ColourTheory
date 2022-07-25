@@ -1,21 +1,21 @@
 import { colourObject } from "./colourobject.js";
-import { primaryInputs } from "../view/userobjects.js";
+import { paletteUi } from "../view/userobjects.js";
 import { throttle } from '../classes/throttledebounce.js';
 import {debounceB} from '../classes/throttledebounce.js';
 import { paletteData } from "./storeData.js";
 /* 
-    primaryInputs.hueSlider: document.getElementById('slider-a'),//.value
-    primaryInputs.satSlider: document.getElementById('slider-b'),//.value
-    primaryInputs.lumSlider: document.getElementById('slider-c'),//.value
-    primaryInputs.primaryPicker: document.getElementById('primary-picker'),//.value
-    primaryInputs.textPicker: document.getElementById('textColour-picker'),//.value
-    primaryInputs.textLabel: document.getElementById('textColour-label'),//.dataset.content
-    primaryInputs.randomButton: document.getElementById('randomise-btn'),
-    primaryInputs.diceButton: document.getElementById('dice-btn'),
-    primaryInputs.dieWrapperA: document.getElementById('dieA'),//.value
-    primaryInputs.dieWrapperB: document.getElementById('dieB'),//.value
+    paletteUi.hueSlider: document.getElementById('slider-a'),//.value
+    paletteUi.satSlider: document.getElementById('slider-b'),//.value
+    paletteUi.lumSlider: document.getElementById('slider-c'),//.value
+    paletteUi.primaryPicker: document.getElementById('primary-picker'),//.value
+    paletteUi.textPicker: document.getElementById('textColour-picker'),//.value
+    paletteUi.textLabel: document.getElementById('textColour-label'),//.dataset.content
+    paletteUi.randomButton: document.getElementById('randomise-btn'),
+    paletteUi.diceButton: document.getElementById('dice-btn'),
+    paletteUi.dieWrapperA: document.getElementById('dieA'),//.value
+    paletteUi.dieWrapperB: document.getElementById('dieB'),//.value
 
-    primaryInputs
+    paletteUi
 */
 
 export const primaryColourController = {
@@ -43,17 +43,17 @@ export const primaryColourController = {
         this._dieB.style.backgroundColor = this._convertHslToString(...this._makeRandomHsl());    
     },
     _sliderOnInput(){
-
+        //(paletteUi.buttons.colourspace-selector.value === 'rgb')?
     },
     _setOnChange() {
-        primaryInputs.sliders.forEach((x,i) => x.oninput = (i) => this._sliderOnInput(i));
-        primaryInputs.primaryPicker.oninput = () => {this._onchange()};
-        primaryInputs.textPicker= () => {this._onchange()};
-        primaryInputs.textLabel= () => {this._onchange()};
-        primaryInputs.randomButton= () => {this._onchange()};
-        primaryInputs.diceButton= () => {this._onchange()};
-        primaryInputs.dieWrapperA= () => {this._onchange()};
-        primaryInputs.dieWrapperB= () => {this._onchange()};
+        Object.keys(paletteUi.sliders).forEach((x,i) => x.oninput = (i) => this._sliderOnInput(i));
+        paletteUi.primaryPicker.oninput = () => {this._onchange()};
+        paletteUi.textPicker= () => {this._onchange()};
+        paletteUi.textLabel= () => {this._onchange()};
+        paletteUi.randomButton= () => {this._onchange()};
+        paletteUi.diceButton= () => {this._onchange()};
+        paletteUi.dieWrapperA= () => {this._onchange()};
+        paletteUi.dieWrapperB= () => {this._onchange()};
     }, 
     _updateSmallSwatches(){
         this._smallSwatchesGroup.updateSwatches(this._colourBackground.hex);
@@ -72,7 +72,7 @@ export const primaryColourController = {
     },
     
     init() {
-        paletteData.backgroundColours.set('primary', primaryInputs.pickers['primary-picker'].value);
+        paletteData.backgroundColours.set('primary', paletteUi.pickers['primary-picker'].value);
         //this._setOnChange();  
         this._throttle();  
     }

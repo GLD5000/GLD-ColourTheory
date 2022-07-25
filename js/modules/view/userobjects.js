@@ -13,8 +13,10 @@ function setAll(){
         document.querySelectorAll(selector[1]).forEach( x =>
             returnObject[selector[0]][x.id] = document.getElementById(x.id));
         }        );
+    returnObject.swatchNamesArray = [];
+    Object.keys(returnObject.pickers).forEach(x => returnObject.swatchNamesArray.push(x.split('-')[0]));
     return returnObject;
 };
 
 
-export const primaryInputs = setAll();
+export const paletteUi = setAll();

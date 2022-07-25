@@ -8,7 +8,7 @@ import {colourObject} from './modules/controllers/colourobject.js';
 import { variantMaker } from './modules/controllers/variantmaker.js';
 import { primaryColourController } from './modules/controllers/primarycolourcontroller.js';
 import { paletteData } from './modules/controllers/storeData.js';
-import{primaryInputs} from './modules/view/userobjects.js'
+import{paletteUi} from './modules/view/userobjects.js'
 //colourObject.log();
 //const oldColour = {hue: 20, sat: 50, lum: 10};
 //const newColour = {hue: 300, hueOperation: 'replace', lum: 40, lumOperation: 'replace', sat: 1.1, operation: 'multiply'};
@@ -20,7 +20,7 @@ import{primaryInputs} from './modules/view/userobjects.js'
 //console.log(freshColour);
 //console.log(freshColour.hex);
 //freshColour.hex = 0; //error
-console.log(primaryInputs);//.value
+console.log(paletteUi);//.value
 
 //console.log(variantMaker);
 //console.log(variantMaker.updateSwatchFromHsl({name: 'funky', hue: 3, sat: 2, lum: 1}, {name: 'Primary', hue: 4}));
