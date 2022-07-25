@@ -299,7 +299,7 @@ function setTextColour(colour){
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
   color_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;// this disables the main colour picker
   textPicker.value = textColour;
-  document.getElementById('textColour-wrapper').dataset.content = 'Text: Auto';
+  document.getElementById('textColour-label').dataset.content = 'Text: Auto';
   return textColour;
 }
 
@@ -311,7 +311,7 @@ function customTextColour(){
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
   color_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;
   //color_picker_wrapper.style.color = textColour;
-  document.getElementById('textColour-wrapper').dataset.content = 'Text: Custom' ;
+  document.getElementById('textColour-label').dataset.content = 'Text: Custom' ;
 
   pickers.forEach((x, i) =>{
     const name = pickers[i].id.split('-')[0];
@@ -605,14 +605,14 @@ function linearGradientMultiTone(hex){
 
 
 function adjustHue(){
-  const newHue = document.getElementById("hue-slider").value;
+  const newHue = document.getElementById("slider-a").value;
   color_picker.value = hslToHex(...hueChangeHSL(...hexToHSL(color_picker.value), newHue));
  ////console.log(newHue);
   updateColour();
 }
 
 function adjustLum(){
-const newLum = document.getElementById("lum-slider").value;
+const newLum = document.getElementById("slider-c").value;
 color_picker.value = hslToHex(...lumChangeHSL(...hexToHSL(color_picker.value), newLum));
   //console.log(newLum);
   updateColour();
@@ -620,7 +620,7 @@ color_picker.value = hslToHex(...lumChangeHSL(...hexToHSL(color_picker.value), n
 
 
 function adjustSat(){
-const newSat = document.getElementById("sat-slider").value;
+const newSat = document.getElementById("slider-b").value;
 color_picker.value = hslToHex(...satChangeHSL(...hexToHSL(color_picker.value), newSat));
   //console.log(newSat);
   updateColour();

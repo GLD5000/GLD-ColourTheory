@@ -31,6 +31,17 @@
 .sat{
   background:$desaturated-rainbow-gradient;
 }
+
+.red{
+  background:linear-gradient(to left, #000,#d00);
+}
+.green{
+background:linear-gradient(to left, #000,#0d0);
+}
+.blue{
+background:linear-gradient(to left, #000,#00d);
+}
+
 input[type=range]:focus, input[type=range]:hover{
   border: solid 2px #fff;
 }

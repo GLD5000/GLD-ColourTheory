@@ -22,19 +22,19 @@
     
       <container class="primary-swatch" name="primary Colour">
         <container class="slider-container">
-          <input type="range" min="0" max="359" class="slider hue" id="hue-slider" name="Hue"></input>
-          <input type="range" min="20" max="95" class="slider lum" id="lum-slider" name="Luminance"></input>
-          <input type="range" min="0" max="99" class="slider sat" id="sat-slider" name="Saturation"></input>
+          <input type="range" min="0" max="359" class="slider hue" id="slider-a" name="Hue"></input>
+          <input type="range" min="20" max="95" class="slider lum" id="slider-c" name="Luminance"></input>
+          <input type="range" min="0" max="99" class="slider sat" id="slider-b" name="Saturation"></input>
         </container>
           
-        <wrapper id="primaryColour-wrapper" class="primaryColour-wrapper" name="primary Colour" data-content="">
-          <input type="color" id="primaryColour-picker" class="picker large-picker"></input>
+        <wrapper id="primary-wrapper" class="primary-wrapper" name="Primary Colour" data-content="">
+          <input type="color" id="primary-picker" class="picker large-picker"></input>
         </wrapper>
-        <wrapper class="flexbox-horizontal-btn">
-          <button class="btn btn-med copy-single btn-dual" id="primaryColour-copybtn" ></button>
-          <wrapper id="textColour-wrapper" class="textColour-wrapper" data-content=""><input type="color" id="textColour-picker" class="picker textColour-picker"></input></wrapper>
+        <container class="flexbox-horizontal-btn">
+          <button class="btn btn-med copy-single btn-dual" id="primary-copybtn" ></button>
+          <label id="textColour-label" class="textColour-label" data-content=""><input type="color" id="textColour-picker" class="picker textColour-picker"></input></label>
           <button class="btn btn-med btn-dual mode" id="gradient-selector">Mode: Single</button>
-          </wrapper>
+        </container>
       </container>
     
       
@@ -68,12 +68,12 @@
         <button class="btn btn-med copy-single" id="analogousB-copybtn" ></button>
       </container>
 
-      <wrapper class="swatch triadicA">
+      <container class="swatch triadicA">
         <wrapper id="triadicA-wrapper" class="picker-wrapper triadicA-wrapper"  name="Triadic A">
           <input type="color" id="triadicA-picker" class="picker triadicA-picker"></input>
         </wrapper>
         <button class="btn btn-med copy-single" id="triadicA-copybtn" ></button>
-      </wrapper>
+      </container>
 
       <container class="swatch triadicB">
         <wrapper id="triadicB-wrapper" class="picker-wrapper triadicB-wrapper"  name="Triadic B">
@@ -112,31 +112,31 @@
         
       <container class="btn-container btn-copy">
 
-        <wrapper id="clipboard-flexbox" class="flexbox-horizontal flexbox-clipboard">
+        <container id="clipboard-flexbox" class="flexbox-horizontal flexbox-clipboard">
           <figure id="clipboard" class="clipboard" data-clipboard=""></figure>
           <figure id="clipboard-secondary" class="clipboard-secondary"></figure>
-        </wrapper>
+        </container>
 
-        <wrapper class="flexbox-horizontal-btn">
+        <container class="flexbox-horizontal-btn">
           <button class="btn btn-small copy-single" id="copyAllCSS">Copy All</button>
           <button class="btn btn-tiny" id="prefix-selector">SCSS</button>
           <button class="btn btn-tiny" id="colourspace-selector">Hex</button>
-        </wrapper>
+        </container>
       </container>
 
       <container class="btn-container btn-random">
         <button class="btn dice" id="dice-btn">
-          <container class="dieA" id="dieA">
+          <wrapper class="dieA" id="dieA">
             <figure class="dots dotA"></figure>
             <figure class="dots dotB"></figure>
             <figure class="dots dotC"></figure>
-          </container>
-          <container class="dieB" id="dieB">
+          </wrapper>
+          <wrapper class="dieB" id="dieB">
             <figure class="dots dotD"></figure>
             <figure class="dots dotE"></figure>
             <figure class="dots dotF"></figure>
             <figure class="dots dotG"></figure>
-          </container>
+          </wrapper>
         </button>
         <button class="btn btn-med" id="randomise-btn" >Random</button>
       </container>

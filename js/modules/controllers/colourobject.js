@@ -1,3 +1,5 @@
+//Creates colours
+
 export const colourObject= {
   _clamp(value, min = 0, max = 100) {
     return Math.min(Math.max(min, value),max);
@@ -144,7 +146,7 @@ export const colourObject= {
     this._hslArr = ['hue','sat','lum'];
     this._rgbArr = ['red','green','blue'];
   },
-  assign(oldColour, newColour) {
+  assign(oldColour, newColour) {//default mode is replace
     if (newColour.hasOwnProperty('hex')) return 'Error: Hex found in newColour object';//Exit for Hex
     if (this._operationsLookup == undefined) this._createLookupObjects();//build lookup objects if needed
     const colourName = newColour.name || oldColour.name;// set colour name
