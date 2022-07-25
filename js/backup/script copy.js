@@ -267,12 +267,12 @@ function contrastRatio(...args){
 }
 
 function updateLabels(){
-  const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+  const isHex = (document.getElementById("colourspace-selector").innerHTML === 'Hex');
 
   if (isHex === true){
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'prefix-selector' && id !== 'colourspace-selector' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = document.getElementById(picker).value;
@@ -281,7 +281,7 @@ function updateLabels(){
   } else {
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'prefix-selector' && id !== 'colourspace-selector' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = hexToHSLString(document.getElementById(picker).value);
@@ -299,7 +299,7 @@ function setTextColour(colour){
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
   color_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;// this disables the main colour picker
   textPicker.value = textColour;
-  document.getElementById('textColour-wrapper').dataset.content = 'Text: Auto';
+  document.getElementById('textColour-label').dataset.content = 'Text: Auto';
   return textColour;
 }
 
@@ -311,7 +311,7 @@ function customTextColour(){
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
   color_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;
   //color_picker_wrapper.style.color = textColour;
-  document.getElementById('textColour-wrapper').dataset.content = 'Text: Custom' ;
+  document.getElementById('textColour-label').dataset.content = 'Text: Custom' ;
 
   pickers.forEach((x, i) =>{
     const name = pickers[i].id.split('-')[0];
@@ -338,7 +338,7 @@ function swatchModeSelector(hex, modeValue){
 function updateColour(){
   let mainColourLabel, analogousAColourLabel, analogousBColourLabel, triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
   const modeValue = document.getElementById('mode').innerHTML;    
-  const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+  const isHex = (document.getElementById("colourspace-selector").innerHTML === 'Hex');
   const mainColour = color_picker.value;
   const textColour = setTextColour(mainColour);
   function getColour(name){
@@ -605,14 +605,14 @@ function linearGradientMultiTone(hex){
 
 
 function adjustHue(){
-  const newHue = document.getElementById("hue-slider").value;
+  const newHue = document.getElementById("slider-a").value;
   color_picker.value = hslToHex(...hueChangeHSL(...hexToHSL(color_picker.value), newHue));
  ////console.log(newHue);
   updateColour();
 }
 
 function adjustLum(){
-const newLum = document.getElementById("lum-slider").value;
+const newLum = document.getElementById("slider-c").value;
 color_picker.value = hslToHex(...lumChangeHSL(...hexToHSL(color_picker.value), newLum));
   //console.log(newLum);
   updateColour();
@@ -620,7 +620,7 @@ color_picker.value = hslToHex(...lumChangeHSL(...hexToHSL(color_picker.value), n
 
 
 function adjustSat(){
-const newSat = document.getElementById("sat-slider").value;
+const newSat = document.getElementById("slider-b").value;
 color_picker.value = hslToHex(...satChangeHSL(...hexToHSL(color_picker.value), newSat));
   //console.log(newSat);
   updateColour();
@@ -631,9 +631,9 @@ function fillClipboard(){
   const clipboard = document.getElementById("clipboard");
   const clipboardSecondary = document.getElementById("clipboard-secondary");
   const modeValue = document.getElementById('mode').innerHTML;    
-  const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+  const isHex = (document.getElementById("colourspace-selector").innerHTML === 'Hex');
   clipboardSecondary.style.color = isHex? '#ce9178': '#b5cea8';
-  const isSCSS = (document.getElementById("SCSSToggle").innerHTML === 'SCSS');
+  const isSCSS = (document.getElementById("prefix-selector").innerHTML === 'SCSS');
   const clipboardArr = [[], [], []];
   [...pickers].forEach(x => {
     let prefix = isSCSS?`$`:`--`
@@ -764,7 +764,7 @@ function onChangepickers(){
   for (let i in pickers) {
     if (i > 0) { // skip the first one - MainColour
       pickers[i].onchange = () => {
-        const isHex = (document.getElementById("HSLToggle").innerHTML === 'Hex');
+        const isHex = (document.getElementById("colourspace-selector").innerHTML === 'Hex');
         const name = pickers[i].id.split('-')[0];
         if (name === 'textColour') {
           fillClipboard();
@@ -815,12 +815,12 @@ function onClickButtons(){
   buttons.forEach(x => {//Assign a function to each button onclick
     const id = x.id;
     if (id === 'copyAllCSS') x.onclick = () => copyAll();
-    if (id === 'SCSSToggle') x.onclick = () => toggleSCSS(x);
-    if (id === 'HSLToggle') x.onclick = () => toggleHSL(x);
+    if (id === 'prefix-selector') x.onclick = () => toggleSCSS(x);
+    if (id === 'colourspace-selector') x.onclick = () => toggleHSL(x);
     if (id === 'randomise') x.onclick = () => randomise();
     if (id === 'dice') x.onclick = () => randomise();
     if (id === 'mode') x.onclick = () => switchColourMode();
-    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise' && id !== 'dice' && id !== 'mode') x.onclick = () => copySingle(x);
+    if (id !== 'copyAllCSS' && id !== 'prefix-selector' && id !== 'colourspace-selector' && id !== 'randomise' && id !== 'dice' && id !== 'mode') x.onclick = () => copySingle(x);
   }); 
  
 }

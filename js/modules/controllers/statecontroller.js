@@ -38,13 +38,13 @@ class PrimarySwatch{
     }
     _getElements(name) {
           //elements
-          this._hueSlider = document.getElementById('hue-slider');
-          this._satSlider = document.getElementById('sat-slider');
-          this._lumSlider = document.getElementById('lum-slider');
+          this._hueSlider = document.getElementById('slider-a');
+          this._satSlider = document.getElementById('slider-b');
+          this._lumSlider = document.getElementById('slider-c');
           this._picker = document.getElementById(name + '-picker');
           this._copyButton = new CopyButton(name);
           this._textPicker = document.getElementById('textColour-picker');
-          this._textWrapper = document.getElementById('textColour-wrapper');
+          this._textWrapper = document.getElementById('textColour-label');
           this._modeButton = document.getElementById(name + '-mode');
           this._randomButton = document.getElementById('randomise-btn');
           this._diceButton = document.getElementById('dice-btn');

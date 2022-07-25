@@ -6,6 +6,9 @@ import { throttle } from './modules/classes/throttledebounce.js';
 import {debounceB} from './modules/classes/throttledebounce.js';
 import {colourObject} from './modules/controllers/colourobject.js';
 import { variantMaker } from './modules/controllers/variantmaker.js';
+import { primaryColourController } from './modules/controllers/primarycolourcontroller.js';
+import { paletteData } from './modules/controllers/storeData.js';
+import{paletteUi} from './modules/view/userobjects.js'
 //colourObject.log();
 //const oldColour = {hue: 20, sat: 50, lum: 10};
 //const newColour = {hue: 300, hueOperation: 'replace', lum: 40, lumOperation: 'replace', sat: 1.1, operation: 'multiply'};
@@ -13,15 +16,14 @@ import { variantMaker } from './modules/controllers/variantmaker.js';
 //const freshColour = colourObject.fromSrgb({red: 20, green: 50, blue: 40});
 //const freshColour = colourObject.fromSrgb({red: .2, green: .50, blue: .40});
 //const freshColour = colourObject.fromHex({hex: '#3ad'});
-const freshColour = colourObject.fromHex({name: 'Dr Funky Town', hex: '#3fd'});
-
+//const freshColour = colourObject.fromHex({name: 'Dr Funky Town', hex: '#3fd'});
 //console.log(freshColour);
 //console.log(freshColour.hex);
 //freshColour.hex = 0; //error
+console.log(paletteUi);//.value
 
 //console.log(variantMaker);
-//console.log(variantMaker.updateSwatchFromHsl({name: 'funky', hue: 3, sat: 2, lum: 1}, {name: 'Primary', hue: 4}));
-
+//console.log(variantMaker.updateVariants({name: 'funky', hue: 3, sat: 2, lum: 1}, {name: 'Primary', hue: 4}));
 Object.defineProperty(colourObject, '_clamp', {enumerable: false});
 for (const key in colourObject) {
   if (Object.hasOwnProperty.call(colourObject, key) && key[0] === '_') {
@@ -138,9 +140,9 @@ let nulled = true;
   console.log(`!![${x}] evaluates to [${!!x}] boolean`);
 }); 
  */
-const colour_picker = document.getElementById('primaryColour-picker');
-const colour_picker_wrapper = document.getElementById('primaryColour-wrapper');
-const colour_picker_hex_label = document.getElementById('primaryColour-copybtn');
+const colour_picker = document.getElementById('primary-picker');
+const colour_picker_wrapper = document.getElementById('primary-wrapper');
+const colour_picker_hex_label = document.getElementById('primary-copybtn');
 const pickers = document.querySelectorAll('input[type="color"]');
 const buttons = document.querySelectorAll('button');
 
@@ -306,14 +308,14 @@ class PrimarySwatch{
   }
   _getElements(name) {
         //elements
-        this._hueSlider = document.getElementById('hue-slider');
-        this._satSlider = document.getElementById('sat-slider');
-        this._lumSlider = document.getElementById('lum-slider');
+        this._hueSlider = document.getElementById('slider-a');
+        this._satSlider = document.getElementById('slider-b');
+        this._lumSlider = document.getElementById('slider-c');
         this._picker = document.getElementById(name + '-picker');
         this._copyButton = new CopyButton(name);
         this._textPicker = document.getElementById('textColour-picker');
-        this._textWrapper = document.getElementById('textColour-wrapper');
-        this._modeButton = document.getElementById(name + '-mode');
+        this._textWrapper = document.getElementById('textColour-label');
+        this._modeButton = document.getElementById('gradient-selector');
         this._randomButton = document.getElementById('randomise-btn');
         this._diceButton = document.getElementById('dice-btn');
         this._dieA = document.getElementById('dieA');
@@ -445,7 +447,7 @@ class PrimarySwatch{
 class Palette{
   constructor() {
     
-    this._primaryColourSwatch = new PrimarySwatch('primaryColour');
+    this._primaryColourSwatch = new PrimarySwatch('primary');
   }
   
 }
@@ -518,12 +520,12 @@ class ColourAutoText extends Colour{
   }
 }
 function updateLabels() {
-  const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
+  const isHex = (document.getElementById('colourspace-selector').innerHTML === 'Hex');
 
   if (isHex === true) {
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise-btn' && id !== 'dice-btn' && id !== 'mode') {//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'prefix-selector' && id !== 'colourspace-selector' && id !== 'randomise-btn' && id !== 'dice-btn' && id !== 'mode') {//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = document.getElementById(picker).value;
@@ -532,7 +534,7 @@ function updateLabels() {
   }else{
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise-btn' && id !== 'dice-btn' && id !== 'mode') {//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'prefix-selector' && id !== 'colourspace-selector' && id !== 'randomise-btn' && id !== 'dice-btn' && id !== 'mode') {//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = hexToHSLString(document.getElementById(picker).value);
@@ -550,7 +552,7 @@ function setTextColour(colour) {
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
   colour_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)}${rating}`;
   textPicker.value = textColour;
-  document.getElementById('textColour-wrapper').dataset.content = 'Text: Auto';
+  document.getElementById('textColour-label').dataset.content = 'Text: Auto';
   return textColour;
 }
 function customTextColour() {
@@ -561,7 +563,7 @@ function customTextColour() {
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
   colour_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)}${rating}`;
   //colour_picker_wrapper.style.color = textColour;
-  document.getElementById('textColour-wrapper').dataset.content = 'Text: Custom' ;
+  document.getElementById('textColour-label').dataset.content = 'Text: Custom' ;
 
   pickers.forEach((x, i) =>{
     const name = pickers[i].id.split('-')[0];
@@ -585,8 +587,8 @@ function swatchModeSelector(hex, modeValue) {
 }
 function updateColour() {
   let primaryColourLabel, analogousAColourLabel, analogousBColourLabel, triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
-  const modeValue = document.getElementById('primaryColour-mode').innerHTML;    
-  const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
+  const modeValue = document.getElementById('gradient-selector').innerHTML;    
+  const isHex = (document.getElementById('colourspace-selector').innerHTML === 'Hex');
   const primaryColour = colour_picker.value;
   const textColour = setTextColour(primaryColour);
   function getColour(name) {
@@ -783,10 +785,10 @@ function linearGradientMultiTone(hex) {
 function fillClipboard() {
   const clipboard = document.getElementById('clipboard');
   const clipboardSecondary = document.getElementById('clipboard-secondary');
-  const modeValue = document.getElementById('primaryColour-mode').innerHTML;    
-  const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
+  const modeValue = document.getElementById('gradient-selector').innerHTML;    
+  const isHex = (document.getElementById('colourspace-selector').innerHTML === 'Hex');
   clipboardSecondary.style.color = isHex? '#ce9178': '#b5cea8';
-  const isSCSS = (document.getElementById('SCSSToggle').innerHTML === 'SCSS');
+  const isSCSS = (document.getElementById('prefix-selector').innerHTML === 'SCSS');
   const clipboardArr = [[], [], []];
   [...pickers].forEach(x =>{
     let prefix = isSCSS?`$`:`--`
@@ -874,7 +876,7 @@ function onChangepickers() {
   for (let i in pickers) {
     if (i > 0) { // skip the first one - primaryColour
       pickers[i].onchange = () =>{
-        const isHex = (document.getElementById('HSLToggle').innerHTML === 'Hex');
+        const isHex = (document.getElementById('colourspace-selector').innerHTML === 'Hex');
         const name = pickers[i].id.split('-')[0];
         if (name === 'textColour') {
           fillClipboard();
@@ -918,12 +920,12 @@ function onClickButtons() {
   buttons.forEach(x =>{//Assign a function to each button onclick
     const id = x.id;
     if (id === 'copyAllCSS') x.onclick = () => copyAll();
-    if (id === 'SCSSToggle') x.onclick = () => toggleScss(x);
-    if (id === 'HSLToggle') x.onclick = () => toggleHsl(x);
+    if (id === 'prefix-selector') x.onclick = () => toggleScss(x);
+    if (id === 'colourspace-selector') x.onclick = () => toggleHsl(x);
   //  if (id === 'randomise-btn') x.onclick = () => randomise();
     //if (id === 'dice-btn') x.onclick = () => randomise();
     if (id === 'mode') x.onclick = () => switchColourMode();
-    if (id !== 'copyAllCSS' && id !== 'SCSSToggle' && id !== 'HSLToggle' && id !== 'randomise-btn' && id !== 'dice-btn' && id !== 'mode') x.onclick = () => copySingle(x);
+    if (id !== 'copyAllCSS' && id !== 'prefix-selector' && id !== 'colourspace-selector' && id !== 'randomise-btn' && id !== 'dice-btn' && id !== 'mode') x.onclick = () => copySingle(x);
   }); 
  
 }
@@ -1009,7 +1011,7 @@ function randomise() {
   randomDiceColours();
 }
 function switchColourMode() {
-  const modeSwitch = document.getElementById('primaryColour-mode');    
+  const modeSwitch = document.getElementById('gradient-selector');    
   const modeValue = modeSwitch.innerHTML; 
   if (modeValue === 'Mode: Single') {
     modeSwitch.innerHTML = 'Mode: Triple';
@@ -1078,3 +1080,5 @@ console.log(testSingletonb);
 }
 
 console.log(mathsChain.startNumber(5).add(2).sub(3).answer()); */
+primaryColourController.init();
+console.log(paletteData);//.value

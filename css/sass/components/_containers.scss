@@ -71,10 +71,10 @@
   position: relative;
   color:black;
 }
-.primaryColour-wrapper:hover, .picker-wrapper:hover{
+.primary-wrapper:hover, .picker-wrapper:hover{
   border: solid 2px $neutral-500;
 }
-.primaryColour-wrapper:focus-within, .picker-wrapper:focus-within {
+.primary-wrapper:focus-within, .picker-wrapper:focus-within {
   border: solid 4px white;
 }
 
@@ -87,12 +87,12 @@
   line-height: 90%;
 }
 
-.primaryColour-wrapper{
+.primary-wrapper{
   //padding: 0.1em;
   position: relative;
   }
   
-.primaryColour-wrapper::before{
+.primary-wrapper::before{
   content: attr(name);
   position: absolute;
   text-align: center; 
@@ -102,7 +102,7 @@
   line-height: 90%;
   font-size: $gem3;
 }
-.primaryColour-wrapper::after{
+.primary-wrapper::after{
   content: attr(data-content);
   position: absolute;
   text-align: center; 
