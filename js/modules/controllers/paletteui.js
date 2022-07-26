@@ -1,12 +1,6 @@
 import { userObjects } from "../view/userobjects.js";
 
 export const paletteUi = {
-    const selectColourObject = {
-        'hex': [hue, sat, lum],
-        'hsl': [hue, sat, lum],
-        'rgb': [red, green, blue],
-    };
-
     _addPrimaryColour(newColour){
         const {hue, sat, lum, red, green, blue, hex, name} = newColour;
         const selectColourObject = {
