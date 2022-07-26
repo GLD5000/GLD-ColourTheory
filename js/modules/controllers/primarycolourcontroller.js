@@ -6,9 +6,9 @@ import { paletteData } from "./storeData.js";
 export const primaryColourController = {
     _onInputSlider(){
         const selectColourObject = {
-            hex: colourObject.fromHsl(...paletteUi.sliders),//fix this will not give valid colour object
-            hsl: colourObject.fromHsl(...paletteUi.sliders),
-            rgb: colourObject.fromSrgb(...paletteUi.sliders),
+            hex: colourObject.fromHsl(paletteUi.getSliderColourObject()),//working not tested
+            hsl: colourObject.fromHsl(paletteUi.getSliderColourObject()),
+            rgb: colourObject.fromSrgb(paletteUi.getSliderColourObject()),
         }
         paletteData.backgroundColours.set('primary', selectColourObject[paletteUi.buttons[colourspace-selector]]);
 
