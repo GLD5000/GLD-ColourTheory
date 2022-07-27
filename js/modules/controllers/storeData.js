@@ -4,5 +4,8 @@ export const paletteData = {
     customColours: new Map(),
     addColour(colour){
         this.backgroundColours.set(colour.name, colour);
-    },    
+    },  
+    getPickerColour(name){
+        return this.backgroundColours.get(name).hex;
+    }  
 }

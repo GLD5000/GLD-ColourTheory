@@ -1,5 +1,6 @@
 import { userObjects } from "../view/userobjects.js";
 import { colourObject} from '../controllers/colourobject.js';
+import { paletteData } from "./storeData.js";
 /**
  * add on input
  * add throttle debounce
@@ -17,16 +18,6 @@ export const paletteUi = {
     _getSliderValues(){
         return userObjects.sliders.map(x => x.value);
     },
-    _setOnChange() {
-        Object.keys(paletteUi.sliders).forEach((x,i) => x.oninput = (i) => this._sliderOnInput(i));
-        paletteUi.primaryPicker.oninput = () => {this._onchange()};
-        paletteUi.textPicker= () => {this._onchange()};
-        paletteUi.textLabel= () => {this._onchange()};
-        paletteUi.randomButton= () => {this._onchange()};
-        paletteUi.diceButton= () => {this._onchange()};
-        paletteUi.dieWrapperA= () => {this._onchange()};
-        paletteUi.dieWrapperB= () => {this._onchange()};
-    }, 
     _addPrimaryColour(newColour){
         const {hue, sat, lum, red, green, blue, hex} = newColour;
         const selectColourObject = {
@@ -45,7 +36,7 @@ export const paletteUi = {
         }
         userObjects.pickers[newColour.name + '-picker'].value = newColour.hex;
     },
-    getSliderColourObject(){
+    _getSliderColourObject(){
         const selectColourObject = {
             'hex': ['hue', 'sat', 'lum'],
             'hsl': ['hue', 'sat', 'lum'],
@@ -59,6 +50,23 @@ export const paletteUi = {
 
         keysArray.forEach((x, i) => returnObject[x] = sliderValuesArray[i] );
         
-        return returnObject;
-    }
+        return colourObject.fromHsl(returnObject);
+    },
+    _oninputSliders(){
+        paletteData.addColour(this._getSliderColourObject(){});//update data store
+        userObjects.pickers['primary-picker'].value = paletteData.getPickerColour['primary'];//get hex from data store
+        //throttled debounced variant update
+        //throttled debounced gradient update
+    },
+    _setOnChange() {
+        paletteUi.sliders.forEach((x) => x.oninput = () => this._oninputSliders());
+        paletteUi.primaryPicker.oninput = () => {this._onchange()};
+        paletteUi.textPicker= () => {this._onchange()};
+        paletteUi.textLabel= () => {this._onchange()};
+        paletteUi.randomButton= () => {this._onchange()};
+        paletteUi.diceButton= () => {this._onchange()};
+        paletteUi.dieWrapperA= () => {this._onchange()};
+        paletteUi.dieWrapperB= () => {this._onchange()};
+    }, 
+
 }
