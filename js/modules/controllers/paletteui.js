@@ -24,8 +24,8 @@ export const paletteUi = {
             'hsl': [hue, sat, lum],
             'rgb': [red, green, blue],
         };
-        userObjects.sliders.forEach((x,i) => x.value = selectColourObject[userObjects.buttons['colourspace-selector'].innerHTML.toLowerCase()][i]);
-        //[userObjects.sliders['slider-a'].value, userObjects.sliders['slider-b'].value, userObjects.sliders['slider-c'].value] = selectColourObject[userObjects.buttons['colourspace-selector'].innerHTML.toLowerCase()];
+        const colourspace = userObjects.buttons['colourspace-selector'].innerHTML.toLowerCase();
+        userObjects.sliders.forEach((x,i) => x.value = selectColourObject[colourspace][i]);
         userObjects.pickers['primary-picker'].value = newColour.hex;
     },
     addColour(newColour){
