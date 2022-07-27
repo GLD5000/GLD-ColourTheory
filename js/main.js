@@ -475,7 +475,6 @@ class SuffixStops{
       8: ['100','200','300','400','500','600','700','800'],
       9: ['100','200','300','400','500','600','700','800','900'],
       10: ['50','100','200','300','400','500','600','700','800','900'],
-      
     }
     this._suffixesArr = this._suffixise(this._names[stops]);
 
@@ -894,12 +893,12 @@ function onChangepickers() {
     }
   }
 }
-function copySingle(e) {
+/* function copySingle(e) {
   let text = e.innerHTML;
     navigator.clipboard.writeText(text);
     alert('Copied: ' + text);
 }
-function toggleHsl(e) {
+ */function toggleHsl(e) {
  if (e.innerHTML === 'Hex') {
   e.innerHTML = 'HSL';
   updateLabels();
@@ -917,7 +916,7 @@ function toggleScss(e) {
   fillClipboard();
 
  }
-function onClickButtons() {
+/* function onClickButtons() {
   buttons.forEach(x =>{//Assign a function to each button onclick
     const id = x.id;
     if (id === 'copyAllCSS') x.onclick = () => copyAll();
@@ -930,10 +929,10 @@ function onClickButtons() {
   }); 
  
 }
-function onLoad() {
+ */function onLoad() {
   
-  onClickButtons();
-  //const palette = new Palette;
+/*   onClickButtons();
+ */  //const palette = new Palette;
   //console.log(palette);
   
 /*

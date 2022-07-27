@@ -146,6 +146,9 @@ export const colourObject= {
     this._hslArr = ['hue','sat','lum'];
     this._rgbArr = ['red','green','blue'];
   },
+  hslString(colour){
+    return `hsl(${Math.round(colour.hue)},${colour.sat.toFixed(1)}%,${colour.lum.toFixed(1)}%)`;
+  },
   assign(oldColour, newColour) {//default mode is replace
     if (newColour.hasOwnProperty('hex')) return 'Error: Hex found in newColour object';//Exit for Hex
     if (this._operationsLookup == undefined) this._createLookupObjects();//build lookup objects if needed

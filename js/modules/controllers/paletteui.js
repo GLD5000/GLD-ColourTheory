@@ -4,6 +4,7 @@ import { paletteData } from "./storeData.js";
 import { throttle } from '../classes/throttledebounce.js';
 import {debounceB} from '../classes/throttledebounce.js';
 import { variantMaker } from "./variantmaker.js";
+import { gradientMaker } from "./gradientmaker.js";
 
 /**
  * add on input
@@ -13,10 +14,20 @@ import { variantMaker } from "./variantmaker.js";
  * trigger update on gradient maker etc
  */
 export const paletteUi = {
-    _throttle(){
+
+    _clamp(value, min = 0, max = 100) {
+        return Math.min(Math.max(min, value),max);
+      },
+      _rotate(x, min = 0, max = 360) {
+        if (x > max) x -= parseInt(x/max)*max;
+        if (x < min) x -= parseInt(x/max)*max -max;
+        return x;
+      },
+    
+    _init(){
         
         this._updateVariants = debounceB(() => variantMaker.updateVariants(),250);//working
-        //this._throttledUpdateBackgroundColour = throttle(() => this._updateBackgroundColour(),85);
+        this._updatePrimaryGradient = throttle(() => this._updateBackgroundColour(),85);
         //this._debounceOnChangeTextPicker = debounceB(() => this._onChangeTextPicker(),250);
         
       },
@@ -79,17 +90,22 @@ export const paletteUi = {
         return colourObject[selectColourMethod[colourspace]](returnObject);
     },
     _oninputSlider(){
-        
         paletteData.addColour(this._getSliderColourObject());//update data store
         userObjects.pickers['primary-picker'].value = paletteData.getPickerHex('primary');//get hex from data store
-        //variantMaker.updateVariants();
         this._updateVariants();//throttled debounced variant update
         //throttled debounced gradient update
         //throttled debounced textColour update
         
     },
+    _onclickGradient(){
+        paletteData.paletteState.gradientMode = this._rotate(1* paletteData.paletteState.gradientMode + 1, 1 ,10) || 1;
+        userObjects.buttons['gradient-selector'].innerHTML = 'Gradient Mode: ' + paletteData.paletteState.gradientMode;
+        paletteData.backgroundColours.forEach(x => gradientMaker.updateGradient(x));
+        console.log(paletteData);
+    },
     _setOnChange() {
         userObjects.sliders.forEach((x) => x.oninput = () => this._oninputSlider());
+        userObjects.buttons['gradient-selector'].onclick = () => this._onclickGradient();
         //paletteUi.primaryPicker.oninput = () => {this._onchange()};
         //paletteUi.textPicker= () => {this._onchange()};
         //paletteUi.textLabel= () => {this._onchange()};
@@ -98,7 +114,9 @@ export const paletteUi = {
         //paletteUi.dieWrapperA= () => {this._onchange()};
         //paletteUi.dieWrapperB= () => {this._onchange()};
     }, 
-
+    getStops(){
+        return userObjects.buttons['gradient-selector'].innerHTML.toLowerCase();
+    }
 }
 
-paletteUi._throttle();
+paletteUi._init();

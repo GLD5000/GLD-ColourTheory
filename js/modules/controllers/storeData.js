@@ -1,5 +1,5 @@
 export const paletteData = {
-    paletteState: {gradientMode: 'Single', prefixMode: 'SCSS', textMode: 'Auto', colourMode: 'Hex'},
+    paletteState: {gradientMode: 1, prefixMode: 'SCSS', textMode: 'Auto', colourMode: 'Hex'},
     backgroundColours: new Map(),
     customColours: new Map(),
     addColour(colour){
