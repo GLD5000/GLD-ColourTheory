@@ -1,4 +1,5 @@
 import { userObjects } from "../view/userobjects.js";
+import { colourObject} from '../controllers/colourobject.js';
 /**
  * add on input
  * add throttle debounce
@@ -7,6 +8,15 @@ import { userObjects } from "../view/userobjects.js";
  * trigger update on gradient maker etc
  */
 export const paletteUi = {
+    _getColourspace(){
+        return userObjects.buttons['colourspace-selector'].innerHTML.toLowerCase();
+    },
+    _setSliderValues(args){
+        userObjects.sliders.forEach((x,i) => x.value = args[i]);
+    },
+    _getSliderValues(){
+        return userObjects.sliders.map(x => x.value);
+    },
     _setOnChange() {
         Object.keys(paletteUi.sliders).forEach((x,i) => x.oninput = (i) => this._sliderOnInput(i));
         paletteUi.primaryPicker.oninput = () => {this._onchange()};
@@ -18,15 +28,15 @@ export const paletteUi = {
         paletteUi.dieWrapperB= () => {this._onchange()};
     }, 
     _addPrimaryColour(newColour){
-        const {hue, sat, lum, red, green, blue, hex, name} = newColour;
+        const {hue, sat, lum, red, green, blue, hex} = newColour;
         const selectColourObject = {
             'hex': [hue, sat, lum],
             'hsl': [hue, sat, lum],
             'rgb': [red, green, blue],
         };
-        const colourspace = userObjects.buttons['colourspace-selector'].innerHTML.toLowerCase();
-        userObjects.sliders.forEach((x,i) => x.value = selectColourObject[colourspace][i]);
-        userObjects.pickers['primary-picker'].value = newColour.hex;
+        const colourspace = this._getColourspace();
+        this._setSliderValues(selectColourObject[colourspace]);
+        userObjects.pickers['primary-picker'].value = hex;
     },
     addColour(newColour){
         if (newColour.name === 'primary') {
@@ -41,12 +51,14 @@ export const paletteUi = {
             'hsl': ['hue', 'sat', 'lum'],
             'rgb': ['red', 'green', 'blue'],
         };
-        const keysArray = selectColourObject[userObjects.buttons['colourspace-selector'].innerHTML.toLowerCase()];
-        return {
-            name: 'primary',
-            [keysArray[0]]: userObjects.sliders['slider-a'].value,
-            [keysArray[1]]: userObjects.sliders['slider-b'].value,
-            [keysArray[2]]: userObjects.sliders['slider-c'].value,
-        }
+        const colourspace = this._getColourspace();
+        const keysArray = selectColourObject[colourspace];
+        const sliderValuesArray = this._getSliderValues();
+
+        const returnObject = {name: 'primary'};
+
+        keysArray.forEach((x, i) => returnObject[x] = sliderValuesArray[i] );
+        
+        return returnObject;
     }
 }
