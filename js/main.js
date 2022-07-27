@@ -8,8 +8,9 @@ import {colourObject} from './modules/controllers/colourobject.js';
 import { variantMaker } from './modules/controllers/variantmaker.js';
 import { primaryColourController } from './modules/controllers/primarycolourcontroller.js';
 import { paletteData } from './modules/controllers/storeData.js';
-import {paletteUi} from './modules/controllers/paletteui.js'
-import {userObjects} from './modules/view/userobjects.js'
+import {paletteUi} from './modules/controllers/paletteui.js';
+import {userObjects} from './modules/view/userobjects.js';
+//import {colourObject} from './modules/controllers/colourobject.js';
 //colourObject.log();
 //const oldColour = {hue: 20, sat: 50, lum: 10};
 //const newColour = {hue: 300, hueOperation: 'replace', lum: 40, lumOperation: 'replace', sat: 1.1, operation: 'multiply'};
@@ -21,11 +22,10 @@ import {userObjects} from './modules/view/userobjects.js'
 //console.log(freshColour);
 //console.log(freshColour.hex);
 //freshColour.hex = 0; //error
-console.log(userObjects);//.value
-
+paletteUi._setOnChange();
 //console.log(variantMaker);
 //console.log(variantMaker.updateVariants({name: 'funky', hue: 3, sat: 2, lum: 1}, {name: 'Primary', hue: 4}));
-Object.defineProperty(colourObject, '_clamp', {enumerable: false});
+/* Object.defineProperty(colourObject, '_clamp', {enumerable: false});
 for (const key in colourObject) {
   if (Object.hasOwnProperty.call(colourObject, key) && key[0] === '_') {
     Object.defineProperty(colourObject, key, {enumerable: false, writable: false});
@@ -62,7 +62,7 @@ class FreezableMap extends Map {
 }
 const testMap = new FreezableMap([['fudge', 34],['apple', 28],['monkey', 56]]);
 testMap.freeze();
-//console.log(testMap.set('fudge',0));
+ *///console.log(testMap.set('fudge',0));
 //console.log(testMap);
 
 
@@ -933,8 +933,8 @@ function onClickButtons() {
 function onLoad() {
   
   onClickButtons();
-  const palette = new Palette;
-  console.log(palette);
+  //const palette = new Palette;
+  //console.log(palette);
   
 /*
 const randomButton = {
@@ -1081,5 +1081,7 @@ console.log(testSingletonb);
 }
 
 console.log(mathsChain.startNumber(5).add(2).sub(3).answer()); */
-primaryColourController.init();
+/* primaryColourController.init();
 console.log(paletteData);//.value
+console.log(document.getElementById('slider-a').oninput);//.value
+ */

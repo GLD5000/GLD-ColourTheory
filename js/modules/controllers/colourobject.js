@@ -9,27 +9,27 @@ export const colourObject= {
     if (x < min) x -= parseInt(x/max)*max -max;
     return x;
   },
-  _convertHexToSrgb(colourObject) {
-    const hex = colourObject.hex;
+  _convertHexToSrgb(colour) {
+    const hex = colour.hex;
     // 3 digits
     if (hex.length == 4) {
-      colourObject.red  = ('0x' + hex[1] + hex[1])/255;
-      colourObject.green = ('0x' + hex[2] + hex[2])/255;
-      colourObject.blue = ('0x' + hex[3] + hex[3])/255;
+      colour.red  = ('0x' + hex[1] + hex[1])/255;
+      colour.green = ('0x' + hex[2] + hex[2])/255;
+      colour.blue = ('0x' + hex[3] + hex[3])/255;
     // 6 digits
     } else if (hex.length == 7) {
-      colourObject.red = ('0x' + hex[1] + hex[2])/255;
-      colourObject.green = ('0x' + hex[3] + hex[4])/255;
-      colourObject.blue = ('0x' + hex[5] + hex[6])/255;
+      colour.red = ('0x' + hex[1] + hex[2])/255;
+      colour.green = ('0x' + hex[3] + hex[4])/255;
+      colour.blue = ('0x' + hex[5] + hex[6])/255;
     }
-    return colourObject;
+    return colour;
   },
-  _convertSrgbToHsl(colourObject) {
-    colourObject.red = this._clamp(colourObject.red, 0, 1);
-    colourObject.green = this._clamp(colourObject.green, 0, 1);
-    colourObject.blue = this._clamp(colourObject.blue, 0, 1);
+  _convertSrgbToHsl(colour) {
+    colour.red = this._clamp(colour.red, 0, 1);
+    colour.green = this._clamp(colour.green, 0, 1);
+    colour.blue = this._clamp(colour.blue, 0, 1);
     
-    let {red, green, blue} = colourObject;
+    let {red, green, blue} = colour;
 
 
     let cmin = Math.min(red, green, blue),
@@ -57,15 +57,15 @@ export const colourObject= {
     sat = delta == 0 ? 0 : delta / (1 - Math.abs(2 * lum - 1));
     sat = +(sat * 100);
     lum = +(lum * 100);
-    [colourObject.hue, colourObject.sat, colourObject.lum] = [hue, sat, lum];
-    return colourObject;
+    [colour.hue, colour.sat, colour.lum] = [hue, sat, lum];
+    return colour;
   },
-  _convertHslToHex(colourObject) {
-    colourObject.hue = this._rotate(colourObject.hue, 0, 360);
-    colourObject.sat = this._clamp(colourObject.sat, 0, 100);
-    colourObject.lum = this._clamp(colourObject.lum, 0, 100);
+  _convertHslToHex(colour) {
+    colour.hue = this._rotate(colour.hue, 0, 360);
+    colour.sat = this._clamp(colour.sat, 0, 100);
+    colour.lum = this._clamp(colour.lum, 0, 100);
     
-    let {hue, sat, lum} = colourObject;
+    let {hue, sat, lum} = colour;
 
     sat /= 100;
     lum /= 100;
@@ -102,29 +102,29 @@ export const colourObject= {
       green = '0' + green;
     if (blue.length == 1)
       blue = '0' + blue;
-      colourObject.hex = '#' + red + green + blue;
-    return colourObject;
+      colour.hex = '#' + red + green + blue;
+    return colour;
   },
-  _convertSrgbToHex(colourObject) {
-    return this._convertHslToHex(this._convertSrgbToHsl(colourObject));
+  _convertSrgbToHex(colour) {
+    return this._convertHslToHex(this._convertSrgbToHsl(colour));
   },
-  _return(colourObject) {
-    return Object.freeze(colourObject);
+  _return(colour) {
+    return Object.freeze(colour);
   },
-  fromHsl(colourObject){
-    this._convertHslToHex(colourObject);
-    this._convertHexToSrgb(colourObject);
-    return this._return(colourObject);
+  fromHsl(colour){
+    this._convertHslToHex(colour);
+    this._convertHexToSrgb(colour);
+    return this._return(colour);
   },
-  fromHex(colourObject){
-    this._convertHexToSrgb(colourObject);
-    this._convertSrgbToHsl(colourObject);
-    return this._return(colourObject);
+  fromHex(colour){
+    this._convertHexToSrgb(colour);
+    this._convertSrgbToHsl(colour);
+    return this._return(colour);
   },
-  fromSrgb(colourObject){
-    this._convertSrgbToHsl(colourObject);
-    this._convertHslToHex(colourObject);
-    return this._return(colourObject);
+  fromSrgb(colour){
+    this._convertSrgbToHsl(colour);
+    this._convertHslToHex(colour);
+    return this._return(colour);
   },
   _createLookupObjects() {
     this._operationsLookup= {

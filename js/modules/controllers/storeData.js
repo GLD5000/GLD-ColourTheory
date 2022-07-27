@@ -5,7 +5,11 @@ export const paletteData = {
     addColour(colour){
         this.backgroundColours.set(colour.name, colour);
     },  
-    getPickerColour(name){
+    getPickerHex(name){
         return this.backgroundColours.get(name).hex;
-    }  
+    },
+    getColourObject(name){
+        return this.backgroundColours.get(name);
+    },
+
 }
