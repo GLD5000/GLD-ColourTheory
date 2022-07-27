@@ -1,4 +1,4 @@
-import { colourObject } from "./colourObject.js";
+import { colourObject } from "./colourobject.js";
 export const variantMaker= {
   _swatchRecipeMap: new Map([
     ['analogousA', {name: 'analogousA', hue: -30, operation: 'add'}],
