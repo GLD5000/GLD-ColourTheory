@@ -9,7 +9,9 @@ export const paletteData = {
         return this.backgroundColours.get(name).hex;
     },
     getColourObject(name){
-        return this.backgroundColours.get(name);
+        const returnName = this.backgroundColours.get(name);
+        //console.log(returnName);
+        return returnName;
     },
 
 }

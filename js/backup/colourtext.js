@@ -1,4 +1,4 @@
-import { ColourSimple } from "./coloursimple";
+import { ColourSimple } from "./classes/coloursimple";
 
 /**
  * Make text colour module

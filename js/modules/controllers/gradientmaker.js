@@ -1,5 +1,6 @@
-import { paletteData } from "./storeData.js";
+import { paletteData } from "./palettedata.js";
 import { colourObject } from "../utilities/colourobject.js";
+import { paletteUi } from "./paletteui.js";
 // Takes in one colour (map) and outputs a background gradient to its map
 export const gradientMaker = {
     _getMultipliers(){//not implemented yet
@@ -7,7 +8,6 @@ export const gradientMaker = {
         this._satMax = 0.74;
         this._lumMin = 0.53;
         this._lumMax = 0.84;
-
     },
     _multiplierStops(stops,multiplier) {
         const halfStops = 0.5 * stops;
@@ -36,8 +36,9 @@ export const gradientMaker = {
     _makeGradient(mainColour){
         const satMult = 0.98; 
         const lumMult = 1.04;
-        this._stops = paletteData.paletteState.gradientMode;    
+        this._stops = paletteData.paletteState.gradientMode; //|| 1;    
         if (this._stops < 2) {
+            //console.log(mainColour);
         this._gradientString = mainColour.hex;
         } else {
             const suffixes = this._suffixStops(this._stops);
@@ -47,7 +48,7 @@ export const gradientMaker = {
             suffixes.forEach((suffix, i) => {
                 this._gradientColours[mainColour.name + suffix] = colourObject.assign(mainColour,{name: mainColour.name + suffix, lum: lumMultStops[i], sat: satMultStops[i], operation: 'multiply'});
             });
-            console.log(this._gradientColours);
+            //console.log(this._gradientColours);
             const gap = getComputedStyle(document.querySelector('.slider-container')).gap;
             this._gradientString = `linear-gradient(to top, #000 ${gap}, ${mainColour.hex} ${gap}, ${mainColour.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;
             const stopWidth = 100 / this._stops;
@@ -66,6 +67,7 @@ export const gradientMaker = {
     },
     updateGradient(colour){
         this._makeGradient(colour);
-        console.log(this._gradientString);
+        //console.log(this._gradientString);
+        paletteUi.setBackgroundGradient(colour.name, this._gradientString);
     }
 }

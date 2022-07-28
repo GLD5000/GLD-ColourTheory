@@ -1,5 +1,5 @@
-import{Colour}from './colour.js';
-import{ColourSimple}from './coloursimple.js';
+import{Colour}from './classes/colour.js';
+import{ColourSimple}from './classes/coloursimple.js.js';
 
 
 

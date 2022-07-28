@@ -1,5 +1,5 @@
 import { colourObject } from "../utilities/colourobject.js";
-import { paletteData } from "./storeData.js";
+import { paletteData } from "./palettedata.js";
 import { paletteUi } from "./paletteui.js";
 export const variantMaker= {
 
@@ -16,11 +16,10 @@ export const variantMaker= {
     ['neutral', {name: 'neutral', sat: 0}]
   ]), 
   updateVariants(){
-    console.log('hello');
     const primaryColour = paletteData.getColourObject('primary');
     this._swatchRecipeMap.forEach(newColourPartial => { // Create colours for all variations
-      paletteData.addColour(colourObject.assign(primaryColour, newColourPartial));// make variations based on new primary colour
-      paletteUi.updateColour(newColourPartial.name);
+    paletteData.addColour(colourObject.assign(primaryColour, newColourPartial));// make variations based on new primary colour
+    paletteUi.updateColour(newColourPartial.name);
 
       //Update Gradient
       //Update Text Colour

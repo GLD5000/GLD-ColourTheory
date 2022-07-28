@@ -17,7 +17,8 @@ export const throttleDebounce = {
             if (waitingArgs == null) {
                 execute = true;
             } else {
-                callbackFunction(...waitingArgs); 
+               // callbackFunction(...waitingArgs); 
+                callbackFunction(waitingArgs); 
                 waitingArgs = null;
                 setTimeout(waitHandler, delayTime);
             }
@@ -35,6 +36,33 @@ export const throttleDebounce = {
                 setTimeout(waitHandler, delayTime); // reset
         }
     },
+    throttleB(callbackFunction, delayTime = 250) {
+        let execute = true;
+        let waitingArgs;
+        const waitHandler = () => {
+            if (waitingArgs == null) {
+                execute = true;
+            } else {
+                callbackFunction(...waitingArgs); 
+                //callbackFunction(waitingArgs); 
+                waitingArgs = null;
+                setTimeout(waitHandler, delayTime);
+            }
+        } 
+        return (...args) => {
+            if (execute === false) {
+                waitingArgs = args; 
+                return;
+            } // do not run function
+    
+                callbackFunction(args); // run function
+    
+                execute = false; // already run
+    
+                setTimeout(waitHandler, delayTime); // reset
+        }
+    },
+
     debounce(callbackFunction,delayTime = 1000) {//My own version
         let timer; 
         let counter = 0;
