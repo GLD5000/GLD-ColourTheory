@@ -1,6 +1,7 @@
 import { colourObject } from "../utilities/colourobject.js";
 import { paletteData } from "./palettedata.js";
 import { paletteUi } from "./paletteui.js";
+import { gradientMaker } from "./gradientmaker.js";
 export const variantMaker= {
 
   _swatchRecipeMap: new Map([
@@ -20,7 +21,7 @@ export const variantMaker= {
     this._swatchRecipeMap.forEach(newColourPartial => { // Create colours for all variations
     paletteData.addColour(colourObject.assign(primaryColour, newColourPartial));// make variations based on new primary colour
     paletteUi.updateColour(newColourPartial.name);
-      //Update Gradient
+    gradientMaker.updateGradient(paletteData.getColourObject(newColourPartial.name));
       //Update Text Colour
     });
   },

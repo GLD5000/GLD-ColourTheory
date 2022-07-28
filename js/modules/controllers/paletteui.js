@@ -43,6 +43,7 @@ export const paletteUi = {
         const colourspace = this._getColourspace();
         this._setSliderValues(selectColourObject[colourspace]);
         userObjects.pickers['primary-picker'].value = hex;
+
     },
     addColour(newColour){
         if (newColour.name === 'primary') {
@@ -102,9 +103,13 @@ export const paletteUi = {
         paletteData.backgroundColours.forEach(x => gradientMaker.updateGradient(x));
     },
     _onclickRandom(){
-        this._addPrimaryColour(colourObject.makeRandomColour('primary'));
+        paletteData.addColour(colourObject.makeRandomColour('primary'));
+        this._addPrimaryColour(paletteData.getColourObject('primary'));
+        gradientMaker.updateGradient(paletteData.getColourObject('primary'));
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
         userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
+        this._updateVariants();
+
     },
     _setOnChange() {
         userObjects.sliders.forEach((x) => x.oninput = (x) => this._oninputSlider(x));
@@ -121,7 +126,7 @@ export const paletteUi = {
     }, 
     getStops(){
         return userObjects.buttons['gradient-selector'].innerHTML.toLowerCase();
-    }
+    },
 }
 
 paletteUi._init();
