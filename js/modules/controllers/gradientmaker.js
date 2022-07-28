@@ -52,7 +52,7 @@ export const gradientMaker = {
             this._gradientString = `linear-gradient(to top, #000 ${gap}, ${mainColour.hex} ${gap}, ${mainColour.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;
             const stopWidth = 100 / this._stops;
             Object.keys(this._gradientColours).forEach((x, i)=>{
-                this._gradientString += `, ${colourObject.hslString(this._gradientColours[x])} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
+                this._gradientString += `, ${colourObject.getHslStringfromColour(this._gradientColours[x])} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
             });
             this._gradientString += `) 0% 50% / 100% 30%`;
         } 

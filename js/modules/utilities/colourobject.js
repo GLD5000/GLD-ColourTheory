@@ -146,8 +146,26 @@ export const colourObject= {
     this._hslArr = ['hue','sat','lum'];
     this._rgbArr = ['red','green','blue'];
   },
-  hslString(colour){
-    return `hsl(${Math.round(colour.hue)},${colour.sat.toFixed(1)}%,${colour.lum.toFixed(1)}%)`;
+  _makeRandomHsl() {
+    const hue = parseInt(Math.random() * 360);
+    const sat = 48 + parseInt(Math.random() * 40); // 48 - 87
+    const lum = 63 + parseInt(Math.random() * 25); // 63 - 88
+    return [hue,sat,lum];
+  },
+  _convertHslToString(hue,sat,lum) {
+    return `hsl(${Math.round(hue)},${sat.toFixed(1)}%,${lum.toFixed(1)}%)`//this._convertHslToHex(hue, sat, lum);
+  },
+  _convertHslToColourObject(hue, sat, lum, name){
+    return  {'name': name, 'hue': hue, 'sat': sat, 'lum': lum};
+  },
+  getHslStringfromColour(colour){
+    return this._convertHslToString(colour.hue,colour.sat,colour.lum);
+  },
+  makeRandomHslString(){
+      return this._convertHslToString(...this._makeRandomHsl());
+  },
+  makeRandomColour(name = 'primary'){
+    return this.fromHsl(this._convertHslToColourObject(...this._makeRandomHsl(),name));
   },
   assign(oldColour, newColour) {//default mode is replace
     if (newColour.hasOwnProperty('hex')) return 'Error: Hex found in newColour object';//Exit for Hex

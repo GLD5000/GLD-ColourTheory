@@ -103,8 +103,15 @@ export const paletteUi = {
         paletteData.backgroundColours.forEach(x => gradientMaker.updateGradient(x));
         console.log(paletteData);
     },
+    _onclickRandom(){
+        this._addPrimaryColour(colourObject.makeRandomColour('primary'));
+        userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
+        userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
+    },
     _setOnChange() {
         userObjects.sliders.forEach((x) => x.oninput = () => this._oninputSlider());
+        userObjects.buttons['dice-btn'].onclick = () => this._onclickRandom();
+        userObjects.buttons['randomise-btn'].onclick = () => this._onclickRandom();
         userObjects.buttons['gradient-selector'].onclick = () => this._onclickGradient();
         //paletteUi.primaryPicker.oninput = () => {this._onchange()};
         //paletteUi.textPicker= () => {this._onchange()};
@@ -120,3 +127,4 @@ export const paletteUi = {
 }
 
 paletteUi._init();
+console.log(userObjects);
