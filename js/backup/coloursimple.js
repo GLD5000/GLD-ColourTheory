@@ -1,5 +1,5 @@
 
-import{Colour}from './colour.js';
+import{Colour}from './classes/colour.js';
 
 export class ColourSimple extends Colour{
     constructor (name, {hex = undefined, hue = undefined, sat = undefined, lum = undefined, red = undefined, green = undefined, blue = undefined}) {

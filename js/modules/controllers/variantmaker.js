@@ -1,5 +1,9 @@
-import { colourObject } from "./colourObject.js";
+import { colourObject } from "../utilities/colourobject.js";
+import { paletteData } from "./palettedata.js";
+import { paletteUi } from "./paletteui.js";
+import { gradientMaker } from "./gradientmaker.js";
 export const variantMaker= {
+
   _swatchRecipeMap: new Map([
     ['analogousA', {name: 'analogousA', hue: -30, operation: 'add'}],
     ['analogousB', {name: 'analogousB', hue: 30, operation: 'add'}],
@@ -12,10 +16,14 @@ export const variantMaker= {
     ['monochromeB', {name: 'monochromeB', lum: 10, operation: 'add'}],
     ['neutral', {name: 'neutral', sat: 0}]
   ]), 
-  updateVariants(newColour){
-    this._swatchRecipeMap.forEach((value, key) => { // Create colours for all variations
-      swatchColoursMap.set(key, colourObject.assign(newColour, value));// make variations based on new primary colour
+  updateVariants(){
+    const primaryColour = paletteData.getColourObject('primary');
+    this._swatchRecipeMap.forEach(newColourPartial => { // Create colours for all variations
+    paletteData.addColour(colourObject.assign(primaryColour, newColourPartial));// make variations based on new primary colour
+    paletteUi.updateColour(newColourPartial.name);
+    gradientMaker.updateGradient(paletteData.getColourObject(newColourPartial.name));
+      //Update Text Colour
     });
-    return swatchColoursMap;
   },
 }
+
