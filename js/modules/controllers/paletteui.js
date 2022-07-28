@@ -1,8 +1,8 @@
 import { userObjects } from "../view/userobjects.js";
-import { colourObject} from '../controllers/colourobject.js';
+import { colourObject} from '../utilities/colourobject.js';
 import { paletteData } from "./storeData.js";
 import { throttle } from '../classes/throttledebounce.js';
-import {debounceB} from '../classes/throttledebounce.js';
+import { debounceB} from '../classes/throttledebounce.js';
 import { variantMaker } from "./variantmaker.js";
 import { gradientMaker } from "./gradientmaker.js";
 

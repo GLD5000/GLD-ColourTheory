@@ -1,4 +1,4 @@
-import { colourObject } from "./colourobject.js";
+import { colourObject } from "../utilities/colourobject.js";
 import { paletteData } from "./storeData.js";
 import { paletteUi } from "./paletteui.js";
 export const variantMaker= {
