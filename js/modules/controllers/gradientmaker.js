@@ -2,6 +2,13 @@ import { paletteData } from "./storeData.js";
 import { colourObject } from "./colourobject.js";
 // Takes in one colour (map) and outputs a background gradient to its map
 export const gradientMaker = {
+    _getMultipliers(){//not implemented yet
+        this._satMin = 0.63;
+        this._satMax = 0.74;
+        this._lumMin = 0.53;
+        this._lumMax = 0.84;
+
+    },
     _multiplierStops(stops,multiplier) {
         const halfStops = 0.5 * stops;
         let even = (stops % 2 === 0)? 1: 0;

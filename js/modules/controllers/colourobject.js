@@ -4,10 +4,10 @@ export const colourObject= {
   _clamp(value, min = 0, max = 100) {
     return Math.min(Math.max(min, value),max);
   },
-  _rotate(x, min = 0, max = 360) {
-    if (x > max) x -= parseInt(x/max)*max;
-    if (x < min) x -= parseInt(x/max)*max -max;
-    return x;
+  _rotate(value, min = 0, max = 360) {
+    if (value > max) value -= parseInt(value/max)*max;
+    if (value < min) value -= parseInt(value/max)*max -max;
+    return value;
   },
   _convertHexToSrgb(colour) {
     const hex = colour.hex;
