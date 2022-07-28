@@ -1,8 +1,7 @@
 import { userObjects } from "../view/userobjects.js";
 import { colourObject} from '../utilities/colourobject.js';
 import { paletteData } from "./storeData.js";
-import { throttle } from '../classes/throttledebounce.js';
-import { debounceB} from '../classes/throttledebounce.js';
+import { throttleDebounce} from '../utilities/utilities.js';
 import { variantMaker } from "./variantmaker.js";
 import { gradientMaker } from "./gradientmaker.js";
 
@@ -26,8 +25,8 @@ export const paletteUi = {
     
     _init(){
         
-        this._updateVariants = debounceB(() => variantMaker.updateVariants(),250);//working
-        this._updatePrimaryGradient = throttle(() => this._updateBackgroundColour(),85);
+        this._updateVariants = throttleDebounce.debounce(() => variantMaker.updateVariants(),250);//working
+        this._updatePrimaryGradient = throttleDebounce.throttle(() => this._updateBackgroundColour(),85);
         //this._debounceOnChangeTextPicker = debounceB(() => this._onChangeTextPicker(),250);
         
       },

@@ -1,14 +1,7 @@
 //Creates colours
+import { clampRotate } from "./utilities.js";
 
 export const colourObject= {
-  _clamp(value, min = 0, max = 100) {
-    return Math.min(Math.max(min, value),max);
-  },
-  _rotate(value, min = 0, max = 360) {
-    if (value > max) value -= parseInt(value/max)*max;
-    if (value < min) value -= parseInt(value/max)*max -max;
-    return value;
-  },
   _convertHexToSrgb(colour) {
     const hex = colour.hex;
     // 3 digits
@@ -25,9 +18,9 @@ export const colourObject= {
     return colour;
   },
   _convertSrgbToHsl(colour) {
-    colour.red = this._clamp(colour.red, 0, 1);
-    colour.green = this._clamp(colour.green, 0, 1);
-    colour.blue = this._clamp(colour.blue, 0, 1);
+    colour.red = clampRotate.clamp(colour.red, 0, 1);
+    colour.green = clampRotate.clamp(colour.green, 0, 1);
+    colour.blue = clampRotate.clamp(colour.blue, 0, 1);
     
     let {red, green, blue} = colour;
 
@@ -61,9 +54,9 @@ export const colourObject= {
     return colour;
   },
   _convertHslToHex(colour) {
-    colour.hue = this._rotate(colour.hue, 0, 360);
-    colour.sat = this._clamp(colour.sat, 0, 100);
-    colour.lum = this._clamp(colour.lum, 0, 100);
+    colour.hue = clampRotate.rotate(colour.hue, 0, 360);
+    colour.sat = clampRotate.clamp(colour.sat, 0, 100);
+    colour.lum = clampRotate.clamp(colour.lum, 0, 100);
     
     let {hue, sat, lum} = colour;
 
@@ -136,12 +129,12 @@ export const colourObject= {
       'keep': (oldVal, _) =>  oldVal
     };
     this._constraintLookupB= {
-      'hue': (x) =>  this._rotate(x, 0, 360),
-      'sat': (x) =>  this._clamp(x, 0, 100),
-      'lum': (x) =>  this._clamp(x, 0, 100),
-      'red': (x) =>  this._clamp(x, 0, 1),
-      'green': (x) =>  this._clamp(x, 0, 1),
-      'blue': (x) =>  this._clamp(x, 0, 1),
+      'hue': (x) =>  clampRotate.rotate(x, 0, 360),
+      'sat': (x) =>  clampRotate.clamp(x, 0, 100),
+      'lum': (x) =>  clampRotate.clamp(x, 0, 100),
+      'red': (x) =>  clampRotate.clamp(x, 0, 1),
+      'green': (x) =>  clampRotate.clamp(x, 0, 1),
+      'blue': (x) =>  clampRotate.clamp(x, 0, 1),
     };
     this._hslArr = ['hue','sat','lum'];
     this._rgbArr = ['red','green','blue'];
