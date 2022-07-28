@@ -2,6 +2,61 @@
 import { clampRotate } from "./utilities.js";
 
 export const colourObject= {
+  _autoTextColour(backgroundColour) {
+    const {red, green, blue} = backgroundColour;
+    const contrastBlack = this._calculateContrastRatio([0,0,0],[red, green, blue]);
+    const contrastWhite = this._calculateContrastRatio([1,1,1],[red, green, blue]);
+    const autoColour = (contrastBlack > contrastWhite)? '#000': '#fff';
+    const autoContrast = Math.max(contrastBlack,contrastWhite);
+    return [autoColour, autoContrast];
+  },
+  _calculateRelativeLuminance(RsRGB, GsRGB, BsRGB) {
+    const R = (RsRGB <= 0.04045)? RsRGB/12.92: Math.pow((RsRGB+0.055)/1.055, 2.4);
+    const G = (GsRGB <= 0.04045)? GsRGB/12.92: Math.pow((GsRGB+0.055)/1.055, 2.4);
+    const B = (BsRGB <= 0.04045)? BsRGB/12.92: Math.pow((BsRGB+0.055)/1.055, 2.4);
+    
+    return (0.2126 * R) + (0.7152 * G) + (0.0722 * B);
+  },
+  _calculateContrastRatio(...args) {
+    /*A contrast ratio of 3:1 is the minimum level recommended by [[ISO-9241-3]] and [[ANSI-HFES-100-1988]] for standard text and vision. 
+    Large-scale text and images of large-scale text have a contrast ratio of at least 4.5:1;
+    */
+    const relativeLumArr = args.map(x => this._calculateRelativeLuminance(...x)); 
+    const L1 = Math.max(...relativeLumArr);
+    const L2 = Math.min(...relativeLumArr);
+    return (L1 + 0.05) / (L2 + 0.05);
+  },
+  _makeContrastRatioString(ratio) {
+    const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
+    return `Contrast Ratio: ${ratio.toFixed(2)}${rating}`;
+  },
+  _makeContrastRating(ratio) {
+    return (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
+  },
+  _textColourFromHex(colour){
+    this._convertHexToSrgb(colour);
+    this._convertSrgbToHsl(colour);
+    return this._return(colour);
+  },
+  getTextColourContrast(textColour = null, backgroundColour = null){
+    if (backgroundColour == null) return 'No Background Colour Found';//if background colour == null return
+    if (textColour == null) {//auto text
+      returnColour = {name: 'text'};
+      [returnColour.hex, returnColour.contrastRatio] = this._autoTextColour(backgroundColour);
+      returnColour.rating = this._makeContrastRating(returnColour.contrastRatio);
+      returnColour.contrastString = this._makeContrastRatioString(returnColour.contrastRatio);
+      return this._textColourFromHex(returnColour);
+    }
+    returnColour = {name: 'text'};
+    returnColour.hex = textColour.hex;
+    returnColour.contrastRatio = this._calculateContrastRatio(
+      [textColour.red, textColour.green, textColour.blue], 
+      [backgroundColour.red, backgroundColour.green, backgroundColour.blue]
+    );
+    returnColour.rating = this._makeContrastRating(returnColour.contrastRatio);
+    returnColour.contrastString = this._makeContrastRatioString(returnColour.contrastRatio);
+    return this._textColourFromHex(returnColour);
+},
   _convertHexToSrgb(colour) {
     const hex = colour.hex;
     // 3 digits

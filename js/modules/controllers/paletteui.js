@@ -17,7 +17,6 @@ export const paletteUi = {
     _init(){
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
         userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
-        
         paletteData.addColour(colourObject.makeRandomColour('primary'));
         this._addPrimaryColour(paletteData.getColourObject('primary'));
         gradientMaker.updateGradient(paletteData.getColourObject('primary'));
