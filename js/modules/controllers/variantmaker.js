@@ -20,7 +20,6 @@ export const variantMaker= {
     this._swatchRecipeMap.forEach(newColourPartial => { // Create colours for all variations
     paletteData.addColour(colourObject.assign(primaryColour, newColourPartial));// make variations based on new primary colour
     paletteUi.updateColour(newColourPartial.name);
-
       //Update Gradient
       //Update Text Colour
     });

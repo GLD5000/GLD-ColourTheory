@@ -3,6 +3,7 @@ export const clampRotate = {
         return Math.min(Math.max(min, value),max);
     },
     rotate(value, min = 0, max = 360) {
+        value = parseInt(value);
         if (value > max) value -= parseInt(value/max)*max;
         if (value < min) value -= parseInt(value/max)*max -max;
         return value;
