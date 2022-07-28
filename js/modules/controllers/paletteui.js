@@ -15,8 +15,13 @@ import { clampRotate } from "../utilities/utilities.js";
  */
 export const paletteUi = {
     _init(){
+        userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
+        userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
+        
         paletteData.addColour(colourObject.makeRandomColour('primary'));
         this._addPrimaryColour(paletteData.getColourObject('primary'));
+        gradientMaker.updateGradient(paletteData.getColourObject('primary'));
+        variantMaker.updateVariants();
         this._updateVariants = throttleDebounce.debounce(() => variantMaker.updateVariants(),250);//working
         this._updatePrimaryGradient = throttleDebounce.throttle((x) => gradientMaker.updateGradient(...x),85);//not returning
         this._setOnChange();
@@ -127,7 +132,8 @@ export const paletteUi = {
     getStops(){
         return userObjects.buttons['gradient-selector'].innerHTML.toLowerCase();
     },
+    userObjects(){
+        return userObjects;
+    }
 }
 
-paletteUi._init();
-console.log(userObjects);
