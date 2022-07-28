@@ -34,7 +34,6 @@ export const gradientMaker = {
         return this._suffixise(this._names[this._stops]);
     },
     _makeGradient(mainColour){
-        console.log(mainColour.name);
         const satMult = 0.98; 
         const lumMult = 1.04;
         this._stops = paletteData.paletteState.gradientMode; //|| 1;    
@@ -67,7 +66,6 @@ export const gradientMaker = {
     },
     updateGradient(colour){
         this._makeGradient(colour);
-        console.log(`${colour.name}, ${this._gradientString}`);
         paletteUi.setBackgroundGradient(colour.name, this._gradientString);
     }
 }

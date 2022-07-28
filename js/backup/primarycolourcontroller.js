@@ -1,8 +1,8 @@
-import { colourObject } from "../utilities/colourobject.js";
-import { paletteUi } from "./paletteui.js";
+import { colourObject } from "../modules/utilities/colourobject.js";
+import { paletteUi } from "../modules/controllers/paletteui.js";
 import { throttle } from '../classes/throttledebounce.js';
 import { debounceB} from '../classes/throttledebounce.js';
-import { paletteData } from "./palettedata.js";
+import { paletteData } from "../modules/controllers/palettedata.js";
 export const primaryColourController = {
     _onInputSlider(){
         const selectColourObject = {
