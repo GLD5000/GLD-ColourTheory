@@ -116,10 +116,6 @@ export const paletteUi = {
         //paletteUi.primaryPicker.oninput = () => {this._onchange()};
         //paletteUi.textPicker= () => {this._onchange()};
         //paletteUi.textLabel= () => {this._onchange()};
-        //paletteUi.randomButton= () => {this._onchange()};
-        //paletteUi.diceButton= () => {this._onchange()};
-        //paletteUi.dieWrapperA= () => {this._onchange()};
-        //paletteUi.dieWrapperB= () => {this._onchange()};
     }, 
     getStops(){
         return userObjects.other['gradient'].innerHTML.toLowerCase();
