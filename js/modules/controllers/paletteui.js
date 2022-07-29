@@ -29,7 +29,7 @@ export const paletteUi = {
       },
     
     _getColourspace(){
-        return userObjects.buttons['colourspace-selector'].innerHTML.toLowerCase();
+        return userObjects.other['colourspace'].innerHTML.toLowerCase();
     },
     _setSliderValues(args){
         userObjects.sliders.forEach((x,i) => x.value = args[i]);
@@ -96,7 +96,7 @@ export const paletteUi = {
     },
     _onclickGradient(){
         paletteData.paletteState.gradientMode = clampRotate.rotate(1* paletteData.paletteState.gradientMode + 1, 1 ,10) || 1;
-        userObjects.buttons['gradient-selector'].innerHTML = 'Gradient Mode: ' + paletteData.paletteState.gradientMode;
+        userObjects.buttons['gradient'].innerHTML = 'Gradient Mode: ' + paletteData.paletteState.gradientMode;
         paletteData.backgroundColours.forEach(x => gradientMaker.updateGradient(x));
     },
     _onclickRandom(){
@@ -110,9 +110,9 @@ export const paletteUi = {
     },
     _setOnChange() {
         userObjects.sliders.forEach((x) => x.oninput = (x) => this._oninputSlider(x));
-        userObjects.buttons['dice-btn'].onclick = () => this._onclickRandom();
-        userObjects.buttons['randomise-btn'].onclick = () => this._onclickRandom();
-        userObjects.buttons['gradient-selector'].onclick = () => this._onclickGradient();
+        userObjects.other['dice-btn'].onclick = () => this._onclickRandom();
+        userObjects.other['randomise-btn'].onclick = () => this._onclickRandom();
+        userObjects.other['gradient'].onclick = () => this._onclickGradient();
         //paletteUi.primaryPicker.oninput = () => {this._onchange()};
         //paletteUi.textPicker= () => {this._onchange()};
         //paletteUi.textLabel= () => {this._onchange()};
@@ -122,10 +122,24 @@ export const paletteUi = {
         //paletteUi.dieWrapperB= () => {this._onchange()};
     }, 
     getStops(){
-        return userObjects.buttons['gradient-selector'].innerHTML.toLowerCase();
+        return userObjects.buttons['gradient'].innerHTML.toLowerCase();
     },
     userObjects(){
         return userObjects;
-    }
+    },
+    getColourObject(name){
+        return paletteData.getColourObject(name);
+    },
+    getTextMode(){
+        return paletteData.getTextMode();
+    },
+    setTextMode(mode){
+        paletteData.setTextMode(mode);
+        userObjects.buttons;
+    },
+
+    getTextColour(backgroundColour){
+        return paletteData.getTextColour(backgroundColour);
+    },
 }
 

@@ -10,7 +10,7 @@ export const primaryColourController = {
             hsl: colourObject.fromHsl(paletteUi.getSliderColourObject()),
             rgb: colourObject.fromSrgb(paletteUi.getSliderColourObject()),
         }
-        paletteData.backgroundColours.set('primary', selectColourObject[paletteUi.buttons[colourspace-selector]]);
+        paletteData.backgroundColours.set('primary', selectColourObject[paletteUi.buttons[colourspace]]);
 
     },
     _throttle(){
@@ -39,7 +39,7 @@ export const primaryColourController = {
         this._dieB.style.backgroundColor = this._convertHslToString(...this._makeRandomHsl());    
     },
     _sliderOnInput(){
-        //(paletteUi.buttons.colourspace-selector.value === 'rgb')?
+        //(paletteUi.buttons.colourspace.value === 'rgb')?
     },
     _setOnChange() {
         Object.keys(paletteUi.sliders).forEach((x,i) => x.oninput = (i) => this._sliderOnInput(i));

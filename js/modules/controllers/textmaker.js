@@ -1,7 +1,10 @@
 import {colourObject} from '../utilities/colourobject.js'
+import { paletteUi } from './paletteui.js';
 
-export const textColourMaker = {
-    setTextColour(textColour = null, backgroundColour = null) {
-        colourObject.getTextColourContrast(textColour = null, backgroundColour = null);
+export const textMaker = {
+    updateText(backgroundColour) {
+    
+    const textColour = paletteUi.getTextColour(backgroundColour)
+    colourObject.getTextColourContrast(textColour, backgroundColour);
     },
 };

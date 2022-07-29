@@ -16,7 +16,7 @@ export class ColourBackground extends Colour {
       red = undefined,
       green = undefined,
       blue = undefined,
-      colourMode = 'hex',
+      colourspace = 'hex',
       isCss = true
      }) 
     {
@@ -32,7 +32,7 @@ export class ColourBackground extends Colour {
       this._green = green;
       this._blue = blue;
       this._name = name;
-      this._colourMode = colourMode;
+      this._colourMode = colourspace;
       this._isCss = isCss;
       this._initAll();
       this._makeGradient({stops: this._stops});

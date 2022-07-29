@@ -267,12 +267,12 @@ function contrastRatio(...args){
 }
 
 function updateLabels(){
-  const isHex = (document.getElementById("colourspace-selector").innerHTML === 'Hex');
+  const isHex = (document.getElementById("colourspace").innerHTML === 'Hex');
 
   if (isHex === true){
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'prefix-selector' && id !== 'colourspace-selector' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'prefix' && id !== 'colourspace' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = document.getElementById(picker).value;
@@ -281,7 +281,7 @@ function updateLabels(){
   } else {
     buttons.forEach(x =>{
       const id = x.id;
-      if (id !== 'copyAllCSS' && id !== 'prefix-selector' && id !== 'colourspace-selector' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
+      if (id !== 'copyAllCSS' && id !== 'prefix' && id !== 'colourspace' && id !== 'randomise' && id !== 'dice' && id !== 'mode'){//All Colour label buttons
         let name = id.split('-')[0];
         let picker = name + '-picker';
         x.innerHTML = hexToHSLString(document.getElementById(picker).value);
@@ -291,7 +291,7 @@ function updateLabels(){
   fillClipboard();
 }
 function setTextColour(colour){
-  const textPicker = document.getElementById('textColour-picker');
+  const textPicker = document.getElementById('textcolour-picker');
   const whiteRatio = contrastRatio('#fff', colour);
   const blackRatio = contrastRatio('#000', colour);
   const textColour = (blackRatio > whiteRatio)? '#000000': '#ffffff';
@@ -304,7 +304,7 @@ function setTextColour(colour){
 }
 
 function customTextColour(){
-  const textPicker = document.getElementById('textColour-picker');
+  const textPicker = document.getElementById('textcolour-picker');
   const textColour = textPicker.value;
   const mainColour = color_picker.value;
   const ratio = contrastRatio(textColour, mainColour);
@@ -338,7 +338,7 @@ function swatchModeSelector(hex, modeValue){
 function updateColour(){
   let mainColourLabel, analogousAColourLabel, analogousBColourLabel, triadicAColourLabel, triadicBColourLabel, tetradicAColourLabel, tetradicBColourLabel, tetradicCColourLabel, monochromeAColourLabel, monochromeBColourLabel, neutralColourLabel;
   const modeValue = document.getElementById('mode').innerHTML;    
-  const isHex = (document.getElementById("colourspace-selector").innerHTML === 'Hex');
+  const isHex = (document.getElementById("colourspace").innerHTML === 'Hex');
   const mainColour = color_picker.value;
   const textColour = setTextColour(mainColour);
   function getColour(name){
@@ -631,9 +631,9 @@ function fillClipboard(){
   const clipboard = document.getElementById("clipboard");
   const clipboardSecondary = document.getElementById("clipboard-secondary");
   const modeValue = document.getElementById('mode').innerHTML;    
-  const isHex = (document.getElementById("colourspace-selector").innerHTML === 'Hex');
+  const isHex = (document.getElementById("colourspace").innerHTML === 'Hex');
   clipboardSecondary.style.color = isHex? '#ce9178': '#b5cea8';
-  const isSCSS = (document.getElementById("prefix-selector").innerHTML === 'SCSS');
+  const isSCSS = (document.getElementById("prefix").innerHTML === 'SCSS');
   const clipboardArr = [[], [], []];
   [...pickers].forEach(x => {
     let prefix = isSCSS?`$`:`--`
@@ -642,7 +642,7 @@ function fillClipboard(){
     const hex = x.value;
 
     if (name === 'textColour'){
-      label = isHex? document.getElementById('textColour-picker').value: hexToHSLString(document.getElementById('textColour-picker').value);
+      label = isHex? document.getElementById('textcolour-picker').value: hexToHSLString(document.getElementById('textcolour-picker').value);
     }else{
       label = document.getElementById(name + '-label').innerHTML;
     }
@@ -764,7 +764,7 @@ function onChangepickers(){
   for (let i in pickers) {
     if (i > 0) { // skip the first one - MainColour
       pickers[i].onchange = () => {
-        const isHex = (document.getElementById("colourspace-selector").innerHTML === 'Hex');
+        const isHex = (document.getElementById("colourspace").innerHTML === 'Hex');
         const name = pickers[i].id.split('-')[0];
         if (name === 'textColour') {
           fillClipboard();
@@ -815,12 +815,12 @@ function onClickButtons(){
   buttons.forEach(x => {//Assign a function to each button onclick
     const id = x.id;
     if (id === 'copyAllCSS') x.onclick = () => copyAll();
-    if (id === 'prefix-selector') x.onclick = () => toggleSCSS(x);
-    if (id === 'colourspace-selector') x.onclick = () => toggleHSL(x);
+    if (id === 'prefix') x.onclick = () => toggleSCSS(x);
+    if (id === 'colourspace') x.onclick = () => toggleHSL(x);
     if (id === 'randomise') x.onclick = () => randomise();
     if (id === 'dice') x.onclick = () => randomise();
     if (id === 'mode') x.onclick = () => switchColourMode();
-    if (id !== 'copyAllCSS' && id !== 'prefix-selector' && id !== 'colourspace-selector' && id !== 'randomise' && id !== 'dice' && id !== 'mode') x.onclick = () => copySingle(x);
+    if (id !== 'copyAllCSS' && id !== 'prefix' && id !== 'colourspace' && id !== 'randomise' && id !== 'dice' && id !== 'mode') x.onclick = () => copySingle(x);
   }); 
  
 }

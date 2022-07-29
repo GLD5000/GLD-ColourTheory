@@ -43,7 +43,7 @@ class PrimarySwatch{
           this._lumSlider = document.getElementById('slider-c');
           this._picker = document.getElementById(name + '-picker');
           this._copyButton = new CopyButton(name);
-          this._textPicker = document.getElementById('textColour-picker');
+          this._textPicker = document.getElementById('textcolour-picker');
           this._textWrapper = document.getElementById('textColour-label');
           this._modeButton = document.getElementById(name + '-mode');
           this._randomButton = document.getElementById('randomise-btn');
