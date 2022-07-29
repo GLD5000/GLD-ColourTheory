@@ -7,20 +7,13 @@ import { gradientMaker } from "./gradientmaker.js";
 import { clampRotate } from "../utilities/utilities.js";
 import { textMaker } from "./textmaker.js";
 
-/**
- * add on input
- * add throttle debounce
- * add colourspace conversion
- * interface with data store
- * trigger update on gradient maker etc
- */
 export const paletteUi = {
     _init(){
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
         userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
         paletteData.addColour(colourObject.makeRandomColour('primary'));
-        this._addPrimaryColour(paletteData.getColourObject('primary'));
-        gradientMaker.updateGradient(paletteData.getColourObject('primary'));
+        this.addColour(paletteData.getColourObject('primary'));
+        //gradientMaker.updateGradient(paletteData.getColourObject('primary'));
         variantMaker.updateVariants();
         this._updateVariants = throttleDebounce.debounce(() => variantMaker.updateVariants(),250);//working
         this._updatePrimaryGradient = throttleDebounce.throttle((x) => gradientMaker.updateGradient(...x),85);//not returning
@@ -29,8 +22,10 @@ export const paletteUi = {
         this._initSmallWrapperContent();
 
         //this._debounceOnChangeTextPicker = debounceB(() => this._onChangeTextPicker(),250);
-       // console.log(userObjects.sliders);
       },
+    _nameSplit(name, separator = '-'){
+        return name.split(separator)[0];
+    },
     _initSmallWrapperContent(){
        userObjects.smallSwatchNamesArray.forEach(x => userObjects.wrappers[x + '-wrapper'].dataset.content = x);
     },
@@ -63,7 +58,7 @@ export const paletteUi = {
     addColour(newColour){
         paletteData.addColour(newColour);
         gradientMaker.updateGradient(newColour);
-        textMaker.updateText(newColour);   
+        textMaker.updateText(newColour);
         if (newColour.name === 'primary') {
             this._addPrimaryColour(newColour);
             return;
@@ -89,18 +84,15 @@ export const paletteUi = {
         const colourspace = this._getColourspace();
         const keysArray = selectColourKeys[colourspace];
         const sliderValuesArray = this._getSliderValues();
-        //console.log(sliderValuesArray);
         const returnObject = {name: 'primary'};
 
         keysArray.forEach((x, i) => returnObject[x] = sliderValuesArray[i] );
         return colourObject[selectColourMethod[colourspace]](returnObject);
     },
     _oninputSlider(x){
-        //console.log(x.target.value);
-        paletteData.addColour(this._getSliderColourObject());//update data store
-        userObjects.pickers['primary-picker'].value = paletteData.getPickerHex('primary');//get hex from data store
+        this.addColour(this._getSliderColourObject());//update data store
         this._updateVariants();//throttled debounced variant update
-        this._updatePrimaryGradient(paletteData.getColourObject('primary'));//throttled debounced gradient update
+        //this._updatePrimaryGradient(paletteData.getColourObject('primary'));//throttled debounced gradient update
         //console.log(userObjects.wrappers['primary-wrapper'].style.background)
         //throttled debounced textColour update
         //console.log(userObjects.sliders);
@@ -115,7 +107,7 @@ export const paletteUi = {
     _onclickRandom(){
         paletteData.addColour(colourObject.makeRandomColour('primary'));
         this._addPrimaryColour(paletteData.getColourObject('primary'));
-        gradientMaker.updateGradient(paletteData.getColourObject('primary'));
+        //gradientMaker.updateGradient(paletteData.getColourObject('primary'));
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
         userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
         this._updateVariants();
@@ -150,11 +142,18 @@ export const paletteUi = {
         paletteData.setTextMode(mode);
         userObjects.other['textmode'].dataset.content = `Text: ${mode}`;
     },
-
     getTextColour(backgroundColour){
         return paletteData.getTextColour(backgroundColour);
     },
+    _getWrapper(name){
+        return userObjects.wrappers[name + '-wrapper'];
+    },
+    _setWrapperTextColour(textColour){
+        const name = this._nameSplit(textColour.name)
+        this._getWrapper(name).style.color = textColour.hex || '#000';
+    },
     setTextColour(textColour){
+        this._setWrapperTextColour(textColour);
         paletteData.setTextColour(textColour);
     },
     getSmallSwatchNames(){

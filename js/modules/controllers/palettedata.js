@@ -5,7 +5,8 @@ export const paletteData = {
     textColours: new Map(),
     addColour(colour){
         this.backgroundColours.set(colour.name, colour);
-    },  
+    }, 
+     
     getPickerHex(name){
         return this.backgroundColours.get(name).hex;
     },
