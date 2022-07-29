@@ -37,6 +37,4 @@ function setAll(){
 
     return returnObject;
 };
-
-
 export const userObjects = setAll();

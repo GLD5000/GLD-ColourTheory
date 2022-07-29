@@ -41,13 +41,13 @@ export const colourObject= {
   getTextColourContrast(textColour = null, backgroundColour = null){
     if (backgroundColour == null) return 'No Background Colour Found';//if background colour == null return
     if (textColour == null) {//auto text
-      const returnColour = {name: 'text'};
+      const returnColour = {name: `${backgroundColour.name}-text`};
       [returnColour.hex, returnColour.contrastRatio] = this._autoTextColour(backgroundColour);
       returnColour.rating = this._makeContrastRating(returnColour.contrastRatio);
       returnColour.contrastString = this._makeContrastRatioString(returnColour.contrastRatio);
       return this._textColourFromHex(returnColour);
     }
-    const returnColour = {name: 'text'};
+    const returnColour = {name: `${backgroundColour.name}-text`};
     returnColour.hex = textColour.hex;
     returnColour.contrastRatio = this._calculateContrastRatio(
       [textColour.red, textColour.green, textColour.blue], 

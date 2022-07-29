@@ -21,9 +21,9 @@ export const variantMaker= {
     this._swatchRecipeMap.forEach(newColourPartial => { // Create colours for all variations
     paletteUi.addColour(colourObject.assign(primaryColour, newColourPartial));// make variations based on new primary colour
     //paletteUi.updateColour(newColourPartial.name);
-    const newColour = paletteUi.getColourObject(newColourPartial.name);
-    gradientMaker.updateGradient(newColour);
-    textMaker.updateText(newColour);
+    //const newColour = paletteUi.getColourObject(newColourPartial.name);
+    //gradientMaker.updateGradient(newColour);
+    //textMaker.updateText(newColour);
       //Update Text Colour
     });
   },

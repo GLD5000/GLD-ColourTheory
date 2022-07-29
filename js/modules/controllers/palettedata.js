@@ -21,8 +21,11 @@ export const paletteData = {
         this.paletteState.textMode = mode;
     },
     getTextColour(backgroundColour){
-        const name = backgroundColour.name + 'text';
+        const name = backgroundColour.name + '-text';
+        return this.textColours.get(name);
     },
-
+    setTextColour(textColour){
+        this.textColours.set(textColour.name, textColour);
+    },
 
 }

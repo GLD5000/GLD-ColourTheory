@@ -3,8 +3,8 @@ import { paletteUi } from './paletteui.js';
 
 export const textMaker = {
     updateText(backgroundColour) {
-    const textMode = paletteUi.getTextMode();
-    const textColour = paletteUi.getTextColour(backgroundColour)
-    colourObject.getTextColourContrast(textColour, backgroundColour);
+    const textMode = paletteUi.getTextMode();//Auto or Custom
+    const textColour = (textMode === 'custom')? paletteUi.getTextColour(backgroundColour): null;
+    paletteUi.setTextColour(colourObject.getTextColourContrast(textColour, backgroundColour));
     },
 };
