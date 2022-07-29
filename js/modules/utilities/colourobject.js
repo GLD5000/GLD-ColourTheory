@@ -156,7 +156,9 @@ export const colourObject= {
   _convertSrgbToHex(colour) {
     return this._convertHslToHex(this._convertSrgbToHsl(colour));
   },
+
   _return(colour) {
+    this._addStringsToColourObject(colour);
     return Object.freeze(colour);
   },
   fromHsl(colour){
@@ -203,11 +205,22 @@ export const colourObject= {
   _convertHslToString(hue,sat,lum) {
     return `hsl(${Math.round(hue)},${sat.toFixed(1)}%,${lum.toFixed(1)}%)`//this._convertHslToHex(hue, sat, lum);
   },
+  _convertRgbToString(red,green,blue) {
+    return `rgb(${red * 255},${green * 255},${blue * 255})`
+  },
+
   _convertHslToColourObject(hue, sat, lum, name){
     return  {'name': name, 'hue': hue, 'sat': sat, 'lum': lum};
   },
-  getHslStringfromColour(colour){
+  _addStringsToColourObject(colour){
+    colour.hsl =  this._convertHslToString(colour.hue,colour.sat,colour.lum);
+    colour.rgb =  this._convertRgbToString(colour.red,colour.green,colour.blue);
+  },
+  hsl(colour){
     return this._convertHslToString(colour.hue,colour.sat,colour.lum);
+  },
+  rgb(colour){
+    return this._convertRgbToString(colour.red,colour.green,colour.blue);
   },
   makeRandomHslString(){
       return this._convertHslToString(...this._makeRandomHsl());

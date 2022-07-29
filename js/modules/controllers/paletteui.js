@@ -24,6 +24,8 @@ export const paletteUi = {
         this._updateVariants = throttleDebounce.debounce(() => variantMaker.updateVariants(),250);//working
         this._updatePrimaryGradient = throttleDebounce.throttle((x) => gradientMaker.updateGradient(...x),85);//not returning
         this._setOnChange();
+        this.setTextMode('Auto');
+
         //this._debounceOnChangeTextPicker = debounceB(() => this._onChangeTextPicker(),250);
        // console.log(userObjects.sliders);
       },
@@ -47,7 +49,7 @@ export const paletteUi = {
         const colourspace = this._getColourspace();
         this._setSliderValues(selectColourObject[colourspace]);
         userObjects.pickers['primary-picker'].value = hex;
-
+        userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[this._getColourspace()];
     },
     addColour(newColour){
         paletteData.addColour(newColour);
@@ -56,7 +58,7 @@ export const paletteUi = {
             return;
         }
         userObjects.pickers[newColour.name + '-picker'].value = newColour.hex;
-        
+        userObjects.copyButtons[newColour.name + '-copybtn'].innerHTML = newColour[this._getColourspace()];
     },
     setBackgroundGradient(name, string){
         userObjects.wrappers[name + '-wrapper'].style.background = string;
@@ -140,6 +142,9 @@ export const paletteUi = {
 
     getTextColour(backgroundColour){
         return paletteData.getTextColour(backgroundColour);
+    },
+    getSmallSwatchNames(){
+        return userObjects.smallSwatchNamesArray;
     },
 }
 
