@@ -44,7 +44,7 @@ class PrimarySwatch{
           this._picker = document.getElementById(name + '-picker');
           this._copyButton = new CopyButton(name);
           this._textPicker = document.getElementById('textcolour-picker');
-          this._textWrapper = document.getElementById('textColour-label');
+          this._textWrapper = document.getElementById('textmode');
           this._modeButton = document.getElementById(name + '-mode');
           this._randomButton = document.getElementById('randomise-btn');
           this._diceButton = document.getElementById('dice-btn');

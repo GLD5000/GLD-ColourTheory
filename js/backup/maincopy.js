@@ -317,7 +317,7 @@ class PrimarySwatch{
         this._picker = document.getElementById(name + '-picker');
         this._copyButton = new CopyButton(name);
         this._textPicker = document.getElementById('textcolour-picker');
-        this._textWrapper = document.getElementById('textColour-label');
+        this._textWrapper = document.getElementById('textmode');
         this._modeButton = document.getElementById('gradient');
         this._randomButton = document.getElementById('randomise-btn');
         this._diceButton = document.getElementById('dice-btn');
@@ -554,7 +554,7 @@ function setTextColour(colour) {
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
   colour_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)}${rating}`;
   textPicker.value = textColour;
-  document.getElementById('textColour-label').dataset.content = 'Text: Auto';
+  document.getElementById('textmode').dataset.content = 'Text: Auto';
   return textColour;
 }
 function customTextColour() {
@@ -565,7 +565,7 @@ function customTextColour() {
   const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
   colour_picker_wrapper.dataset.content =`Contrast Ratio: ${ratio.toFixed(2)}${rating}`;
   //colour_picker_wrapper.style.color = textColour;
-  document.getElementById('textColour-label').dataset.content = 'Text: Custom' ;
+  document.getElementById('textmode').dataset.content = 'Text: Custom' ;
 
   pickers.forEach((x, i) =>{
     const name = pickers[i].id.split('-')[0];

@@ -5,7 +5,7 @@ function setAll(){
         ['wrappers','wrapper'],
         //['buttons','button'],
         ['copyButtons','.copy-single'],
-        ['other',['#textColour-label', '#prefix', '#gradient', '#colourspace', '#dice-btn', '#randomise-btn']],
+        ['other',['#textmode', '#prefix', '#gradient', '#colourspace', '#dice-btn', '#randomise-btn']],
        // ['labels','label'],
     ];  
     const returnObject = {}
