@@ -16,11 +16,12 @@ export const paletteUi = {
         //gradientMaker.updateGradient(paletteData.getColourObject('primary'));
         variantMaker.updateVariants();
         this._updateVariants = throttleDebounce.debounce(() => variantMaker.updateVariants(),250);//working
-        this._updatePrimaryGradient = throttleDebounce.throttle((x) => gradientMaker.updateGradient(...x),85);//not returning
+       // this._updatePrimaryGradient = throttleDebounce.throttle((x) => gradientMaker.updateGradient(...x),85);//not returning
+        this._updatePrimaryGradient = (x) => gradientMaker.updateGradient(...x);//not returning
         this._setOnChange();
         this.setTextMode('Auto');
         this._initSmallWrapperContent();
-
+        this._counter = 0;
         //this._debounceOnChangeTextPicker = debounceB(() => this._onChangeTextPicker(),250);
       },
     _nameSplit(name, separator = '-'){
@@ -54,7 +55,7 @@ export const paletteUi = {
         userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[this._getColourspace()];
 
     },
-    addColour(newColour){
+    addColour(newColour){// not working for custom picker or custom text
         paletteData.addColour(newColour);
         gradientMaker.updateGradient(newColour);
         textMaker.updateText(newColour);
@@ -106,13 +107,23 @@ export const paletteUi = {
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
         userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
         this._updateVariants();
-
+    },
+    _oninputPicker(x){
+        const name = this._nameSplit(x.target.id);
+        const newPartial = {'name': `Custom${++this._counter}`};// for custom colour add as normal but save custom status and update dataset.content
+        if (name === 'primary') newPartial.name = name; // can do add colour as normal
+        if (name === 'text') newPartial.name = 'customText';// do not add as normal due to no wrapper thing 
+        newPartial.hex = x.target.value;
+        const newColour = colourObject.fromHex(newPartial);
+        this.addColour(newColour);
+        this._updateVariants();
     },
     _setOnChange() {
-        userObjects.sliders.forEach((x) => x.oninput = (x) => this._oninputSlider(x));
+        userObjects.sliders.forEach((x) => x.oninput = throttleDebounce.throttle((x) => this._oninputSlider(x),85));
         userObjects.other['dice-btn'].onclick = () => this._onclickRandom();
         userObjects.other['randomise-btn'].onclick = () => this._onclickRandom();
         userObjects.other['gradient'].onclick = () => this._onclickGradient();
+        Object.keys(userObjects.pickers).forEach((x) => userObjects.pickers[x].oninput = throttleDebounce.throttle((x) => this._oninputPicker(...x),85) );
         //paletteUi.primaryPicker.oninput = () => {this._onchange()};
         //paletteUi.textPicker= () => {this._onchange()};
         //paletteUi.textLabel= () => {this._onchange()};
