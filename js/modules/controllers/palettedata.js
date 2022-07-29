@@ -12,7 +12,6 @@ export const paletteData = {
     },
     getColourObject(name){
         const returnName = this.backgroundColours.get(name);
-        //console.log(returnName);
         return returnName;
     },
     getTextMode(){
