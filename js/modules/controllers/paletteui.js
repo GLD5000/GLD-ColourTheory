@@ -50,24 +50,17 @@ export const paletteUi = {
 
     },
     addColour(newColour){
+        paletteData.addColour(newColour);
         if (newColour.name === 'primary') {
             this._addPrimaryColour(newColour);
             return;
         }
         userObjects.pickers[newColour.name + '-picker'].value = newColour.hex;
-    },
-    updateColour(name){
-        const newColour = paletteData.getColourObject(name);
-        if (name === 'primary') {
-            this._addPrimaryColour(newColour);
-            return;
-        }
-        userObjects.pickers[newColour.name + '-picker'].value = newColour.hex;
+        
     },
     setBackgroundGradient(name, string){
         userObjects.wrappers[name + '-wrapper'].style.background = string;
     },
-
     _getSliderColourObject(){
         const selectColourKeys = {
             'hex': ['hue', 'sat', 'lum'],

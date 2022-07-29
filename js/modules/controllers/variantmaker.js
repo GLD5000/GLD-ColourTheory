@@ -19,8 +19,8 @@ export const variantMaker= {
   updateVariants(){
     const primaryColour = paletteData.getColourObject('primary');
     this._swatchRecipeMap.forEach(newColourPartial => { // Create colours for all variations
-    paletteData.addColour(colourObject.assign(primaryColour, newColourPartial));// make variations based on new primary colour
-    paletteUi.updateColour(newColourPartial.name);
+    paletteUi.addColour(colourObject.assign(primaryColour, newColourPartial));// make variations based on new primary colour
+    //paletteUi.updateColour(newColourPartial.name);
     gradientMaker.updateGradient(paletteData.getColourObject(newColourPartial.name));
       //Update Text Colour
     });
