@@ -8,16 +8,21 @@ import { clampRotate } from "../utilities/utilities.js";
 import { textMaker } from "./textmaker.js";
 
 export const paletteUi = {
+    _debounce(){
+        this._updateVariants = throttleDebounce.debounce(() => variantMaker.updateVariants(),250);//working
+    },
+
     _init(){
+        this._debounce();
+        this._updatePrimaryGradient = (x) => gradientMaker.updateGradient(...x);//not returning
+
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
         userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
-        paletteData.addColour(colourObject.makeRandomColour('primary'));
-        this.addColour(paletteData.getColourObject('primary'));
+       // paletteData.addColour(colourObject.makeRandomColour('primary'));
+        this.addColour(colourObject.makeRandomColour('primary'));
         //gradientMaker.updateGradient(paletteData.getColourObject('primary'));
-        variantMaker.updateVariants();
-        this._updateVariants = throttleDebounce.debounce(() => variantMaker.updateVariants(),250);//working
+        //variantMaker.updateVariants();
        // this._updatePrimaryGradient = throttleDebounce.throttle((x) => gradientMaker.updateGradient(...x),85);//not returning
-        this._updatePrimaryGradient = (x) => gradientMaker.updateGradient(...x);//not returning
         this._setOnChange();
         this.setTextMode('Auto');
         this._initSmallWrapperContent();
@@ -53,7 +58,7 @@ export const paletteUi = {
         this._setSliderValues(selectColourObject[colourspace]);
         userObjects.pickers['primary-picker'].value = hex;
         userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[this._getColourspace()];
-
+        this._updateVariants();
     },
     addColour(newColour){// not working for custom picker or custom text
         paletteData.addColour(newColour);
@@ -91,7 +96,7 @@ export const paletteUi = {
     },
     _oninputSlider(x){
         this.addColour(this._getSliderColourObject());//update data store
-        this._updateVariants();//throttled debounced variant update
+        //this._updateVariants();//throttled debounced variant update
         //this._updatePrimaryGradient(paletteData.getColourObject('primary'));//throttled debounced gradient update
         //throttled debounced textColour update
     },
@@ -106,17 +111,33 @@ export const paletteUi = {
         //gradientMaker.updateGradient(paletteData.getColourObject('primary'));
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
         userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
-        this._updateVariants();
+        //this._updateVariants();
+    },
+    _addTextColour(newPartial) {
+        newPartial.name = `Custom${++this._counter}`// for custom colour add as normal but save custom status and update dataset.content
+
+        //add text colour 
+    },
+    _addCustomColour(newPartial) {
+        newPartial.name = `Custom${++this._counter}`    // for custom colour add as normal but save custom status and update dataset.content
+        //add custom background colour
     },
     _oninputPicker(x){
         const name = this._nameSplit(x.target.id);
-        const newPartial = {'name': `Custom${++this._counter}`};// for custom colour add as normal but save custom status and update dataset.content
-        if (name === 'primary') newPartial.name = name; // can do add colour as normal
-        if (name === 'text') newPartial.name = 'customText';// do not add as normal due to no wrapper thing 
-        newPartial.hex = x.target.value;
+        const hex = x.target.value;
+        const newPartial = {hex: hex};
+        if (name === 'text') {
+            newPartial.name = 'customText';
+            this._addTextColour(newPartial);
+            return;
+        }// do not add as normal due to no wrapper thing 
+        newPartial.name = name;
         const newColour = colourObject.fromHex(newPartial);
+        console.log(newPartial);
+
         this.addColour(newColour);
-        this._updateVariants();
+        if (name !== 'primary') this._addCustomColour({name: name, hex: hex}); // custom colour
+
     },
     _setOnChange() {
         userObjects.sliders.forEach((x) => x.oninput = throttleDebounce.throttle((x) => this._oninputSlider(x),85));

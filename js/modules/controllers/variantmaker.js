@@ -1,7 +1,7 @@
 import { colourObject } from "../utilities/colourobject.js";
 import { paletteUi } from "./paletteui.js";
-import { gradientMaker } from "./gradientmaker.js";
-import {textMaker} from './textmaker.js'
+//import { gradientMaker } from "./gradientmaker.js";
+//import {textMaker} from './textmaker.js'
 export const variantMaker= {
 
   _swatchRecipeMap: new Map([
