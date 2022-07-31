@@ -66,6 +66,6 @@ export const gradientMaker = {
     updateGradient(colour){
         this._makeGradient(colour);
         paletteUi.setBackgroundGradient(colour.name, this._gradientString);
-        console.log(colour.name);
+        //console.log(colour.name);
     }
 }

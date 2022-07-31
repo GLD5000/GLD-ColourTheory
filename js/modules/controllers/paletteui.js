@@ -5,6 +5,7 @@ import { throttleDebounce} from '../utilities/utilities.js';
 import { variantMaker } from "./variantmaker.js";
 import { gradientMaker } from "./gradientmaker.js";
 import { clampRotate } from "../utilities/utilities.js";
+import { callCounter } from "../utilities/utilities.js";
 import { textMaker } from "./textmaker.js";
 
 export const paletteUi = {
@@ -21,7 +22,6 @@ export const paletteUi = {
        // paletteData.addColour(colourObject.makeRandomColour('primary'));
         this.addColour(colourObject.makeRandomColour('primary'));
         //gradientMaker.updateGradient(paletteData.getColourObject('primary'));
-        //variantMaker.updateVariants();
        // this._updatePrimaryGradient = throttleDebounce.throttle((x) => gradientMaker.updateGradient(...x),85);//not returning
         this._setOnChange();
         this.setTextMode('Auto');
@@ -58,6 +58,7 @@ export const paletteUi = {
         this._setSliderValues(selectColourObject[colourspace]);
         userObjects.pickers['primary-picker'].value = hex;
         userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[this._getColourspace()];
+        callCounter('paletteUi');
         this._updateVariants();
     },
     addColour(newColour){// not working for custom picker or custom text
@@ -96,9 +97,6 @@ export const paletteUi = {
     },
     _oninputSlider(x){
         this.addColour(this._getSliderColourObject());//update data store
-        //this._updateVariants();//throttled debounced variant update
-        //this._updatePrimaryGradient(paletteData.getColourObject('primary'));//throttled debounced gradient update
-        //throttled debounced textColour update
     },
     _onclickGradient(){
         paletteData.paletteState.gradientMode = clampRotate.rotate(1* paletteData.paletteState.gradientMode + 1, 1 ,10) || 1;
@@ -111,7 +109,6 @@ export const paletteUi = {
         //gradientMaker.updateGradient(paletteData.getColourObject('primary'));
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
         userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
-        //this._updateVariants();
     },
     _addTextColour(newPartial) {
         newPartial.name = `Custom${++this._counter}`// for custom colour add as normal but save custom status and update dataset.content
@@ -133,8 +130,6 @@ export const paletteUi = {
         }// do not add as normal due to no wrapper thing 
         newPartial.name = name;
         const newColour = colourObject.fromHex(newPartial);
-        console.log(newPartial);
-
         this.addColour(newColour);
         if (name !== 'primary') this._addCustomColour({name: name, hex: hex}); // custom colour
 

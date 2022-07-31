@@ -23,7 +23,6 @@ import { userObjects} from './modules/view/userobjects.js';
 //freshColour.hex = 0; //error
 //paletteUi._setOnChange();
 //console.log(variantMaker);
-//console.log(variantMaker.updateVariants({name: 'funky', hue: 3, sat: 2, lum: 1}, {name: 'Primary', hue: 4}));
 /* Object.defineProperty(colourObject, '_clamp', {enumerable: false});
 for (const key in colourObject) {
   if (Object.hasOwnProperty.call(colourObject, key) && key[0] === '_') {
@@ -629,24 +628,7 @@ function linearGradientThreeTone(hex) {
   */
   return gradient;
 }
-function stableCounter(counter, inc) {//pass through outer variable to inner
 
-  function innerIncrement() {
-    counter += inc;
-    return counter;
-  }
-
-  return innerIncrement;
-}
-function variableCounter(counter) {//pass through outer variable to inner
-
-  function innerIncrement(inc) {
-    counter += inc;
-    return counter;
-  }
-
-  return innerIncrement;
-}
 function functionBox(init, func, amount) {
   let operation;
   let counter = init;

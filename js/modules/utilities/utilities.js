@@ -68,11 +68,49 @@ export const throttleDebounce = {
         let timer; 
         let counter = 0;
         return (...args) => { //create inner function
-            if (counter === 0) callbackFunction.apply(this, args);//get first click
-            counter = 1;
+            if (counter === 0) {callbackFunction.apply(this, args)
+                counter = 1;
+                return;
+            };//get first click
+            
             clearTimeout(timer); // reset timer each time function is called
             timer  = setTimeout(() => { callbackFunction.apply(this, args); counter = 0;
             }, delayTime);//which this is applied
         };
     },
 };
+
+export function callCounterMaker(location = 'unknown location', counter = 0, inc = 1) {//pass through outer variable to inner
+
+    function callCounter() {
+      counter += inc;
+      console.log(`${counter} calls from ${location}`);
+    }
+  
+    return callCounter;
+  }
+  const callCounterObject = {};
+  export function callCounter(location = 'unknown location') {//pass through outer variable to inner
+   if (callCounterObject[location] == null) callCounterObject[location] = 0;
+    callCounterObject[location] += 1; 
+      console.log(`${callCounterObject[location]} calls from ${location}`);
+  }
+
+  function fixedCounterMaker(counter, inc) {//pass through outer variable to inner
+
+    function fixedCounter() {
+      counter += inc;
+      return counter;
+    }
+  
+    return fixedCounter;
+  }
+  function variableCounterMaker(counter) {//pass through outer variable to inner
+  
+    function variableCounter(inc) {
+      counter += inc;
+      return counter;
+    }
+  
+    return variableCounter;
+  }
