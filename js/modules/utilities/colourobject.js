@@ -6,7 +6,7 @@ export const colourObject= {
     const {red, green, blue} = backgroundColour;
     const contrastBlack = this._calculateContrastRatio([0,0,0],[red, green, blue]);
     const contrastWhite = this._calculateContrastRatio([1,1,1],[red, green, blue]);
-    const autoColour = (contrastBlack > contrastWhite)? '#000': '#fff';
+    const autoColour = (contrastBlack > contrastWhite)? '#000000': '#ffffff';
     const autoContrast = Math.max(contrastBlack,contrastWhite);
     return [autoColour, autoContrast];
   },
@@ -28,7 +28,7 @@ export const colourObject= {
   },
   _makeContrastRatioString(ratio) {
     const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
-    return `Contrast Ratio: ${ratio.toFixed(2)}${rating}`;
+    return `Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;
   },
   _makeContrastRating(ratio) {
     return (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';

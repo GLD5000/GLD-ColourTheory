@@ -6,6 +6,9 @@ export const paletteData = {
     addColour(colour){
         this.backgroundColours.set(colour.name, colour);
     }, 
+    addTextColour(name,colour){
+        this.textColours.set(name, colour);
+    }, 
     addCustomColour(name,colour){
         this.customColours.set(name, colour);
     }, 

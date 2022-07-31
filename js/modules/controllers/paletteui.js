@@ -61,6 +61,7 @@ export const paletteUi = {
         callLogger('paletteUi');
         this._updateVariants();
         this._initSmallWrapperContent();
+        this.setTextMode('Auto');
     },
     addColour(newColour){// not working for custom picker or custom text
         paletteData.addColour(newColour);
@@ -111,28 +112,31 @@ export const paletteUi = {
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
         userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
     },
-    _addTextColour(newPartial) {
-        newPartial.name = `Custom${++this._counter}`// for custom colour add as normal but save custom status and update dataset.content
-
+    _addTextColour(name, hex) {
+       const textColour = colourObject.fromHex({name: name, hex: hex});
+       this.getAllSwatchNames().forEach(key => {
+        //console.log(key);
+        const backgroundColour = paletteData.getColourObject(this._splitName(key));
+        const newTextColour = colourObject.getTextColourContrast(textColour, backgroundColour);
+        //console.log(newTextColour);
+        this.setTextColour(newTextColour);
+       });
         //add text colour 
     },
     _addCustomColour(name, hex) {
-        //check of existance of custom colour
-        // increment palette wide counter
         const customName = paletteData.getCustomColourName(name) || `Custom${++this._counter}`;    // for custom colour add as normal but save custom status and update dataset.content
-        paletteData.addCustomColour(name, colourObject.fromHex({name: name, customName: customName, hex: hex}))// store custom name with colour under key of swatch location
+        paletteData.addCustomColour(name, colourObject.fromHex({name: name, customName: customName, hex: hex}));// store custom name with colour under key of swatch location
         userObjects.wrappers[name + '-wrapper'].dataset.content = customName;// update wrapper content
-        //console.log(newPartial.name); //add custom background colour
     },
     _oninputPicker(x){
         const name = this._splitName(x.target.id);
         const hex = x.target.value;
-        const newPartial = {hex: hex};
-        if (name === 'text') {
-            newPartial.name = 'customText';
-            this._addTextColour(newPartial);
+        if (name === 'textcolour') {
+            this.setTextMode('Custom');
+            this._addTextColour('customText',hex);
             return;
         }// do not add as normal due to no wrapper thing 
+        const newPartial = {hex: hex};
         newPartial.name = name;
         const newColour = colourObject.fromHex(newPartial);
         this.addColour(newColour);
@@ -147,11 +151,6 @@ export const paletteUi = {
         this.addColour(customColour);
         const wrapper = userObjects.wrappers[customColour.name + '-wrapper'];
         wrapper.dataset.content = customColour.customName;
-        //console.log(customColour);
-        
-        //gradientMaker.updateGradient(customColour);
-        
-    
     },
     _setOnChange() {
         userObjects.sliders.forEach((x) => x.oninput = throttleDebounce.throttle((x) => this._oninputSlider(x),85));
@@ -160,9 +159,6 @@ export const paletteUi = {
         userObjects.other['gradient'].onclick = () => this._onclickGradient();
         userObjects.smallSwatchNamesArray.forEach(x => userObjects.pickers[x + '-picker'].onclick = (e) => this._onclickSmallSwatch(e));
         Object.keys(userObjects.pickers).forEach((x) => userObjects.pickers[x].oninput = throttleDebounce.throttle((x) => this._oninputPicker(...x),85) );
-        //paletteUi.primaryPicker.oninput = () => {this._onchange()};
-        //paletteUi.textPicker= () => {this._onchange()};
-        //paletteUi.textLabel= () => {this._onchange()};
     }, 
     getStops(){
         return userObjects.other['gradient'].innerHTML.toLowerCase();
@@ -189,8 +185,11 @@ export const paletteUi = {
     _setWrapperTextColour(textColour){
         const name = this._splitName(textColour.name)
         const wrapper = this._getWrapper(name);
-        wrapper.style.color = textColour.hex || '#000';
-        if (name === 'primary') wrapper.dataset.content = textColour.contrastString;
+        wrapper.style.color = textColour.hex || '#000000';
+        if (name === 'primary') {
+            wrapper.dataset.content = textColour.contrastString;
+            //userObjects.pickers['textcolour-picker'].value = textColour.hex;
+        }
         if (name !== 'primary') wrapper.dataset.rating = textColour.rating;
     },
     setTextColour(textColour){
@@ -200,4 +199,8 @@ export const paletteUi = {
     getSmallSwatchNames(){
         return userObjects.smallSwatchNamesArray;
     },
+    getAllSwatchNames(){
+        return ['primary', ...userObjects.smallSwatchNamesArray];
+    },
+
 }
