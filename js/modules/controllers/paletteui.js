@@ -15,7 +15,7 @@ export const paletteUi = {
     _clipboardColourspaceLookup: {
         hex: '#ce9178',
         hsl: '#b5cea8',
-        rgb: '#ffffff',
+        rgb: '#DCDCAA',
     },
     _init(){
         this._updateClipboard = 0;
