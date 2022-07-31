@@ -80,20 +80,20 @@ export const throttleDebounce = {
     },
 };
 
-export function callCounterMaker(location = 'unknown location', counter = 0, inc = 1) {//pass through outer variable to inner
+export function callLoggerMaker(location = 'unknown location', counter = 0, inc = 1) {//pass through outer variable to inner
 
-    function callCounter() {
+    function callLogger() {
       counter += inc;
       console.log(`${counter} calls from ${location}`);
     }
   
-    return callCounter;
+    return callLogger;
   }
-  const callCounterObject = {};
-  export function callCounter(location = 'unknown location') {//pass through outer variable to inner
-   if (callCounterObject[location] == null) callCounterObject[location] = 0;
-    callCounterObject[location] += 1; 
-      console.log(`${callCounterObject[location]} calls from ${location}`);
+  const callLoggerObject = {};
+  export function callLogger(location = 'unknown location') {//pass through outer variable to inner
+   if (callLoggerObject[location] == null) callLoggerObject[location] = 0;
+    callLoggerObject[location] += 1; 
+      console.log(`${callLoggerObject[location]} calls from ${location}`);
   }
 
   function fixedCounterMaker(counter, inc) {//pass through outer variable to inner

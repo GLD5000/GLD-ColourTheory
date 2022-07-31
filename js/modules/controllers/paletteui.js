@@ -5,7 +5,7 @@ import { throttleDebounce} from '../utilities/utilities.js';
 import { variantMaker } from "./variantmaker.js";
 import { gradientMaker } from "./gradientmaker.js";
 import { clampRotate } from "../utilities/utilities.js";
-import { callCounter } from "../utilities/utilities.js";
+import { callLogger } from "../utilities/utilities.js";
 import { textMaker } from "./textmaker.js";
 
 export const paletteUi = {
@@ -58,7 +58,7 @@ export const paletteUi = {
         this._setSliderValues(selectColourObject[colourspace]);
         userObjects.pickers['primary-picker'].value = hex;
         userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[this._getColourspace()];
-        callCounter('paletteUi');
+        //callLogger('paletteUi');
         this._updateVariants();
         this._initSmallWrapperContent();
     },
@@ -105,8 +105,8 @@ export const paletteUi = {
         paletteData.backgroundColours.forEach(colour => gradientMaker.updateGradient(colour));
     },
     _onclickRandom(){
-        paletteData.addColour(colourObject.makeRandomColour('primary'));
-        this.addColour(paletteData.getColourObject('primary'));
+        //paletteData.addColour(colourObject.makeRandomColour('primary'));
+        this.addColour(colourObject.makeRandomColour('primary'));
         //gradientMaker.updateGradient(paletteData.getColourObject('primary'));
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
         userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
