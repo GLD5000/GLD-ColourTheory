@@ -203,7 +203,7 @@ export const colourObject= {
     return [hue,sat,lum];
   },
   _convertHslToString(hue,sat,lum) {
-    return `hsl(${Math.round(hue)},${sat.toFixed(1)}%,${lum.toFixed(1)}%)`//this._convertHslToHex(hue, sat, lum);
+    return `hsl(${Math.round(hue)},${sat.toFixed(0)}%,${lum.toFixed(0)}%)`//this._convertHslToHex(hue, sat, lum);
   },
   _convertRgbToString(red,green,blue) {
     return `rgb(${red * 255},${green * 255},${blue * 255})`

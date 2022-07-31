@@ -7,7 +7,7 @@ primaryAutoTextState:
 swatchesCustomState:
 swatchesCustomHex:
 gradientMode:
-colourSpaceMode:
+colourspaceMode:
  */
 
 

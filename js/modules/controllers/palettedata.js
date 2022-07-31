@@ -70,5 +70,7 @@ export const paletteData = {
     setTextColour(textColour){
         this.textColours.set(textColour.name, textColour);
     },
-
+    setColourSpace(colourspace){
+        this.paletteState.colourspace = colourspace;
+    },
 }

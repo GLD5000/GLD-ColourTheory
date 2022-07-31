@@ -49,6 +49,11 @@ export const paletteUi = {
     _getColourspace(){
         return userObjects.other['colourspace'].innerHTML.toLowerCase();
     },
+    _setColourspace(colourspace){
+        paletteData.setColourSpace(colourspace);
+        userObjects.other['colourspace'].innerHTML = colourspace;
+    },
+
     _setSliderValues(args){
         userObjects.sliders.forEach((x,i) => x.value = args[i]);
     },
@@ -239,7 +244,16 @@ export const paletteUi = {
     
     },
     _onclickColourspace(){
-
+        const colourspace = this._getColourspace();
+        const optionsArray = ['hex','hsl','rgb'];
+        const arrayLimit = optionsArray.length -1;
+        let index = optionsArray.indexOf(colourspace);
+        index++;
+        if (index > arrayLimit) index = 0;
+        const newColourspace = optionsArray[index];
+        this._setColourspace(newColourspace);
+        this._setClipboardTextAll();
+        this.getAllSwatchNames().forEach(name => userObjects.copyButtons[name + '-copybtn'].innerHTML = this.getColourObject(name)[newColourspace]);
     },
     _onclickPrefix(){
         const prefix = paletteData.getPrefix();

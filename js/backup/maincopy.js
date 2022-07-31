@@ -151,7 +151,7 @@ const buttons = document.querySelectorAll('button');
 class CopyButton{
   constructor(name) {
     this._name = name;
-    this._colourSpace = 'hex';
+    this._colourspace = 'hex';
     this._styleSheetType = 'css';
     this._element = document.getElementById(name + '-copybtn');
     //add mode logic for SCSS/CSS Toggle
@@ -487,7 +487,7 @@ class SuffixStops{
 class ColourMultiGradient{
   constructor(hex,name,stops) {
     this._name = name;
-    //[this._hue,this._sat,this._lum] = [colourSpaces.hsl.hue,colourSpaces.hsl.sat,colourSpaces.hsl.lum];
+    //[this._hue,this._sat,this._lum] = [colourspaces.hsl.hue,colourspaces.hsl.sat,colourspaces.hsl.lum];
     this._suffixes = this._getStops(stops);
     //for stops loop
   }
