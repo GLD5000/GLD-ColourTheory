@@ -58,7 +58,7 @@ export const paletteUi = {
         this._setSliderValues(selectColourObject[colourspace]);
         userObjects.pickers['primary-picker'].value = hex;
         userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[this._getColourspace()];
-        //callLogger('paletteUi');
+        callLogger('paletteUi');
         this._updateVariants();
         this._initSmallWrapperContent();
     },

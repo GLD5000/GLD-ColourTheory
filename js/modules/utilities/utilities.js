@@ -65,16 +65,19 @@ export const throttleDebounce = {
     },
 
     debounce(callbackFunction,delayTime = 1000) {//My own version
-        let timer; 
+        let timerA; 
         let counter = 0;
         return (...args) => { //create inner function
-            if (counter === 0) {callbackFunction.apply(this, args)
+            if (counter === 0) {
+                callbackFunction.apply(this, args);
                 counter = 1;
-                return;
+                return setTimeout(() => {counter = 0;},delayTime);
+                
             };//get first click
-            
-            clearTimeout(timer); // reset timer each time function is called
-            timer  = setTimeout(() => { callbackFunction.apply(this, args); counter = 0;
+            clearTimeout(timerA); // reset timer each time function is called
+            timerA  = setTimeout(() => { 
+                callbackFunction.apply(this, args); 
+                counter = 0;
             }, delayTime);//which this is applied
         };
     },
