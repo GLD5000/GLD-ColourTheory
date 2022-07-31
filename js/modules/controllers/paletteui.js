@@ -133,6 +133,7 @@ export const paletteUi = {
         const customName = paletteData.getCustomColourName(name) || `Custom${++this._counter}`;    // for custom colour add as normal but save custom status and update dataset.content
         paletteData.addCustomColour(name, colourObject.fromHex({name: name, customName: customName, hex: hex}));// store custom name with colour under key of swatch location
         userObjects.wrappers[name + '-wrapper'].dataset.content = customName;// update wrapper content
+        this._setClipboardTextAll();
     },
     _oninputPicker(x){
         const name = this._splitName(x.target.id);
@@ -160,11 +161,13 @@ export const paletteUi = {
     _getClipboardTextSingle(name){
         const colourspace = this._getColourspace();
         const prefix = paletteData.getPrefix();
-        const textArray = [`${prefix}${name}: ${paletteData.getColourObject(name)[colourspace]}`];
+        let customName = paletteData.getCustomColourName(name)|| name;
+        const textArray = [`${prefix}${customName}: ${paletteData.getColourObject(name)[colourspace]}`];
         const gradientColours = paletteData.getGradientColours(name);
         if (gradientColours != null) {
             gradientColours.forEach(x => {
-                textArray.push(`${prefix}${x.name}: ${x[colourspace]}`)
+                customName = paletteData.getCustomColourName(x.name) ||x.name;
+                textArray.push(`${prefix}${customName}: ${x[colourspace]}`)
             });
         }
         return textArray.join('\n');
@@ -172,15 +175,19 @@ export const paletteUi = {
     _getClipboardTextSingleAsArray(name){
         const colourspace = this._getColourspace();
         const prefix = paletteData.getPrefix();
-        const textArray = [[`${prefix}${name}: `],
+        let customName = paletteData.getCustomColourName(name) || name;
+        console.log(paletteData.getColourObject(name));
+        const textArray = [[`${prefix}${customName}: `],
         [`${paletteData.getColourObject(name)[colourspace]}`],
-        [`${prefix}${name}: ${paletteData.getColourObject(name)[colourspace]}`]];
+        [`${prefix}${customName}: ${paletteData.getColourObject(name)[colourspace]}`]];
         const gradientColours = paletteData.getGradientColours(name);
         if (gradientColours != null) {
             gradientColours.forEach(x => {
-                textArray[0].push(`${prefix}${x.name}: `);
+                customName = paletteData.getCustomColourName(x.name) ||x.name;
+
+                textArray[0].push(`${prefix}${customName}: `);
                 textArray[1].push(`${x[colourspace]}`);
-                textArray[2].push(`${prefix}${x.name}: ${x[colourspace]}`);
+                textArray[2].push(`${prefix}${customName}: ${x[colourspace]}`);
             });
         }
         //return [textArray[0].join('\n'), textArray[1].join('\n')];
