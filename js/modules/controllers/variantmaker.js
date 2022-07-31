@@ -1,5 +1,5 @@
 import { colourObject } from "../utilities/colourobject.js";
-import { callLogger } from "../utilities/utilities.js";
+//import { callLogger } from "../utilities/utilities.js";
 import { paletteUi } from "./paletteui.js";
 export const variantMaker= {
 
@@ -16,7 +16,6 @@ export const variantMaker= {
     ['neutral', {name: 'neutral', sat: 0}]
   ]), 
   updateVariants(){
-    callLogger('variantMaker');
     const primaryColour = paletteUi.getColourObject('primary');
     this._swatchRecipeMap.forEach(newColourPartial => { // Create colours for all variations
     paletteUi.addColour(colourObject.assign(primaryColour, newColourPartial));// make variations based on new primary colour

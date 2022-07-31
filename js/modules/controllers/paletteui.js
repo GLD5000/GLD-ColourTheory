@@ -5,7 +5,7 @@ import { throttleDebounce} from '../utilities/utilities.js';
 import { variantMaker } from "./variantmaker.js";
 import { gradientMaker } from "./gradientmaker.js";
 import { clampRotate } from "../utilities/utilities.js";
-import { callLogger } from "../utilities/utilities.js";
+//import { callLogger } from "../utilities/utilities.js";
 import { textMaker } from "./textmaker.js";
 
 export const paletteUi = {
@@ -58,7 +58,6 @@ export const paletteUi = {
         this._setSliderValues(selectColourObject[colourspace]);
         userObjects.pickers['primary-picker'].value = hex;
         userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[this._getColourspace()];
-        callLogger('paletteUi');
         this._updateVariants();
         this._initSmallWrapperContent();
         this.setTextMode('Auto');
@@ -152,13 +151,34 @@ export const paletteUi = {
         const wrapper = userObjects.wrappers[customColour.name + '-wrapper'];
         wrapper.dataset.content = customColour.customName;
     },
+    _getClipboardTextSingle(name){
+        const colourspace = this._getColourspace();
+        const prefix = paletteData.getPrefix();
+        const textArray = [`${prefix}${name}: ${paletteData.getColourObject(name)[colourspace]}`];
+        const gradientColours = paletteData.getGradientColours(name);
+        if (gradientColours != null) {
+            gradientColours.forEach(x => {
+                textArray.push(`${prefix}${x.name}: ${x[colourspace]}`)
+            });
+        }
+        return textArray.join('\n');
+    },
+    _onclickCopyButtons(e){
+
+        const name = this._splitName(e.target.id);
+        const text = this._getClipboardTextSingle(name);
+        navigator.clipboard.writeText(text);
+        alert(`Copied To Clipboard:\n${text}`);
+    
+    },
     _setOnChange() {
-        userObjects.sliders.forEach((x) => x.oninput = throttleDebounce.throttle((x) => this._oninputSlider(x),85));
+        userObjects.other['gradient'].onclick = () => this._onclickGradient();
         userObjects.other['dice-btn'].onclick = () => this._onclickRandom();
         userObjects.other['randomise-btn'].onclick = () => this._onclickRandom();
-        userObjects.other['gradient'].onclick = () => this._onclickGradient();
-        userObjects.smallSwatchNamesArray.forEach(x => userObjects.pickers[x + '-picker'].onclick = (e) => this._onclickSmallSwatch(e));
+        this.getAllSwatchNames().forEach(x => userObjects.copyButtons[x + '-copybtn'].onclick = (e) => this._onclickCopyButtons(e));//'copyAllCSS'
+        userObjects.sliders.forEach((x) => x.oninput = throttleDebounce.throttle((x) => this._oninputSlider(x),85));
         Object.keys(userObjects.pickers).forEach((x) => userObjects.pickers[x].oninput = throttleDebounce.throttle((x) => this._oninputPicker(...x),85) );
+        this.getSmallSwatchNames().forEach(x => userObjects.pickers[x + '-picker'].onclick = (e) => this._onclickSmallSwatch(e));
     }, 
     getStops(){
         return userObjects.other['gradient'].innerHTML.toLowerCase();

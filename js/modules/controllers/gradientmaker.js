@@ -43,17 +43,20 @@ export const gradientMaker = {
             const suffixes = this._suffixStops(this._stops);
             const satMultStops  = this._multiplierStops(this._stops,satMult);
             const lumMultStops  = this._multiplierStops(this._stops,lumMult);
-            this._gradientColours = {}; 
+            this._gradientColours = []; 
             suffixes.forEach((suffix, i) => {
-                this._gradientColours[mainColour.name + suffix] = colourObject.assign(mainColour,{name: mainColour.name + suffix, lum: lumMultStops[i], sat: satMultStops[i], operation: 'multiply'});
+                const newColour = colourObject.assign(mainColour,{name: mainColour.name + suffix, lum: lumMultStops[i], sat: satMultStops[i], operation: 'multiply'});
+                this._gradientColours.push(newColour);
             });
             const gap = getComputedStyle(document.querySelector('.slider-container')).gap;
             this._gradientString = `linear-gradient(to top, #000 ${gap}, ${mainColour.hex} ${gap}, ${mainColour.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;
             const stopWidth = 100 / this._stops;
             Object.keys(this._gradientColours).forEach((x, i)=>{
-                this._gradientString += `, ${colourObject.hsl(this._gradientColours[x])} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
+                this._gradientString += `, ${colourObject.hsl(this._gradientColours[i])} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
             });
             this._gradientString += `) 0% 50% / 100% 30%`;
+            paletteData.addGradientColours(this._gradientColours);
+
         } 
      },
     backgroundString(){

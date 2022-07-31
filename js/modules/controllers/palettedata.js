@@ -1,8 +1,22 @@
 export const paletteData = {
-    paletteState: {gradientMode: 1, prefixMode: 'SCSS', textMode: 'Auto', colourspace: 'Hex'},
+    paletteState: {gradientMode: 1, prefixMode: 'SCSS', prefix: '$', textMode: 'Auto', colourspace: 'Hex'},
     backgroundColours: new Map(),
     customColours: new Map(),
+    gradientColours: new Map(),
     textColours: new Map(),
+    setPrefix(prefix){
+        this.paletteState.prefix = prefix;
+    },
+    getPrefix(){
+        return this.paletteState.prefix;
+    },
+    setPrefixMode(prefixMode){
+        this.paletteState.prefixMode = prefixMode;
+    },
+    getPrefixMode(){
+        return this.paletteState.prefixMode;
+    },
+
     addColour(colour){
         this.backgroundColours.set(colour.name, colour);
     }, 
@@ -12,6 +26,13 @@ export const paletteData = {
     addCustomColour(name,colour){
         this.customColours.set(name, colour);
     }, 
+    addGradientColours(array){
+        const name = array[0].name.split('-')[0];
+        this.gradientColours.set(name, array);
+    },
+    getGradientColours(name){
+        return this.gradientColours.get(name);
+    },
     getCustomColourName(name){
         if (this.customColours.get(name) == null) return null;
         return this.customColours.get(name).customName;
