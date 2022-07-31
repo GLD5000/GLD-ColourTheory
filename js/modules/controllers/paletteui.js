@@ -238,7 +238,27 @@ export const paletteUi = {
         alert(`Copied To Clipboard:\n${text}`);
     
     },
+    _onclickColourspace(){
+
+    },
+    _onclickPrefix(){
+        const prefix = paletteData.getPrefix();
+        const prefixMode = paletteData.getPrefixMode();
+        if (prefixMode === 'SCSS'){
+            paletteData.setPrefixMode('CSS');
+            userObjects.other['prefix'].innerHTML = 'CSS';
+            paletteData.setPrefix('--');
+            this._setClipboardTextAll();
+            return;
+        }
+        paletteData.setPrefixMode('SCSS');
+        userObjects.other['prefix'].innerHTML = 'SCSS';
+        paletteData.setPrefix('$');
+        this._setClipboardTextAll();
+    },
     _setOnChange() {
+        userObjects.other['colourspace'].onclick = () => this._onclickColourspace();//to make
+        userObjects.other['prefix'].onclick = () => this._onclickPrefix();// to make
         userObjects.other['gradient'].onclick = () => this._onclickGradient();
         userObjects.other['dice-btn'].onclick = () => this._onclickRandom();
         userObjects.other['randomise-btn'].onclick = () => this._onclickRandom();
