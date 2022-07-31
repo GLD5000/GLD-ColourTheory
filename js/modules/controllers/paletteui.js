@@ -29,7 +29,7 @@ export const paletteUi = {
         this._counter = 0;
         //this._debounceOnChangeTextPicker = debounceB(() => this._onChangeTextPicker(),250);
       },
-    _nameSplit(name, separator = '-'){
+    _splitName(name, separator = '-'){
         return name.split(separator)[0];
     },
     _initSmallWrapperContent(){
@@ -60,6 +60,7 @@ export const paletteUi = {
         userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[this._getColourspace()];
         callCounter('paletteUi');
         this._updateVariants();
+        this._initSmallWrapperContent();
     },
     addColour(newColour){// not working for custom picker or custom text
         paletteData.addColour(newColour);
@@ -101,7 +102,7 @@ export const paletteUi = {
     _onclickGradient(){
         paletteData.paletteState.gradientMode = clampRotate.rotate(1* paletteData.paletteState.gradientMode + 1, 1 ,10) || 1;
         userObjects.other['gradient'].innerHTML = 'Gradient Mode: ' + paletteData.paletteState.gradientMode;
-        paletteData.backgroundColours.forEach(x => gradientMaker.updateGradient(x));
+        paletteData.backgroundColours.forEach(colour => gradientMaker.updateGradient(colour));
     },
     _onclickRandom(){
         paletteData.addColour(colourObject.makeRandomColour('primary'));
@@ -115,12 +116,16 @@ export const paletteUi = {
 
         //add text colour 
     },
-    _addCustomColour(newPartial) {
-        newPartial.name = `Custom${++this._counter}`    // for custom colour add as normal but save custom status and update dataset.content
-        //add custom background colour
+    _addCustomColour(name, hex) {
+        //check of existance of custom colour
+        // increment palette wide counter
+        const customName = paletteData.getCustomColourName(name) || `Custom${++this._counter}`;    // for custom colour add as normal but save custom status and update dataset.content
+        paletteData.addCustomColour(name, colourObject.fromHex({name: name, customName: customName, hex: hex}))// store custom name with colour under key of swatch location
+        userObjects.wrappers[name + '-wrapper'].dataset.content = customName;// update wrapper content
+        //console.log(newPartial.name); //add custom background colour
     },
     _oninputPicker(x){
-        const name = this._nameSplit(x.target.id);
+        const name = this._splitName(x.target.id);
         const hex = x.target.value;
         const newPartial = {hex: hex};
         if (name === 'text') {
@@ -131,14 +136,29 @@ export const paletteUi = {
         newPartial.name = name;
         const newColour = colourObject.fromHex(newPartial);
         this.addColour(newColour);
-        if (name !== 'primary') this._addCustomColour({name: name, hex: hex}); // custom colour
+        if (name !== 'primary') this._addCustomColour(name, hex); // custom colour
 
+    },
+    _onclickSmallSwatch(e){
+        console.log(this._splitName(e.target.id));
+        const name = this._splitName(e.target.id);
+        const customColour = paletteData.getCustomColourObject(name);
+        if (customColour == null) return;
+        this.addColour(customColour);
+        const wrapper = userObjects.wrappers[customColour.name + '-wrapper'];
+        wrapper.dataset.content = customColour.customName;
+        //console.log(customColour);
+        
+        //gradientMaker.updateGradient(customColour);
+        
+    
     },
     _setOnChange() {
         userObjects.sliders.forEach((x) => x.oninput = throttleDebounce.throttle((x) => this._oninputSlider(x),85));
         userObjects.other['dice-btn'].onclick = () => this._onclickRandom();
         userObjects.other['randomise-btn'].onclick = () => this._onclickRandom();
         userObjects.other['gradient'].onclick = () => this._onclickGradient();
+        userObjects.smallSwatchNamesArray.forEach(x => userObjects.pickers[x + '-picker'].onclick = (e) => this._onclickSmallSwatch(e));
         Object.keys(userObjects.pickers).forEach((x) => userObjects.pickers[x].oninput = throttleDebounce.throttle((x) => this._oninputPicker(...x),85) );
         //paletteUi.primaryPicker.oninput = () => {this._onchange()};
         //paletteUi.textPicker= () => {this._onchange()};
@@ -167,7 +187,7 @@ export const paletteUi = {
         return userObjects.wrappers[name + '-wrapper'];
     },
     _setWrapperTextColour(textColour){
-        const name = this._nameSplit(textColour.name)
+        const name = this._splitName(textColour.name)
         const wrapper = this._getWrapper(name);
         wrapper.style.color = textColour.hex || '#000';
         if (name === 'primary') wrapper.dataset.content = textColour.contrastString;

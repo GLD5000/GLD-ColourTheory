@@ -6,7 +6,18 @@ export const paletteData = {
     addColour(colour){
         this.backgroundColours.set(colour.name, colour);
     }, 
-     
+    addCustomColour(name,colour){
+        this.customColours.set(name, colour);
+    }, 
+    getCustomColourName(name){
+        if (this.customColours.get(name) == null) return null;
+        return this.customColours.get(name).customName;
+    },
+    getCustomColourObject(name){
+        if (this.customColours.get(name) == null) return null;
+        return this.customColours.get(name);
+    },
+
     getPickerHex(name){
         return this.backgroundColours.get(name).hex;
     },
