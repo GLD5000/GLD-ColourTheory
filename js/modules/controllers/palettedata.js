@@ -4,6 +4,15 @@ export const paletteData = {
     customColours: new Map(),
     gradientColours: new Map(),
     textColours: new Map(),
+    clipboard: [],
+    setClipboard(newArray){
+        this.clipboard = newArray;
+    },
+    getClipboard(){
+        console.log(this.clipboard);
+       return this.clipboard;
+    },
+
     setPrefix(prefix){
         this.paletteState.prefix = prefix;
     },

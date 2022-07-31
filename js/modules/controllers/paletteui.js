@@ -14,6 +14,7 @@ export const paletteUi = {
     },
 
     _init(){
+        this._updateClipboard = 0;
         this._debounce();
         this._updatePrimaryGradient = (x) => gradientMaker.updateGradient(...x);//not returning
 
@@ -26,7 +27,10 @@ export const paletteUi = {
         this._setOnChange();
         this.setTextMode('Auto');
         this._initSmallWrapperContent();
+
         this._counter = 0;
+        this._setClipboardTextAll();
+
         //this._debounceOnChangeTextPicker = debounceB(() => this._onChangeTextPicker(),250);
       },
     _splitName(name, separator = '-'){
@@ -48,6 +52,7 @@ export const paletteUi = {
         return userObjects.sliders.map(x => x.value);
     },
     _addPrimaryColour(newColour){
+        this._updateClipboard = 0;
         const {hue, sat, lum, red, green, blue, hex} = newColour;
         const selectColourObject = {
             'hex': [hue, sat, lum],
@@ -61,6 +66,8 @@ export const paletteUi = {
         this._updateVariants();
         this._initSmallWrapperContent();
         this.setTextMode('Auto');
+        this._updateClipboard = 1;
+        this._setClipboardTextAll();
     },
     addColour(newColour){// not working for custom picker or custom text
         paletteData.addColour(newColour);
@@ -72,6 +79,7 @@ export const paletteUi = {
         }
         userObjects.pickers[newColour.name + '-picker'].value = newColour.hex;
         userObjects.copyButtons[newColour.name + '-copybtn'].innerHTML = newColour[this._getColourspace()];
+        this._setClipboardTextAll();
     },
     setBackgroundGradient(name, string){
         userObjects.wrappers[name + '-wrapper'].style.background = string;
@@ -103,6 +111,8 @@ export const paletteUi = {
         paletteData.paletteState.gradientMode = clampRotate.rotate(1* paletteData.paletteState.gradientMode + 1, 1 ,10) || 1;
         userObjects.other['gradient'].innerHTML = 'Gradient Mode: ' + paletteData.paletteState.gradientMode;
         paletteData.backgroundColours.forEach(colour => gradientMaker.updateGradient(colour));
+        this._setClipboardTextAll();
+
     },
     _onclickRandom(){
         //paletteData.addColour(colourObject.makeRandomColour('primary'));
@@ -114,13 +124,10 @@ export const paletteUi = {
     _addTextColour(name, hex) {
        const textColour = colourObject.fromHex({name: name, hex: hex});
        this.getAllSwatchNames().forEach(key => {
-        //console.log(key);
         const backgroundColour = paletteData.getColourObject(this._splitName(key));
         const newTextColour = colourObject.getTextColourContrast(textColour, backgroundColour);
-        //console.log(newTextColour);
         this.setTextColour(newTextColour);
        });
-        //add text colour 
     },
     _addCustomColour(name, hex) {
         const customName = paletteData.getCustomColourName(name) || `Custom${++this._counter}`;    // for custom colour add as normal but save custom status and update dataset.content
@@ -143,7 +150,6 @@ export const paletteUi = {
 
     },
     _onclickSmallSwatch(e){
-        console.log(this._splitName(e.target.id));
         const name = this._splitName(e.target.id);
         const customColour = paletteData.getCustomColourObject(name);
         if (customColour == null) return;
@@ -163,10 +169,49 @@ export const paletteUi = {
         }
         return textArray.join('\n');
     },
-    _onclickCopyButtons(e){
+    _getClipboardTextSingleAsArray(name){
+        const colourspace = this._getColourspace();
+        const prefix = paletteData.getPrefix();
+        const textArray = [[`${prefix}${name}: `],
+        [`${paletteData.getColourObject(name)[colourspace]}`],
+        [`${prefix}${name}: ${paletteData.getColourObject(name)[colourspace]}`]];
+        const gradientColours = paletteData.getGradientColours(name);
+        if (gradientColours != null) {
+            gradientColours.forEach(x => {
+                textArray[0].push(`${prefix}${x.name}: `);
+                textArray[1].push(`${x[colourspace]}`);
+                textArray[2].push(`${prefix}${x.name}: ${x[colourspace]}`);
+            });
+        }
+        //return [textArray[0].join('\n'), textArray[1].join('\n')];
+        return [textArray[0], textArray[1], textArray[2]];
+    },
+    _setClipboardTextAll(){
+        if (this._updateClipboard === 0) return;
+        const swatchNames = this.getAllSwatchNames();
+        const colourspace = this._getColourspace();
+        const prefix = paletteData.getPrefix();
+        const textArray = [[],[],[]];
+        swatchNames.forEach(x => {
+            const returnArray = this._getClipboardTextSingleAsArray(x);
+            textArray[0].push(...returnArray[0]);
+            textArray[1].push(...returnArray[1]);
+            textArray[2].push(...returnArray[2]);
+        });
+        paletteData.setClipboard(textArray);
+    },
 
+
+    _onclickCopyButtons(e){
         const name = this._splitName(e.target.id);
-        const text = this._getClipboardTextSingle(name);
+        let text;
+        if (name == 'copyAllCSS') {
+            const textArray = paletteData.getClipboard()[2];
+            console.log(textArray);
+            text = textArray.join('\n');
+        } else {
+            text = this._getClipboardTextSingle(name);
+        }
         navigator.clipboard.writeText(text);
         alert(`Copied To Clipboard:\n${text}`);
     
@@ -175,7 +220,8 @@ export const paletteUi = {
         userObjects.other['gradient'].onclick = () => this._onclickGradient();
         userObjects.other['dice-btn'].onclick = () => this._onclickRandom();
         userObjects.other['randomise-btn'].onclick = () => this._onclickRandom();
-        this.getAllSwatchNames().forEach(x => userObjects.copyButtons[x + '-copybtn'].onclick = (e) => this._onclickCopyButtons(e));//'copyAllCSS'
+        Object.keys(userObjects.copyButtons).forEach(x => userObjects.copyButtons[x].onclick = (e) => this._onclickCopyButtons(e));//'copyAllCSS'
+
         userObjects.sliders.forEach((x) => x.oninput = throttleDebounce.throttle((x) => this._oninputSlider(x),85));
         Object.keys(userObjects.pickers).forEach((x) => userObjects.pickers[x].oninput = throttleDebounce.throttle((x) => this._oninputPicker(...x),85) );
         this.getSmallSwatchNames().forEach(x => userObjects.pickers[x + '-picker'].onclick = (e) => this._onclickSmallSwatch(e));
