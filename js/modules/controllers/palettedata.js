@@ -9,7 +9,6 @@ export const paletteData = {
         this.clipboard = newArray;
     },
     getClipboard(){
-        console.log(this.clipboard);
        return this.clipboard;
     },
 

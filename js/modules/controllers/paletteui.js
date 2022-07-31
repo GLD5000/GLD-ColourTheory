@@ -12,7 +12,11 @@ export const paletteUi = {
     _debounce(){
         this._updateVariants = throttleDebounce.debounce(() => variantMaker.updateVariants(),250);//working
     },
-
+    _clipboardColourspaceLookup: {
+        hex: '#ce9178',
+        hsl: '#b5cea8',
+        rgb: '#ffffff',
+    },
     _init(){
         this._updateClipboard = 0;
         this._debounce();
@@ -176,7 +180,6 @@ export const paletteUi = {
         const colourspace = this._getColourspace();
         const prefix = paletteData.getPrefix();
         let customName = paletteData.getCustomColourName(name) || name;
-        console.log(paletteData.getColourObject(name));
         const textArray = [[`${prefix}${customName}: `],
         [`${paletteData.getColourObject(name)[colourspace]}`],
         [`${prefix}${customName}: ${paletteData.getColourObject(name)[colourspace]}`]];
@@ -193,6 +196,10 @@ export const paletteUi = {
         //return [textArray[0].join('\n'), textArray[1].join('\n')];
         return [textArray[0], textArray[1], textArray[2]];
     },
+    _clipboard: userObjects.clipboard.clipboard,
+    _clipboardSecondary: userObjects.clipboard['clipboard-secondary'],
+    
+
     _setClipboardTextAll(){
         if (this._updateClipboard === 0) return;
         const swatchNames = this.getAllSwatchNames();
@@ -206,19 +213,27 @@ export const paletteUi = {
             textArray[2].push(...returnArray[2]);
         });
         paletteData.setClipboard(textArray);
-    },
+        // Set innerHTML text
+        this._clipboard.innerHTML = textArray[0].join('\n');;
+        // Set ::after content element text
+        this._clipboardSecondary.innerHTML = textArray[1].join('\n');
+        this._clipboardSecondary.style.color = this._clipboardColourspaceLookup[this._getColourspace()];
 
+    },
+    _onclickCopyAll(){
+            const textArray = paletteData.getClipboard()[2];
+        let text = textArray.join('\n');
+        navigator.clipboard.writeText(text);
+        alert(`Copied To Clipboard:\n${text}`);
+    },
 
     _onclickCopyButtons(e){
         const name = this._splitName(e.target.id);
-        let text;
         if (name == 'copyAllCSS') {
-            const textArray = paletteData.getClipboard()[2];
-            console.log(textArray);
-            text = textArray.join('\n');
-        } else {
-            text = this._getClipboardTextSingle(name);
+            this._onclickCopyAll();
+            return;
         }
+        const text = this._getClipboardTextSingle(name);
         navigator.clipboard.writeText(text);
         alert(`Copied To Clipboard:\n${text}`);
     
@@ -228,6 +243,7 @@ export const paletteUi = {
         userObjects.other['dice-btn'].onclick = () => this._onclickRandom();
         userObjects.other['randomise-btn'].onclick = () => this._onclickRandom();
         Object.keys(userObjects.copyButtons).forEach(x => userObjects.copyButtons[x].onclick = (e) => this._onclickCopyButtons(e));//'copyAllCSS'
+        Object.keys(userObjects.clipboard).forEach(x => userObjects.clipboard[x].onclick = () => this._onclickCopyAll());//'copyAllCSS'
 
         userObjects.sliders.forEach((x) => x.oninput = throttleDebounce.throttle((x) => this._oninputSlider(x),85));
         Object.keys(userObjects.pickers).forEach((x) => userObjects.pickers[x].oninput = throttleDebounce.throttle((x) => this._oninputPicker(...x),85) );

@@ -6,7 +6,8 @@ function setAll(){
         //['buttons','button'],
         ['copyButtons','.copy-single'],
         ['other',['#textmode', '#prefix', '#gradient', '#colourspace', '#dice-btn', '#randomise-btn']],
-       // ['labels','label'],
+        ['clipboard',['#clipboard', '#clipboard-secondary']],     
+        // ['labels','label'],
     ];  
     const returnObject = {}
     selectorsArray.forEach( selector => {
