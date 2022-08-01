@@ -33,6 +33,7 @@ export const paletteUi = {
         this._initSmallWrapperContent();
 
         this._counter = 0;
+        this._setColourspace('hsl');
         this._setClipboardTextAll();
 
         //this._debounceOnChangeTextPicker = debounceB(() => this._onChangeTextPicker(),250);
@@ -51,7 +52,11 @@ export const paletteUi = {
     },
     _setColourspace(colourspace){
         paletteData.setColourSpace(colourspace);
+        this._setSliderStyles(colourspace);
         userObjects.other['colourspace'].innerHTML = colourspace;
+        this._setClipboardTextAll();
+        this.getAllSwatchNames().forEach(name => userObjects.copyButtons[name + '-copybtn'].innerHTML = this.getColourObject(name)[colourspace]);
+
     },
 
     _setSliderValues(args){
@@ -243,6 +248,24 @@ export const paletteUi = {
         alert(`Copied To Clipboard:\n${text}`);
     
     },
+    _setSliderStyles(colourspace){
+        const sliderNameArrays = {
+            hex: [ 'tint', 'temp', 'lum'],
+            hsl: [ 'hue', 'sat', 'lum'],
+            rgb: [ 'red', 'green', 'blue'],
+        }
+/*         const sliderGradientArrays = {
+            hex: [ 'background:linear-gradient(to right, #d00,#0d0)', 'background:linear-gradient(to left, #dd0,#00d)', 'background:linear-gradient(to left, #fff,#555)'],
+            hsl: [ 'linear-gradient(to right, hsl(0,$sat,$lum), hsl(60,$sat,$lum), hsl(120,$sat,$lum), hsl(180,$sat,$lum), hsl(240,$sat,$lum),hsl(300,$sat,$lum),hsl(360,$sat,$lum))', 'linear-gradient(to right, hsl(0,0%,$lum), hsl(60,10%,$lum), hsl(120,20%,$lum), hsl(180,40%,$lum), hsl(240,80%,$lum),hsl(300,100%,$lum),hsl(360,100%,$lum))', 'background:linear-gradient(to left, #fff,#555)'],
+            rgb: [ 'background:linear-gradient(to left, #000,#d00)', 'background:linear-gradient(to left, #000,#0d0)', 'background:linear-gradient(to left, #000,#00d)'],
+        }
+ */        
+        const namesArray = sliderNameArrays[colourspace];
+        //const gradientsArray = sliderGradientArrays[colourspace];
+        userObjects.sliders.forEach((x,i) => {
+            x.name = namesArray[i]; //set name
+        });
+    },
     _onclickColourspace(){
         const colourspace = this._getColourspace();
         const optionsArray = ['hex','hsl','rgb'];
@@ -252,8 +275,6 @@ export const paletteUi = {
         if (index > arrayLimit) index = 0;
         const newColourspace = optionsArray[index];
         this._setColourspace(newColourspace);
-        this._setClipboardTextAll();
-        this.getAllSwatchNames().forEach(name => userObjects.copyButtons[name + '-copybtn'].innerHTML = this.getColourObject(name)[newColourspace]);
     },
     _onclickPrefix(){
         const prefix = paletteData.getPrefix();

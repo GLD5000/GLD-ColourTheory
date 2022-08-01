@@ -441,28 +441,36 @@ input[type=range]::-moz-range-thumb {
   opacity: 0;
 }
 
-.hue {
+input[name=hue] {
   background: linear-gradient(to right, hsl(0deg, 70%, 70%), hsl(60deg, 70%, 70%), hsl(120deg, 70%, 70%), hsl(180deg, 70%, 70%), hsl(240deg, 70%, 70%), hsl(300deg, 70%, 70%), hsl(0deg, 70%, 70%));
 }
 
-.lum {
+input[name=lum] {
   background: linear-gradient(to left, #fff, #555);
 }
 
-.sat {
+input[name=sat] {
   background: linear-gradient(to right, hsl(0deg, 0%, 70%), hsl(60deg, 10%, 70%), hsl(120deg, 20%, 70%), hsl(180deg, 40%, 70%), hsl(240deg, 80%, 70%), hsl(300deg, 100%, 70%), hsl(0deg, 100%, 70%));
 }
 
-.red {
-  background: linear-gradient(to left, #000, #d00);
+input[name=red] {
+  background: linear-gradient(to right, #777, #d00);
 }
 
-.green {
-  background: linear-gradient(to left, #000, #0d0);
+input[name=green] {
+  background: linear-gradient(to right, #777, #0d0);
 }
 
-.blue {
-  background: linear-gradient(to left, #000, #00d);
+input[name=blue] {
+  background: linear-gradient(to right, #777, #00d);
+}
+
+input[name=tint] {
+  background: linear-gradient(to right, #d00, #0d0);
+}
+
+input[name=temp] {
+  background: linear-gradient(to left, #dd0, #00d);
 }
 
 input[type=range]:focus, input[type=range]:hover {
