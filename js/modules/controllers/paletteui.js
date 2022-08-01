@@ -59,22 +59,26 @@ export const paletteUi = {
 
     },
 
-    _setSliderValues(args){
-        userObjects.sliders.forEach((x,i) => x.value = args[i]);
+    _setSliderValues(valuesArray, colourspace){
+        const inputArray = colourObject._convertSliderInput(valuesArray, colourspace);
+        userObjects.sliders.forEach((x,i) => x.value = inputArray[i]);
     },
-    _getSliderValues(){
-        return userObjects.sliders.map(x => x.value);
+    _getSliderValues(colourspace){
+        //console.log(colourObject._convertSliderOutput(userObjects.sliders.map(x => x.value), colourspace));
+        //console.log(userObjects.sliders);
+        //console.log(colourspace);
+        return colourObject._convertSliderOutput(userObjects.sliders.map(x => x.value), colourspace);
     },
     _addPrimaryColour(newColour){
         this._updateClipboard = 0;
         const {hue, sat, lum, red, green, blue, hex} = newColour;
         const selectColourObject = {
-            'hex': [hue, sat, lum],
+            'hex': [red, green, blue],
             'hsl': [hue, sat, lum],
             'rgb': [red, green, blue],
         };
         const colourspace = this._getColourspace();
-        this._setSliderValues(selectColourObject[colourspace]);
+        this._setSliderValues(selectColourObject[colourspace], colourspace);
         userObjects.pickers['primary-picker'].value = hex;
         userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[colourspace];
         this._updateVariants();
@@ -112,7 +116,7 @@ export const paletteUi = {
 
         const colourspace = this._getColourspace();
         const keysArray = selectColourKeys[colourspace];
-        const sliderValuesArray = this._getSliderValues();
+        const sliderValuesArray = this._getSliderValues(colourspace);
         const returnObject = {name: 'primary'};
 
         keysArray.forEach((x, i) => returnObject[x] = sliderValuesArray[i] );
