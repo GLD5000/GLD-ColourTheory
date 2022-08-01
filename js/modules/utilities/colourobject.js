@@ -57,6 +57,19 @@ export const colourObject= {
     returnColour.contrastString = this._makeContrastRatioString(returnColour.contrastRatio);
     return this._textColourFromHex(returnColour);
 },
+  _convertTwltoSrgb({tint, warmth, lum}){
+    const blue = Math.min(1, (2 * (1-warmth))) * lum;
+    const green = Math.min(1, (2 * tint)) * Math.min(1, (2 * (warmth))) * lum;
+    const red = Math.min(1, (2 * (1-tint))) * Math.min(1, (2 * (warmth))) * lum;
+
+    return {red: red, green: green, blue: blue};
+  },
+  _convertSrgbtoTwl({red, green, blue}){
+    const tint = 0.5 * (green / red);
+    const lum = Math.max(red, green, blue);
+    const warmth = 0.5 + ((Math.max(red, green)) - blue);
+    return {tint: tint, warmth: warmth, lum: lum};
+  },
   _convertHexToSrgb(colour) {
     const hex = colour.hex;
     // 3 digits
@@ -259,3 +272,30 @@ export const colourObject= {
       this.fromSrgb({...returnObj});
   },
  }
+ 
+
+/*  _convertTwltoSrgb({tint, warmth, lum}){
+  const blue = (1 - warmth) * lum;
+  const green = tint * warmth * lum;
+  const red = (1 - tint) * warmth * lum;
+
+  return {red: red, green: green, blue: blue};
+},
+_convertSrgbtoTwl({red, green, blue}){
+  const lum = red + green + blue / 3;
+  const warmth = lum * (blue / (red + green * 0.5));
+  const tint = lum * warmth * red / green;
+  return {tint: tint, warmth: warmth, lum: lum};
+},
+ */
+/* const testConversion = {tint: 0.31, warmth: 0.58, lum: 0.546};
+console.log(testConversion);
+console.log(colourObject._convertTwltoSrgb(testConversion));
+const blaha = colourObject._convertSrgbtoTwl(colourObject._convertTwltoSrgb(testConversion));
+console.log(blaha);
+console.log(colourObject._convertTwltoSrgb(blaha));
+console.log(colourObject._convertSrgbtoTwl(colourObject._convertTwltoSrgb(blaha))); */
+
+
+
+

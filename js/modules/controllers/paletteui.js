@@ -76,7 +76,7 @@ export const paletteUi = {
         const colourspace = this._getColourspace();
         this._setSliderValues(selectColourObject[colourspace]);
         userObjects.pickers['primary-picker'].value = hex;
-        userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[this._getColourspace()];
+        userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[colourspace];
         this._updateVariants();
         this._initSmallWrapperContent();
         this.setTextMode('Auto');
@@ -100,12 +100,12 @@ export const paletteUi = {
     },
     _getSliderColourObject(){
         const selectColourKeys = {
-            'hex': ['hue', 'sat', 'lum'],
+            'hex': ['red', 'green', 'blue'],
             'hsl': ['hue', 'sat', 'lum'],
             'rgb': ['red', 'green', 'blue'],
         };        
         const selectColourMethod = {
-            'hex': 'fromHsl',
+            'hex': 'fromSrgb',
             'hsl': 'fromHsl',
             'rgb': 'fromSrgb',
         };
