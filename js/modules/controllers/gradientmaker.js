@@ -49,6 +49,7 @@ export const gradientMaker = {
         return this._suffixise(this._names[this._stops]);
     },
     _makeGradient(mainColour){
+
         const stops = paletteData.paletteState.gradientMode; //|| 1;    
         if (stops < 2) {
             this._gradientString = mainColour.hex;
@@ -63,7 +64,7 @@ export const gradientMaker = {
             const lumMultStops  = this._multiplierStopsAbsolute(stops,lumMult, this._lumStart, lumOffset);
             this._gradientColours = []; 
             suffixes.forEach((suffix, i) => {
-                const newColour = colourObject.assign(mainColour,{name: mainColour.name + suffix, lum: lumMultStops[i], sat: satMultStops[i], operation: 'replace'});
+                const newColour = colourObject.assign(mainColour,{name: mainColour.name + suffix, lum: lumMultStops[i], sat: (mainColour.name === 'neutral')? 0 : satMultStops[i], operation: 'replace'});
                 this._gradientColours.push(newColour);
             });
             const gap = getComputedStyle(document.querySelector('.slider-container')).gap;
