@@ -63,19 +63,16 @@ export const gradientMaker = {
             const satMultStops  = this._multiplierStopsAbsolute(stops,satMult, this._satStart, satOffset);
             const lumMultStops  = this._multiplierStopsAbsolute(stops,lumMult, this._lumStart, lumOffset);
             this._gradientColours = []; 
-            suffixes.forEach((suffix, i) => {
-                const newColour = colourObject.assign(mainColour,{name: mainColour.name + suffix, lum: lumMultStops[i], sat: (mainColour.name === 'neutral')? 0 : satMultStops[i], operation: 'replace'});
-                this._gradientColours.push(newColour);
-            });
             const gap = getComputedStyle(document.querySelector('.slider-container')).gap;
             this._gradientString = `linear-gradient(to top, #000 ${gap}, ${mainColour.hex} ${gap}, ${mainColour.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;
             const stopWidth = 100 / stops;
-            Object.keys(this._gradientColours).forEach((x, i)=>{
-                this._gradientString += `, ${colourObject.hsl(this._gradientColours[i])} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
+            suffixes.forEach((suffix, i) => {
+                const newColour = colourObject.assign(mainColour,{name: mainColour.name + suffix, lum: lumMultStops[i], sat: (mainColour.name === 'neutral')? 0 : satMultStops[i], operation: 'replace'});
+                this._gradientColours.push(newColour);
+                this._gradientString += `, ${colourObject.hsl(newColour)} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
             });
             this._gradientString += `) 0% 50% / 100% 30%`;
             paletteData.addGradientColours(this._gradientColours);
-
         } 
      },
     updateGradient(colour){
