@@ -64,9 +64,6 @@ export const paletteUi = {
         userObjects.sliders.forEach((x,i) => x.value = inputArray[i]);
     },
     _getSliderValues(colourspace){
-        //console.log(colourObject._convertSliderOutput(userObjects.sliders.map(x => x.value), colourspace));
-        //console.log(userObjects.sliders);
-        //console.log(colourspace);
         return colourObject._convertSliderOutput(userObjects.sliders.map(x => x.value), colourspace);
     },
     _addPrimaryColour(newColour){
@@ -117,7 +114,6 @@ export const paletteUi = {
         const colourspace = this._getColourspace();
         const keysArray = selectColourKeys[colourspace];
         const sliderValuesArray = this._getSliderValues(colourspace);
-        console.log(sliderValuesArray);
         const returnObject = {name: 'primary'};
 
         keysArray.forEach((x, i) => returnObject[x] = sliderValuesArray[i] );

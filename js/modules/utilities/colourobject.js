@@ -64,7 +64,6 @@ export const colourObject= {
     return [sliderArray[0] / 3.6, sliderArray[1], sliderArray[2]];
   },
   _convertSlidertoSrgb(sliderArray){
-    console.log(sliderArray);
     return [sliderArray[0] / 100, sliderArray[1] / 100, sliderArray[2] / 100];
   },
   _convertSrgbtoSlider(sliderArray){
@@ -305,33 +304,8 @@ export const colourObject= {
       this.fromSrgb({...returnObj});
   },
  }
- 
 
-/*  _convertTwltoSrgb({tint, warmth, lum}){
-  const blue = (1 - warmth) * lum;
-  const green = tint * warmth * lum;
-  const red = (1 - tint) * warmth * lum;
-
-  return {red: red, green: green, blue: blue};
-},
-_convertSrgbtoTwl({red, green, blue}){
-  const lum = red + green + blue / 3;
-  const warmth = lum * (blue / (red + green * 0.5));
-  const tint = lum * warmth * red / green;
-  return {tint: tint, warmth: warmth, lum: lum};
-},
- */
-/* const testConversion = {tint: 0.31, warmth: 0.58, lum: 0.546};
-console.log(testConversion);
-console.log(colourObject._convertTwltoSrgb(testConversion));
-const blaha = colourObject._convertSrgbtoTwl(colourObject._convertTwltoSrgb(testConversion));
-console.log(blaha);
-console.log(colourObject._convertTwltoSrgb(blaha));
-console.log(colourObject._convertSrgbtoTwl(colourObject._convertTwltoSrgb(blaha))); */
-
-
-
-
+/* 
 const testConversion = [0.31, 0.58, 0.546];
 console.log(testConversion);
 console.log(colourObject._convertTwltoSrgb(testConversion));
@@ -339,3 +313,4 @@ const blaha = colourObject._convertSrgbtoTwl(colourObject._convertTwltoSrgb(test
 console.log(blaha);
 console.log(colourObject._convertTwltoSrgb(blaha));
 console.log(colourObject._convertSrgbtoTwl(colourObject._convertTwltoSrgb(blaha)));
+ */
