@@ -36,11 +36,11 @@ export const gradientMaker = {
         this._stops = Math.min(Math.max(2, stops),10);
         this._names = {
             2: ['light','dark'],
-            3: ['light','normal','dark'],
+            3: ['light','medium','dark'],
             4: ['lighter','light','dark','darker'],
-            5: ['lighter','light','normal','dark','darker'],
+            5: ['lighter','light','medium','dark','darker'],
             6: ['lightest','lighter','light','dark','darker','darkest'],
-            7: ['lightest','lighter','light','normal','dark','darker','darkest'],
+            7: ['lightest','lighter','light','medium','dark','darker','darkest'],
             8: ['100','200','300','400','500','600','700','800'],
             9: ['100','200','300','400','500','600','700','800','900'],
             10: ['50','100','200','300','400','500','600','700','800','900'],
