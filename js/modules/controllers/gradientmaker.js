@@ -1,24 +1,29 @@
 import { paletteData } from "./palettedata.js";
 import { colourObject } from "../utilities/colourobject.js";
 import { paletteUi } from "./paletteui.js";
+import { clampRotate} from '../utilities/utilities.js'
 // Takes in one colour (map) and outputs a background gradient to its map
 export const gradientMaker = {
     _findMult(start,end,stops){
         const mult = (end / start) ** (1 / stops);
+    /*
         console.log(`
         Start: ${start} 
         End: ${end} 
         Stops: ${stops} 
         Result: ${start * (mult ** stops)} 
         Diff: ${end - (start * (mult ** stops))}`);
+    */        
         return mult;
     },
-    _getMultipliers(){//not implemented yet
-        this._satMin = 0.63;
-        this._satMax = 0.74;
-        this._lumMin = 0.53;
-        this._lumMax = 0.84;
-    },
+        _satStart: 0.35,
+        _satEnd: 0.75,
+        _lumStart: 0.35,
+        _lumEnd: 0.78,
+    _multiplierStopsAbsolute(stops,multiplier, start, offset) {
+        return [...Array(stops)].map((x,i,arr) => arr[i] = offset + (100 * start * (multiplier ** (i + 1 ))));
+        },
+
     _multiplierStops(stops,multiplier) {
         const halfStops = 0.5 * stops;
         let even = (stops % 2 === 0)? 1: 0;
@@ -44,23 +49,25 @@ export const gradientMaker = {
         return this._suffixise(this._names[this._stops]);
     },
     _makeGradient(mainColour){
-        const satMult = 0.98; 
-        const lumMult = 1.04;
-        this._stops = paletteData.paletteState.gradientMode; //|| 1;    
-        if (this._stops < 2) {
-        this._gradientString = mainColour.hex;
+        const stops = paletteData.paletteState.gradientMode; //|| 1;    
+        if (stops < 2) {
+            this._gradientString = mainColour.hex;
         } else {
-            const suffixes = this._suffixStops(this._stops);
-            const satMultStops  = this._multiplierStops(this._stops,satMult);
-            const lumMultStops  = this._multiplierStops(this._stops,lumMult);
+            const satOffset = clampRotate.clamp(mainColour.sat - 50, -30, 25);
+            const lumOffset = clampRotate.clamp(mainColour.lum - 50, -15, 15);
+            const satMult = this._findMult(this._satStart,this._satEnd,stops)//0.98; 
+            const lumMult = this._findMult(this._lumStart,this._lumEnd,stops)//1.04;
+            const suffixes = this._suffixStops(stops);
+            const satMultStops  = this._multiplierStopsAbsolute(stops,satMult, this._satStart, satOffset);
+            const lumMultStops  = this._multiplierStopsAbsolute(stops,lumMult, this._lumStart, lumOffset);
             this._gradientColours = []; 
             suffixes.forEach((suffix, i) => {
-                const newColour = colourObject.assign(mainColour,{name: mainColour.name + suffix, lum: lumMultStops[i], sat: satMultStops[i], operation: 'multiply'});
+                const newColour = colourObject.assign(mainColour,{name: mainColour.name + suffix, lum: lumMultStops[i], sat: satMultStops[i], operation: 'replace'});
                 this._gradientColours.push(newColour);
             });
             const gap = getComputedStyle(document.querySelector('.slider-container')).gap;
             this._gradientString = `linear-gradient(to top, #000 ${gap}, ${mainColour.hex} ${gap}, ${mainColour.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;
-            const stopWidth = 100 / this._stops;
+            const stopWidth = 100 / stops;
             Object.keys(this._gradientColours).forEach((x, i)=>{
                 this._gradientString += `, ${colourObject.hsl(this._gradientColours[i])} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
             });
@@ -69,13 +76,6 @@ export const gradientMaker = {
 
         } 
      },
-    backgroundString(){
-        this._makeGradient({stops: this._stops});
-        return this._gradientString;
-        },
-        clipboardStringArr(){
-        return this._clipboardString;
-    },
     updateGradient(colour){
         this._makeGradient(colour);
         paletteUi.setBackgroundGradient(colour.name, this._gradientString);
