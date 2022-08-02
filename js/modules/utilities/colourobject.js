@@ -98,8 +98,8 @@ export const colourObject= {
   },
   _convertSrgbtoTwl([red, green, blue]){
     const tint = 0.5 * (green / red);
+    const warmth = 0.5 * ((Math.max(red, green)) / blue);
     const lum = Math.max(red, green, blue);
-    const warmth = 0.5 + ((Math.max(red, green)) - blue);
     return [tint * 100, warmth * 100, lum * 100];
   },
   _convertHexToSrgb(colour) {
@@ -331,3 +331,10 @@ console.log(colourObject._convertSrgbtoTwl(colourObject._convertTwltoSrgb(blaha)
 
 
 
+const testConversion = [0.31, 0.58, 0.546];
+console.log(testConversion);
+console.log(colourObject._convertTwltoSrgb(testConversion));
+const blaha = colourObject._convertSrgbtoTwl(colourObject._convertTwltoSrgb(testConversion));
+console.log(blaha);
+console.log(colourObject._convertTwltoSrgb(blaha));
+console.log(colourObject._convertSrgbtoTwl(colourObject._convertTwltoSrgb(blaha)));
