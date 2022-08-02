@@ -117,6 +117,7 @@ export const paletteUi = {
         const colourspace = this._getColourspace();
         const keysArray = selectColourKeys[colourspace];
         const sliderValuesArray = this._getSliderValues(colourspace);
+        console.log(sliderValuesArray);
         const returnObject = {name: 'primary'};
 
         keysArray.forEach((x, i) => returnObject[x] = sliderValuesArray[i] );

@@ -64,6 +64,7 @@ export const colourObject= {
     return [sliderArray[0] / 3.6, sliderArray[1], sliderArray[2]];
   },
   _convertSlidertoSrgb(sliderArray){
+    console.log(sliderArray);
     return [sliderArray[0] / 100, sliderArray[1] / 100, sliderArray[2] / 100];
   },
   _convertSrgbtoSlider(sliderArray){
@@ -73,7 +74,7 @@ export const colourObject= {
     const functionLookup = {
       hex: '_convertSrgbtoTwl',
       hsl: '_convertHsltoDecimal',
-      rgb: '_convertSlidertoSrgb',
+      rgb: '_convertSrgbtoSlider',
     }
     return this[functionLookup[colourspace]](sliderArray);
   },
