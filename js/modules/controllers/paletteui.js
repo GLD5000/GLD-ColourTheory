@@ -124,7 +124,7 @@ export const paletteUi = {
     },
     _onclickGradient(){
         paletteData.paletteState.gradientMode = clampRotate.rotate(1* paletteData.paletteState.gradientMode + 1, 1 ,10) || 1;
-        userObjects.other['gradient'].innerHTML = 'Gradient Mode: ' + paletteData.paletteState.gradientMode;
+        userObjects.other['gradient'].innerHTML = 'Gradient: ' + paletteData.paletteState.gradientMode;
         paletteData.backgroundColours.forEach(colour => gradientMaker.updateGradient(colour));
         this._setClipboardTextAll();
 
