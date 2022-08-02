@@ -52,6 +52,7 @@ export const gradientMaker = {
         const stops = paletteData.paletteState.gradientMode; //|| 1;    
         if (stops < 2) {
             this._gradientString = mainColour.hex;
+            paletteData.clearGradientColours(); // clear colours
         } else {
             const satOffset = clampRotate.clamp(mainColour.sat - 50, -30, 25);
             const lumOffset = clampRotate.clamp(mainColour.lum - 50, -15, 15);

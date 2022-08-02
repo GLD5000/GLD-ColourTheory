@@ -34,6 +34,9 @@ export const paletteData = {
     addCustomColour(name,colour){
         this.customColours.set(name, colour);
     }, 
+    clearGradientColours(){
+        this.gradientColours = new Map();
+    },
     addGradientColours(array){
         const name = array[0].name.split('-')[0];
         this.gradientColours.set(name, array);
