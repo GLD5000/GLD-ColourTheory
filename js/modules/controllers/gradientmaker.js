@@ -3,6 +3,16 @@ import { colourObject } from "../utilities/colourobject.js";
 import { paletteUi } from "./paletteui.js";
 // Takes in one colour (map) and outputs a background gradient to its map
 export const gradientMaker = {
+    _findMult(start,end,stops){
+        const mult = (end / start) ** (1 / stops);
+        console.log(`
+        Start: ${start} 
+        End: ${end} 
+        Stops: ${stops} 
+        Result: ${start * (mult ** stops)} 
+        Diff: ${end - (start * (mult ** stops))}`);
+        return mult;
+    },
     _getMultipliers(){//not implemented yet
         this._satMin = 0.63;
         this._satMax = 0.74;
@@ -72,3 +82,4 @@ export const gradientMaker = {
         //console.log(colour.name);
     }
 }
+

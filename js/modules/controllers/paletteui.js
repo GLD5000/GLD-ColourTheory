@@ -251,7 +251,7 @@ export const paletteUi = {
     },
     _setSliderStyles(colourspace){
         const sliderNameArrays = {
-            hex: [ 'tint', 'temp', 'lum'],
+            hex: [ 'tint', 'warmth', 'lum'],
             hsl: [ 'hue', 'sat', 'lum'],
             rgb: [ 'red', 'green', 'blue'],
         }

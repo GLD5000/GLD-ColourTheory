@@ -7,3 +7,4 @@ import { paletteUi} from './modules/controllers/paletteui.js';
 console.log(paletteUi.userObjects());
 console.log(paletteData);
 paletteUi._init();
+gradientMaker._findMult(0.5,0.8,10);

@@ -469,7 +469,7 @@ input[name=tint] {
   background: linear-gradient(to right, #d00, #0d0);
 }
 
-input[name=temp] {
+input[name=warmth] {
   background: linear-gradient(to left, #dd0, #00d);
 }
 
