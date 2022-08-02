@@ -4,7 +4,7 @@ import { paletteUi } from "./paletteui.js";
 import { clampRotate} from '../utilities/utilities.js'
 // Takes in one colour (map) and outputs a background gradient to its map
 export const gradientMaker = {
-    _findMult(start,end,stops){
+    _findMult(start, end, stops){
         const mult = (end / start) ** (1 / stops);
     /*
         console.log(`
@@ -20,20 +20,20 @@ export const gradientMaker = {
         _satEnd: 0.75,
         _lumStart: 0.35,
         _lumEnd: 0.78,
-    _multiplierStopsAbsolute(stops,multiplier, start, offset) {
-        return [...Array(stops)].map((x,i,arr) => arr[i] = offset + (100 * start * (multiplier ** (i + 1 ))));
+    _multiplierStopsAbsolute(stops, multiplier, start, offset) {
+        return [...Array(stops)].map((x, i, arr) => arr[i] = offset + (100 * start * (multiplier ** (i + 1 ))));
         },
 
-    _multiplierStops(stops,multiplier) {
+    _multiplierStops(stops, multiplier) {
         const halfStops = 0.5 * stops;
         let even = (stops % 2 === 0)? 1: 0;
-        return [...Array(stops)].map((x,i,arr) => arr[i] = multiplier ** (((i + 1 > halfStops)? even: 0) + i - Math.floor(halfStops)));
+        return [...Array(stops)].map((x, i, arr) => arr[i] = multiplier ** (((i + 1 > halfStops)? even: 0) + i - Math.floor(halfStops)));
         },
     _suffixise(arr) {
         return arr.map(x => `-${x}`);
         },
     _suffixStops(stops) {
-        this._stops = Math.min(Math.max(2, stops),10);
+        this._stops = Math.min(Math.max(2, stops), 10);
         this._names = {
             2: ['light','dark'],
             3: ['light','medium','dark'],
@@ -57,11 +57,11 @@ export const gradientMaker = {
         } else {
             const satOffset = clampRotate.clamp(mainColour.sat - 50, -30, 25);
             const lumOffset = clampRotate.clamp(mainColour.lum - 50, -15, 15);
-            const satMult = this._findMult(this._satStart,this._satEnd,stops)//0.98; 
-            const lumMult = this._findMult(this._lumStart,this._lumEnd,stops)//1.04;
+            const satMult = this._findMult(this._satStart, this._satEnd, stops)//0.98; 
+            const lumMult = this._findMult(this._lumStart, this._lumEnd, stops)//1.04;
             const suffixes = this._suffixStops(stops);
-            const satMultStops  = this._multiplierStopsAbsolute(stops,satMult, this._satStart, satOffset);
-            const lumMultStops  = this._multiplierStopsAbsolute(stops,lumMult, this._lumStart, lumOffset);
+            const satMultStops  = this._multiplierStopsAbsolute(stops, satMult, this._satStart, satOffset);
+            const lumMultStops  = this._multiplierStopsAbsolute(stops, lumMult, this._lumStart, lumOffset);
             this._gradientColours = []; 
             const gap = getComputedStyle(document.querySelector('.slider-container')).gap;
             this._gradientString = `linear-gradient(to top, #000 ${gap}, ${mainColour.hex} ${gap}, ${mainColour.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;

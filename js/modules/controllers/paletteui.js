@@ -10,7 +10,7 @@ import { textMaker } from "./textmaker.js";
 
 export const paletteUi = {
     _debounce(){
-        this._updateVariants = throttleDebounce.debounce(() => variantMaker.updateVariants(),250);//working
+        this._updateVariants = throttleDebounce.debounce(() => variantMaker.updateVariants(), 250);
     },
     _clipboardColourspaceLookup: {
         hex: '#ce9178',
@@ -20,23 +20,16 @@ export const paletteUi = {
     _init(){
         this._updateClipboard = 0;
         this._debounce();
-        this._updatePrimaryGradient = (x) => gradientMaker.updateGradient(...x);//not returning
-
+        this._updatePrimaryGradient = (x) => gradientMaker.updateGradient(...x);
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
         userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
-       // paletteData.addColour(colourObject.makeRandomColour('primary'));
         this.addColour(colourObject.makeRandomColour('primary'));
-        //gradientMaker.updateGradient(paletteData.getColourObject('primary'));
-       // this._updatePrimaryGradient = throttleDebounce.throttle((x) => gradientMaker.updateGradient(...x),85);//not returning
         this._setOnChange();
         this.setTextMode('Auto');
         this._initSmallWrapperContent();
-
         this._counter = 0;
         this._setColourspace('hsl');
         this._setClipboardTextAll();
-
-        //this._debounceOnChangeTextPicker = debounceB(() => this._onChangeTextPicker(),250);
       },
     _splitName(name, separator = '-'){
         return name.split(separator)[0];
@@ -61,16 +54,16 @@ export const paletteUi = {
 
     _setSliderValues(valuesArray, colourspace){
         const inputArray = colourObject._convertSliderInput(valuesArray, colourspace);
-        userObjects.sliders.forEach((x,i) => x.value = inputArray[i]);
+        userObjects.sliders.forEach((x, i) => x.value = inputArray[i]);
     },
     _getSliderValues(colourspace){
         return colourObject._convertSliderOutput(userObjects.sliders.map(x => x.value), colourspace);
     },
     _addPrimaryColour(newColour){
         this._updateClipboard = 0;
-        const {hue, sat, lum, red, green, blue, hex} = newColour;
+        const {hue, sat, lum, red, green, blue, hex, tint, warmth, lumB} = newColour;
         const selectColourObject = {
-            'hex': [red, green, blue],
+            'hex': [tint, warmth, lumB],
             'hsl': [hue, sat, lum],
             'rgb': [red, green, blue],
         };
@@ -84,7 +77,7 @@ export const paletteUi = {
         this._updateClipboard = 1;
         this._setClipboardTextAll();
     },
-    addColour(newColour){// not working for custom picker or custom text
+    addColour(newColour){
         paletteData.addColour(newColour);
         gradientMaker.updateGradient(newColour);
         textMaker.updateText(newColour);
@@ -101,14 +94,14 @@ export const paletteUi = {
     },
     _getSliderColourObject(){
         const selectColourKeys = {
-            'hex': ['red', 'green', 'blue'],
+            'hex': ['tint', 'warmth', 'lumB'],
             'hsl': ['hue', 'sat', 'lum'],
             'rgb': ['red', 'green', 'blue'],
         };        
         const selectColourMethod = {
-            'hex': 'fromSrgb',
-            'hsl': 'fromHsl',
-            'rgb': 'fromSrgb',
+            'hex': 'fromTwl',
+            'hsl': 'fromHslTwl',
+            'rgb': 'fromSrgbTwl',
         };
 
         const colourspace = this._getColourspace();
@@ -120,19 +113,17 @@ export const paletteUi = {
         return colourObject[selectColourMethod[colourspace]](returnObject);
     },
     _oninputSlider(x){
-        this.addColour(this._getSliderColourObject());//update data store
+        this.addColour(this._getSliderColourObject());
     },
     _onclickGradient(){
-        paletteData.paletteState.gradientMode = clampRotate.rotate(1* paletteData.paletteState.gradientMode + 1, 1 ,10) || 1;
+        paletteData.paletteState.gradientMode = clampRotate.rotate(1* paletteData.paletteState.gradientMode + 1, 1 , 10) || 1;
         userObjects.other['gradient'].innerHTML = 'Gradient: ' + paletteData.paletteState.gradientMode;
         paletteData.backgroundColours.forEach(colour => gradientMaker.updateGradient(colour));
         this._setClipboardTextAll();
 
     },
     _onclickRandom(){
-        //paletteData.addColour(colourObject.makeRandomColour('primary'));
         this.addColour(colourObject.makeRandomColour('primary'));
-        //gradientMaker.updateGradient(paletteData.getColourObject('primary'));
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
         userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
     },
@@ -145,9 +136,9 @@ export const paletteUi = {
        });
     },
     _addCustomColour(name, hex) {
-        const customName = paletteData.getCustomColourName(name) || `Custom${++this._counter}`;    // for custom colour add as normal but save custom status and update dataset.content
-        paletteData.addCustomColour(name, colourObject.fromHex({name: name, customName: customName, hex: hex}));// store custom name with colour under key of swatch location
-        userObjects.wrappers[name + '-wrapper'].dataset.content = customName;// update wrapper content
+        const customName = paletteData.getCustomColourName(name) || `Custom${++this._counter}`;
+        paletteData.addCustomColour(name, colourObject.fromHex({name: name, customName: customName, hex: hex}));
+        userObjects.wrappers[name + '-wrapper'].dataset.content = customName;
         this._setClipboardTextAll();
     },
     _oninputPicker(x){
@@ -155,14 +146,14 @@ export const paletteUi = {
         const hex = x.target.value;
         if (name === 'textcolour') {
             this.setTextMode('Custom');
-            this._addTextColour('customText',hex);
+            this._addTextColour('customText', hex);
             return;
-        }// do not add as normal due to no wrapper thing 
+        }
         const newPartial = {hex: hex};
         newPartial.name = name;
         const newColour = colourObject.fromHex(newPartial);
         this.addColour(newColour);
-        if (name !== 'primary') this._addCustomColour(name, hex); // custom colour
+        if (name !== 'primary') this._addCustomColour(name, hex); 
 
     },
     _onclickSmallSwatch(e){
@@ -204,7 +195,7 @@ export const paletteUi = {
                 textArray[2].push(`${prefix}${customName}: ${x[colourspace]}`);
             });
         }
-        //return [textArray[0].join('\n'), textArray[1].join('\n')];
+        
         return [textArray[0], textArray[1], textArray[2]];
     },
     _clipboard: userObjects.clipboard.clipboard,
@@ -224,9 +215,9 @@ export const paletteUi = {
             textArray[2].push(...returnArray[2]);
         });
         paletteData.setClipboard(textArray);
-        // Set innerHTML text
+        
         this._clipboard.innerHTML = textArray[0].join('\n');;
-        // Set ::after content element text
+        
         this._clipboardSecondary.innerHTML = textArray[1].join('\n');
         this._clipboardSecondary.style.color = this._clipboardColourspaceLookup[this._getColourspace()];
 
@@ -257,14 +248,14 @@ export const paletteUi = {
         }
 /*         const sliderGradientArrays = {
             hex: [ 'background:linear-gradient(to right, #d00,#0d0)', 'background:linear-gradient(to left, #dd0,#00d)', 'background:linear-gradient(to left, #fff,#555)'],
-            hsl: [ 'linear-gradient(to right, hsl(0,$sat,$lum), hsl(60,$sat,$lum), hsl(120,$sat,$lum), hsl(180,$sat,$lum), hsl(240,$sat,$lum),hsl(300,$sat,$lum),hsl(360,$sat,$lum))', 'linear-gradient(to right, hsl(0,0%,$lum), hsl(60,10%,$lum), hsl(120,20%,$lum), hsl(180,40%,$lum), hsl(240,80%,$lum),hsl(300,100%,$lum),hsl(360,100%,$lum))', 'background:linear-gradient(to left, #fff,#555)'],
+            hsl: [ 'linear-gradient(to right, hsl(0,$sat,$lum), hsl(60,$sat,$lum), hsl(120,$sat,$lum), hsl(180,$sat,$lum), hsl(240,$sat,$lum), hsl(300,$sat,$lum), hsl(360,$sat,$lum))', 'linear-gradient(to right, hsl(0, 0%,$lum), hsl(60, 10%,$lum), hsl(120, 20%,$lum), hsl(180, 40%,$lum), hsl(240, 80%,$lum), hsl(300, 100%,$lum), hsl(360, 100%,$lum))', 'background:linear-gradient(to left, #fff,#555)'],
             rgb: [ 'background:linear-gradient(to left, #000,#d00)', 'background:linear-gradient(to left, #000,#0d0)', 'background:linear-gradient(to left, #000,#00d)'],
         }
  */        
         const namesArray = sliderNameArrays[colourspace];
-        //const gradientsArray = sliderGradientArrays[colourspace];
-        userObjects.sliders.forEach((x,i) => {
-            x.name = namesArray[i]; //set name
+        
+        userObjects.sliders.forEach((x, i) => {
+            x.name = namesArray[i]; 
         });
     },
     _onclickColourspace(){
@@ -293,16 +284,16 @@ export const paletteUi = {
         this._setClipboardTextAll();
     },
     _setOnChange() {
-        userObjects.other['colourspace'].onclick = () => this._onclickColourspace();//to make
-        userObjects.other['prefix'].onclick = () => this._onclickPrefix();// to make
+        userObjects.other['colourspace'].onclick = () => this._onclickColourspace();
+        userObjects.other['prefix'].onclick = () => this._onclickPrefix();
         userObjects.other['gradient'].onclick = () => this._onclickGradient();
         userObjects.other['dice-btn'].onclick = () => this._onclickRandom();
         userObjects.other['randomise-btn'].onclick = () => this._onclickRandom();
-        Object.keys(userObjects.copyButtons).forEach(x => userObjects.copyButtons[x].onclick = (e) => this._onclickCopyButtons(e));//'copyAllCSS'
-        Object.keys(userObjects.clipboard).forEach(x => userObjects.clipboard[x].onclick = () => this._onclickCopyAll());//'copyAllCSS'
+        Object.keys(userObjects.copyButtons).forEach(x => userObjects.copyButtons[x].onclick = (e) => this._onclickCopyButtons(e));
+        Object.keys(userObjects.clipboard).forEach(x => userObjects.clipboard[x].onclick = () => this._onclickCopyAll());
 
-        userObjects.sliders.forEach((x) => x.oninput = throttleDebounce.throttle((x) => this._oninputSlider(x),85));
-        Object.keys(userObjects.pickers).forEach((x) => userObjects.pickers[x].oninput = throttleDebounce.throttle((x) => this._oninputPicker(...x),85) );
+        userObjects.sliders.forEach((x) => x.oninput = throttleDebounce.throttle((x) => this._oninputSlider(x), 85));
+        Object.keys(userObjects.pickers).forEach((x) => userObjects.pickers[x].oninput = throttleDebounce.throttle((x) => this._oninputPicker(...x), 85) );
         this.getSmallSwatchNames().forEach(x => userObjects.pickers[x + '-picker'].onclick = (e) => this._onclickSmallSwatch(e));
     }, 
     getStops(){
@@ -333,7 +324,7 @@ export const paletteUi = {
         wrapper.style.color = textColour.hex || '#000000';
         if (name === 'primary') {
             wrapper.dataset.content = textColour.contrastString;
-            //userObjects.pickers['textcolour-picker'].value = textColour.hex;
+            
         }
         if (name !== 'primary') wrapper.dataset.rating = textColour.rating;
     },

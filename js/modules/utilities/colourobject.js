@@ -4,10 +4,10 @@ import { clampRotate } from "./utilities.js";
 export const colourObject= {
   _autoTextColour(backgroundColour) {
     const {red, green, blue} = backgroundColour;
-    const contrastBlack = this._calculateContrastRatio([0,0,0],[red, green, blue]);
-    const contrastWhite = this._calculateContrastRatio([1,1,1],[red, green, blue]);
+    const contrastBlack = this._calculateContrastRatio([0, 0, 0],[red, green, blue]);
+    const contrastWhite = this._calculateContrastRatio([1, 1, 1],[red, green, blue]);
     const autoColour = (contrastBlack > contrastWhite)? '#000000': '#ffffff';
-    const autoContrast = Math.max(contrastBlack,contrastWhite);
+    const autoContrast = Math.max(contrastBlack, contrastWhite);
     return [autoColour, autoContrast];
   },
   _calculateRelativeLuminance(RsRGB, GsRGB, BsRGB) {
@@ -57,10 +57,10 @@ export const colourObject= {
     returnColour.contrastString = this._makeContrastRatioString(returnColour.contrastRatio);
     return this._textColourFromHex(returnColour);
   },
-  _convertDecimaltoHsl(sliderArray){
+  _convertSlidertoHsl(sliderArray){
     return [sliderArray[0] * 3.6, sliderArray[1], sliderArray[2]];
   },
-  _convertHsltoDecimal(sliderArray){
+  _convertHsltoSlider(sliderArray){
     return [sliderArray[0] / 3.6, sliderArray[1], sliderArray[2]];
   },
   _convertSlidertoSrgb(sliderArray){
@@ -69,38 +69,46 @@ export const colourObject= {
   _convertSrgbtoSlider(sliderArray){
     return [sliderArray[0] * 100, sliderArray[1] * 100, sliderArray[2] * 100];
   },
+  _convertTwltoSlider(sliderArray){
+    return [parseInt(sliderArray[0]) , parseInt(sliderArray[1]), parseInt(sliderArray[2])];
+  },
   _convertSliderInput(sliderArray, colourspace){
     const functionLookup = {
-      hex: '_convertSrgbtoTwl',
-      hsl: '_convertHsltoDecimal',
+      hex: '_convertTwltoSlider',
+      hsl: '_convertHsltoSlider',
       rgb: '_convertSrgbtoSlider',
     }
     return this[functionLookup[colourspace]](sliderArray);
   },
-
   _convertSliderOutput(sliderArray, colourspace){
     const functionLookup = {
-      hex: '_convertTwltoSrgb',
-      hsl: '_convertDecimaltoHsl',
+      hex: '_convertTwltoSlider',
+      hsl: '_convertSlidertoHsl',
       rgb: '_convertSlidertoSrgb',
     }
     return this[functionLookup[colourspace]](sliderArray);
   },
-  _convertTwltoSrgb([tint, warmth, lum]){
-    tint /= 100;
-    warmth /= 100;
-    lum /= 100;
-    const blue = Math.min(1, (2 * (1-warmth))) * lum;
-    const green = Math.min(1, (2 * tint)) * Math.min(1, (2 * (warmth))) * lum;
-    const red = Math.min(1, (2 * (1-tint))) * Math.min(1, (2 * (warmth))) * lum;
+  _convertTwltoSrgb(colour){
+    colour.tint = clampRotate.clamp(colour.tint, 0, 100);
+    colour.warmth = clampRotate.clamp(colour.warmth, 0, 100);
+    colour.lumB = clampRotate.clamp(colour.lumB, 0, 100);
 
-    return [red, green, blue];
+    const tinyTint = colour.tint * 0.01;
+    const tinyWarmth = colour.warmth * 0.01;
+    const tinyLum = colour.lumB * 0.01;
+    colour.blue = Math.min(1, (2 * (1-tinyWarmth))) * tinyLum;
+    colour.green = Math.min(1, (2 * tinyTint)) * Math.min(1, (2 * (tinyWarmth))) * tinyLum;
+    colour.red = Math.min(1, (2 * (1-tinyTint))) * Math.min(1, (2 * (tinyWarmth))) * tinyLum;
+    return colour;
   },
-  _convertSrgbtoTwl([red, green, blue]){
-    const tint = 0.5 * (green / red);
-    const warmth = 0.5 * ((Math.max(red, green)) / blue);
-    const lum = Math.max(red, green, blue);
-    return [tint * 100, warmth * 100, lum * 100];
+  _convertSrgbtoTwl(colour){
+    colour.red = clampRotate.clamp(colour.red, 0, 1);
+    colour.green = clampRotate.clamp(colour.green, 0, 1);
+    colour.blue = clampRotate.clamp(colour.blue, 0, 1);
+    colour.tint = 100 * (0.5 * (colour.green / colour.red));
+    colour.warmth = 100 * (0.5 * ((Math.max(colour.red, colour.green)) / colour.blue));
+    colour.lumB = 100 * 0.5 * ((colour.red + colour.green + colour.blue) - Math.min(colour.red, colour.green, colour.blue));//(Math.max(colour.red, colour.green, colour.blue));
+    return colour;
   },
   _convertHexToSrgb(colour) {
     const hex = colour.hex;
@@ -201,7 +209,30 @@ export const colourObject= {
   _convertSrgbToHex(colour) {
     return this._convertHslToHex(this._convertSrgbToHsl(colour));
   },
-
+  fromHslTwl(colour){
+    this._convertHslToHex(colour);
+    this._convertHexToSrgb(colour);
+    this._convertSrgbtoTwl(colour);
+    return this._return(colour);
+  },
+  fromHexTwl(colour){
+    this._convertHexToSrgb(colour);
+    this._convertSrgbtoTwl(colour);
+    this._convertSrgbToHsl(colour);
+    return this._return(colour);
+  },
+  fromSrgbTwl(colour){
+    this._convertSrgbtoTwl(colour);
+    this._convertSrgbToHsl(colour);
+    this._convertHslToHex(colour);
+    return this._return(colour);
+  },
+  fromTwl(colour){
+    this._convertTwltoSrgb(colour)
+    this._convertSrgbToHsl(colour);
+    this._convertHslToHex(colour);
+    return this._return(colour);
+  },
   _return(colour) {
     this._addStringsToColourObject(colour);
     return Object.freeze(colour);
@@ -245,33 +276,40 @@ export const colourObject= {
     const hue = parseInt(Math.random() * 360);
     const sat = 48 + parseInt(Math.random() * 40); // 48 - 87
     const lum = 63 + parseInt(Math.random() * 25); // 63 - 88
-    return [hue,sat,lum];
-  },
-  _convertHslToString(hue,sat,lum) {
-    return `hsl(${Math.round(hue)},${sat.toFixed(0)}%,${lum.toFixed(0)}%)`//this._convertHslToHex(hue, sat, lum);
-  },
-  _convertRgbToString(red,green,blue) {
-    return `rgb(${Math.round(red * 255)},${Math.round(green * 255)},${Math.round(blue * 255)})`
+    return [hue, sat, lum];
   },
 
+  _convertHslToString(hue, sat, lum) {
+    return `hsl(${Math.round(hue)},${sat.toFixed(0)}%,${lum.toFixed(0)}%)`;
+  },
+  _convertTwlToString(tint, warmth, lumB) {
+    return `twl(${Math.round(tint)}%,${warmth.toFixed(0)}%,${lumB.toFixed(0)}%)`;
+  },
+
+  _convertRgbToString(red, green, blue) {
+    return `rgb(${Math.round(red * 255)},${Math.round(green * 255)},${Math.round(blue * 255)})`
+  },
   _convertHslToColourObject(hue, sat, lum, name){
     return  {'name': name, 'hue': hue, 'sat': sat, 'lum': lum};
   },
   _addStringsToColourObject(colour){
-    colour.hsl =  this._convertHslToString(colour.hue,colour.sat,colour.lum);
-    colour.rgb =  this._convertRgbToString(colour.red,colour.green,colour.blue);
+    
+
+    colour.hsl =  this._convertHslToString(colour.hue, colour.sat, colour.lum);
+    if (colour.name === 'primary') colour.twl =  this._convertTwlToString(colour.tint, colour.warmth, colour.lumB);
+    colour.rgb =  this._convertRgbToString(colour.red, colour.green, colour.blue);
   },
   hsl(colour){
-    return this._convertHslToString(colour.hue,colour.sat,colour.lum);
+    return this._convertHslToString(colour.hue, colour.sat, colour.lum);
   },
   rgb(colour){
-    return this._convertRgbToString(colour.red,colour.green,colour.blue);
+    return this._convertRgbToString(colour.red, colour.green, colour.blue);
   },
   makeRandomHslString(){
       return this._convertHslToString(...this._makeRandomHsl());
   },
   makeRandomColour(name = 'primary'){
-    return this.fromHsl(this._convertHslToColourObject(...this._makeRandomHsl(),name));
+    return this.fromHslTwl(this._convertHslToColourObject(...this._makeRandomHsl(), name));
   },
   assign(oldColour, newColour) {//default mode is replace
     if (newColour.hasOwnProperty('hex')) return 'Error: Hex found in newColour object';//Exit for Hex
@@ -305,12 +343,12 @@ export const colourObject= {
   },
  }
 
-/* 
-const testConversion = [0.31, 0.58, 0.546];
+ 
+/* const testConversion = {tint: 0.31, warmth: 0.58, lumB: 0.546};
 console.log(testConversion);
 console.log(colourObject._convertTwltoSrgb(testConversion));
 const blaha = colourObject._convertSrgbtoTwl(colourObject._convertTwltoSrgb(testConversion));
 console.log(blaha);
 console.log(colourObject._convertTwltoSrgb(blaha));
 console.log(colourObject._convertSrgbtoTwl(colourObject._convertTwltoSrgb(blaha)));
- */
+  */

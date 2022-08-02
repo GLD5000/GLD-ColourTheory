@@ -71,7 +71,7 @@
   box-shadow: $box-shadow;
   background-color: $neutral-500;
   display:grid;
-  grid-template:$gemQuart repeat(3,1fr) $gemQuart/ $gemQuart repeat(3,1fr) $gemQuart;
+  grid-template:$gemQuart repeat(3, 1fr) $gemQuart/ $gemQuart repeat(3, 1fr) $gemQuart;
   min-height: calc(2.5 * $gem);
   max-width: 40%;
   margin:auto;

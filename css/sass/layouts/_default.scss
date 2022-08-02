@@ -124,7 +124,7 @@ $swatch-palette-medium-areas:
 "tetradicA tetradicB tetradicC neutral" 
 "triadicA triadicB copyAll random";
 //$swatch-palette-medium-rows: $picker-height-medium repeat(6, $swatch-height-medium);
-//$swatch-palette-medium-columns: repeat(4,1fr);
+//$swatch-palette-medium-columns: repeat(4, 1fr);
 
 $swatch-palette-large-areas: 
 "picker picker monochromeA monochromeB"
@@ -134,14 +134,14 @@ $swatch-palette-large-areas:
 "random random copyAll copyAll";
 
 //$swatch-palette-large-rows: repeat(4,$swatch-height-large);
-//$swatch-palette-large-columns: repeat(5,1fr);
+//$swatch-palette-large-columns: repeat(5, 1fr);
 
 $swatch-palette-huge-areas: 
 "monochromeA monochromeB picker picker triadicA triadicB" 
 "analogousA analogousB picker picker tetradicA tetradicC" 
 "copyAll copyAll neutral random  tetradicB tetradicB";
 //$swatch-palette-huge-rows: repeat(3,$swatch-height-large);
-//$swatch-palette-huge-columns: repeat(6,1fr);
+//$swatch-palette-huge-columns: repeat(6, 1fr);
 
 $swatch-palette-extra-huge-areas: 
 "copyAll copyAll monochromeA monochromeB picker picker triadicA triadicB" 
@@ -176,7 +176,7 @@ $swatch-palette-extra-huge-areas:
         grid-template-areas: $swatch-palette-medium-areas;  
         //grid-template-rows: $swatch-palette-medium-rows;    
         //grid-template-columns: $swatch-palette-medium-columns; 
-        grid-auto-rows: minmax(calc(5 * $gem),1fr);
+        grid-auto-rows: minmax(calc(5 * $gem), 1fr);
    
     }
 }
@@ -186,7 +186,7 @@ $swatch-palette-extra-huge-areas:
         grid-template-areas: $swatch-palette-large-areas;  
         //grid-template-rows: $swatch-palette-large-rows;    
         //grid-template-columns: $swatch-palette-large-columns;
-        grid-auto-rows: minmax(calc(5 * $gem),1fr);
+        grid-auto-rows: minmax(calc(5 * $gem), 1fr);
     
     }
 }
@@ -196,7 +196,7 @@ $swatch-palette-extra-huge-areas:
         grid-template-areas: $swatch-palette-huge-areas;  
         //grid-template-rows: $swatch-palette-huge-rows;    
         //grid-template-columns: $swatch-palette-huge-columns; 
-        grid-auto-rows: minmax(calc(5 * $gem),1fr);
+        grid-auto-rows: minmax(calc(5 * $gem), 1fr);
    
     }
 }

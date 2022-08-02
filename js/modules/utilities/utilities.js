@@ -1,6 +1,6 @@
 export const clampRotate = {
     clamp(value, min = 0, max = 100) {
-        return Math.min(Math.max(min, value),max);
+        return Math.min(Math.max(min, value), max);
     },
     rotate(value, min = 0, max = 360) {
         value = parseInt(value);
@@ -64,14 +64,14 @@ export const throttleDebounce = {
         }
     },
 
-    debounce(callbackFunction,delayTime = 1000) {//My own version
+    debounce(callbackFunction, delayTime = 1000) {//My own version
         let timerA; 
         let counter = 0;
         return (...args) => { //create inner function
             if (counter === 0) {
                 callbackFunction.apply(this, args);
                 counter = 1;
-                return setTimeout(() => {counter = 0;},delayTime);
+                return setTimeout(() => {counter = 0;}, delayTime);
                 
             };//get first click
             clearTimeout(timerA); // reset timer each time function is called
