@@ -70,7 +70,7 @@ export const paletteUi = {
         const colourspace = this._getColourspace();
         this._setSliderValues(selectColourObject[colourspace], colourspace);
         userObjects.pickers['primary-picker'].value = hex;
-        userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[colourspace];
+        userObjects.copyButtons['primary-copybtn'].innerHTML = newColour.twl;//newColour[colourspace];
         this._updateVariants();
         this._initSmallWrapperContent();
         this.setTextMode('Auto');

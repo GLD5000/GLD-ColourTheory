@@ -89,25 +89,25 @@ export const colourObject= {
     return this[functionLookup[colourspace]](sliderArray);
   },
   _convertTwltoSrgb(colour){
-    colour.tint = clampRotate.clamp(colour.tint, 0, 100);
-    colour.warmth = clampRotate.clamp(colour.warmth, 0, 100);
-    colour.lumB = clampRotate.clamp(colour.lumB, 0, 100);
+    colour.tint = clampRotate.clamp(colour.tint);
+    colour.warmth = clampRotate.clamp(colour.warmth);
+    colour.lumB = clampRotate.clamp(colour.lumB);
 
     const tinyTint = colour.tint * 0.01;
     const tinyWarmth = colour.warmth * 0.01;
     const tinyLum = colour.lumB * 0.01;
-    colour.blue = Math.min(1, (2 * (1-tinyWarmth))) * tinyLum;
-    colour.green = Math.min(1, (2 * tinyTint)) * Math.min(1, (2 * (tinyWarmth))) * tinyLum;
-    colour.red = Math.min(1, (2 * (1-tinyTint))) * Math.min(1, (2 * (tinyWarmth))) * tinyLum;
+    colour.blue = clampRotate.clamp(Math.min(1, (2 * (1-tinyWarmth))) * tinyLum, 0, 1);//fix the lum here to match below!!!
+    colour.green = clampRotate.clamp(Math.min(1, (2 * tinyTint)) * Math.min(1, (2 * (tinyWarmth))) * tinyLum, 0, 1);
+    colour.red = clampRotate.clamp(Math.min(1, (2 * (1-tinyTint))) * Math.min(1, (2 * (tinyWarmth))) * tinyLum, 0, 1);
     return colour;
   },
   _convertSrgbtoTwl(colour){
     colour.red = clampRotate.clamp(colour.red, 0, 1);
     colour.green = clampRotate.clamp(colour.green, 0, 1);
     colour.blue = clampRotate.clamp(colour.blue, 0, 1);
-    colour.tint = 100 * (0.5 * (colour.green / colour.red));
-    colour.warmth = 100 * (0.5 * ((Math.max(colour.red, colour.green)) / colour.blue));
-    colour.lumB = 100 * 0.5 * ((colour.red + colour.green + colour.blue) - Math.min(colour.red, colour.green, colour.blue));//(Math.max(colour.red, colour.green, colour.blue));
+    colour.tint = clampRotate.clamp(100 * (0.5 * (colour.green / colour.red)));
+    colour.warmth = clampRotate.clamp(100 * (0.5 * ((Math.max(colour.red, colour.green)) / colour.blue)));
+    colour.lumB = clampRotate.clamp(100 * 0.5 * ((colour.red + colour.green + colour.blue) - Math.min(colour.red, colour.green, colour.blue)));//(Math.max(colour.red, colour.green, colour.blue));
     return colour;
   },
   _convertHexToSrgb(colour) {
