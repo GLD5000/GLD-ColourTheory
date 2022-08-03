@@ -1,3 +1,5 @@
+import { paletteUi } from "./paletteui";
+
 export const paletteData = {
     paletteState: {gradientMode: 1, prefixMode: 'SCSS', prefix: '$', textMode: 'Auto', colourspace: 'Hex'},
     backgroundColours: new Map(),
@@ -24,7 +26,6 @@ export const paletteData = {
     getPrefixMode(){
         return this.paletteState.prefixMode;
     },
-
     addColour(colour){
         this.backgroundColours.set(colour.name, colour);
     }, 
@@ -44,6 +45,7 @@ export const paletteData = {
         return this.gradientColours.get(name);
     },
     getCustomColourName(name){
+        if (paletteUi._getWrapperContent(name)[0] !== 'c') return null;
         if (this.customColours.get(name) == null) return null;
         return this.customColours.get(name).customName;
     },

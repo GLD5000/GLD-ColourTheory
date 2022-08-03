@@ -311,7 +311,6 @@ export const colourObject= {
   assign(oldColour, newColour) {//default mode is replace
     if (newColour.hasOwnProperty('hex')) return 'Error: Hex found in newColour object';//Exit for Hex
     const colourName = newColour.name || oldColour.name;// set colour name
-    console.log(colourName);
     let mode, keysArray;
     Object.keys(newColour).forEach(x =>{//Loop through object keys of newColour to check for hsl or rgb
       if (this._hslArr.includes(x)){

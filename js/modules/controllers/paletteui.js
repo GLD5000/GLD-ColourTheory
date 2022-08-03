@@ -75,23 +75,23 @@ export const paletteUi = {
         };
         this._setSliderValues(selectColourObject[colourspace], colourspace);
         //console.log(`colourspace: ${colourspace} / lum: ${lum} sliderc: ${userObjects.sliders[2].value}`)
-
+        this._initSmallWrapperContent();
         userObjects.pickers['primary-picker'].value = hex;
         userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[colourspace];
         this._updateVariants();
-        this._initSmallWrapperContent();
+        gradientMaker.updateGradient(newColour);
         this.setTextMode('Auto');
         this._updateClipboard = 1;
         this._setClipboardTextAll();
     },
     addColour(newColour){
         paletteData.addColour(newColour);
-        gradientMaker.updateGradient(newColour);
         textMaker.updateText(newColour);
         if (newColour.name === 'primary') {
             this._addPrimaryColour(newColour);
             return;
         }
+        gradientMaker.updateGradient(newColour);
         userObjects.pickers[newColour.name + '-picker'].value = newColour.hex;
         userObjects.copyButtons[newColour.name + '-copybtn'].innerHTML = newColour[this._getColourspace()];
         this._setClipboardTextAll();
@@ -144,6 +144,10 @@ export const paletteUi = {
         this.setTextColour(newTextColour);
        });
     },
+    isCustomColour(name){
+        if (name !== 'primary' && this._getWrapperContent(name)[0] === 'c') return paletteData.getCustomColourName(name);
+        return null;
+    },
     _addCustomColour(name, hex) {
         const customName = paletteData.getCustomColourName(name) || `custom${++this._counter}`;
         paletteData.addCustomColour(name, colourObject.fromHex({name: name, customName: customName, hex: hex}));
@@ -160,10 +164,12 @@ export const paletteUi = {
         }
         const newPartial = {hex: hex};
         newPartial.name = name;
-        console.log(name);
         const newColour = colourObject.fromHex(newPartial);
+        if (name !== 'primary') {
+            this._addCustomColour(name, hex);
+        } 
+
         this.addColour(newColour);
-        if (name !== 'primary') this._addCustomColour(name, hex); 
 
     },
     _onclickSmallSwatch(e){
@@ -191,6 +197,7 @@ export const paletteUi = {
     _getClipboardTextSingleAsArray(name){
         const colourspace = this._getColourspace();
         const prefix = paletteData.getPrefix();
+
         let customName = paletteData.getCustomColourName(name) || name;
         const textArray = [[`${prefix}${customName}: `],
         [`${paletteData.getColourObject(name)[colourspace]}`],
@@ -331,6 +338,11 @@ export const paletteUi = {
     _getWrapper(name){
         return userObjects.wrappers[name + '-wrapper'];
     },
+    _getWrapperContent(name){
+        if (name === 'primary') return null;
+        return userObjects.wrappers[name + '-wrapper'].dataset.content;
+    },
+
     _setWrapperTextColour(textColour){
         const name = this._splitName(textColour.name)
         const wrapper = this._getWrapper(name);
