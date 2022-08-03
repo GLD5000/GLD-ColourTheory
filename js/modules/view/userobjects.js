@@ -7,23 +7,26 @@ function setAll(){
         ['copyButtons','.copy-single'],
         ['other',['#textmode', '#prefix', '#gradient', '#colourspace', '#dice-btn', '#randomise-btn']],
         ['clipboard',['#clipboard', '#clipboard-secondary']],     
+        ['navbar',['#hamburger-toggle', '#navbar-list']],     
         // ['labels','label'],
     ];  
-    const returnObject = {}
+    const returnObject = {all: {}}
     selectorsArray.forEach( selector => {
         if (selector[2] === 'array') {
             returnObject[selector[0]] = [];
             [selector[1]].forEach(x =>{             
-                document.querySelectorAll(x).forEach( x =>
-                    returnObject[selector[0]].push(document.getElementById(x.id))
-                );
+                document.querySelectorAll(x).forEach( x => {
+                    returnObject[selector[0]].push(document.getElementById(x.id));
+                    returnObject.all[x.id] = document.getElementById(x.id);
+            }   );
             });
         } else {
             returnObject[selector[0]] = {};
             [selector[1]].forEach(x =>{             
-                document.querySelectorAll(selector[1]).forEach( x =>
-                    returnObject[selector[0]][x.id] = document.getElementById(x.id)
-                );
+                document.querySelectorAll(selector[1]).forEach( x => {
+                    returnObject[selector[0]][x.id] = document.getElementById(x.id);
+                    returnObject.all[x.id] = (returnObject[selector[0]][x.id]);
+            }   );
             });
         }
     });

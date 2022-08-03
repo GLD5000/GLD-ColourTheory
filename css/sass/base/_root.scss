@@ -4,18 +4,21 @@
     box-shadow: none;
     border: none;
     outline: none;
+    margin: 0;
+    padding: 0;
   
 }
 
 li, ol, ul {
     list-style: none;
+    text-decoration: none;
 }
 
 h1{
     font-size: $gem3;
 }
-p, li, ol, ul {
-    font-weight: 500;
-    font-size: $gem;
+p, li, ol, ul, a{
+    font-weight: 700;
+    font-size: $gem3Quart;
     font-family: $font-Montserrat;
 }

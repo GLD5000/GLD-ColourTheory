@@ -88,6 +88,11 @@ export const colourObject= {
     }
     return this[functionLookup[colourspace]](sliderArray);
   },
+  _createStrings(colour){
+    if (colour.name === 'primary') colour.twl =  this._convertTwlToString(colour.tint, colour.warmth, colour.lightness);
+    colour.rgb =  this._convertRgbToString(colour.red, colour.green, colour.blue);
+    colour.hsl =  this._convertHslToString(colour.hue, colour.sat, colour.lum);
+  },
   _convertTwltoSrgb(colour){
     colour.tint = this._constraintLookupB['tint'](colour.tint);
     colour.warmth = this._constraintLookupB['warmth'](colour.warmth);
@@ -159,6 +164,7 @@ export const colourObject= {
     sat = +(sat * 100);
     lum = +(lum * 100);
     [colour.hue, colour.sat, colour.lum] = [hue, sat, lum];
+
     return colour;
   },
   _convertHslToHex(colour) {
@@ -209,23 +215,9 @@ export const colourObject= {
   _convertSrgbToHex(colour) {
     return this._convertHslToHex(this._convertSrgbToHsl(colour));
   },
-  fromHslTwl(colour){
-    this._convertHslToHex(colour);
-    this._convertHexToSrgb(colour);
-    this._convertSrgbtoTwl(colour);
-    return this._return(colour);
-  },
-  fromHexTwl(colour){
-    this._convertHexToSrgb(colour);
-    this._convertSrgbtoTwl(colour);
-    this._convertSrgbToHsl(colour);
-    return this._return(colour);
-  },
-  fromSrgbTwl(colour){
-    this._convertSrgbtoTwl(colour);
-    this._convertSrgbToHsl(colour);
-    this._convertHslToHex(colour);
-    return this._return(colour);
+  _return(colour) {
+    this._createStrings(colour);
+    return Object.freeze(colour);
   },
   fromTwl(colour){
     this._convertTwltoSrgb(colour)
@@ -233,23 +225,22 @@ export const colourObject= {
     this._convertHslToHex(colour);
     return this._return(colour);
   },
-  _return(colour) {
-    this._addStringsToColourObject(colour);
-    return Object.freeze(colour);
-  },
   fromHsl(colour){
     this._convertHslToHex(colour);
     this._convertHexToSrgb(colour);
+    if (colour.name === 'primary') this._convertSrgbtoTwl(colour);
     return this._return(colour);
   },
   fromHex(colour){
     this._convertHexToSrgb(colour);
     this._convertSrgbToHsl(colour);
+    if (colour.name === 'primary') this._convertSrgbtoTwl(colour);
     return this._return(colour);
   },
   fromSrgb(colour){
     this._convertSrgbToHsl(colour);
     this._convertHslToHex(colour);
+    if (colour.name === 'primary') this._convertSrgbtoTwl(colour);
     return this._return(colour);
   },
     _operationsLookup: {
@@ -301,13 +292,6 @@ export const colourObject= {
   _convertHslToColourObject(hue, sat, lum, name){
     return  {'name': name, 'hue': hue, 'sat': sat, 'lum': lum};
   },
-  _addStringsToColourObject(colour){
-    
-
-    colour.hsl =  this._convertHslToString(colour.hue, colour.sat, colour.lum);
-    if (colour.name === 'primary') colour.twl =  this._convertTwlToString(colour.tint, colour.warmth, colour.lightness);
-    colour.rgb =  this._convertRgbToString(colour.red, colour.green, colour.blue);
-  },
   hsl(colour){
     return this._convertHslToString(colour.hue, colour.sat, colour.lum);
   },
@@ -322,7 +306,7 @@ export const colourObject= {
 },
 
   makeRandomColour(name = 'primary'){
-    return this.fromHslTwl(this._convertHslToColourObject(...this._makeRandomHsl(), name));
+    return this.fromHsl(this._convertHslToColourObject(...this._makeRandomHsl(), name));
   },
   assign(oldColour, newColour) {//default mode is replace
     if (newColour.hasOwnProperty('hex')) return 'Error: Hex found in newColour object';//Exit for Hex

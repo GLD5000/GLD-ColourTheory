@@ -9,6 +9,9 @@ import { clampRotate } from "../utilities/utilities.js";
 import { textMaker } from "./textmaker.js";
 
 export const paletteUi = {
+    _getUiObject(id){
+        return userObjects.all[id];
+    },
     _debounce(){
         this._updateVariants = throttleDebounce.debounce(() => variantMaker.updateVariants(), 250);
     },
@@ -104,8 +107,8 @@ export const paletteUi = {
         };        
         const selectColourMethod = {
             'hex': 'fromTwl',
-            'hsl': 'fromHslTwl',
-            'rgb': 'fromSrgbTwl',
+            'hsl': 'fromHsl',
+            'rgb': 'fromSrgb',
         };
 
         const colourspace = this._getColourspace();
@@ -157,6 +160,7 @@ export const paletteUi = {
         }
         const newPartial = {hex: hex};
         newPartial.name = name;
+        console.log(name);
         const newColour = colourObject.fromHex(newPartial);
         this.addColour(newColour);
         if (name !== 'primary') this._addCustomColour(name, hex); 
@@ -267,7 +271,7 @@ export const paletteUi = {
     _onclickColourspace(){
         const colourspaceButton = userObjects.other.colourspace.innerHTML;
         const colourspace = this._getColourspace();
-        console.log(`colourspace: ${colourspace} colourspace Button: ${colourspaceButton}`)
+        //console.log(`colourspace: ${colourspace} colourspace Button: ${colourspaceButton}`)
         const optionsObject = {rgb: 'hex',hex: 'hsl',hsl: 'rgb'};
         const newColourspace = optionsObject[colourspace];
         this._setColourspace(newColourspace);
@@ -300,6 +304,10 @@ export const paletteUi = {
         userObjects.sliders.forEach((x) => x.oninput = throttleDebounce.throttle((x) => this._oninputSlider(x), 85));
         Object.keys(userObjects.pickers).forEach((x) => userObjects.pickers[x].oninput = throttleDebounce.throttle((x) => this._oninputPicker(...x), 85) );
         this.getSmallSwatchNames().forEach(x => userObjects.pickers[x + '-picker'].onclick = (e) => this._onclickSmallSwatch(e));
+
+        this._getUiObject('hamburger-toggle').onclick = (x) => {
+            this._getUiObject('navbar-list').classList.toggle('active');
+        };
     }, 
     getStops(){
         return userObjects.other['gradient'].innerHTML.toLowerCase();

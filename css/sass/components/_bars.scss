@@ -9,42 +9,90 @@
     border-top: #fff solid 4px;
     background-color: $neutral-1000;
 }
-
-.header{
+.header {
     background-color: $primaryColour;
     border-bottom: $border;
-    display: grid;
-    grid-template-columns: inherit;
-    grid-template-rows: 1fr;
-    //overflow: hidden;
-    //padding-top: $gemQuart;
-    padding-left: $gemHalf;
-    padding-right: $gemHalf;
-    //padding: $gemHalf;
-    //height: 100%;
-    //width:100%;
+
 }
-.header-content{
-    grid-column: 2;
+.navbar{
     display: flex;
-    flex-basis: 50% 10% 10%;
-    gap: $gaplg;
     justify-content: space-between;
-  }
-.header-content>*{
-    display: block;
+    align-items: center;
+    padding-left: $gem2;
+    padding-right: $gem2;
+
 }
-.title {
+.navbar-list{
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    display: flex;
+    gap: $gaplg;
+}
+.navlink {
+    text-decoration: none;
+    color: $neutral-1000;
+    padding: 4px;
+    border: solid 2px transparent;
+}
+.logo {
     font-family: $font-Bebas-Neue;
     color: $neutral-1000;
     flex-basis: 1;
-   // background: $rainbow-gradient;
-   // background-clip: text;
-    //-webkit-background-clip: text;
     text-shadow: 1px 1px $neutral-0;
     font-weight: 900;
-   // color: transparent;
-    //-webkit-text-stroke-width: 1px;
-  //-webkit-text-stroke-color: $neutral-0;
-  //filter: brightness(0.85);
 }  
+
+.hamburger-toggle{
+    position: absolute;
+    top: $gem3Quart;
+    right: $gem2;
+    display: none;
+    flex-direction: column;
+    gap: $gap;
+    //justify-content: space-around;
+    width: $gem2;
+    height: $gem2;
+
+}
+.navlink:hover, .navlink:focus {
+    color: $neutral-0;
+    border: solid 2px white;
+}
+
+.hamburger-line {
+    height: 4px;
+    width: 100%;
+    background-color: $neutral-1000;
+   // border-radius: 10px
+}
+
+@media (max-width: 750px) {
+    .hamburger-toggle {
+        display: flex;
+    }
+    .navbar-list {
+        display: none;
+        width: 100%;
+    }
+    .logo{
+
+        width: 80%;
+    }
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .navbar-list {
+        width: 100%;
+        flex-direction: column;
+        gap: $gem;
+        padding: $gem 0 $gem3Quart;
+    }
+    .navbar-list li {
+        text-align: center;
+    }
+    .navbar-list.active {
+        display: flex;
+    }
+}
