@@ -140,7 +140,7 @@ export const paletteUi = {
        });
     },
     _addCustomColour(name, hex) {
-        const customName = paletteData.getCustomColourName(name) || `Custom${++this._counter}`;
+        const customName = paletteData.getCustomColourName(name) || `custom${++this._counter}`;
         paletteData.addCustomColour(name, colourObject.fromHex({name: name, customName: customName, hex: hex}));
         userObjects.wrappers[name + '-wrapper'].dataset.content = customName;
         this._setClipboardTextAll();
@@ -149,7 +149,7 @@ export const paletteUi = {
         const name = this._splitName(x.target.id);
         const hex = x.target.value;
         if (name === 'textcolour') {
-            this.setTextMode('Custom');
+            this.setTextMode('custom');
             this._addTextColour('customText', hex);
             return;
         }
