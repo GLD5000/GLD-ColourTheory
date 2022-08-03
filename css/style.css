@@ -73,6 +73,10 @@ li, ol, ul {
   list-style: none;
 }
 
+h1 {
+  font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 1.6);
+}
+
 .primary-wrapper {
   background-color: #e68f75;
 }
@@ -120,7 +124,29 @@ li, ol, ul {
 .header, .footer {
   display: relative;
   color: #fff;
-  background-color: hsl(0deg, 0%, 11.8%);
+  background-color: hsl(0deg, 0%, 34.1%);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: inherit;
+  grid-template-rows: 1fr;
+  overflow: hidden;
+  padding-left: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.5);
+  padding-right: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.5);
+}
+
+.title {
+  font-family: "Bebas Neue", cursive;
+  grid-column: 2;
+  width: 100%;
+  background: linear-gradient(to right, hsl(0deg, 70%, 70%), hsl(60deg, 70%, 70%), hsl(120deg, 70%, 70%), hsl(180deg, 70%, 70%), hsl(240deg, 70%, 70%), hsl(300deg, 70%, 70%), hsl(0deg, 70%, 70%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #fff;
+  filter: brightness(0.85);
 }
 
 .btn, .textmode {
@@ -238,9 +264,11 @@ li, ol, ul {
   background-color: hsl(0deg, 0%, 55.7%);
 }
 
-.header {
-  height: 100%;
+.swatch-palette {
   width: 100%;
+  display: grid;
+  gap: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
+  padding: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.5);
 }
 
 .primary-picker {
@@ -256,18 +284,6 @@ li, ol, ul {
   flex-basis: 100% 100% 100%;
   gap: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
   padding: 1px 2px 2px 1px;
-}
-
-.swatch-palette {
-  width: 100%;
-  display: grid;
-  gap: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
-  padding: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.5);
-}
-
-.footer {
-  height: 100%;
-  width: 100%;
 }
 
 .swatch, .btn-container, .primary-swatch {
@@ -528,7 +544,7 @@ input[type=range]:focus::before {
   margin-left: auto;
   margin-right: auto;
   display: grid;
-  grid-template: "header header header" 24px ". palette ." 1fr "footer footer footer" 24px/1em 1fr 1em;
+  grid-template: "header header header" calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 1.6) ". palette ." 1fr "footer footer footer" calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6)/1em 1fr 1em;
 }
 
 /*

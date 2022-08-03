@@ -1,10 +1,12 @@
 @use '../abstracts' as *;
 
-
-.header{
-  height: 100%;
-  width:100%;
+.swatch-palette{
+  width: 100%;
+  display: grid;
+  gap: $gem3Quart;
+  padding: $gemHalf;
 }
+
 
 .primary-picker{
   width: 100%;
@@ -20,18 +22,6 @@
   flex-basis: 100% 100% 100%;
   gap: $gap;
   padding: 1px 2px 2px 1px;
-}
-
-.swatch-palette{
-  width: 100%;
-  display: grid;
-  gap: $gem3Quart;
-  padding: $gemHalf;
-}
-
-.footer{
-  height: 100%;
-  width:100%;
 }
 
 .swatch, .btn-container, .primary-swatch{

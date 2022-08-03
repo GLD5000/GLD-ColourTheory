@@ -20,9 +20,9 @@
     margin-right: auto;
     display:grid;
     grid-template: 
-    "header header header" 24px
+    "header header header" $gem3
     ". palette ." 1fr
-    "footer footer footer" 24px 
+    "footer footer footer" $gem2 
     / 1em 1fr 1em;
 }
 

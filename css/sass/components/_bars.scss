@@ -3,5 +3,31 @@
 .header,.footer {
     display:relative;
     color: $neutral-0;
-    background-color: $neutral-900;
+    background-color: $neutral-700;
 }
+
+.header{
+    display: grid;
+    grid-template-columns: inherit;
+    grid-template-rows: 1fr;
+    overflow: hidden;
+    //padding-top: $gemQuart;
+    padding-left: $gemHalf;
+    padding-right: $gemHalf;
+    //padding: $gemHalf;
+    //height: 100%;
+    //width:100%;
+}
+.title {
+    font-family: $font-Bebas-Neue;
+    grid-column: 2;
+    width: 100%;
+    background: $rainbow-gradient;
+    background-clip: text;
+    -webkit-background-clip: text;
+    //text-shadow: -4px -2px #fff;
+    color: transparent;
+    -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #fff;
+  filter: brightness(0.85);
+}  
