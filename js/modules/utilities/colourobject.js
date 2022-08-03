@@ -280,6 +280,13 @@ export const colourObject= {
     const lum = 63 + parseInt(Math.random() * 25); // 63 - 88
     return [hue, sat, lum];
   },
+  _makeRandomHslSafer() {
+    const hue = parseInt(Math.random() * 360);
+    const sat = 28 + parseInt(Math.random() * 5); // 48 - 87
+    const lum = 65 + parseInt(Math.random() * 5); // 63 - 88
+    return [hue, sat, lum];
+  },
+
 
   _convertHslToString(hue, sat, lum) {
     return `hsl(${Math.round(hue)},${sat.toFixed(0)}%,${lum.toFixed(0)}%)`;
@@ -310,6 +317,10 @@ export const colourObject= {
   makeRandomHslString(){
       return this._convertHslToString(...this._makeRandomHsl());
   },
+  makeRandomHslStringSafer(){
+    return this._convertHslToString(...this._makeRandomHslSafer());
+},
+
   makeRandomColour(name = 'primary'){
     return this.fromHslTwl(this._convertHslToColourObject(...this._makeRandomHsl(), name));
   },

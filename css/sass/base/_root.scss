@@ -14,3 +14,8 @@ li, ol, ul {
 h1{
     font-size: $gem3;
 }
+p, li, ol, ul {
+    font-weight: 500;
+    font-size: $gem;
+    font-family: $font-Montserrat;
+}

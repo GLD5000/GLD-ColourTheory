@@ -3,14 +3,20 @@
 .header,.footer {
     display:relative;
     color: $neutral-0;
-    background-color: $neutral-700;
+    
+}
+.footer{
+    border-top: #fff solid 4px;
+    background-color: $neutral-1000;
 }
 
 .header{
+    background-color: $primaryColour;
+    border-bottom: $border;
     display: grid;
     grid-template-columns: inherit;
     grid-template-rows: 1fr;
-    overflow: hidden;
+    //overflow: hidden;
     //padding-top: $gemQuart;
     padding-left: $gemHalf;
     padding-right: $gemHalf;
@@ -18,16 +24,27 @@
     //height: 100%;
     //width:100%;
 }
+.header-content{
+    grid-column: 2;
+    display: flex;
+    flex-basis: 50% 10% 10%;
+    gap: $gaplg;
+    justify-content: space-between;
+  }
+.header-content>*{
+    display: block;
+}
 .title {
     font-family: $font-Bebas-Neue;
-    grid-column: 2;
-    width: 100%;
-    background: $rainbow-gradient;
-    background-clip: text;
-    -webkit-background-clip: text;
-    //text-shadow: -4px -2px #fff;
-    color: transparent;
-    -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: #fff;
-  filter: brightness(0.85);
+    color: $neutral-1000;
+    flex-basis: 1;
+   // background: $rainbow-gradient;
+   // background-clip: text;
+    //-webkit-background-clip: text;
+    text-shadow: 1px 1px $neutral-0;
+    font-weight: 900;
+   // color: transparent;
+    //-webkit-text-stroke-width: 1px;
+  //-webkit-text-stroke-color: $neutral-0;
+  //filter: brightness(0.85);
 }  

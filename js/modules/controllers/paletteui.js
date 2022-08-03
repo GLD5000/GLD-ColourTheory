@@ -23,6 +23,8 @@ export const paletteUi = {
         this._updatePrimaryGradient = (x) => gradientMaker.updateGradient(...x);
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
         userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
+        document.querySelector('.header').style.backgroundColor = colourObject.makeRandomHslStringSafer();
+        //document.querySelector('.footer').style.backgroundColor = colourObject.makeRandomHslStringSafer();
         this.addColour(colourObject.makeRandomColour('primary'));
         this._setOnChange();
         this.setTextMode('Auto');

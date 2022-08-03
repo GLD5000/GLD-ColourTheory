@@ -77,6 +77,12 @@ h1 {
   font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 1.6);
 }
 
+p, li, ol, ul {
+  font-weight: 500;
+  font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
+  font-family: "Montserrat", sans-serif;
+}
+
 .primary-wrapper {
   background-color: #e68f75;
 }
@@ -124,29 +130,41 @@ h1 {
 .header, .footer {
   display: relative;
   color: #fff;
-  background-color: hsl(0deg, 0%, 34.1%);
+}
+
+.footer {
+  border-top: #fff solid 4px;
+  background-color: #000;
 }
 
 .header {
+  background-color: #e68f75;
+  border-bottom: solid #000 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
   display: grid;
   grid-template-columns: inherit;
   grid-template-rows: 1fr;
-  overflow: hidden;
   padding-left: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.5);
   padding-right: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.5);
 }
 
+.header-content {
+  grid-column: 2;
+  display: flex;
+  flex-basis: 50% 10% 10%;
+  gap: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
+  justify-content: space-between;
+}
+
+.header-content > * {
+  display: block;
+}
+
 .title {
   font-family: "Bebas Neue", cursive;
-  grid-column: 2;
-  width: 100%;
-  background: linear-gradient(to right, hsl(0deg, 70%, 70%), hsl(60deg, 70%, 70%), hsl(120deg, 70%, 70%), hsl(180deg, 70%, 70%), hsl(240deg, 70%, 70%), hsl(300deg, 70%, 70%), hsl(0deg, 70%, 70%));
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: #fff;
-  filter: brightness(0.85);
+  color: #000;
+  flex-basis: 1;
+  text-shadow: 1px 1px #fff;
+  font-weight: 900;
 }
 
 .btn, .textmode {
@@ -544,7 +562,7 @@ input[type=range]:focus::before {
   margin-left: auto;
   margin-right: auto;
   display: grid;
-  grid-template: "header header header" calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 1.6) ". palette ." 1fr "footer footer footer" calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6)/1em 1fr 1em;
+  grid-template: "header header header" calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 1.6) ". palette ." 1fr "footer footer footer" clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)/1em 1fr 1em;
 }
 
 /*
