@@ -44,12 +44,12 @@ export const paletteUi = {
         return userObjects.other['colourspace'].innerHTML.toLowerCase();
     },
     _setColourspace(colourspace){
+        userObjects.other['colourspace'].innerHTML = colourspace;
         paletteData.setColourSpace(colourspace);
         this._setSliderStyles(colourspace);
-        userObjects.other['colourspace'].innerHTML = colourspace;
         this._setClipboardTextAll();
         this.getAllSwatchNames().forEach(name => userObjects.copyButtons[name + '-copybtn'].innerHTML = this.getColourObject(name)[colourspace]);
-
+        this._addPrimaryColour(this.getColourObject('primary'));
     },
 
     _setSliderValues(valuesArray, colourspace){
@@ -61,16 +61,18 @@ export const paletteUi = {
     },
     _addPrimaryColour(newColour){
         this._updateClipboard = 0;
-        const {hue, sat, lum, red, green, blue, hex, tint, warmth, lumB} = newColour;
+        const colourspace = this._getColourspace();
+        const {hue, sat, lum, red, green, blue, hex, tint, warmth, lightness} = newColour;
         const selectColourObject = {
-            'hex': [tint, warmth, lumB],
+            'hex': [tint, warmth, lightness],
             'hsl': [hue, sat, lum],
             'rgb': [red, green, blue],
         };
-        const colourspace = this._getColourspace();
         this._setSliderValues(selectColourObject[colourspace], colourspace);
+        //console.log(`colourspace: ${colourspace} / lum: ${lum} sliderc: ${userObjects.sliders[2].value}`)
+
         userObjects.pickers['primary-picker'].value = hex;
-        userObjects.copyButtons['primary-copybtn'].innerHTML = newColour.twl;//newColour[colourspace];
+        userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[colourspace];
         this._updateVariants();
         this._initSmallWrapperContent();
         this.setTextMode('Auto');
@@ -94,7 +96,7 @@ export const paletteUi = {
     },
     _getSliderColourObject(){
         const selectColourKeys = {
-            'hex': ['tint', 'warmth', 'lumB'],
+            'hex': ['tint', 'warmth', 'lightness'],
             'hsl': ['hue', 'sat', 'lum'],
             'rgb': ['red', 'green', 'blue'],
         };        
@@ -117,7 +119,9 @@ export const paletteUi = {
     },
     _onclickGradient(){
         paletteData.paletteState.gradientMode = clampRotate.rotate(1* paletteData.paletteState.gradientMode + 1, 1 , 10) || 1;
-        userObjects.other['gradient'].innerHTML = 'Gradient: ' + paletteData.paletteState.gradientMode;
+        let numberTones = parseInt(paletteData.paletteState.gradientMode);
+        if (numberTones === 1) numberTones = 0; 
+        userObjects.other['gradient'].innerHTML = 'Tones: ' + numberTones;
         paletteData.backgroundColours.forEach(colour => gradientMaker.updateGradient(colour));
         this._setClipboardTextAll();
 
@@ -242,7 +246,7 @@ export const paletteUi = {
     },
     _setSliderStyles(colourspace){
         const sliderNameArrays = {
-            hex: [ 'tint', 'warmth', 'lum'],
+            hex: [ 'tint', 'warmth', 'lightness'],
             hsl: [ 'hue', 'sat', 'lum'],
             rgb: [ 'red', 'green', 'blue'],
         }
@@ -259,14 +263,13 @@ export const paletteUi = {
         });
     },
     _onclickColourspace(){
+        const colourspaceButton = userObjects.other.colourspace.innerHTML;
         const colourspace = this._getColourspace();
-        const optionsArray = ['hex','hsl','rgb'];
-        const arrayLimit = optionsArray.length -1;
-        let index = optionsArray.indexOf(colourspace);
-        index++;
-        if (index > arrayLimit) index = 0;
-        const newColourspace = optionsArray[index];
+        console.log(`colourspace: ${colourspace} colourspace Button: ${colourspaceButton}`)
+        const optionsObject = {rgb: 'hex',hex: 'hsl',hsl: 'rgb'};
+        const newColourspace = optionsObject[colourspace];
         this._setColourspace(newColourspace);
+        
     },
     _onclickPrefix(){
         const prefix = paletteData.getPrefix();

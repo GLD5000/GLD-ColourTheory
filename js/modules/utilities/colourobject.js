@@ -89,25 +89,25 @@ export const colourObject= {
     return this[functionLookup[colourspace]](sliderArray);
   },
   _convertTwltoSrgb(colour){
-    colour.tint = clampRotate.clamp(colour.tint);
-    colour.warmth = clampRotate.clamp(colour.warmth);
-    colour.lumB = clampRotate.clamp(colour.lumB);
+    colour.tint = this._constraintLookupB['tint'](colour.tint);
+    colour.warmth = this._constraintLookupB['warmth'](colour.warmth);
+    colour.lightness = this._constraintLookupB['lightness'](colour.lightness);
 
     const tinyTint = colour.tint * 0.01;
     const tinyWarmth = colour.warmth * 0.01;
-    const tinyLum = colour.lumB * 0.01;
-    colour.blue = clampRotate.clamp(Math.min(1, (2 * (1-tinyWarmth))) * tinyLum, 0, 1);//fix the lum here to match below!!!
-    colour.green = clampRotate.clamp(Math.min(1, (2 * tinyTint)) * Math.min(1, (2 * (tinyWarmth))) * tinyLum, 0, 1);
-    colour.red = clampRotate.clamp(Math.min(1, (2 * (1-tinyTint))) * Math.min(1, (2 * (tinyWarmth))) * tinyLum, 0, 1);
+    const tinyLum = colour.lightness * 0.01;
+    colour.blue = this._constraintLookupB['blue'](Math.min(1, (2 * (1-tinyWarmth))) * tinyLum);//fix the lum here to match below!!!
+    colour.green = this._constraintLookupB['green'](Math.min(1, (2 * tinyTint)) * Math.min(1, (2 * (tinyWarmth))) * tinyLum);
+    colour.red = this._constraintLookupB['red'](Math.min(1, (2 * (1-tinyTint))) * Math.min(1, (2 * (tinyWarmth))) * tinyLum);
     return colour;
   },
   _convertSrgbtoTwl(colour){
-    colour.red = clampRotate.clamp(colour.red, 0, 1);
-    colour.green = clampRotate.clamp(colour.green, 0, 1);
-    colour.blue = clampRotate.clamp(colour.blue, 0, 1);
-    colour.tint = clampRotate.clamp(100 * (0.5 * (colour.green / colour.red)));
-    colour.warmth = clampRotate.clamp(100 * (0.5 * ((Math.max(colour.red, colour.green)) / colour.blue)));
-    colour.lumB = clampRotate.clamp(100 * 0.5 * ((colour.red + colour.green + colour.blue) - Math.min(colour.red, colour.green, colour.blue)));//(Math.max(colour.red, colour.green, colour.blue));
+    colour.red = this._constraintLookupB['red'](colour.red);
+    colour.green = this._constraintLookupB['green'](colour.green);
+    colour.blue = this._constraintLookupB['blue'](colour.blue);
+    colour.tint = this._constraintLookupB['tint'](100 * (0.5 * (colour.green / colour.red)));
+    colour.warmth = this._constraintLookupB['warmth'](100 * (0.5 * ((Math.max(colour.red, colour.green)) / colour.blue)));
+    colour.lightness = this._constraintLookupB['lightness'](100 * 0.5 * ((colour.red + colour.green + colour.blue) - Math.min(colour.red, colour.green, colour.blue)));//(Math.max(colour.red, colour.green, colour.blue));
     return colour;
   },
   _convertHexToSrgb(colour) {
@@ -126,9 +126,9 @@ export const colourObject= {
     return colour;
   },
   _convertSrgbToHsl(colour) {
-    colour.red = clampRotate.clamp(colour.red, 0, 1);
-    colour.green = clampRotate.clamp(colour.green, 0, 1);
-    colour.blue = clampRotate.clamp(colour.blue, 0, 1);
+    colour.red = this._constraintLookupB['red'](colour.red);
+    colour.green = this._constraintLookupB['green'](colour.green);
+    colour.blue = this._constraintLookupB['blue'](colour.blue);
     
     let {red, green, blue} = colour;
 
@@ -149,7 +149,7 @@ export const colourObject= {
     else
       hue = (red - green) / delta + 4;
   
-    hue = (hue * 60);//Math.round(hue * 60);
+    hue = (hue * 60);
   
     if (hue < 0)
       hue += 360;
@@ -162,9 +162,9 @@ export const colourObject= {
     return colour;
   },
   _convertHslToHex(colour) {
-    colour.hue = clampRotate.rotate(colour.hue, 0, 360);
-    colour.sat = clampRotate.clamp(colour.sat, 0, 100);
-    colour.lum = clampRotate.clamp(colour.lum, 0, 100);
+    colour.hue = this._constraintLookupB['hue'](colour.hue);
+    colour.sat = this._constraintLookupB['sat'](colour.sat);
+    colour.lum = this._constraintLookupB['lum'](colour.lum);
     
     let {hue, sat, lum} = colour;
 
@@ -252,26 +252,28 @@ export const colourObject= {
     this._convertHslToHex(colour);
     return this._return(colour);
   },
-  _createLookupObjects() {
-    this._operationsLookup= {
+    _operationsLookup: {
       'multiply': (oldVal, newVal) =>  oldVal * newVal,
       'add': (oldVal, newVal) =>  oldVal + newVal,
       'subtract': (oldVal, newVal) =>  oldVal - newVal,
       'divide': (oldVal, newVal) =>  oldVal / newVal,
       'replace': (_, newVal) =>  newVal,
       'keep': (oldVal, _) =>  oldVal
-    };
-    this._constraintLookupB= {
+    },
+    _constraintLookupB: {
       'hue': (x) =>  clampRotate.rotate(x, 0, 360),
-      'sat': (x) =>  clampRotate.clamp(x, 0, 100),
-      'lum': (x) =>  clampRotate.clamp(x, 0, 100),
+      'sat': (x) =>  clampRotate.clamp(x, 15, 100),
+      'lum': (x) =>  clampRotate.clamp(x, 15, 95),
       'red': (x) =>  clampRotate.clamp(x, 0, 1),
       'green': (x) =>  clampRotate.clamp(x, 0, 1),
       'blue': (x) =>  clampRotate.clamp(x, 0, 1),
-    };
-    this._hslArr = ['hue','sat','lum'];
-    this._rgbArr = ['red','green','blue'];
-  },
+      'tint': (x) =>  clampRotate.clamp(x, 0, 100),
+      'warmth': (x) =>  clampRotate.clamp(x, 0, 100),
+      'lightness': (x) =>  clampRotate.clamp(x, 20, 95),
+    },
+    _hslArr: ['hue','sat','lum'],
+    _rgbArr: ['red','green','blue'],
+  
   _makeRandomHsl() {
     const hue = parseInt(Math.random() * 360);
     const sat = 48 + parseInt(Math.random() * 40); // 48 - 87
@@ -282,8 +284,8 @@ export const colourObject= {
   _convertHslToString(hue, sat, lum) {
     return `hsl(${Math.round(hue)},${sat.toFixed(0)}%,${lum.toFixed(0)}%)`;
   },
-  _convertTwlToString(tint, warmth, lumB) {
-    return `twl(${Math.round(tint)}%,${warmth.toFixed(0)}%,${lumB.toFixed(0)}%)`;
+  _convertTwlToString(tint, warmth, lightness) {
+    return `twl(${Math.round(tint)}%,${warmth.toFixed(0)}%,${lightness.toFixed(0)}%)`;
   },
 
   _convertRgbToString(red, green, blue) {
@@ -296,7 +298,7 @@ export const colourObject= {
     
 
     colour.hsl =  this._convertHslToString(colour.hue, colour.sat, colour.lum);
-    if (colour.name === 'primary') colour.twl =  this._convertTwlToString(colour.tint, colour.warmth, colour.lumB);
+    if (colour.name === 'primary') colour.twl =  this._convertTwlToString(colour.tint, colour.warmth, colour.lightness);
     colour.rgb =  this._convertRgbToString(colour.red, colour.green, colour.blue);
   },
   hsl(colour){
@@ -313,7 +315,6 @@ export const colourObject= {
   },
   assign(oldColour, newColour) {//default mode is replace
     if (newColour.hasOwnProperty('hex')) return 'Error: Hex found in newColour object';//Exit for Hex
-    if (this._operationsLookup == undefined) this._createLookupObjects();//build lookup objects if needed
     const colourName = newColour.name || oldColour.name;// set colour name
     let mode, keysArray;
     Object.keys(newColour).forEach(x =>{//Loop through object keys of newColour to check for hsl or rgb
@@ -342,13 +343,4 @@ export const colourObject= {
       this.fromSrgb({...returnObj});
   },
  }
-
  
-/* const testConversion = {tint: 0.31, warmth: 0.58, lumB: 0.546};
-console.log(testConversion);
-console.log(colourObject._convertTwltoSrgb(testConversion));
-const blaha = colourObject._convertSrgbtoTwl(colourObject._convertTwltoSrgb(testConversion));
-console.log(blaha);
-console.log(colourObject._convertTwltoSrgb(blaha));
-console.log(colourObject._convertSrgbtoTwl(colourObject._convertTwltoSrgb(blaha)));
-  */

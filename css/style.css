@@ -473,6 +473,10 @@ input[name=warmth] {
   background: linear-gradient(to left, #dd0, #00d);
 }
 
+input[name=lightness] {
+  background: linear-gradient(to left, #fff, #555);
+}
+
 input[type=range]:focus, input[type=range]:hover {
   border: solid 2px #fff;
 }
