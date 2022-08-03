@@ -10,7 +10,8 @@
     grid-area: footer;
 }
 .body-grid{
-    background-color: $neutral-500;
+   // background-color: $neutral-600;
+    background: linear-gradient(to bottom right, $neutral-500, $neutral-600);
     position:relative;
     top:0;
     left:0;

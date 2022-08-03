@@ -553,7 +553,7 @@ input[type=range]:focus::before {
 }
 
 .body-grid {
-  background-color: hsl(0deg, 0%, 55.7%);
+  background: linear-gradient(to bottom right, hsl(0deg, 0%, 55.7%), hsl(0deg, 0%, 41.2%));
   position: relative;
   top: 0;
   left: 0;
