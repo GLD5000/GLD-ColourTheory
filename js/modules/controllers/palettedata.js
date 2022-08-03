@@ -1,4 +1,4 @@
-import { paletteUi } from "./paletteui";
+import { paletteUi } from "./paletteui.js";
 
 export const paletteData = {
     paletteState: {gradientMode: 1, prefixMode: 'SCSS', prefix: '$', textMode: 'Auto', colourspace: 'Hex'},
@@ -45,8 +45,10 @@ export const paletteData = {
         return this.gradientColours.get(name);
     },
     getCustomColourName(name){
+        if (name === 'primary' || name.includes('-')) return null;
         if (paletteUi._getWrapperContent(name)[0] !== 'c') return null;
         if (this.customColours.get(name) == null) return null;
+        console.log(name);
         return this.customColours.get(name).customName;
     },
     getCustomColourObject(name){

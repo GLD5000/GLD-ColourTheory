@@ -22,7 +22,7 @@ export const variantMaker= {
     //paletteUi.updateColour(newColourPartial.name);
     //const newColour = paletteUi.getColourObject(newColourPartial.name);
     //gradientMaker.updateGradient(newColour);
-    //textMaker.updateText(newColour);
+    //textMaker.updateTextColour(newColour);
       //Update Text Colour
     });
   },

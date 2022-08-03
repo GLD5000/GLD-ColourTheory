@@ -21,7 +21,7 @@ export const paletteUi = {
         rgb: '#DCDCAA',
     },
     _init(){
-        this._updateClipboard = 0;
+        this._counter = this._updateClipboard = 0;
         this._debounce();
         this._updatePrimaryGradient = (x) => gradientMaker.updateGradient(...x);
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
@@ -31,19 +31,18 @@ export const paletteUi = {
         this.addColour(colourObject.makeRandomColour('primary'));
         this._setOnChange();
         this.setTextMode('Auto');
-        this._initSmallWrapperContent();
-        this._counter = 0;
+        this._resetSmallWrapperContent();
         this._setColourspace('hsl');
         this._setClipboardTextAll();
       },
     _splitName(name, separator = '-'){
         return name.split(separator)[0];
     },
-    _initSmallWrapperContent(){
+    _resetSmallWrapperContent(){
        userObjects.smallSwatchNamesArray.forEach(x => userObjects.wrappers[x + '-wrapper'].dataset.content = x);
     },
     _updateTextColour(backgroundColour) {
-        textMaker.updateText(backgroundColour);
+        textMaker.updateTextColour(backgroundColour);
     },
     _getColourspace(){
         return userObjects.other['colourspace'].innerHTML.toLowerCase();
@@ -65,7 +64,6 @@ export const paletteUi = {
         return colourObject._convertSliderOutput(userObjects.sliders.map(x => x.value), colourspace);
     },
     _addPrimaryColour(newColour){
-        this._updateClipboard = 0;
         const colourspace = this._getColourspace();
         const {hue, sat, lum, red, green, blue, hex, tint, warmth, lightness} = newColour;
         const selectColourObject = {
@@ -75,18 +73,18 @@ export const paletteUi = {
         };
         this._setSliderValues(selectColourObject[colourspace], colourspace);
         //console.log(`colourspace: ${colourspace} / lum: ${lum} sliderc: ${userObjects.sliders[2].value}`)
-        this._initSmallWrapperContent();
+        this._resetSmallWrapperContent();
         userObjects.pickers['primary-picker'].value = hex;
         userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[colourspace];
-        this._updateVariants();
         gradientMaker.updateGradient(newColour);
+        this._updateVariants();
         this.setTextMode('Auto');
         this._updateClipboard = 1;
         this._setClipboardTextAll();
     },
     addColour(newColour){
         paletteData.addColour(newColour);
-        textMaker.updateText(newColour);
+        textMaker.updateTextColour(newColour);
         if (newColour.name === 'primary') {
             this._addPrimaryColour(newColour);
             return;
@@ -220,7 +218,7 @@ export const paletteUi = {
     
 
     _setClipboardTextAll(){
-        if (this._updateClipboard === 0) return;
+        if (this._updateClipboard === 0){ return;}
         const swatchNames = this.getAllSwatchNames();
         const colourspace = this._getColourspace();
         const prefix = paletteData.getPrefix();
@@ -278,7 +276,6 @@ export const paletteUi = {
     _onclickColourspace(){
         const colourspaceButton = userObjects.other.colourspace.innerHTML;
         const colourspace = this._getColourspace();
-        //console.log(`colourspace: ${colourspace} colourspace Button: ${colourspaceButton}`)
         const optionsObject = {rgb: 'hex',hex: 'hsl',hsl: 'rgb'};
         const newColourspace = optionsObject[colourspace];
         this._setColourspace(newColourspace);
