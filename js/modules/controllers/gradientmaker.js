@@ -2,18 +2,11 @@ import { paletteData } from "./palettedata.js";
 import { colourObject } from "../utilities/colourobject.js";
 import { paletteUi } from "./paletteui.js";
 import { clampRotate} from '../utilities/utilities.js'
-// Takes in one colour (map) and outputs a background gradient to its map
+// Fix naming of stops on custom pickers
+
 export const gradientMaker = {
     _findMult(start, end, stops){
         const mult = (end / start) ** (1 / stops);
-    /*
-        console.log(`
-        Start: ${start} 
-        End: ${end} 
-        Stops: ${stops} 
-        Result: ${start * (mult ** stops)} 
-        Diff: ${end - (start * (mult ** stops))}`);
-    */        
         return mult;
     },
         _satStart: 0.35,
@@ -66,13 +59,16 @@ export const gradientMaker = {
             const gap = getComputedStyle(document.querySelector('.slider-container')).gap;
             this._gradientString = `linear-gradient(to top, #000 ${gap}, ${mainColour.hex} ${gap}, ${mainColour.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;
             const stopWidth = 100 / stops;
+            colourObject.get
+            const name = paletteData.getCustomColourName(mainColour.name)  || mainColour.name;
+            console.log(name);
             suffixes.forEach((suffix, i) => {
-                const newColour = colourObject.assign(mainColour,{name: mainColour.name + suffix, lum: lumMultStops[i], sat: (mainColour.name === 'neutral')? 0 : satMultStops[i], operation: 'replace'});
+                const newColour = colourObject.assign(mainColour,{name: name + suffix, lum: lumMultStops[i], sat: (mainColour.name === 'neutral')? 0 : satMultStops[i], operation: 'replace'});
                 this._gradientColours.push(newColour);
                 this._gradientString += `, ${colourObject.hsl(newColour)} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
             });
             this._gradientString += `) 0% 50% / 100% 30%`;
-            paletteData.addGradientColours(this._gradientColours);
+            paletteData.addGradientColours(mainColour.name, this._gradientColours);
         } 
      },
     updateGradient(colour){

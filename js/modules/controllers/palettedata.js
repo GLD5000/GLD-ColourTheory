@@ -37,8 +37,7 @@ export const paletteData = {
     clearGradientColours(){
         this.gradientColours = new Map();
     },
-    addGradientColours(array){
-        const name = array[0].name.split('-')[0];
+    addGradientColours(name, array){
         this.gradientColours.set(name, array);
     },
     getGradientColours(name){
