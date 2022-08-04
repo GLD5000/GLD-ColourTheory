@@ -60,7 +60,7 @@ table {
   margin: 0;
   box-shadow: none;
   border: none;
-  transition: 0.2s ease-in;
+  transition: 0.15s;
 }
 
 :root {
@@ -402,12 +402,13 @@ p, li, ol, ul, a {
 }
 
 .picker-wrapper {
+  border: solid 4px transparent;
   position: relative;
   color: black;
 }
 
 .primary-wrapper:hover, .picker-wrapper:hover {
-  border: solid 2px hsl(0deg, 0%, 55.7%);
+  border: solid 4px hsl(0deg, 0%, 55.7%);
 }
 
 .primary-wrapper:focus-within, .picker-wrapper:focus-within {
@@ -438,6 +439,7 @@ p, li, ol, ul, a {
 
 .primary-wrapper {
   position: relative;
+  border: solid 4px transparent;
 }
 
 .primary-wrapper::before {
