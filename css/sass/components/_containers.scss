@@ -58,7 +58,6 @@
 
 }
 .picker-wrapper{
-  border: solid 4px transparent;
 
   position: relative;
   color:black;
@@ -71,6 +70,7 @@
 }
 
 .picker-wrapper::before{
+
   content: attr(data-content);
   position: absolute;
   text-align: center; 
@@ -79,6 +79,7 @@
   line-height: 90%;
 }
 .picker-wrapper::after{
+
   content: attr(data-rating);
   position: absolute;
   text-align: center; 
@@ -96,8 +97,6 @@
 .primary-wrapper{
   //padding: 0.1em;
   position: relative;
-  border: solid 4px transparent;
-
   }
   
 .primary-wrapper::before{

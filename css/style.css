@@ -243,7 +243,33 @@ p, li, ol, ul, a {
 }
 
 .copy-single {
+  position: relative;
   cursor: copy;
+}
+
+.copy-single:hover::after, .copy-single:focus::after {
+  color: #fff;
+  background-color: hsl(0deg, 0%, 55.7%);
+  transition-duration: 0s;
+  content: attr(data-content);
+  text-align: center;
+  line-height: 1;
+  top: -48px;
+  left: 0px;
+  padding: 4px;
+  margin-left: auto;
+  position: absolute;
+  height: 48px;
+  width: auto;
+  cursor: copy;
+  border: 4px solid #000;
+  border-bottom: 0;
+  border-left: 0;
+  border-radius: 0 6px 0 0;
+}
+
+.copy-single:focus::after {
+  background-color: #000;
 }
 
 .textmode {
@@ -402,7 +428,6 @@ p, li, ol, ul, a {
 }
 
 .picker-wrapper {
-  border: solid 4px transparent;
   position: relative;
   color: black;
 }
@@ -439,7 +464,6 @@ p, li, ol, ul, a {
 
 .primary-wrapper {
   position: relative;
-  border: solid 4px transparent;
 }
 
 .primary-wrapper::before {
