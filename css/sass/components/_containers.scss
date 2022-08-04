@@ -58,11 +58,13 @@
 
 }
 .picker-wrapper{
+  border: solid 4px transparent;
+
   position: relative;
   color:black;
 }
 .primary-wrapper:hover, .picker-wrapper:hover{
-  border: solid 2px $neutral-500;
+  border: solid 4px $neutral-500;
 }
 .primary-wrapper:focus-within, .picker-wrapper:focus-within {
   border: solid 4px white;
@@ -94,6 +96,8 @@
 .primary-wrapper{
   //padding: 0.1em;
   position: relative;
+  border: solid 4px transparent;
+
   }
   
 .primary-wrapper::before{
@@ -105,6 +109,7 @@
   width:100%;
   line-height: 90%;
   font-size: $gem3;
+
 }
 .primary-wrapper::after{
   content: attr(data-content);
@@ -117,6 +122,7 @@
   font-family: $font-Montserrat, sans-serif;
   font-size: $gem5Eighth;
   font-weight:500;
+
 }
 
 
