@@ -1,4 +1,4 @@
-# Colours  
+# GLD Colourmatic 5000  
 
 ## Instant inspiration, palatable palettes.  
 Every time you load it up or click the 'Random' button, a new palette is generated automatically for you.   
