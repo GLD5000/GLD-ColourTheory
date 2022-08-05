@@ -9,6 +9,24 @@ import { clampRotate } from "../utilities/utilities.js";
 import { textMaker } from "./textmaker.js";
 
 export const paletteUi = {
+    // new custom colour functions
+    hasCustomColour(colour){
+       return paletteData.getCustomColour(colour.name);
+    },
+    getCustomNameOrName(colour){
+        return paletteData.getCustomColour(colour.name).customName || colour.name;
+    },
+    //isCustomColour?
+    //hasCustomColour?
+    //addColourToCustomColours
+    //addColourToBackgroundColours
+    //addColourToGradientMaker
+    //addColourArrayToGradientColours
+    //UpdateLabels
+    //UpdateClipboardContent
+
+
+// New Custom colour functions
     _getUiObject(id){
         return userObjects.all[id];
     },
@@ -124,7 +142,8 @@ export const paletteUi = {
         let numberTones = parseInt(paletteData.paletteState.gradientMode);
         if (numberTones === 1) numberTones = 0; 
         userObjects.other['gradient'].innerHTML = 'Tones: ' + numberTones;
-        paletteData.backgroundColours.forEach(colour => gradientMaker.updateGradient(colour));
+        console.clear();
+        paletteData.backgroundColours.forEach(colour => {gradientMaker.updateGradient(colour); console.log(colour);});
         this._setClipboardTextAll();
 
     },
@@ -149,7 +168,7 @@ export const paletteUi = {
         const customName = paletteData.getCustomColourName(name) || `custom${++this._counter}`;
         paletteData.addCustomColour(name, colourObject.fromHex({name: name, customName: customName, hex: hex}));
         userObjects.wrappers[name + '-wrapper'].dataset.content = customName;
-        this._setClipboardTextAll();
+        return (colourObject.fromHex({name: name, customName: customName, hex: hex}));
     },
     _oninputPicker(x){
         const name = this._splitName(x.target.id);
@@ -159,20 +178,29 @@ export const paletteUi = {
             this._addTextColour('customText', hex);
             return;
         }
-        const newPartial = {hex: hex};
-        newPartial.name = name;
-        const newColour = colourObject.fromHex(newPartial);
+        let newColour;
+        if (name !== 'primary') {
+            newColour = this._addCustomColour(name, hex); 
+        } else {
+            const newPartial = {hex: hex};
+            newPartial.name = name;
+            newColour = colourObject.fromHex(newPartial);
+
+        }
         this.addColour(newColour);
-        if (name !== 'primary') this._addCustomColour(name, hex); 
 
     },
     _onclickSmallSwatch(e){
         const name = this._splitName(e.target.id);
-        const customColour = paletteData.getCustomColourObject(name);
+        const customColour = paletteData.getCustomColour(name);
         if (customColour == null) return;
+        //this._addCustomColour(customColour.name, customColour.hex);
         this.addColour(customColour);
         const wrapper = userObjects.wrappers[customColour.name + '-wrapper'];
         wrapper.dataset.content = customColour.customName;
+        gradientMaker.updateGradient(customColour);
+        this._setClipboardTextAll();
+        
     },
     _getClipboardTextSingle(name){
         const colourspace = this._getColourspace();
@@ -191,6 +219,7 @@ export const paletteUi = {
     _getClipboardTextSingleAsArray(name){
         const colourspace = this._getColourspace();
         const prefix = paletteData.getPrefix();
+        //console.log(paletteData.getCustomColourName(name)|| name);
         let customName = paletteData.getCustomColourName(name) || name;
         const textArray = [[`${prefix}${customName}: `],
         [`${paletteData.getColourObject(name)[colourspace]}`],

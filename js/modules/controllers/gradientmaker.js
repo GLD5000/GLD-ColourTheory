@@ -59,9 +59,9 @@ export const gradientMaker = {
             const gap = getComputedStyle(document.querySelector('.slider-container')).gap;
             this._gradientString = `linear-gradient(to top, #000 ${gap}, ${mainColour.hex} ${gap}, ${mainColour.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;
             const stopWidth = 100 / stops;
-            const name = paletteData.getCustomColourName(mainColour.name)  || mainColour.name;
+            const customName = mainColour.customName || mainColour.name;
             suffixes.forEach((suffix, i) => {
-                const newColour = colourObject.assign(mainColour,{name: name + suffix, lum: lumMultStops[i], sat: (mainColour.name === 'neutral')? 0 : satMultStops[i], operation: 'replace'});
+                const newColour = colourObject.assign(mainColour,{name: customName + suffix, lum: lumMultStops[i], sat: (mainColour.name === 'neutral')? 0 : satMultStops[i], operation: 'replace'});
                 this._gradientColours.push(newColour);
                 this._gradientString += `, ${colourObject.hsl(newColour)} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
             });

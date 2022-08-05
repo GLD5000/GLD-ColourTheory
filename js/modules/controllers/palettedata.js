@@ -48,11 +48,9 @@ export const paletteData = {
         if (name === 'primary' || name.includes('-')) return null;
         if (paletteUi._getWrapperContent(name)[0] !== 'c') return null;
         if (this.customColours.get(name) == null) return null;
-        console.log(name);
         return this.customColours.get(name).customName;
     },
-    getCustomColourObject(name){
-        if (this.customColours.get(name) == null) return null;
+    getCustomColour(name){
         return this.customColours.get(name);
     },
 
