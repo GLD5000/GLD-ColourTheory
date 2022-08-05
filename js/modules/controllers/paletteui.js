@@ -239,7 +239,7 @@ export const paletteUi = {
         const textArray = paletteData.getClipboard()[2];
         let text = textArray.join('\n');
         navigator.clipboard.writeText(text);
-        //alert(`Copied To Clipboard:\n${text}`);
+        console.log(`Copied To Clipboard:\n${text}`);
     },
     _showCopiedMessage(target, message = ''){
         target.dataset.content = 'copied '+ message + '✔';
@@ -256,7 +256,7 @@ export const paletteUi = {
         this._showCopiedMessage(e.target, message);
         const text = this._getClipboardTextSingle(name);
         navigator.clipboard.writeText(text);
-        //alert(`Copied To Clipboard:\n${text}`);
+        console.log(`Copied To Clipboard:\n${text}`);
     
     },
     _setSliderStyles(colourspace){
