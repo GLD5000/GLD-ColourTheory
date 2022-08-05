@@ -30,10 +30,11 @@ Click the 'tones' button to add up to 10 additional tones to each of the colour 
 Want to take the colours into your web development project?   
 Simply click wherever you see the colour codes and you can copy one swatch or the the whole palette in one click!  
 ![Copy All Button](./media/img/Copy%20All.png)  
-Click the 'SCSS/CSS' button to change the custom presets from Sassy CSS to vanilla CSS format to suit your stylesheets.  
 
 ## Have it your way.  
-Click the 'HSL/RGB/Hex' button to switch colour modes.   
+
+-Click the 'SCSS/CSS' button to change the custom presets from Sassy CSS to vanilla CSS format to suit your stylesheets.  
+-Click the 'HSL/RGB/Hex' button to switch colour modes.   
 The sliders on top of the Primary Swatch change so you can adjust the palette in different colour spaces.  
 Just hover, tab or click to see what they do.  
 
