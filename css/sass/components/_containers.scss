@@ -21,7 +21,7 @@
   display: flex;
   flex-basis: 100% 100% 100%;
   gap: $gap;
-  padding: 1px 2px 2px 1px;
+  //padding: 1px 2px 2px 1px;
 }
 
 .swatch, .btn-container, .primary-swatch{
@@ -38,7 +38,7 @@
   box-shadow: $box-shadow;
   cursor: pointer;
   overflow: hidden;
-  margin:auto;
+  //margin:auto;
   font-size: $gem2;
 }
 .swatch, .btn-container{
@@ -58,15 +58,15 @@
 
 }
 .picker-wrapper{
-
+  
   position: relative;
   color:black;
 }
 .primary-wrapper:hover, .picker-wrapper:hover{
-  border: solid 4px $neutral-500;
+  box-shadow: inset 0px 0px 0px 4px $neutral-1000;
 }
 .primary-wrapper:focus-within, .picker-wrapper:focus-within {
-  border: solid 4px white;
+  box-shadow: inset 0px 0px 0px 4px $neutral-0;
 }
 
 .picker-wrapper::before{
@@ -95,6 +95,7 @@
 
 
 .primary-wrapper{
+  width:auto;
   //padding: 0.1em;
   position: relative;
   }

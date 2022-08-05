@@ -60,7 +60,7 @@ table {
   margin: 0;
   box-shadow: none;
   border: none;
-  transition: 0.15s;
+  transition: 0.18s;
 }
 
 :root {
@@ -248,18 +248,19 @@ p, li, ol, ul, a {
 }
 
 .copy-single:hover::after, .copy-single:focus::after {
+  font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
   color: #fff;
   background-color: hsl(0deg, 0%, 55.7%);
   transition-duration: 0s;
   content: attr(data-content);
   text-align: center;
   line-height: 1;
-  top: -48px;
-  left: 0px;
+  bottom: 100%;
+  left: 0%;
   padding: 4px;
   margin-left: auto;
   position: absolute;
-  height: 48px;
+  height: auto;
   width: auto;
   cursor: copy;
   border: 4px solid #000;
@@ -268,10 +269,33 @@ p, li, ol, ul, a {
   border-radius: 0 6px 0 0;
 }
 
-.copy-single:focus::after {
-  background-color: #000;
+#clipboard-flexbox:hover {
+  backdrop-filter: brightness(1.6);
 }
 
+#clipboard-flexbox:hover::after {
+  font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
+  color: #fff;
+  background-color: hsl(0deg, 0%, 55.7%);
+  content: attr(data-content);
+  text-align: center;
+  line-height: 1;
+  top: -4px;
+  left: -4px;
+  padding: 4px;
+  margin-left: none;
+  position: absolute;
+  height: auto;
+  width: auto;
+  cursor: copy;
+  border: 4px solid #000;
+  border-radius: 0 0px 6px 0px;
+}
+
+/*   .copy-single:focus::after{
+      background-color: $neutral-1000;
+  }
+ */
 .textmode {
   position: relative;
   display: block;
@@ -362,18 +386,21 @@ p, li, ol, ul, a {
   grid-area: 4/2;
 }
 
-.btn:focus-within, .textmode:focus-within {
-  outline: none;
-  background-color: #000;
-  color: #fff;
-}
-
-.btn:hover, .textmode:hover {
+.btn:hover, .textmode:hover, .btn:focus-within, .textmode:focus-within {
   outline: none;
   color: #fff;
   background-color: hsl(0deg, 0%, 55.7%);
 }
 
+/* .btn:focus-within, .textmode:focus-within{
+  //box-shadow: none;
+  //border: none;
+  outline: none;
+
+  background-color: $neutral-1000;
+  color: $neutral-0;  
+}
+ */
 .swatch-palette {
   width: 100%;
   display: grid;
@@ -393,7 +420,6 @@ p, li, ol, ul, a {
   display: flex;
   flex-basis: 100% 100% 100%;
   gap: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
-  padding: 1px 2px 2px 1px;
 }
 
 .swatch, .btn-container, .primary-swatch {
@@ -408,7 +434,6 @@ p, li, ol, ul, a {
   box-shadow: #000 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) 0px;
   cursor: pointer;
   overflow: hidden;
-  margin: auto;
   font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6);
 }
 
@@ -433,11 +458,11 @@ p, li, ol, ul, a {
 }
 
 .primary-wrapper:hover, .picker-wrapper:hover {
-  border: solid 4px hsl(0deg, 0%, 55.7%);
+  box-shadow: inset 0px 0px 0px 4px #000;
 }
 
 .primary-wrapper:focus-within, .picker-wrapper:focus-within {
-  border: solid 4px white;
+  box-shadow: inset 0px 0px 0px 4px #fff;
 }
 
 .picker-wrapper::before {
@@ -463,6 +488,7 @@ p, li, ol, ul, a {
 }
 
 .primary-wrapper {
+  width: auto;
   position: relative;
 }
 
@@ -604,7 +630,7 @@ input[name=lightness] {
 }
 
 input[type=range]:focus, input[type=range]:hover {
-  border: solid 2px #fff;
+  border: solid 4px #fff;
 }
 
 input[type=range]:hover::before {

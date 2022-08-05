@@ -4,7 +4,7 @@ function setAll(){
         ['sliders','input[type="range"]','array'],//array
         ['wrappers','wrapper'],
         //['buttons','button'],
-        ['copyButtons','.copy-single'],
+        ['copyButtons',['.copy-single','#clipboard-flexbox']],
         ['other',['#textmode', '#prefix', '#gradient', '#colourspace', '#dice-btn', '#randomise-btn']],
         ['clipboard',['#clipboard', '#clipboard-secondary']],     
         ['navbar',['#hamburger-toggle', '#navbar-list']],     

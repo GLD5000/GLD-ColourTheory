@@ -72,7 +72,6 @@ export const paletteUi = {
             'rgb': [red, green, blue],
         };
         this._setSliderValues(selectColourObject[colourspace], colourspace);
-        //console.log(`colourspace: ${colourspace} / lum: ${lum} sliderc: ${userObjects.sliders[2].value}`)
         this._resetSmallWrapperContent();
         userObjects.pickers['primary-picker'].value = hex;
         userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[colourspace];
@@ -163,11 +162,8 @@ export const paletteUi = {
         const newPartial = {hex: hex};
         newPartial.name = name;
         const newColour = colourObject.fromHex(newPartial);
-        if (name !== 'primary') {
-            this._addCustomColour(name, hex);
-        } 
-
         this.addColour(newColour);
+        if (name !== 'primary') this._addCustomColour(name, hex); 
 
     },
     _onclickSmallSwatch(e){
@@ -195,7 +191,6 @@ export const paletteUi = {
     _getClipboardTextSingleAsArray(name){
         const colourspace = this._getColourspace();
         const prefix = paletteData.getPrefix();
-
         let customName = paletteData.getCustomColourName(name) || name;
         const textArray = [[`${prefix}${customName}: `],
         [`${paletteData.getColourObject(name)[colourspace]}`],
@@ -218,7 +213,7 @@ export const paletteUi = {
     
 
     _setClipboardTextAll(){
-        if (this._updateClipboard === 0){ return;}
+        if (this._updateClipboard === 0) return;
         const swatchNames = this.getAllSwatchNames();
         const colourspace = this._getColourspace();
         const prefix = paletteData.getPrefix();
@@ -237,22 +232,31 @@ export const paletteUi = {
         this._clipboardSecondary.style.color = this._clipboardColourspaceLookup[this._getColourspace()];
 
     },
-    _onclickCopyAll(){
-            const textArray = paletteData.getClipboard()[2];
+    _onclickCopyAll(target){
+        const copyAllCSS  = userObjects.copyButtons.copyAllCSS;
+        const clipboardFlexbox = userObjects.copyButtons['clipboard-flexbox'];
+        (target.id === 'copyAllCSS')? this._showCopiedMessage(copyAllCSS, ' All ') : this._showCopiedMessage(clipboardFlexbox, 'All');
+        const textArray = paletteData.getClipboard()[2];
         let text = textArray.join('\n');
         navigator.clipboard.writeText(text);
-        alert(`Copied To Clipboard:\n${text}`);
+        //alert(`Copied To Clipboard:\n${text}`);
     },
-
+    _showCopiedMessage(target, message = ''){
+        target.dataset.content = 'copied '+ message + '✔';
+        setTimeout(() => {target.dataset.content = 'copy';}, 1800);
+    },
     _onclickCopyButtons(e){
+        
         const name = this._splitName(e.target.id);
-        if (name == 'copyAllCSS') {
-            this._onclickCopyAll();
+        if (name === 'copyAllCSS' || name === 'clipboard') {
+            this._onclickCopyAll(e.target);
             return;
         }
+        const message =  (paletteData.paletteState.gradientMode > 1) ? ' + tones ': '';
+        this._showCopiedMessage(e.target, message);
         const text = this._getClipboardTextSingle(name);
         navigator.clipboard.writeText(text);
-        alert(`Copied To Clipboard:\n${text}`);
+        //alert(`Copied To Clipboard:\n${text}`);
     
     },
     _setSliderStyles(colourspace){
@@ -302,8 +306,9 @@ export const paletteUi = {
         userObjects.other['gradient'].onclick = () => this._onclickGradient();
         userObjects.other['dice-btn'].onclick = () => this._onclickRandom();
         userObjects.other['randomise-btn'].onclick = () => this._onclickRandom();
-        Object.keys(userObjects.copyButtons).forEach(x => userObjects.copyButtons[x].onclick = (e) => this._onclickCopyButtons(e));
-        Object.keys(userObjects.clipboard).forEach(x => userObjects.clipboard[x].onclick = () => this._onclickCopyAll());
+       // Object.keys(userObjects.copyButtons).forEach(x => userObjects.copyButtons[x].onclick = (e) => this._onclickCopyButtons(e));
+        Object.keys(userObjects.copyButtons).forEach(x => userObjects.copyButtons[x].onclick = (e) => this._onclickCopyButtons(e));        
+       //Object.keys(userObjects.clipboard).forEach(x => userObjects.clipboard[x].onclick = (e) => this._onclickCopyAll());
 
         userObjects.sliders.forEach((x) => x.oninput = throttleDebounce.throttle((x) => this._oninputSlider(x), 85));
         Object.keys(userObjects.pickers).forEach((x) => userObjects.pickers[x].oninput = throttleDebounce.throttle((x) => this._oninputPicker(...x), 85) );
