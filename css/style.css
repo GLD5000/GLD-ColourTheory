@@ -257,7 +257,7 @@ p, li, ol, ul, a {
   line-height: 1;
   bottom: 100%;
   left: 0%;
-  padding: 4px;
+  padding: 6px;
   margin-left: auto;
   position: absolute;
   height: auto;
@@ -282,7 +282,7 @@ p, li, ol, ul, a {
   line-height: 1;
   top: -4px;
   left: -4px;
-  padding: 4px;
+  padding: 6px;
   margin-left: none;
   position: absolute;
   height: auto;
