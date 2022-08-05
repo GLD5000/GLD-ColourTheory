@@ -26,7 +26,7 @@ Want more from your palette?
 Click the 'tones' button to add up to 10 additional tones to each of the colour swatches.  
 
 ## See something you like?  
-(media\img\Copy All.png)
+![Copy All Button](media\img\Copy All.png)  
 Want to take the colours into your web development project?   
 Simply click wherever you see the colour codes and you can copy one swatch or the the whole palette in one click!  
 Click the 'SCSS/CSS' button to change the custom presets from Sassy CSS to vanilla CSS format to suit your stylesheets.  
