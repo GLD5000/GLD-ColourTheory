@@ -18,8 +18,8 @@ Want to customise your text colour for lower contrast?
 ![Text Picker Auto](./media/img/Text%20Picker%20Auto.jpg)   
 Simply click the text button to choose a different colour and you can easily see if it conforms to the WCAG 2 contrast requirements.   
 ![Text Picker Custom](./media/img/Text%20Picker%20Custom.jpg)    
- Tip: If you want to see what your chosen palette would look like in black and white simply drag the saturation slider all the way down.
-![Desaturated Sat Slider](./media/img/Desaturated%20Sat%20Slider.jpg) 
+ Tip: If you want to see what your chosen palette would look like in black and white simply drag the saturation slider all the way down.   
+ ![Desaturated Sat Slider](./media/img/Desaturated%20Sat%20Slider.jpg) 
 ## Instant inspiration, palatable palettes.  
 ![Random Button](./media/img/Random%20Button.jpg)  
 Every time you load it up or click the 'Random' button, a new palette is generated automatically for you.   
