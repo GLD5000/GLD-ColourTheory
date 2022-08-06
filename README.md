@@ -17,7 +17,7 @@ All swatches have a built in contrast ratio rating and automatic text-colour to 
 Want to customise your text colour for lower contrast?   
 ![Text Picker Auto](./media/img/Text%20Picker%20Auto.jpg)   
 Simply click the text button to choose a different colour and you can easily see if it conforms to the WCAG 2 contrast requirements.   
-![Text Picker Custom](./media/img/Text%20Picker%20Custom.jpg) 
+![Text Picker Custom](./media/img/Text%20Picker%20Custom.jpg)    
  Tip: If you want to see what your chosen palette would look like in black and white simply drag the saturation slider all the way down.
 ![Desaturated Sat Slider](./media/img/Desaturated%20Sat%20Slider.jpg) 
 ## Instant inspiration, palatable palettes.  
