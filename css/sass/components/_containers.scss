@@ -131,13 +131,13 @@
   display:flex;
   gap: $gap;
 }
-.flexbox-clipboard{
+.flexbox-clipboard, .flexbox-history{
   display: flex;
   width: 100%;
   overflow: auto;
 }
 
-.clipboard,.clipboard-secondary{
+.clipboard,.clipboard-secondary, .history{
   display: flex;
   height: fit-content;
   width:fit-content;
@@ -151,17 +151,8 @@
   line-height: 1.125;
 }
 
-.clipboard{
+.clipboard, .history{
   position:relative;
   color: $vscode-blue;
 }
 
-/*
-.clipboard::after{
-  position:absolute;
-  top:0;
-  left:0; 
-  content: attr(data-content);
-  color: $vscode-blue;
-}
-*/

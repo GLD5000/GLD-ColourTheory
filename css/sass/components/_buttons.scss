@@ -8,12 +8,15 @@
     font-size: $gem;
     background-color: $neutral-200;
   }
-  .copy-single{
+  .copy-single, .save-btn{
     position: relative;
     cursor: copy;
   }
 
-  .copy-single:hover::after, .copy-single:focus::after{
+  .copy-single:hover::after, 
+  .copy-single:focus::after, 
+  .save-btn:hover::after, 
+  .save-btn:focus::after{
     font-size: $gem;
  
       color: $neutral-0;
@@ -35,11 +38,14 @@
       border-left: 0;
       border-radius: 0 6px 0 0;
   }
-  #clipboard-flexbox:hover {
+  .flexbox-clipboard:hover,
+  .flexbox-history:hover {
     backdrop-filter: brightness(1.6);
   }
 
-  #clipboard-flexbox:hover::after {
+  .flexbox-clipboard:hover::after,
+  .flexbox-history:hover::after
+  {
     font-size: $gem;
 
       color: $neutral-0;

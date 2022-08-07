@@ -242,12 +242,15 @@ p, li, ol, ul, a {
   background-color: hsl(0deg, 0%, 83.9%);
 }
 
-.copy-single {
+.copy-single, .save-btn {
   position: relative;
   cursor: copy;
 }
 
-.copy-single:hover::after, .copy-single:focus::after {
+.copy-single:hover::after,
+.copy-single:focus::after,
+.save-btn:hover::after,
+.save-btn:focus::after {
   font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
   color: #fff;
   background-color: hsl(0deg, 0%, 55.7%);
@@ -269,11 +272,13 @@ p, li, ol, ul, a {
   border-radius: 0 6px 0 0;
 }
 
-#clipboard-flexbox:hover {
+.flexbox-clipboard:hover,
+.flexbox-history:hover {
   backdrop-filter: brightness(1.6);
 }
 
-#clipboard-flexbox:hover::after {
+.flexbox-clipboard:hover::after,
+.flexbox-history:hover::after {
   font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
   color: #fff;
   background-color: hsl(0deg, 0%, 55.7%);
@@ -521,13 +526,13 @@ p, li, ol, ul, a {
   gap: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
 }
 
-.flexbox-clipboard {
+.flexbox-clipboard, .flexbox-history {
   display: flex;
   width: 100%;
   overflow: auto;
 }
 
-.clipboard, .clipboard-secondary {
+.clipboard, .clipboard-secondary, .history {
   display: flex;
   height: fit-content;
   width: fit-content;
@@ -541,20 +546,11 @@ p, li, ol, ul, a {
   line-height: 1.125;
 }
 
-.clipboard {
+.clipboard, .history {
   position: relative;
   color: #9cdcfe;
 }
 
-/*
-.clipboard::after{
-  position:absolute;
-  top:0;
-  left:0; 
-  content: attr(data-content);
-  color: $vscode-blue;
-}
-*/
 .large-picker, .btn-container {
   font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 1.6);
 }
@@ -763,29 +759,29 @@ $swatch-height-large: 16em;
 
 @media all and (min-width: 0px) {
   .swatch-palette {
-    grid-template-areas: "picker" "picker" "monochromeA" "monochromeB" "analogousA" "analogousB" "triadicA" "triadicB" "tetradicA" "tetradicB" "tetradicC" "neutral" "copyAll" "random";
+    grid-template-areas: "picker" "picker" "random" "copyAll" "monochromeA" "monochromeB" "analogousA" "analogousB" "triadicA" "triadicB" "tetradicA" "tetradicB" "tetradicC" "neutral";
   }
 }
 @media all and (min-width: 37.5em) {
   .swatch-palette {
-    grid-template-areas: "picker picker" "picker picker" "monochromeA monochromeB" "analogousA analogousB" "triadicA triadicB" "tetradicA tetradicB" "tetradicC neutral" "copyAll copyAll" "random random";
+    grid-template-areas: "picker picker" "picker picker" "random copyAll" "monochromeA monochromeB" "analogousA analogousB" "triadicA triadicB" "tetradicA tetradicB" "tetradicC neutral";
   }
 }
 @media all and (min-width: 60em) {
   .swatch-palette {
-    grid-template-areas: "picker picker picker picker" "picker picker picker picker" "monochromeA monochromeB analogousA analogousB" "tetradicA tetradicB tetradicC neutral" "triadicA triadicB copyAll random";
+    grid-template-areas: "picker picker picker picker" "picker picker picker picker" "random copyAll monochromeA monochromeB" "analogousA analogousB triadicA triadicB" "tetradicA tetradicB tetradicC neutral";
     grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)), 1fr);
   }
 }
 @media all and (min-width: 80em) {
   .swatch-palette {
-    grid-template-areas: "picker picker monochromeA monochromeB" "picker picker analogousA analogousB" "neutral  neutral  triadicA triadicB" "tetradicA tetradicB tetradicB tetradicC " "random random copyAll copyAll";
+    grid-template-areas: "picker picker  random copyAll" "picker picker monochromeA monochromeB" "analogousA analogousB triadicA triadicB" "tetradicA tetradicB tetradicC neutral";
     grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)), 1fr);
   }
 }
 @media all and (min-width: 120em) {
   .swatch-palette {
-    grid-template-areas: "monochromeA monochromeB picker picker triadicA triadicB" "analogousA analogousB picker picker tetradicA tetradicC" "copyAll copyAll neutral random  tetradicB tetradicB";
+    grid-template-areas: "random copyAll picker picker triadicA triadicB" "monochromeA monochromeB picker picker triadicA triadicB" "analogousA analogousB tetradicA tetradicB tetradicC neutral";
     grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)), 1fr);
   }
 }
