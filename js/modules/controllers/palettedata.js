@@ -66,8 +66,12 @@ export const paletteData = {
         this.paletteState.customColours[name] = colour;
     }, 
     getCustomColourState(name){
-        this.paletteState.smallSwatchCustomState[name];
+        return this.paletteState.smallSwatchCustomState[name];
     },
+    setCustomColourState(name, state){
+        this.paletteState.smallSwatchCustomState[name] = state;
+    },
+
     clearGradientColours(){
         this.gradientColours.clear();
     },

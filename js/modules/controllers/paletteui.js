@@ -10,6 +10,12 @@ import { clampRotate } from "../utilities/utilities.js";
 import { textMaker } from "./textmaker.js";
 
 const state = {
+    _resetAllCustomStates(){
+        userObjects.smallSwatchNamesArray.forEach((name) => {
+            paletteData.setCustomColourState(name, 'auto');
+            userObjects.wrappers[name + '-wrapper'].dataset.content = name;
+        });
+    },
     setCustomStatesfromWrappers(){
         const returnObject = {}
         userObjects.smallSwatchNamesArray.forEach((name) => {
@@ -22,7 +28,9 @@ const state = {
             if (paletteData.getCustomColourState(name) === 'custom'){
                 const customColour = paletteData.getCustomColour(name);
                 paletteData.addColour(customColour);
-                userObjects.wrappers[name + '-wrapper'].dataset.content = customColour.customName;
+                paletteUi.addColour(customColour);
+               // userObjects.wrappers[name + '-wrapper'].dataset.content = customColour.customName;
+              //  userObjects.pickers[name + '-picker'].value = customColour.hex;
             }// if colour is custom overwrite background colour with custom colour 
             //and update wrapper
 
@@ -60,9 +68,10 @@ const state = {
     },
     applyStatefromHistoryObject(newState){
         console.log(newState);
-        paletteData.paletteState = newState;
-        const newColour = colourObject.fromHex({name: 'primary', hex: hex});
+        const newColour = colourObject.fromHex({name: 'primary', hex: newState.primaryHex});
         paletteUi.addColour(newColour);
+        paletteData.paletteState = newState;
+        state.setCustomStatesfromPaletteData();
     },
 };
 export const paletteUi = {
@@ -106,7 +115,8 @@ export const paletteUi = {
         this.addColour(colourObject.makeRandomColour('primary'));
         this._setOnChange();
         this.setTextMode('Auto');
-        this._resetSmallWrapperContent();
+        //this._resetSmallWrapperContent();
+        state._resetAllCustomStates();
         this._setColourspace('hsl');
         this._setClipboardTextAll();
         state.setCustomStatesfromWrappers();
@@ -161,6 +171,7 @@ export const paletteUi = {
         this.setTextMode('Auto');
         this._updateClipboard = 1;
         this._setClipboardTextAll();
+        state._resetAllCustomStates();
     },
     addColour(newColour){
         paletteData.addColour(newColour);
@@ -230,6 +241,7 @@ export const paletteUi = {
     _addCustomColour(name, hex) {
         const customName = paletteData.getCustomColourName(name) || `custom${++this._counter}`;
         paletteData.addCustomColour(name, colourObject.fromHex({name: name, customName: customName, hex: hex}));
+        paletteData.setCustomColourState(name, 'custom');
         userObjects.wrappers[name + '-wrapper'].dataset.content = customName;
         return (colourObject.fromHex({name: name, customName: customName, hex: hex}));
     },
@@ -262,6 +274,7 @@ export const paletteUi = {
         const wrapper = userObjects.wrappers[customColour.name + '-wrapper'];
         wrapper.dataset.content = customColour.customName;
         gradientMaker.updateGradient(customColour);
+        paletteData.setCustomColourState(name, 'custom');
         this._setClipboardTextAll();
         
     },
@@ -400,7 +413,7 @@ export const paletteUi = {
     _SaveHistoryObject(){
         const hex = paletteData.getPrimaryHex();
         const copyPaletteState  = state.deepCopyPaletteState(paletteData.paletteState);
-        
+        console.log(copyPaletteState);
         if (paletteData.savedPalettes[hex] === undefined) {
             const li = document.createElement('li');
             li.innerHTML = hex;
