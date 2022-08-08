@@ -1,3 +1,4 @@
+import { userObjectsAll } from "../view/userobjects.js";
 import { userObjects } from "../view/userobjects.js";
 import { colourObject} from '../utilities/colourobject.js';
 import { paletteData } from "./palettedata.js";
@@ -8,6 +9,62 @@ import { clampRotate } from "../utilities/utilities.js";
 //import { callLogger } from "../utilities/utilities.js";
 import { textMaker } from "./textmaker.js";
 
+const state = {
+    setCustomStatesfromWrappers(){
+        const returnObject = {}
+        userObjects.smallSwatchNamesArray.forEach((name) => {
+        returnObject[name] = (userObjectsAll[name + '-wrapper'].dataset.content[0] === 'c')? 'Custom': 'Auto';//check wrapper for the 'c' word 
+        paletteData.paletteState.smallSwatchCustomState = returnObject;
+        });
+    },
+    setCustomStatesfromPaletteData(){
+        userObjects.smallSwatchNamesArray.forEach((name) => {
+            if (paletteData.getCustomColourState(name) === 'custom'){
+                const customColour = paletteData.getCustomColour(name);
+                paletteData.addColour(customColour);
+                userObjects.wrappers[name + '-wrapper'].dataset.content = customColour.customName;
+            }// if colour is custom overwrite background colour with custom colour 
+            //and update wrapper
+
+            //returnObject[name] = (userObjectsAll[name + '-wrapper'].dataset.content[0] === 'c')? 'Custom': 'Auto';//check wrapper for the 'c' word 
+            //paletteData.paletteState.smallSwatchCustomState = returnObject;
+        });
+    
+    },
+    deepCopyPaletteState(sourceObject){
+        console.log(sourceObject);
+        const primitiveAddressArray = [
+            'primaryHex',
+            'gradientMode',
+            'prefixMode',
+            'prefix',
+            'textMode',
+            'textColour',
+            'colourspace',
+        ];
+        const deepCopy = {};
+        primitiveAddressArray.forEach((name) => {
+            deepCopy[name] = sourceObject[name];
+        });
+        const objectAddressArray = [
+            'smallSwatchCustomState',
+            'customColours',
+        ];
+        objectAddressArray.forEach((name) => {
+            deepCopy[name] = {};
+            Object.keys(sourceObject[name]).forEach((key) => {
+                deepCopy[name][key] = sourceObject[name][key];
+            });
+        });
+        return deepCopy;
+    },
+    applyStatefromHistoryObject(newState){
+        console.log(newState);
+        paletteData.paletteState = newState;
+        const newColour = colourObject.fromHex({name: 'primary', hex: hex});
+        paletteUi.addColour(newColour);
+    },
+};
 export const paletteUi = {
     // new custom colour functions
     hasCustomColour(colour){
@@ -28,7 +85,7 @@ export const paletteUi = {
 
 // New Custom colour functions
     _getUiObject(id){
-        return userObjects.all[id];
+        return userObjectsAll[id];
     },
     _debounce(){
         this._updateVariants = throttleDebounce.debounce(() => variantMaker.updateVariants(), 250);
@@ -52,6 +109,11 @@ export const paletteUi = {
         this._resetSmallWrapperContent();
         this._setColourspace('hsl');
         this._setClipboardTextAll();
+        state.setCustomStatesfromWrappers();
+        state.deepCopyPaletteState(paletteData.paletteState, paletteData.savedState);
+        console.log(userObjects);
+        console.log(paletteData);
+
       },
     _splitName(name, separator = '-'){
         return name.split(separator)[0];
@@ -92,6 +154,7 @@ export const paletteUi = {
         this._setSliderValues(selectColourObject[colourspace], colourspace);
         this._resetSmallWrapperContent();
         userObjects.pickers['primary-picker'].value = hex;
+        paletteData.setPrimaryHex(hex);
         userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[colourspace];
         gradientMaker.updateGradient(newColour);
         this._updateVariants();
@@ -329,6 +392,26 @@ export const paletteUi = {
         paletteData.setPrefix('$');
         this._setClipboardTextAll();
     },
+    _loadHistoryObject(event){
+        const hex = event.target.innerHTML;
+        const newState  = state.deepCopyPaletteState(paletteData.savedPalettes[hex]);
+        state.applyStatefromHistoryObject(newState);
+    },
+    _SaveHistoryObject(){
+        const hex = paletteData.getPrimaryHex();
+        const copyPaletteState  = state.deepCopyPaletteState(paletteData.paletteState);
+        
+        if (paletteData.savedPalettes[hex] === undefined) {
+            const li = document.createElement('li');
+            li.innerHTML = hex;
+            userObjects.history['history-flexbox'].append(li);
+        }
+        paletteData.savedPalettes[hex] = copyPaletteState;
+      },
+    _clearHistory(){
+    userObjects.history['history-flexbox'].innerHTML = "";
+    },
+
     _setOnChange() {
         userObjects.other['colourspace'].onclick = () => this._onclickColourspace();
         userObjects.other['prefix'].onclick = () => this._onclickPrefix();
@@ -346,6 +429,13 @@ export const paletteUi = {
         this._getUiObject('hamburger-toggle').onclick = (x) => {
             this._getUiObject('navbar-list').classList.toggle('active');
         };
+        document.querySelector('#history-flexbox').addEventListener('click',this._loadHistoryObject, true);
+        this._getUiObject('save-button').addEventListener('click',this._clearHistory,   {
+            once: true
+        });
+        this._getUiObject('save-button').addEventListener('click',this._SaveHistoryObject);
+        
+
     }, 
     getStops(){
         return userObjects.other['gradient'].innerHTML.toLowerCase();
@@ -386,7 +476,7 @@ export const paletteUi = {
     },
     setTextColour(textColour){
         this._setWrapperTextColour(textColour);
-        paletteData.setTextColour(textColour);
+        paletteData.addTextColour(textColour);
     },
     getSmallSwatchNames(){
         return userObjects.smallSwatchNamesArray;
@@ -396,3 +486,4 @@ export const paletteUi = {
     },
 
 }
+

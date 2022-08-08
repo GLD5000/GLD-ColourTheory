@@ -131,13 +131,13 @@
   display:flex;
   gap: $gap;
 }
-.flexbox-clipboard, .flexbox-history{
+.flexbox-clipboard {
   display: flex;
   width: 100%;
   overflow: auto;
 }
 
-.clipboard,.clipboard-secondary, .history{
+.clipboard,.clipboard-secondary, .flexbox-history li{
   display: flex;
   height: fit-content;
   width:fit-content;
@@ -155,4 +155,20 @@
   position:relative;
   color: $vscode-blue;
 }
+.flexbox-history{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  overflow:auto;
+  gap:4px;
+  align-content: flex-start;
+}
 
+.flexbox-history li{
+  display: block;
+  border: 2px solid $neutral-300;
+  height: $gem;
+  width: calc(100% - 8px);
+  color: $vscode-hex-orange;
+}

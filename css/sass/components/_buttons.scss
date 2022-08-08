@@ -39,12 +39,11 @@
       border-radius: 0 6px 0 0;
   }
   .flexbox-clipboard:hover,
-  .flexbox-history:hover {
+  .flexbox-history li:hover {
     backdrop-filter: brightness(1.6);
   }
 
-  .flexbox-clipboard:hover::after,
-  .flexbox-history:hover::after
+  .flexbox-clipboard:hover::after
   {
     font-size: $gem;
 
@@ -64,6 +63,32 @@
       border: 4px solid $neutral-1000;
       border-radius: 0 0px 6px 0px;
   }
+
+  .flexbox-history li:hover::after {
+    font-size: $gem3Quart;
+
+      color: $neutral-0;
+      background-color: $neutral-500a;
+      //font-family: $font-SourceCodePro,'Courier New', Courier, monospace;
+      //font-size: calc(0.65 * $gem);
+      font-weight: 200;
+      //padding: 0.25em;
+      cursor:pointer;
+      white-space: pre;
+      align-items: center;
+      line-height: 1.125;
+    
+      content: 'load';
+      text-align: center;
+      top: 0px;
+      left: 0px;
+      bottom: 0px;
+      right: 0px;
+      position: absolute;
+      border: 4px solid $neutral-1000;
+      border-radius: 0 0px 6px 0px;
+  }
+
 
 /*   .copy-single:focus::after{
       background-color: $neutral-1000;

@@ -1,3 +1,5 @@
+export const userObjectsAll = {};
+
 function setAll(){
     const selectorsArray = [
         ['pickers','input[type="color"]'],
@@ -7,17 +9,18 @@ function setAll(){
         ['copyButtons',['.copy-single','#clipboard-flexbox']],
         ['other',['#textmode', '#prefix', '#gradient', '#colourspace', '#dice-btn', '#randomise-btn']],
         ['clipboard',['#clipboard', '#clipboard-secondary']],     
+        ['history',['#history-flexbox', '#save-button']],     
         ['navbar',['#hamburger-toggle', '#navbar-list']],     
         // ['labels','label'],
     ];  
-    const returnObject = {all: {}}
+    const returnObject = {};//{all: {}};
     selectorsArray.forEach( selector => {
         if (selector[2] === 'array') {
             returnObject[selector[0]] = [];
             [selector[1]].forEach(x =>{             
                 document.querySelectorAll(x).forEach( x => {
                     returnObject[selector[0]].push(document.getElementById(x.id));
-                    returnObject.all[x.id] = document.getElementById(x.id);
+                    userObjectsAll[x.id] = document.getElementById(x.id);
             }   );
             });
         } else {
@@ -25,7 +28,7 @@ function setAll(){
             [selector[1]].forEach(x =>{             
                 document.querySelectorAll(selector[1]).forEach( x => {
                     returnObject[selector[0]][x.id] = document.getElementById(x.id);
-                    returnObject.all[x.id] = (returnObject[selector[0]][x.id]);
+                    userObjectsAll[x.id] = (returnObject[selector[0]][x.id]);
             }   );
             });
         }

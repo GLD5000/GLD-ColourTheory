@@ -1,12 +1,36 @@
 import { paletteUi } from "./paletteui.js";
 
 export const paletteData = {
-    paletteState: {gradientMode: 1, prefixMode: 'SCSS', prefix: '$', textMode: 'Auto', colourspace: 'Hex'},
+    paletteState: {
+        primaryHex: null,
+        smallSwatchCustomState: {},
+        customColours: {},
+        gradientMode: 1,
+        prefixMode: 'SCSS',
+        prefix: '$',
+        textMode: 'Auto',
+        textColour: null,
+        colourspace: 'Hex',
+    },
     backgroundColours: new Map(),
-    customColours: new Map(),
     gradientColours: new Map(),
     textColours: new Map(),
     clipboard: [],
+    savedPalettes: {},
+    getPrimaryHex(hex){
+        return this.paletteState.primaryHex;
+    },
+
+    setPrimaryHex(hex){
+        this.paletteState.primaryHex = hex;
+    },
+    addSmallSwatchCustomState(name, state){
+        this.paletteState.smallSwatchCustomState[name] = state;
+    },
+    getSmallSwatchCustomState(name){
+        return this.paletteState.smallSwatchCustomState[name];
+    },
+
     setClipboard(newArray){
         this.clipboard = newArray;
     },
@@ -29,14 +53,23 @@ export const paletteData = {
     addColour(colour){
         this.backgroundColours.set(colour.name, colour);
     }, 
-    addTextColour(name, colour){
-        this.textColours.set(name, colour);
-    }, 
+    getCustomColourName(name){
+        return this.paletteState.customColours[name]?.customName;
+    },
+    getCustomColour(name){
+        return this.paletteState.customColours[name];
+    },
+    clearCustomColours(){
+        this.paletteState.customColours = {};
+    },
     addCustomColour(name, colour){
-        this.customColours.set(name, colour);
+        this.paletteState.customColours[name] = colour;
     }, 
+    getCustomColourState(name){
+        this.paletteState.smallSwatchCustomState[name];
+    },
     clearGradientColours(){
-        this.gradientColours = new Map();
+        this.gradientColours.clear();
     },
     addGradientColours(name, array){
         this.gradientColours.set(name, array);
@@ -44,16 +77,6 @@ export const paletteData = {
     getGradientColours(name){
         return this.gradientColours.get(name);
     },
-    getCustomColourName(name){
-        if (name === 'primary' || name.includes('-')) return null;
-        if (paletteUi._getWrapperContent(name)[0] !== 'c') return null;
-        if (this.customColours.get(name) == null) return null;
-        return this.customColours.get(name).customName;
-    },
-    getCustomColour(name){
-        return this.customColours.get(name);
-    },
-
     getPickerHex(name){
         return this.backgroundColours.get(name).hex;
     },
@@ -67,14 +90,20 @@ export const paletteData = {
     setTextMode(mode){
         this.paletteState.textMode = mode;
     },
-    getTextColour(backgroundColour){
-        const name = backgroundColour.name + '-text';
-        return this.textColours.get(name);
+    getTextColour(){
+        return this.paletteState.textColour;
     },
-    setTextColour(textColour){
-        this.textColours.set(textColour.name, textColour);
+    setMainTextColour(textColour){
+        this.paletteState.textColour = textColour;
+    },
+    addTextColour(colour){
+        this.textColours.set(colour.name, colour);
+    },
+    getColourSpace(colourspace){
+       return this.paletteState.colourspace;
     },
     setColourSpace(colourspace){
         this.paletteState.colourspace = colourspace;
     },
 }
+

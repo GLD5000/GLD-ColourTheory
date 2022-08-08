@@ -4,7 +4,4 @@ import { gradientMaker } from './modules/controllers/gradientmaker.js';
 import { paletteData } from './modules/controllers/palettedata.js';
 import { paletteUi} from './modules/controllers/paletteui.js';
 //console.log(paletteData);
-console.log(paletteUi.userObjects());
-console.log(paletteData);
 paletteUi._init();
-gradientMaker._findMult(0.5, 0.8, 10);
