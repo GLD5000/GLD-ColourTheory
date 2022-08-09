@@ -104,15 +104,18 @@ export const colourObject= {
     colour.blue = this._constraintLookupB['blue'](Math.min(1, (2 * (1-tinyWarmth))) * tinyLum);//fix the lum here to match below!!!
     colour.green = this._constraintLookupB['green'](Math.min(1, (2 * tinyTint)) * Math.min(1, (2 * (tinyWarmth))) * tinyLum);
     colour.red = this._constraintLookupB['red'](Math.min(1, (2 * (1-tinyTint))) * Math.min(1, (2 * (tinyWarmth))) * tinyLum);
+   
     return colour;
   },
   _convertSrgbtoTwl(colour) {
+    colour.tint = this._constraintLookupB['tint'](100 * (0.5 * (colour.green / colour.red)));
+    colour.warmth = this._constraintLookupB['warmth'](100 * (0.5 * ((Math.max(colour.red, colour.green)) / colour.blue)));
+    
     colour.red = this._constraintLookupB['red'](colour.red);
     colour.green = this._constraintLookupB['green'](colour.green);
     colour.blue = this._constraintLookupB['blue'](colour.blue);
-    colour.tint = this._constraintLookupB['tint'](100 * (0.5 * (colour.green / colour.red)));
-    colour.warmth = this._constraintLookupB['warmth'](100 * (0.5 * ((Math.max(colour.red, colour.green)) / colour.blue)));
-    colour.lightness = this._constraintLookupB['lightness'](100 * 0.5 * ((colour.red + colour.green + colour.blue) - Math.min(colour.red, colour.green, colour.blue)));//(Math.max(colour.red, colour.green, colour.blue));
+      
+    colour.lightness = this._constraintLookupB['lightness'](100 * (0.5 * (Math.max(colour.red + colour.green + colour.blue) + Math.min(colour.red, colour.green, colour.blue))));
     return colour;
   },
   _convertHexToSrgb(colour) {
@@ -254,13 +257,13 @@ export const colourObject= {
     _constraintLookupB: {
       'hue': (x) =>  clampRotate.rotate(x, 0, 360),
       'sat': (x) =>  clampRotate.clamp(x, 0, 100),
-      'lum': (x) =>  clampRotate.clamp(x, 15, 95),
+      'lum': (x) =>  clampRotate.clamp(x, 15, 100),
       'red': (x) =>  clampRotate.clamp(x, 0, 1),
       'green': (x) =>  clampRotate.clamp(x, 0, 1),
       'blue': (x) =>  clampRotate.clamp(x, 0, 1),
       'tint': (x) =>  clampRotate.clamp(x, 0, 100),
       'warmth': (x) =>  clampRotate.clamp(x, 0, 100),
-      'lightness': (x) =>  clampRotate.clamp(x, 20, 95),
+      'lightness': (x) =>  clampRotate.clamp(x, 20, 100),
     },
     _hslArr: ['hue','sat','lum'],
     _rgbArr: ['red','green','blue'],

@@ -203,26 +203,32 @@ p, li, ol, ul, a {
   .hamburger-toggle {
     display: flex;
   }
+
   .navbar-list {
     display: none;
     width: 100%;
   }
+
   .logo {
     width: 80%;
   }
+
   .navbar {
     flex-direction: column;
     align-items: flex-start;
   }
+
   .navbar-list {
     width: 100%;
     flex-direction: column;
     gap: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
     padding: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) 0 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
   }
+
   .navbar-list li {
     text-align: center;
   }
+
   .navbar-list.active {
     display: flex;
   }
@@ -299,7 +305,7 @@ p, li, ol, ul, a {
   white-space: pre;
   align-items: center;
   line-height: 1.125;
-  content: "load";
+  content: "load palette";
   text-align: center;
   top: 0px;
   left: 0px;
@@ -373,7 +379,8 @@ p, li, ol, ul, a {
   max-width: 40%;
   margin: auto;
   aspect-ratio: 1/1;
-  -webkit-backface-visibility: hidden; /* Safari */
+  -webkit-backface-visibility: hidden;
+  /* Safari */
   backface-visibility: hidden;
 }
 
@@ -610,20 +617,34 @@ p, li, ol, ul, a {
 input[type=range]::-webkit-slider-thumb {
   position: relative;
   appearance: none;
-  height: 20px;
-  width: 20px;
-  rotate: 45deg;
+  height: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
+  width: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
+  transform: rotate(45deg);
   border-radius: 20%;
   opacity: 70%;
   background: #fff;
 }
 
 input[type=range]::-ms-thumb {
-  opacity: 0;
+  position: relative;
+  appearance: none;
+  height: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
+  width: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
+  transform: rotate(45deg);
+  border-radius: 20%;
+  opacity: 70%;
+  background: #fff;
 }
 
 input[type=range]::-moz-range-thumb {
-  opacity: 0;
+  position: relative;
+  appearance: none;
+  height: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
+  width: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
+  transform: rotate(45deg);
+  border-radius: 20%;
+  opacity: 70%;
+  background: #fff;
 }
 
 input[name=hue] {
