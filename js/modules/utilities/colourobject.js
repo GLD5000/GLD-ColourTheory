@@ -58,19 +58,33 @@ export const colourObject= {
     return this._textColourFromHex(returnColour);
   },
   _convertSlidertoHsl(sliderArray) {
-    return [sliderArray[0] * 3.6, sliderArray[1], sliderArray[2]];
+    return [
+      (sliderArray[0] * 3.6), 
+      this._constraintLookupB['sat'](sliderArray[1]), 
+      this._constraintLookupB['lum'](sliderArray[2])
+    ];
+  },
+  _convertSlidertoSrgb(sliderArray) {
+    return [
+      this._constraintLookupB['red'](sliderArray[0] / 100),
+      this._constraintLookupB['green'](sliderArray[1] / 100), 
+      this._constraintLookupB['blue'](sliderArray[2] / 100)
+    ];
+  },
+  _convertSlidertoTwl(sliderArray) {
+    return [
+      this._constraintLookupB['tint'](sliderArray[0] / 100),
+      this._constraintLookupB['warmth'](sliderArray[1] / 100), 
+      this._constraintLookupB['lightness'](sliderArray[2] / 100)];
   },
   _convertHsltoSlider(sliderArray) {
     return [sliderArray[0] / 3.6, sliderArray[1], sliderArray[2]];
-  },
-  _convertSlidertoSrgb(sliderArray) {
-    return [sliderArray[0] / 100, sliderArray[1] / 100, sliderArray[2] / 100];
   },
   _convertSrgbtoSlider(sliderArray) {
     return [sliderArray[0] * 100, sliderArray[1] * 100, sliderArray[2] * 100];
   },
   _convertTwltoSlider(sliderArray) {
-    return [parseInt(sliderArray[0]) , parseInt(sliderArray[1]), parseInt(sliderArray[2])];
+    return [sliderArray[0] * 100, sliderArray[1] * 100, sliderArray[2] * 100];
   },
   _convertSliderInput(sliderArray, colourspace) {
     const functionLookup = {
@@ -82,7 +96,7 @@ export const colourObject= {
   },
   _convertSliderOutput(sliderArray, colourspace) {
     const functionLookup = {
-      hex: '_convertTwltoSlider',
+      hex: '_convertSlidertoTwl',
       hsl: '_convertSlidertoHsl',
       rgb: '_convertSlidertoSrgb',
     }
@@ -94,28 +108,29 @@ export const colourObject= {
     colour.hsl =  this._convertHslToString(colour.hue, colour.sat, colour.lum);
   },
   _convertTwltoSrgb(colour) {
-    colour.tint = this._constraintLookupB['tint'](colour.tint);
+/*     colour.tint = this._constraintLookupB['tint'](colour.tint);
     colour.warmth = this._constraintLookupB['warmth'](colour.warmth);
     colour.lightness = this._constraintLookupB['lightness'](colour.lightness);
-
-    const tinyTint = colour.tint * 0.01;
-    const tinyWarmth = colour.warmth * 0.01;
-    const tinyLum = colour.lightness * 0.01;
-    colour.blue = this._constraintLookupB['blue'](Math.min(1, (2 * (1-tinyWarmth))) * tinyLum);//fix the lum here to match below!!!
-    colour.green = this._constraintLookupB['green'](Math.min(1, (2 * tinyTint)) * Math.min(1, (2 * (tinyWarmth))) * tinyLum);
-    colour.red = this._constraintLookupB['red'](Math.min(1, (2 * (1-tinyTint))) * Math.min(1, (2 * (tinyWarmth))) * tinyLum);
+ */ 
+const tint = colour.tint;
+const warmth = colour.warmth;
+const lightness = colour.lightness;
+    colour.blue = (Math.min(1, (2 * (1-warmth))) * lightness);//fix the lum here to match below!!!
+    colour.green = (Math.min(1, (2 * tint)) * Math.min(1, (2 * (warmth))) * lightness);
+    colour.red = (Math.min(1, (2 * (1 - tint))) * Math.min(1, (2 * (warmth))) * lightness);
    
     return colour;
   },
   _convertSrgbtoTwl(colour) {
-    colour.tint = this._constraintLookupB['tint'](100 * (0.5 * (colour.green / colour.red)));
-    colour.warmth = this._constraintLookupB['warmth'](100 * (0.5 * ((Math.max(colour.red, colour.green)) / colour.blue)));
-    
-    colour.red = this._constraintLookupB['red'](colour.red);
+    colour.lightness = (Math.max(colour.red, colour.green, colour.blue) );
+    let redGreenDecimal = 0.5 * ((Math.min(colour.red, colour.green) / Math.max(colour.red, colour.green)));
+    redGreenDecimal = (Math.max(colour.red, colour.green) === colour.green)? 0.5 + redGreenDecimal: redGreenDecimal;
+    colour.tint =  redGreenDecimal;
+    colour.warmth = (0.5 * ((Math.max(colour.red, colour.green)) / colour.blue));
+/*     colour.red = this._constraintLookupB['red'](colour.red);
     colour.green = this._constraintLookupB['green'](colour.green);
     colour.blue = this._constraintLookupB['blue'](colour.blue);
-      
-    colour.lightness = this._constraintLookupB['lightness'](100 * (0.5 * (Math.max(colour.red + colour.green + colour.blue) + Math.min(colour.red, colour.green, colour.blue))));
+ */      
     return colour;
   },
   _convertHexToSrgb(colour) {
@@ -261,9 +276,9 @@ export const colourObject= {
       'red': (x) =>  clampRotate.clamp(x, 0, 1),
       'green': (x) =>  clampRotate.clamp(x, 0, 1),
       'blue': (x) =>  clampRotate.clamp(x, 0, 1),
-      'tint': (x) =>  clampRotate.clamp(x, 0, 100),
-      'warmth': (x) =>  clampRotate.clamp(x, 0, 100),
-      'lightness': (x) =>  clampRotate.clamp(x, 20, 100),
+      'tint': (x) =>  clampRotate.clamp(x, 0, 1),
+      'warmth': (x) =>  clampRotate.clamp(x, 0, 1),
+      'lightness': (x) =>  clampRotate.clamp(x, .2, 1),
     },
     _hslArr: ['hue','sat','lum'],
     _rgbArr: ['red','green','blue'],
