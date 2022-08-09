@@ -38,7 +38,6 @@ const state = {
     
     },
     deepCopyPaletteState(sourceObject){
-        console.log(sourceObject);
         const primitiveAddressArray = [
             'primaryHex',
             'gradientMode',
@@ -65,7 +64,6 @@ const state = {
         return deepCopy;
     },
     applyStatefromHistoryObject(newState){
-        console.log(newState);
         const newColour = colourObject.fromHex({name: 'primary', hex: newState.primaryHex});
         paletteUi.addColour(newColour);
         paletteData.paletteState = newState;
@@ -217,7 +215,7 @@ export const paletteUi = {
         if (numberTones === 1) numberTones = 0; 
         userObjects.other['gradient'].innerHTML = 'Tones: ' + numberTones;
         console.clear();
-        paletteData.backgroundColours.forEach(colour => {gradientMaker.updateGradient(colour); console.log(colour);});
+        paletteData.backgroundColours.forEach(colour => {gradientMaker.updateGradient(colour);});
         this._setClipboardTextAll();
 
     },
@@ -302,7 +300,6 @@ export const paletteUi = {
     _getClipboardTextSingleAsArray(name){
         const colourspace = this._getColourspace();
         const prefix = paletteData.getPrefix();
-        //console.log(paletteData.getCustomColourName(name)|| name);
         let customName = paletteData.getCustomColourName(name) || name;
         const textArray = [[`${prefix}${customName}: `],
         [`${paletteData.getColourObject(name)[colourspace]}`],
@@ -420,7 +417,6 @@ export const paletteUi = {
     _SaveHistoryObject(){
         const hex = paletteData.getPrimaryHex();
         const copyPaletteState  = state.deepCopyPaletteState(paletteData.paletteState);
-        console.log(copyPaletteState);
         if (paletteData.savedPalettes[hex] === undefined) {
             const li = document.createElement('li');
             li.innerHTML = hex;
