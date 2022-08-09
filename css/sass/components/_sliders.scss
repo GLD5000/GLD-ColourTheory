@@ -16,7 +16,14 @@
   }
 
   input[type=range]::-webkit-slider-thumb {
-    opacity: 0%;
+    position: relative;
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    rotate: 45deg;
+    border-radius: 20%;
+    opacity: 70%;
+    background: #fff;
   }
   input[type=range]::-ms-thumb {
     opacity: 0;
