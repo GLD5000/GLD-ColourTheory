@@ -316,7 +316,7 @@ p, li, ol, ul, a {
   border-radius: 0 0px 6px 0px;
 }
 
-/*   .copy-single:focus::after{
+/*   .copy-single:focus::after {
       background-color: $neutral-1000;
   }
  */
@@ -416,7 +416,7 @@ p, li, ol, ul, a {
   background-color: hsl(0deg, 0%, 55.7%);
 }
 
-/* .btn:focus-within, .textmode:focus-within{
+/* .btn:focus-within, .textmode:focus-within {
   //box-shadow: none;
   //border: none;
   outline: none;
@@ -481,11 +481,11 @@ p, li, ol, ul, a {
   color: black;
 }
 
-.primary-wrapper:hover, .picker-wrapper:hover {
+.primary-wrapper:hover, .picker-wrapper:hover, .dice:hover {
   box-shadow: inset 0px 0px 0px 4px #000;
 }
 
-.primary-wrapper:focus-within, .picker-wrapper:focus-within {
+.primary-wrapper:focus-within, .picker-wrapper:focus-within, .dice:focus-within {
   box-shadow: inset 0px 0px 0px 4px #fff;
 }
 
@@ -771,7 +771,11 @@ Grid level 2 areas
   grid-area: random;
 }
 
-/*.clipboard{
+.btn-history {
+  grid-area: history;
+}
+
+/*.clipboard {
     grid-area: clipboard;
 }
 
@@ -796,29 +800,29 @@ $swatch-height-large: 16em;
 
 @media all and (min-width: 0px) {
   .swatch-palette {
-    grid-template-areas: "picker" "picker" "random" "copyAll" "monochromeA" "monochromeB" "analogousA" "analogousB" "triadicA" "triadicB" "tetradicA" "tetradicB" "tetradicC" "neutral";
+    grid-template-areas: "picker" "picker" "random" "history" "copyAll" "monochromeA" "monochromeB" "analogousA" "analogousB" "triadicA" "triadicB" "tetradicA" "tetradicB" "tetradicC" "neutral";
   }
 }
 @media all and (min-width: 37.5em) {
   .swatch-palette {
-    grid-template-areas: "picker picker" "picker picker" "random copyAll" "monochromeA monochromeB" "analogousA analogousB" "triadicA triadicB" "tetradicA tetradicB" "tetradicC neutral";
+    grid-template-areas: "picker picker" "picker picker" "random history" "copyAll copyAll" "monochromeA monochromeB" "analogousA analogousB" "triadicA triadicB" "tetradicA tetradicB" "tetradicC neutral";
   }
 }
 @media all and (min-width: 60em) {
   .swatch-palette {
-    grid-template-areas: "picker picker picker picker" "picker picker picker picker" "random copyAll monochromeA monochromeB" "analogousA analogousB triadicA triadicB" "tetradicA tetradicB tetradicC neutral";
+    grid-template-areas: "picker picker picker picker" "picker picker picker picker" "random history copyAll copyAll" "monochromeA monochromeB copyAll copyAll" "analogousA analogousB triadicA triadicB" "tetradicA tetradicB tetradicC neutral";
     grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)), 1fr);
   }
 }
 @media all and (min-width: 80em) {
   .swatch-palette {
-    grid-template-areas: "picker picker  random copyAll" "picker picker monochromeA monochromeB" "analogousA analogousB triadicA triadicB" "tetradicA tetradicB tetradicC neutral";
+    grid-template-areas: "picker picker  random history" "picker picker  copyAll copyAll" "monochromeA monochromeB analogousA analogousB" "triadicA triadicB tetradicA tetradicB" "tetradicC neutral neutral tetradicB";
     grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)), 1fr);
   }
 }
 @media all and (min-width: 120em) {
   .swatch-palette {
-    grid-template-areas: "random copyAll picker picker triadicA triadicB" "monochromeA monochromeB picker picker triadicA triadicB" "analogousA analogousB tetradicA tetradicB tetradicC neutral";
+    grid-template-areas: "random history picker picker monochromeA monochromeB" "copyAll copyAll picker picker analogousA analogousB" "triadicA triadicB tetradicA tetradicB tetradicC neutral";
     grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)), 1fr);
   }
 }

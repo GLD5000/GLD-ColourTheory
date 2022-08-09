@@ -1,6 +1,6 @@
 export const userObjectsAll = {};
 
-function setAll(){
+function setAll() {
     const selectorsArray = [
         ['pickers','input[type="color"]'],
         ['sliders','input[type="range"]','array'],//array
@@ -13,11 +13,11 @@ function setAll(){
         ['navbar',['#hamburger-toggle', '#navbar-list']],     
         // ['labels','label'],
     ];  
-    const returnObject = {};//{all: {}};
+    const returnObject = {};// {all: {}};
     selectorsArray.forEach( selector => {
         if (selector[2] === 'array') {
             returnObject[selector[0]] = [];
-            [selector[1]].forEach(x =>{             
+            [selector[1]].forEach(x => {             
                 document.querySelectorAll(x).forEach( x => {
                     returnObject[selector[0]].push(document.getElementById(x.id));
                     userObjectsAll[x.id] = document.getElementById(x.id);
@@ -25,7 +25,7 @@ function setAll(){
             });
         } else {
             returnObject[selector[0]] = {};
-            [selector[1]].forEach(x =>{             
+            [selector[1]].forEach(x => {             
                 document.querySelectorAll(selector[1]).forEach( x => {
                     returnObject[selector[0]][x.id] = document.getElementById(x.id);
                     userObjectsAll[x.id] = (returnObject[selector[0]][x.id]);
@@ -36,7 +36,7 @@ function setAll(){
     returnObject.smallSwatchNamesArray = [];
     Object.keys(returnObject.pickers).forEach(x => {
         const name = x.split('-')[0];
-        if (name !== 'primary' && name !== 'textcolour'){
+        if (name !== 'primary' && name !== 'textcolour') {
             returnObject.smallSwatchNamesArray.push(name);
         }
     });

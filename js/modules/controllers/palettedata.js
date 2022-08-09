@@ -17,107 +17,107 @@ export const paletteData = {
     textColours: new Map(),
     clipboard: [],
     savedPalettes: {},
-    getPrimaryHex(hex){
+    getPrimaryHex(hex) {
         return this.paletteState.primaryHex;
     },
 
-    setPrimaryHex(hex){
+    setPrimaryHex(hex) {
         this.paletteState.primaryHex = hex;
     },
-    addSmallSwatchCustomState(name, state){
+    addSmallSwatchCustomState(name, state) {
         this.paletteState.smallSwatchCustomState[name] = state;
     },
-    getSmallSwatchCustomState(name){
+    getSmallSwatchCustomState(name) {
         return this.paletteState.smallSwatchCustomState[name];
     },
 
-    setClipboard(newArray){
+    setClipboard(newArray) {
         this.clipboard = newArray;
     },
-    getClipboard(){
+    getClipboard() {
        return this.clipboard;
     },
 
-    setPrefix(prefix){
+    setPrefix(prefix) {
         this.paletteState.prefix = prefix;
     },
-    getPrefix(){
+    getPrefix() {
         return this.paletteState.prefix;
     },
-    setPrefixMode(prefixMode){
+    setPrefixMode(prefixMode) {
         this.paletteState.prefixMode = prefixMode;
     },
-    getPrefixMode(){
+    getPrefixMode() {
         return this.paletteState.prefixMode;
     },
-    addColour(colour){
+    addColour(colour) {
         this.backgroundColours.set(colour.name, colour);
     }, 
-    getCustomColourName(name){
+    getCustomColourName(name) {
         return this.paletteState.customColours[name]?.customName;
     },
-    getCustomColour(name){
+    getCustomColour(name) {
         return this.paletteState.customColours[name];
     },
-    clearCustomColours(){
+    clearCustomColours() {
         this.paletteState.customColours = {};
     },
-    addCustomColour(name, colour){
+    addCustomColour(name, colour) {
         this.paletteState.customColours[name] = colour;
     }, 
-    getCustomColourState(name){
+    getCustomColourState(name) {
         return this.paletteState.smallSwatchCustomState[name];
     },
-    setCustomColourState(name, state){
+    setCustomColourState(name, state) {
         this.paletteState.smallSwatchCustomState[name] = state;
     },
 
-    clearGradientColours(){
+    clearGradientColours() {
         this.gradientColours.clear();
     },
-    addGradientColours(name, array){
+    addGradientColours(name, array) {
         this.gradientColours.set(name, array);
     },
-    getGradientColours(name){
+    getGradientColours(name) {
         return this.gradientColours.get(name);
     },
-    getPickerHex(name){
+    getPickerHex(name) {
         return this.backgroundColours.get(name).hex;
     },
-    getColourObject(name){
+    getColourObject(name) {
         const returnName = this.backgroundColours.get(name);
         return returnName;
     },
-    getTextMode(){
+    getTextMode() {
         return this.paletteState.textMode;
     },
-    setTextMode(mode){
+    setTextMode(mode) {
         this.paletteState.textMode = mode;
     },
-    getTextColour(){
+    getTextColour() {
         return this.paletteState.textColour;
     },
-    getTextHex(){
+    getTextHex() {
         return this.paletteState.textColour.hex;
     },
-    setMainTextColour(textColour){
+    setMainTextColour(textColour) {
         if (textColour.sat === 0) return;
         this.paletteState.textColour = textColour;
     },
-    getMainTextColour(textColour){
+    getMainTextColour(textColour) {
         return this.paletteState.textColour;
      },
-     getMainTextColourHex(textColour){
+     getMainTextColourHex(textColour) {
         return this.paletteState.textColour.hex;
      },
   
-    addTextColour(colour){
+    addTextColour(colour) {
         this.textColours.set(colour.name, colour);
     },
-    getColourSpace(colourspace){
+    getColourSpace(colourspace) {
        return this.paletteState.colourspace;
     },
-    setColourSpace(colourspace){
+    setColourSpace(colourspace) {
         this.paletteState.colourspace = colourspace;
     },
 }

@@ -5,7 +5,7 @@
     color: $neutral-0;
     
 }
-.footer{
+.footer {
     border-top: #fff solid 4px;
     background-color: $neutral-1000;
 }
@@ -14,7 +14,7 @@
     border-bottom: $border;
 
 }
-.navbar{
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,7 +22,7 @@
     padding-right: $gem2;
 
 }
-.navbar-list{
+.navbar-list {
     margin: 0;
     padding: 0;
     text-align: left;
@@ -43,7 +43,7 @@
     font-weight: 900;
 }  
 
-.hamburger-toggle{
+.hamburger-toggle {
     position: absolute;
     top: $gem3Quart;
     right: $gem2;
@@ -75,7 +75,7 @@
         display: none;
         width: 100%;
     }
-    .logo{
+    .logo {
 
         width: 80%;
     }

@@ -28,26 +28,26 @@ export const colourObject= {
   },
   _makeContrastRatioString(ratio) {
     const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
-    return `Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;
+    return `Contrast Ratio: $ {ratio.toFixed(2)} $ {rating}`;
   },
   _makeContrastRating(ratio) {
     return (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
   },
-  _textColourFromHex(colour){
+  _textColourFromHex(colour) {
     this._convertHexToSrgb(colour);
     this._convertSrgbToHsl(colour);
     return this._return(colour);
   },
-  getTextColourContrast(textColour = null, backgroundColour = null){
+  getTextColourContrast(textColour = null, backgroundColour = null) {
     if (backgroundColour == null) return 'No Background Colour Found';//if background colour == null return
     if (textColour == null) {//auto text
-      const returnColour = {name: `${backgroundColour.name}-text`};
+      const returnColour = {name: `$ {backgroundColour.name}-text`};
       [returnColour.hex, returnColour.contrastRatio] = this._autoTextColour(backgroundColour);
       returnColour.rating = this._makeContrastRating(returnColour.contrastRatio);
       returnColour.contrastString = this._makeContrastRatioString(returnColour.contrastRatio);
       return this._textColourFromHex(returnColour);
     }
-    const returnColour = {name: `${backgroundColour.name}-text`};
+    const returnColour = {name: `$ {backgroundColour.name}-text`};
     returnColour.hex = textColour.hex;
     returnColour.contrastRatio = this._calculateContrastRatio(
       [textColour.red, textColour.green, textColour.blue], 
@@ -57,22 +57,22 @@ export const colourObject= {
     returnColour.contrastString = this._makeContrastRatioString(returnColour.contrastRatio);
     return this._textColourFromHex(returnColour);
   },
-  _convertSlidertoHsl(sliderArray){
+  _convertSlidertoHsl(sliderArray) {
     return [sliderArray[0] * 3.6, sliderArray[1], sliderArray[2]];
   },
-  _convertHsltoSlider(sliderArray){
+  _convertHsltoSlider(sliderArray) {
     return [sliderArray[0] / 3.6, sliderArray[1], sliderArray[2]];
   },
-  _convertSlidertoSrgb(sliderArray){
+  _convertSlidertoSrgb(sliderArray) {
     return [sliderArray[0] / 100, sliderArray[1] / 100, sliderArray[2] / 100];
   },
-  _convertSrgbtoSlider(sliderArray){
+  _convertSrgbtoSlider(sliderArray) {
     return [sliderArray[0] * 100, sliderArray[1] * 100, sliderArray[2] * 100];
   },
-  _convertTwltoSlider(sliderArray){
+  _convertTwltoSlider(sliderArray) {
     return [parseInt(sliderArray[0]) , parseInt(sliderArray[1]), parseInt(sliderArray[2])];
   },
-  _convertSliderInput(sliderArray, colourspace){
+  _convertSliderInput(sliderArray, colourspace) {
     const functionLookup = {
       hex: '_convertTwltoSlider',
       hsl: '_convertHsltoSlider',
@@ -80,7 +80,7 @@ export const colourObject= {
     }
     return this[functionLookup[colourspace]](sliderArray);
   },
-  _convertSliderOutput(sliderArray, colourspace){
+  _convertSliderOutput(sliderArray, colourspace) {
     const functionLookup = {
       hex: '_convertTwltoSlider',
       hsl: '_convertSlidertoHsl',
@@ -88,12 +88,12 @@ export const colourObject= {
     }
     return this[functionLookup[colourspace]](sliderArray);
   },
-  _createStrings(colour){
+  _createStrings(colour) {
     if (colour.name === 'primary') colour.twl =  this._convertTwlToString(colour.tint, colour.warmth, colour.lightness);
     colour.rgb =  this._convertRgbToString(colour.red, colour.green, colour.blue);
     colour.hsl =  this._convertHslToString(colour.hue, colour.sat, colour.lum);
   },
-  _convertTwltoSrgb(colour){
+  _convertTwltoSrgb(colour) {
     colour.tint = this._constraintLookupB['tint'](colour.tint);
     colour.warmth = this._constraintLookupB['warmth'](colour.warmth);
     colour.lightness = this._constraintLookupB['lightness'](colour.lightness);
@@ -106,7 +106,7 @@ export const colourObject= {
     colour.red = this._constraintLookupB['red'](Math.min(1, (2 * (1-tinyTint))) * Math.min(1, (2 * (tinyWarmth))) * tinyLum);
     return colour;
   },
-  _convertSrgbtoTwl(colour){
+  _convertSrgbtoTwl(colour) {
     colour.red = this._constraintLookupB['red'](colour.red);
     colour.green = this._constraintLookupB['green'](colour.green);
     colour.blue = this._constraintLookupB['blue'](colour.blue);
@@ -219,25 +219,25 @@ export const colourObject= {
     this._createStrings(colour);
     return Object.freeze(colour);
   },
-  fromTwl(colour){
+  fromTwl(colour) {
     this._convertTwltoSrgb(colour)
     this._convertSrgbToHsl(colour);
     this._convertHslToHex(colour);
     return this._return(colour);
   },
-  fromHsl(colour){
+  fromHsl(colour) {
     this._convertHslToHex(colour);
     this._convertHexToSrgb(colour);
     if (colour.name === 'primary') this._convertSrgbtoTwl(colour);
     return this._return(colour);
   },
-  fromHex(colour){
+  fromHex(colour) {
     this._convertHexToSrgb(colour);
     this._convertSrgbToHsl(colour);
     if (colour.name === 'primary') this._convertSrgbtoTwl(colour);
     return this._return(colour);
   },
-  fromSrgb(colour){
+  fromSrgb(colour) {
     this._convertSrgbToHsl(colour);
     this._convertHslToHex(colour);
     if (colour.name === 'primary') this._convertSrgbtoTwl(colour);
@@ -280,43 +280,43 @@ export const colourObject= {
 
 
   _convertHslToString(hue, sat, lum) {
-    return `hsl(${Math.round(hue)},${sat.toFixed(0)}%,${lum.toFixed(0)}%)`;
+    return `hsl($ {Math.round(hue)},$ {sat.toFixed(0)}%,$ {lum.toFixed(0)}%)`;
   },
   _convertTwlToString(tint, warmth, lightness) {
-    return `twl(${Math.round(tint)}%,${warmth.toFixed(0)}%,${lightness.toFixed(0)}%)`;
+    return `twl($ {Math.round(tint)}%,$ {warmth.toFixed(0)}%,$ {lightness.toFixed(0)}%)`;
   },
 
   _convertRgbToString(red, green, blue) {
-    return `rgb(${Math.round(red * 255)},${Math.round(green * 255)},${Math.round(blue * 255)})`
+    return `rgb($ {Math.round(red * 255)},$ {Math.round(green * 255)},$ {Math.round(blue * 255)})`
   },
-  _convertHslToColourObject(hue, sat, lum, name){
+  _convertHslToColourObject(hue, sat, lum, name) {
     return  {'name': name, 'hue': hue, 'sat': sat, 'lum': lum};
   },
-  hsl(colour){
+  hsl(colour) {
     return this._convertHslToString(colour.hue, colour.sat, colour.lum);
   },
-  rgb(colour){
+  rgb(colour) {
     return this._convertRgbToString(colour.red, colour.green, colour.blue);
   },
-  makeRandomHslString(){
+  makeRandomHslString() {
       return this._convertHslToString(...this._makeRandomHsl());
   },
-  makeRandomHslStringSafer(){
+  makeRandomHslStringSafer() {
     return this._convertHslToString(...this._makeRandomHslSafer());
 },
 
-  makeRandomColour(name = 'primary'){
+  makeRandomColour(name = 'primary') {
     return this.fromHsl(this._convertHslToColourObject(...this._makeRandomHsl(), name));
   },
   assign(oldColour, newColour) {//default mode is replace
     if (newColour.hasOwnProperty('hex')) return 'Error: Hex found in newColour object';//Exit for Hex
     const colourName = newColour.name || oldColour.name;// set colour name
     let mode, keysArray;
-    Object.keys(newColour).forEach(x =>{//Loop through object keys of newColour to check for hsl or rgb
-      if (this._hslArr.includes(x)){
+    Object.keys(newColour).forEach(x => {//Loop through object keys of newColour to check for hsl or rgb
+      if (this._hslArr.includes(x)) {
         mode = 'hsl'; // set mode
         keysArray = this._hslArr; // set keys to hsl
-      } else if (this._rgbArr.includes(x)){
+      } else if (this._rgbArr.includes(x)) {
         mode = 'rgb'; // set mode
         keysArray = this._rgbArr; // set keys to rgb
       }
@@ -327,15 +327,15 @@ export const colourObject= {
       [x, 
         (newColour[x] == null)? 
           oldColour[x]: 
-          this._constraintLookupB[x](this._operationsLookup[newColour[`${x}Operation`] || newColour.operation || 'replace'](oldColour[x], newColour[x]))
+          this._constraintLookupB[x](this._operationsLookup[newColour[`$ {x}Operation`] || newColour.operation || 'replace'](oldColour[x], newColour[x]))
       ]
     );
 
     const returnObj = Object.fromEntries([['name', colourName],...returnArray]);
 
     return (mode === 'hsl')? 
-      this.fromHsl({...returnObj}): 
-      this.fromSrgb({...returnObj});
+      this.fromHsl( {...returnObj}): 
+      this.fromSrgb( {...returnObj});
   },
  }
  

@@ -15,7 +15,7 @@ export const variantMaker= {
     ['monochromeB', {name: 'monochromeB', lum: 10, operation: 'add'}],
     ['neutral', {name: 'neutral', sat: 0}]
   ]), 
-  updateVariants(){
+  updateVariants() {
     const primaryColour = paletteUi.getColourObject('primary');
     this._swatchRecipeMap.forEach(newColourPartial => { // Create colours for all variations
     paletteUi.addColour(colourObject.assign(primaryColour, newColourPartial));// make variations based on new primary colour

@@ -1,5 +1,5 @@
 @use '../abstracts' as *;
-.slider{
+.slider {
     position: relative;
     opacity:100%;
     width: 100%;
@@ -25,42 +25,42 @@
     opacity: 0;
   }
 
-input[name="hue"]{
+input[name="hue"] {
     background:$rainbow-gradient;
   }
-input[name="lum"]{
+input[name="lum"] {
   background:linear-gradient(to left, #fff,#555);
 }
-input[name="sat"]{
+input[name="sat"] {
   background:$desaturated-rainbow-gradient;
 }
 
-input[name="red"]{
+input[name="red"] {
   background:linear-gradient(to right, #777,#d00);
 }
-input[name="green"]{
+input[name="green"] {
 background:linear-gradient(to right, #777,#0d0);
 }
-input[name="blue"]{
+input[name="blue"] {
 background:linear-gradient(to right, #777,#00d);
 }
 
-input[name="tint"]{
+input[name="tint"] {
   background:linear-gradient(to right, #d00,#0d0);
 }
-input[name="warmth"]{
+input[name="warmth"] {
 background:linear-gradient(to left, #dd0,#00d);
 }
-input[name="lightness"]{
+input[name="lightness"] {
   background:linear-gradient(to left, #fff,#555);
 }
 
 
 
-input[type=range]:focus, input[type=range]:hover{
+input[type=range]:focus, input[type=range]:hover {
   border: solid 4px #fff;
 }
-input[type=range]:hover::before{
+input[type=range]:hover::before {
   padding:0;
   content: attr(name);
   position: absolute;
@@ -73,7 +73,7 @@ input[type=range]:hover::before{
 }
 
 
-input[type=range]:focus::before{
+input[type=range]:focus::before {
   padding:0;
   content: attr(name);
   position: absolute;

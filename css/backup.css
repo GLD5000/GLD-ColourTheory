@@ -29,11 +29,11 @@
   --gem5: calc(var(--gem4) * var(--font_ratio));
   --gem6: calc(var(--gem5) * var(--font_ratio));
 }
-*,*::after,*::before{
+*,*::after,*::before {
   font-family: 'Bebas Neue', cursive;    
 }
 
-  .pallete{
+  .pallete {
     margin:auto;
     padding:2rem;
     display:block;
@@ -44,7 +44,7 @@
 
   }
 
-  .main-grid{
+  .main-grid {
     display:grid;
     grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
     grid-template-rows: repeat(auto-fit, minmax(200px,1fr));
@@ -54,7 +54,7 @@
     padding:28px;
   }
 
-  .picker-grid{
+  .picker-grid {
     position:relative;
     display:grid;
     width: 100%;
@@ -73,7 +73,7 @@
 
   }
 
-  .slider-picker-container{
+  .slider-picker-container {
     grid-row: span 2;
     grid-column: span 3;
     display:grid;
@@ -86,11 +86,11 @@
 
   /*
   
-  .complementary{
+  .complementary {
     grid-row:span 2;
 
 
-  .picker-grid:hover::before{
+  .picker-grid:hover::before {
       content: attr(name);
       position: absolute;
       text-align: center; 
@@ -102,7 +102,7 @@
 
   */
 
-  .picker-grid::before{
+  .picker-grid::before {
       content: attr(name);
       position: absolute;
       text-align: center; 
@@ -111,7 +111,7 @@
       line-height: 90%;
     }
 
-  .large-picker{
+  .large-picker {
     grid-column:1/span 3;
     grid-row:2/span 1;
     background-color: #1c9b1c;
@@ -119,12 +119,12 @@
 
   }
   
-  label{
+  label {
    border: solid black 1px;
     margin:auto;
   }
 
-  button{
+  button {
     white-space: normal;
     align-items: center;
     border:none;
@@ -132,22 +132,22 @@
     background-color: #ddd;
     font-size: var(--gem);
   }
-.btn-lg{
+.btn-lg {
   font-size: var(--gem2);
   background-color: #bbb;
 }
 
-.flexbox-horizontal{
+.flexbox-horizontal {
   display:flex;
   gap: 3px;
 }
 
-.btn-small{
+.btn-small {
   flex: 1 1 50%;
 }
 
   
-  input[type="color"]{
+  input[type="color"] {
     opacity:0;
     padding:0;
     width: 100%;
@@ -158,7 +158,7 @@
     -webkit-appearance: none;
   }
 
-  input[type="range"]{
+  input[type="range"] {
     position: relative;
     opacity:100%;
     padding:0;
@@ -185,18 +185,18 @@
     opacity: 0;
   }
 
-.hue{
+.hue {
     background:linear-gradient(to right, hsl(0,100%,50%), hsl(60,100%,50%), hsl(120,100%,50%), hsl(180,100%,50%), hsl(240,100%,50%),hsl(300,100%,50%),hsl(360,100%,50%));
   }
-.lum{
+.lum {
   background:linear-gradient(to left, #fff,#555);
 }
-.sat{
+.sat {
   background:linear-gradient(to right, hsl(0,0%,50%), hsl(60,10%,50%), hsl(120,20%,50%), hsl(180,40%,50%), hsl(240,80%,50%),hsl(300,100%,50%),hsl(360,100%,50%));
 }
 
 /*
-input[type=range]:hover::before{
+input[type=range]:hover::before {
   padding:0;
   content: attr(name);
   position: absolute;

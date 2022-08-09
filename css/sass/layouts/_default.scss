@@ -1,15 +1,15 @@
 @use '../abstracts' as *;
 /* Grid areas */
-.header{
+.header {
     grid-area: header;
 }
-.swatch-palette{
+.swatch-palette {
     grid-area: palette;
 }
-.footer{
+.footer {
     grid-area: footer;
 }
-.body-grid{
+.body-grid {
    // background-color: $neutral-600;
     background: linear-gradient(to bottom right, $neutral-500, $neutral-600);
     position:relative;
@@ -31,46 +31,49 @@
 /*
 Grid level 2 areas
 */
-.primary-swatch{
+.primary-swatch {
     grid-area: picker;
 }
-.monochromeA{
+.monochromeA {
     grid-area: monochromeA;
 }
-.monochromeB{
+.monochromeB {
     grid-area: monochromeB;
 }
-.analogousA{
+.analogousA {
     grid-area: analogousA;
 }
-.analogousB{
+.analogousB {
     grid-area: analogousB;
 }
-.triadicA{
+.triadicA {
     grid-area: triadicA;
 }
-.triadicB{
+.triadicB {
     grid-area: triadicB;
 }
-.tetradicA{
+.tetradicA {
     grid-area: tetradicA;
 }
-.tetradicB{
+.tetradicB {
     grid-area: tetradicB;
 }
-.tetradicC{
+.tetradicC {
     grid-area: tetradicC;
 }
-.neutral{
+.neutral {
     grid-area: neutral;
 }
-.btn-copy{
+.btn-copy {
     grid-area: copyAll;
 }
-.btn-random{
+.btn-random {
     grid-area: random;
 }
-/*.clipboard{
+.btn-history {
+    grid-area: history;
+}
+/*.clipboard {
     grid-area: clipboard;
 }
 
@@ -91,6 +94,7 @@ $swatch-palette-tiny-areas:
 "picker" 
 "picker" 
 "random"
+"history"
 "copyAll"
 "monochromeA" 
 "monochromeB" 
@@ -109,7 +113,8 @@ $swatch-palette-tiny-areas:
 $swatch-palette-small-areas: 
 "picker picker"
 "picker picker"
-"random copyAll"
+"random history"
+"copyAll copyAll"
 "monochromeA monochromeB" 
 "analogousA analogousB" 
 "triadicA triadicB" 
@@ -122,7 +127,8 @@ $swatch-palette-small-areas:
 $swatch-palette-medium-areas: 
 "picker picker picker picker"
 "picker picker picker picker"
-"random copyAll monochromeA monochromeB"
+"random history copyAll copyAll"
+"monochromeA monochromeB copyAll copyAll"
 "analogousA analogousB triadicA triadicB"
 "tetradicA tetradicB tetradicC neutral" 
 ;
@@ -130,19 +136,20 @@ $swatch-palette-medium-areas:
 //$swatch-palette-medium-columns: repeat(4, 1fr);
 
 $swatch-palette-large-areas: 
-"picker picker  random copyAll"
-"picker picker monochromeA monochromeB"
-"analogousA analogousB triadicA triadicB"
-"tetradicA tetradicB tetradicC neutral"
+"picker picker  random history"
+"picker picker  copyAll copyAll"
+"monochromeA monochromeB analogousA analogousB"
+"triadicA triadicB tetradicA tetradicB"
+"tetradicC neutral neutral tetradicB"
 ;
 
 //$swatch-palette-large-rows: repeat(4,$swatch-height-large);
 //$swatch-palette-large-columns: repeat(5, 1fr);
 
 $swatch-palette-huge-areas: 
-"random copyAll picker picker triadicA triadicB" 
-"monochromeA monochromeB picker picker triadicA triadicB" 
-"analogousA analogousB tetradicA tetradicB tetradicC neutral" 
+"random history picker picker monochromeA monochromeB" 
+"copyAll copyAll picker picker analogousA analogousB" 
+"triadicA triadicB tetradicA tetradicB tetradicC neutral" 
 ;
 //$swatch-palette-huge-rows: repeat(3,$swatch-height-large);
 //$swatch-palette-huge-columns: repeat(6, 1fr);
@@ -159,7 +166,7 @@ $swatch-palette-extra-huge-areas:
     grid-auto-columns: 1fr;
    
 }
-@media all and (min-width: 0px){
+@media all and (min-width: 0px) {
     .swatch-palette {
         grid-template-areas: $swatch-palette-tiny-areas;
         //grid-template-rows: $swatch-palette-tiny-rows;
@@ -167,7 +174,7 @@ $swatch-palette-extra-huge-areas:
     }
 }
 
-@media all and (min-width: $bp-tiny){
+@media all and (min-width: $bp-tiny) {
     .swatch-palette {
         grid-template-areas: $swatch-palette-small-areas;  
         //grid-template-rows: $swatch-palette-small-rows;    
@@ -175,7 +182,7 @@ $swatch-palette-extra-huge-areas:
     }
 }
 
-@media all and (min-width: $bp-small){
+@media all and (min-width: $bp-small) {
     .swatch-palette {
         grid-template-areas: $swatch-palette-medium-areas;  
         //grid-template-rows: $swatch-palette-medium-rows;    
@@ -185,7 +192,7 @@ $swatch-palette-extra-huge-areas:
     }
 }
 
-@media all and (min-width: $bp-medium){
+@media all and (min-width: $bp-medium) {
     .swatch-palette {
         grid-template-areas: $swatch-palette-large-areas;  
         //grid-template-rows: $swatch-palette-large-rows;    
@@ -195,7 +202,7 @@ $swatch-palette-extra-huge-areas:
     }
 }
 
-@media all and (min-width: $bp-large){
+@media all and (min-width: $bp-large) {
     .swatch-palette {
         grid-template-areas: $swatch-palette-huge-areas;  
         //grid-template-rows: $swatch-palette-huge-rows;    
