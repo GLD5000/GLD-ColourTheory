@@ -9,8 +9,8 @@ import { clampRotate } from "../utilities/utilities.js";
 //import { callLogger } from "../utilities/utilities.js";
 import { textMaker } from "./textmaker.js";
 
-const state = {
-    counter: 0,
+const paletteState = {
+    saveCounter: 0,
     _resetAllCustomStates(){
         userObjects.smallSwatchNamesArray.forEach((name) => {
             paletteData.setCustomColourState(name, 'auto');
@@ -29,12 +29,16 @@ const state = {
             if (paletteData.getCustomColourState(name) === 'custom'){
                 const customColour = paletteData.getCustomColour(name);
                 paletteData.addColour(customColour);
-                paletteUi.addColour(customColour);
+                userObjects.wrappers[name + '-wrapper'].dataset.content = customColour.customName;
             }// if colour is custom overwrite background colour with custom colour 
         if (paletteData.getTextMode() === 'custom'){
             paletteUi._addTextColour('primary-text', paletteData.getTextHex());
             paletteUi.setTextMode('custom');
         }
+        paletteUi._updateGradientNumberTones();
+        paletteUi._updateGradientsAll();
+        paletteUi._setClipboardTextAll();
+
         });
     
     },
@@ -68,7 +72,7 @@ const state = {
         const newColour = colourObject.fromHex({name: 'primary', hex: newState.primaryHex});
         paletteUi.addColour(newColour);
         paletteData.paletteState = newState;
-        state.setCustomStatesfromPaletteData();
+        paletteState.setCustomStatesfromPaletteData();
     },
 };
 export const paletteUi = {
@@ -102,7 +106,7 @@ export const paletteUi = {
         rgb: '#DCDCAA',
     },
     _init(){
-        this._counter = this._updateClipboard = 0;
+        this.customBackgroundCounter = this._updateClipboard = 0;
         this._debounce();
         this._updatePrimaryGradient = (x) => gradientMaker.updateGradient(...x);
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
@@ -113,11 +117,11 @@ export const paletteUi = {
         this._setOnChange();
         this.setTextMode('Auto');
         //this._resetSmallWrapperContent();
-        state._resetAllCustomStates();
+        paletteState._resetAllCustomStates();
         this._setColourspace('hsl');
         this._setClipboardTextAll();
-        state.setCustomStatesfromWrappers();
-        state.deepCopyPaletteState(paletteData.paletteState, paletteData.savedState);
+        paletteState.setCustomStatesfromWrappers();
+        paletteState.deepCopyPaletteState(paletteData.paletteState, paletteData.savedState);
         console.log(userObjects);
         console.log(paletteData);
 
@@ -165,7 +169,7 @@ export const paletteUi = {
         userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[colourspace];
         gradientMaker.updateGradient(newColour);
         this.setTextMode('Auto');
-        state._resetAllCustomStates();
+        paletteState._resetAllCustomStates();
         this._updateVariants();
         this._updateClipboard = 1;
         this._setClipboardTextAll();
@@ -210,13 +214,21 @@ export const paletteUi = {
     _oninputSlider(x){
         this.addColour(this._getSliderColourObject());
     },
-    _onclickGradient(){
+    _incrementGradientNumberTones(){
         paletteData.paletteState.gradientMode = clampRotate.rotate(1* paletteData.paletteState.gradientMode + 1, 1 , 10) || 1;
+    },
+    _updateGradientsAll(){
+        paletteData.backgroundColours.forEach(colour => {gradientMaker.updateGradient(colour);});
+    },
+    _updateGradientNumberTones(){
         let numberTones = parseInt(paletteData.paletteState.gradientMode);
         if (numberTones === 1) numberTones = 0; 
         userObjects.other['gradient'].innerHTML = 'Tones: ' + numberTones;
-        console.clear();
-        paletteData.backgroundColours.forEach(colour => {gradientMaker.updateGradient(colour);});
+    },
+    _onclickGradient(){
+        this._incrementGradientNumberTones();
+        this._updateGradientNumberTones();
+        this._updateGradientsAll();
         this._setClipboardTextAll();
 
     },
@@ -238,7 +250,7 @@ export const paletteUi = {
         return null;
     },
     _addCustomColour(name, hex) {
-        const customName = paletteData.getCustomColourName(name) || `custom${++this._counter}`;
+        const customName = paletteData.getCustomColourName(name) || `custom${++this.customBackgroundCounter}`;
         paletteData.addCustomColour(name, colourObject.fromHex({name: name, customName: customName, hex: hex}));
         paletteData.setCustomColourState(name, 'custom');
         userObjects.wrappers[name + '-wrapper'].dataset.content = customName;
@@ -412,15 +424,15 @@ export const paletteUi = {
     },
     _loadHistoryObject(event){
         const hex = event.target.innerHTML.split(' ')[1];
-        const newState  = state.deepCopyPaletteState(paletteData.savedPalettes[hex]);
-        state.applyStatefromHistoryObject(newState);
+        const newState  = paletteState.deepCopyPaletteState(paletteData.savedPalettes[hex]);
+        paletteState.applyStatefromHistoryObject(newState);
     },
     _SaveHistoryObject(){
         const hex = paletteData.getPrimaryHex();
-        const copyPaletteState  = state.deepCopyPaletteState(paletteData.paletteState);
+        const copyPaletteState  = paletteState.deepCopyPaletteState(paletteData.paletteState);
         if (paletteData.savedPalettes[hex] === undefined) {
             const li = document.createElement('li');
-            li.innerHTML = `${++state.counter}) ${hex}`;
+            li.innerHTML = `${++paletteState.saveCounter}) ${hex}`;
             userObjects.history['history-flexbox'].append(li);
         }
         paletteData.savedPalettes[hex] = copyPaletteState;
