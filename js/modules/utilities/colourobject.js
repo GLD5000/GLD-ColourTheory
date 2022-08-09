@@ -28,7 +28,7 @@ export const colourObject= {
   },
   _makeContrastRatioString(ratio) {
     const rating = (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
-    return `Contrast Ratio: $ {ratio.toFixed(2)} $ {rating}`;
+    return `Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;
   },
   _makeContrastRating(ratio) {
     return (ratio > 4.5)? (ratio > 7)? 'AAA+': 'AA+' : 'Low';
@@ -41,13 +41,13 @@ export const colourObject= {
   getTextColourContrast(textColour = null, backgroundColour = null) {
     if (backgroundColour == null) return 'No Background Colour Found';//if background colour == null return
     if (textColour == null) {//auto text
-      const returnColour = {name: `$ {backgroundColour.name}-text`};
+      const returnColour = {name: `${backgroundColour.name}-text`};
       [returnColour.hex, returnColour.contrastRatio] = this._autoTextColour(backgroundColour);
       returnColour.rating = this._makeContrastRating(returnColour.contrastRatio);
       returnColour.contrastString = this._makeContrastRatioString(returnColour.contrastRatio);
       return this._textColourFromHex(returnColour);
     }
-    const returnColour = {name: `$ {backgroundColour.name}-text`};
+    const returnColour = {name: `${backgroundColour.name}-text`};
     returnColour.hex = textColour.hex;
     returnColour.contrastRatio = this._calculateContrastRatio(
       [textColour.red, textColour.green, textColour.blue], 
@@ -280,14 +280,14 @@ export const colourObject= {
 
 
   _convertHslToString(hue, sat, lum) {
-    return `hsl($ {Math.round(hue)},$ {sat.toFixed(0)}%,$ {lum.toFixed(0)}%)`;
+    return `hsl(${Math.round(hue)},${sat.toFixed(0)}%,${lum.toFixed(0)}%)`;
   },
   _convertTwlToString(tint, warmth, lightness) {
-    return `twl($ {Math.round(tint)}%,$ {warmth.toFixed(0)}%,$ {lightness.toFixed(0)}%)`;
+    return `twl(${Math.round(tint)}%,${warmth.toFixed(0)}%,${lightness.toFixed(0)}%)`;
   },
 
   _convertRgbToString(red, green, blue) {
-    return `rgb($ {Math.round(red * 255)},$ {Math.round(green * 255)},$ {Math.round(blue * 255)})`
+    return `rgb(${Math.round(red * 255)},${Math.round(green * 255)},${Math.round(blue * 255)})`
   },
   _convertHslToColourObject(hue, sat, lum, name) {
     return  {'name': name, 'hue': hue, 'sat': sat, 'lum': lum};
@@ -327,7 +327,7 @@ export const colourObject= {
       [x, 
         (newColour[x] == null)? 
           oldColour[x]: 
-          this._constraintLookupB[x](this._operationsLookup[newColour[`$ {x}Operation`] || newColour.operation || 'replace'](oldColour[x], newColour[x]))
+          this._constraintLookupB[x](this._operationsLookup[newColour[`${x}Operation`] || newColour.operation || 'replace'](oldColour[x], newColour[x]))
       ]
     );
 

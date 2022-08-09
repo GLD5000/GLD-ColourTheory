@@ -87,7 +87,7 @@ export function callLoggerMaker(location = 'unknown location', counter = 0, inc 
 
     function callLogger() {
       counter += inc;
-      console.log(`$ {counter} calls from $ {location}`);
+      console.log(`${counter} calls from ${location}`);
     }
   
     return callLogger;
@@ -96,7 +96,7 @@ export function callLoggerMaker(location = 'unknown location', counter = 0, inc 
   export function callLogger(location = 'unknown location') {//pass through outer variable to inner
    if (callLoggerObject[location] == null) callLoggerObject[location] = 0;
     callLoggerObject[location] += 1; 
-      console.log(`$ {callLoggerObject[location]} calls from $ {location}`);
+      console.log(`${callLoggerObject[location]} calls from ${location}`);
   }
 
   function fixedCounterMaker(counter, inc) {//pass through outer variable to inner

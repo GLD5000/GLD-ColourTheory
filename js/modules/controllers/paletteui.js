@@ -250,7 +250,7 @@ export const paletteUi = {
         return null;
     },
     _addCustomColour(name, hex) {
-        const customName = paletteData.getCustomColourName(name) || `custom$ {++this.customBackgroundCounter}`;
+        const customName = paletteData.getCustomColourName(name) || `custom${++this.customBackgroundCounter}`;
         paletteData.addCustomColour(name, colourObject.fromHex( {name: name, customName: customName, hex: hex}));
         paletteData.setCustomColourState(name, 'custom');
         userObjects.wrappers[name + '-wrapper'].dataset.content = customName;
@@ -300,12 +300,12 @@ export const paletteUi = {
         const colourspace = this._getColourspace();
         const prefix = paletteData.getPrefix();
         let customName = paletteData.getCustomColourName(name)|| name;
-        const textArray = [`$ {prefix}$ {customName}: $ {paletteData.getColourObject(name)[colourspace]}`];
+        const textArray = [`${prefix}${customName}: ${paletteData.getColourObject(name)[colourspace]}`];
         const gradientColours = paletteData.getGradientColours(name);
         if (gradientColours != null) {
             gradientColours.forEach(x => {
                 customName = paletteData.getCustomColourName(x.name) ||x.name;
-                textArray.push(`$ {prefix}$ {customName}: $ {x[colourspace]}`)
+                textArray.push(`${prefix}${customName}: ${x[colourspace]}`)
             });
         }
         return textArray.join('\n');
@@ -314,17 +314,17 @@ export const paletteUi = {
         const colourspace = this._getColourspace();
         const prefix = paletteData.getPrefix();
         let customName = paletteData.getCustomColourName(name) || name;
-        const textArray = [[`$ {prefix}$ {customName}: `],
-        [`$ {paletteData.getColourObject(name)[colourspace]}`],
-        [`$ {prefix}$ {customName}: $ {paletteData.getColourObject(name)[colourspace]}`]];
+        const textArray = [[`${prefix}${customName}: `],
+        [`${paletteData.getColourObject(name)[colourspace]}`],
+        [`${prefix}${customName}: ${paletteData.getColourObject(name)[colourspace]}`]];
         const gradientColours = paletteData.getGradientColours(name);
         if (gradientColours != null) {
             gradientColours.forEach(x => {
                 customName = paletteData.getCustomColourName(x.name) ||x.name;
 
-                textArray[0].push(`$ {prefix}$ {customName}: `);
-                textArray[1].push(`$ {x[colourspace]}`);
-                textArray[2].push(`$ {prefix}$ {customName}: $ {x[colourspace]}`);
+                textArray[0].push(`${prefix}${customName}: `);
+                textArray[1].push(`${x[colourspace]}`);
+                textArray[2].push(`${prefix}${customName}: ${x[colourspace]}`);
             });
         }
         
@@ -361,7 +361,7 @@ export const paletteUi = {
         const textArray = paletteData.getClipboard()[2];
         let text = textArray.join('\n');
         navigator.clipboard.writeText(text);
-        console.log(`Copied To Clipboard:\n$ {text}`);
+        console.log(`Copied To Clipboard:\n${text}`);
     },
     _showCopiedMessage(target, message = '') {
         target.dataset.content = 'copied '+ message + '✔';
@@ -378,7 +378,7 @@ export const paletteUi = {
         this._showCopiedMessage(e.target, message);
         const text = this._getClipboardTextSingle(name);
         navigator.clipboard.writeText(text);
-        console.log(`Copied To Clipboard:\n$ {text}`);
+        console.log(`Copied To Clipboard:\n${text}`);
     
     },
     _setSliderStyles(colourspace) {
@@ -432,7 +432,7 @@ export const paletteUi = {
         const copyPaletteState  = paletteState.deepCopyPaletteState(paletteData.paletteState);
         if (paletteData.savedPalettes[hex] === undefined) {
             const li = document.createElement('li');
-            li.innerHTML = `$ {++paletteState.saveCounter}) $ {hex}`;
+            li.innerHTML = `${++paletteState.saveCounter}) ${hex}`;
             userObjects.history['history-flexbox'].append(li);
         }
         paletteData.savedPalettes[hex] = copyPaletteState;
@@ -481,7 +481,7 @@ export const paletteUi = {
     },
     setTextMode(mode) {
         paletteData.setTextMode(mode);
-        userObjects.other['textmode'].dataset.content = `Text: $ {mode}`;
+        userObjects.other['textmode'].dataset.content = `Text: ${mode}`;
     },
     getTextColour(backgroundColour) {
         return paletteData.getTextColour(backgroundColour);
