@@ -10,6 +10,7 @@ import { clampRotate } from "../utilities/utilities.js";
 import { textMaker } from "./textmaker.js";
 
 const state = {
+    counter: 0,
     _resetAllCustomStates(){
         userObjects.smallSwatchNamesArray.forEach((name) => {
             paletteData.setCustomColourState(name, 'auto');
@@ -410,7 +411,7 @@ export const paletteUi = {
         this._setClipboardTextAll();
     },
     _loadHistoryObject(event){
-        const hex = event.target.innerHTML;
+        const hex = event.target.innerHTML.split(' ')[1];
         const newState  = state.deepCopyPaletteState(paletteData.savedPalettes[hex]);
         state.applyStatefromHistoryObject(newState);
     },
@@ -419,7 +420,7 @@ export const paletteUi = {
         const copyPaletteState  = state.deepCopyPaletteState(paletteData.paletteState);
         if (paletteData.savedPalettes[hex] === undefined) {
             const li = document.createElement('li');
-            li.innerHTML = hex;
+            li.innerHTML = `${++state.counter}) ${hex}`;
             userObjects.history['history-flexbox'].append(li);
         }
         paletteData.savedPalettes[hex] = copyPaletteState;
