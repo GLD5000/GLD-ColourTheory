@@ -1,6 +1,6 @@
 @use '../abstracts' as *;
 
-.btn,.textmode{
+.btn,.textmode {
     white-space: normal;
     align-items: center;
     border:none;
@@ -8,7 +8,7 @@
     font-size: $gem;
     background-color: $neutral-200;
   }
-  .copy-single, .save-btn{
+  .copy-single, .save-btn {
     position: relative;
     cursor: copy;
   }
@@ -16,7 +16,7 @@
   .copy-single:hover::after, 
   .copy-single:focus::after, 
   .save-btn:hover::after, 
-  .save-btn:focus::after{
+  .save-btn:focus::after {
     font-size: $gem;
  
       color: $neutral-0;
@@ -90,15 +90,15 @@
   }
 
 
-/*   .copy-single:focus::after{
+/*   .copy-single:focus::after {
       background-color: $neutral-1000;
   }
  */
-  .textmode{
+  .textmode {
     position:relative;
     display:block;
   }
-  .textmode::before{
+  .textmode::before {
     position:absolute;
     width:100%;
     height:100%;
@@ -109,12 +109,12 @@
     margin:0;
   }
 
-  .btn-small{
+  .btn-small {
     flex: 1 1 50%;
     font-size: $gem;
   }
 
-  .btn-dual,.textmode{
+  .btn-dual,.textmode {
     flex: 1 1 50%;
     font-size: $gem;
   }
@@ -122,7 +122,7 @@
   
 
 
-  .btn-tiny{
+  .btn-tiny {
     flex: 1 1 25%;
     font-size: $gem;
   }
@@ -141,14 +141,14 @@
   /*grid-template:20px 1fr 20px / 20px 1fr 20px 1fr 20px;
   cursor:default;*/
 }
-.dieA{
+.dieA {
   transform: rotateZ(-2deg);
 }
-.dieB{
+.dieB {
   transform: rotateZ(1deg);
 }
 
-.dieA,.dieB{
+.dieA,.dieB {
   border: $border;
   //border-radius: $gemHalf;
   box-shadow: $box-shadow;
@@ -163,30 +163,30 @@
   backface-visibility: hidden;
 
 }
-.dots{
+.dots {
   background-color: $neutral-0;
   border: $border;
   border-radius: 50%;
  
 }
 
-.dotA,.dotD{
+.dotA,.dotD {
   grid-area: 2/2;
 }
-.dotB{
+.dotB {
   grid-area: 3/3;
 }
-.dotC,.dotG{
+.dotC,.dotG {
   grid-area: 4/4;
 }
-.dotE{
+.dotE {
   grid-area: 2/4;
 }
-.dotF{
+.dotF {
   grid-area: 4/2;
 }
 
-.btn:hover, .textmode:hover, .btn:focus-within, .textmode:focus-within{
+.btn:hover, .textmode:hover, .btn:focus-within, .textmode:focus-within {
   //box-shadow: none;
   //border: none;
   outline: none;
@@ -195,7 +195,7 @@
 }
 
 
-/* .btn:focus-within, .textmode:focus-within{
+/* .btn:focus-within, .textmode:focus-within {
   //box-shadow: none;
   //border: none;
   outline: none;

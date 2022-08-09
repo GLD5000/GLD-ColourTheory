@@ -1,5 +1,5 @@
 @use '../abstracts' as *;
-:root{
+:root {
     background: #000;
     box-shadow: none;
     border: none;
@@ -14,10 +14,10 @@ li, ol, ul {
     text-decoration: none;
 }
 
-h1{
+h1 {
     font-size: $gem3;
 }
-p, li, ol, ul, a{
+p, li, ol, ul, a {
     font-weight: 700;
     font-size: $gem3Quart;
     font-family: $font-Montserrat;

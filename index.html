@@ -51,8 +51,54 @@
         </container>
       </container>
     
-      
+      <container class="btn-container btn-random">
+        <button class="btn dice" id="dice-btn">
+          <wrapper class="dieA" id="dieA">
+            <figure class="dots dotA"></figure>
+            <figure class="dots dotB"></figure>
+            <figure class="dots dotC"></figure>
+          </wrapper>
+          <wrapper class="dieB" id="dieB">
+            <figure class="dots dotD"></figure>
+            <figure class="dots dotE"></figure>
+            <figure class="dots dotF"></figure>
+            <figure class="dots dotG"></figure>
+          </wrapper>
+        </button>
+        <button class="btn btn-med" id="randomise-btn" >Random</button>
+      </container>
+
+      <container class="btn-container btn-history">
+
+        <ul id="history-flexbox" class="flexbox-horizontal flexbox-history" data-content="Load Palette">
+          <li># Save Palettes here</li>
+          <li># Save Palettes here</li>
+          <li># Save Palettes here</li>
+          <li># Save Palettes here</li>
+          <li># Save Palettes here</li>
+          <li># Save Palettes here</li>
+          <li># Save Palettes here</li>
+        </ul>
+
+        <container class="flexbox-horizontal-btn">
+          <button class="btn btn-small save-btn" id="save-button" data-content="Save Palette">❤</button>
+        </container>
+      </container>
     
+      <container class="btn-container btn-copy">
+
+        <container id="clipboard-flexbox" class="flexbox-horizontal flexbox-clipboard" data-content="copy">
+          <figure id="clipboard" class="clipboard" data-clipboard="" data-content="copy"></figure>
+          <figure id="clipboard-secondary" class="clipboard-secondary" data-content="copy"></figure>
+        </container>
+
+        <container class="flexbox-horizontal-btn">
+          <button class="btn btn-small copy-single" id="copyAllCSS" data-content="copy">Copy All</button>
+          <button class="btn btn-tiny" id="prefix">SCSS</button>
+          <button class="btn btn-tiny" id="colourspace">Hex</button>
+        </container>
+      </container>
+
 
       <container class="swatch monochromeA" >
         <wrapper id="monochromeA-wrapper" class="picker-wrapper monochromeA-wrapper" name="Monochrome A">
@@ -124,57 +170,13 @@
         <button class="btn btn-med copy-single" id="neutral-copybtn" data-content="copy"></button>
       </container>   
         
-      <container class="btn-container btn-copy">
-
-        <container id="clipboard-flexbox" class="flexbox-horizontal flexbox-clipboard" data-content="copy">
-          <figure id="clipboard" class="clipboard" data-clipboard="" data-content="copy"></figure>
-          <figure id="clipboard-secondary" class="clipboard-secondary" data-content="copy"></figure>
-        </container>
-
-        <container class="flexbox-horizontal-btn">
-          <button class="btn btn-small copy-single" id="copyAllCSS" data-content="copy">Copy All</button>
-          <button class="btn btn-tiny" id="prefix">SCSS</button>
-          <button class="btn btn-tiny" id="colourspace">Hex</button>
-        </container>
-      </container>
-
-      <container class="btn-container btn-history">
-
-        <ul id="history-flexbox" class="flexbox-horizontal flexbox-history" data-content="Load Palette">
-          <li># Save Palettes here</li>
-          <li># Save Palettes here</li>
-          <li># Save Palettes here</li>
-          <li># Save Palettes here</li>
-          <li># Save Palettes here</li>
-          <li># Save Palettes here</li>
-          <li># Save Palettes here</li>
-        </ul>
-
-        <container class="flexbox-horizontal-btn">
-          <button class="btn btn-small save-btn" id="save-button" data-content="Save Palette">❤</button>
-        </container>
-      </container>
 
 
-      <container class="btn-container btn-random">
-        <button class="btn dice" id="dice-btn">
-          <wrapper class="dieA" id="dieA">
-            <figure class="dots dotA"></figure>
-            <figure class="dots dotB"></figure>
-            <figure class="dots dotC"></figure>
-          </wrapper>
-          <wrapper class="dieB" id="dieB">
-            <figure class="dots dotD"></figure>
-            <figure class="dots dotE"></figure>
-            <figure class="dots dotF"></figure>
-            <figure class="dots dotG"></figure>
-          </wrapper>
-        </button>
-        <button class="btn btn-med" id="randomise-btn" >Random</button>
-      </container>
+
 
 
     </section>
+
     <footer class="footer">foot</footer>
   </section>
 

@@ -1,6 +1,6 @@
 @use '../abstracts' as *;
 
-.swatch-palette{
+.swatch-palette {
   width: 100%;
   display: grid;
   gap: $gem3Quart;
@@ -8,7 +8,7 @@
 }
 
 
-.primary-picker{
+.primary-picker {
   width: 100%;
   display: grid;
   grid-template: 1fr 11fr / 1fr;
@@ -16,7 +16,7 @@
 
 }
 
-.slider-container{
+.slider-container {
   width: 100%;
   display: flex;
   flex-basis: 100% 100% 100%;
@@ -24,7 +24,7 @@
   //padding: 1px 2px 2px 1px;
 }
 
-.swatch, .btn-container, .primary-swatch{
+.swatch, .btn-container, .primary-swatch {
   position:relative;
   display:grid;
   width: 100%;
@@ -41,35 +41,35 @@
   //margin:auto;
   font-size: $gem2;
 }
-.swatch, .btn-container{
+.swatch, .btn-container {
   grid-template-rows: 1fr calc(1.25 *$gem);
 }
 
-.primary-swatch{
+.primary-swatch {
   grid-template-rows: calc(1.25 *$gem) 1fr calc(1.25 *$gem);
 }
 
 
-.btn-random::after{
+.btn-random::after {
   position: absolute;
   top: 1rem; 
   width:100%;
   height:100%;
 
 }
-.picker-wrapper{
+.picker-wrapper {
   
   position: relative;
   color:black;
 }
-.primary-wrapper:hover, .picker-wrapper:hover{
+.primary-wrapper:hover, .picker-wrapper:hover, .dice:hover {
   box-shadow: inset 0px 0px 0px 4px $neutral-1000;
 }
-.primary-wrapper:focus-within, .picker-wrapper:focus-within {
+.primary-wrapper:focus-within, .picker-wrapper:focus-within, .dice:focus-within {
   box-shadow: inset 0px 0px 0px 4px $neutral-0;
 }
 
-.picker-wrapper::before{
+.picker-wrapper::before {
 
   content: attr(data-content);
   position: absolute;
@@ -78,7 +78,7 @@
   width:100%;
   line-height: 90%;
 }
-.picker-wrapper::after{
+.picker-wrapper::after {
 
   content: attr(data-rating);
   position: absolute;
@@ -94,13 +94,13 @@
 }
 
 
-.primary-wrapper{
+.primary-wrapper {
   width:auto;
   //padding: 0.1em;
   position: relative;
   }
   
-.primary-wrapper::before{
+.primary-wrapper::before {
   content: attr(name);
   position: absolute;
   text-align: center; 
@@ -111,7 +111,7 @@
   font-size: $gem3;
 
 }
-.primary-wrapper::after{
+.primary-wrapper::after {
   content: attr(data-content);
   position: absolute;
   text-align: center; 
@@ -127,7 +127,7 @@
 
 
 
-.flexbox-horizontal-btn{
+.flexbox-horizontal-btn {
   display:flex;
   gap: $gap;
 }
@@ -137,7 +137,7 @@
   overflow: auto;
 }
 
-.clipboard,.clipboard-secondary, .flexbox-history li{
+.clipboard,.clipboard-secondary, .flexbox-history li {
   display: flex;
   height: fit-content;
   width:fit-content;
@@ -151,11 +151,11 @@
   line-height: 1.125;
 }
 
-.clipboard, .history{
+.clipboard, .history {
   position:relative;
   color: $vscode-blue;
 }
-.flexbox-history{
+.flexbox-history {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -165,7 +165,7 @@
   align-content: flex-start;
 }
 
-.flexbox-history li{
+.flexbox-history li {
   display: block;
   border: 2px solid $neutral-300;
   height: $gem;
