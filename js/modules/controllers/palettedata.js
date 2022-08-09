@@ -97,9 +97,20 @@ export const paletteData = {
     getTextColour(){
         return this.paletteState.textColour;
     },
+    getTextHex(){
+        return this.paletteState.textColour.hex;
+    },
     setMainTextColour(textColour){
+        if (textColour.sat === 0) return;
         this.paletteState.textColour = textColour;
     },
+    getMainTextColour(textColour){
+        return this.paletteState.textColour;
+     },
+     getMainTextColourHex(textColour){
+        return this.paletteState.textColour.hex;
+     },
+  
     addTextColour(colour){
         this.textColours.set(colour.name, colour);
     },

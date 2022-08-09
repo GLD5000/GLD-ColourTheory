@@ -29,13 +29,11 @@ const state = {
                 const customColour = paletteData.getCustomColour(name);
                 paletteData.addColour(customColour);
                 paletteUi.addColour(customColour);
-               // userObjects.wrappers[name + '-wrapper'].dataset.content = customColour.customName;
-              //  userObjects.pickers[name + '-picker'].value = customColour.hex;
             }// if colour is custom overwrite background colour with custom colour 
-            //and update wrapper
-
-            //returnObject[name] = (userObjectsAll[name + '-wrapper'].dataset.content[0] === 'c')? 'Custom': 'Auto';//check wrapper for the 'c' word 
-            //paletteData.paletteState.smallSwatchCustomState = returnObject;
+        if (paletteData.getTextMode() === 'custom'){
+            paletteUi._addTextColour('primary-text', paletteData.getTextHex());
+            paletteUi.setTextMode('custom');
+        }
         });
     
     },
@@ -167,19 +165,21 @@ export const paletteUi = {
         paletteData.setPrimaryHex(hex);
         userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[colourspace];
         gradientMaker.updateGradient(newColour);
-        this._updateVariants();
         this.setTextMode('Auto');
+        state._resetAllCustomStates();
+        this._updateVariants();
         this._updateClipboard = 1;
         this._setClipboardTextAll();
-        state._resetAllCustomStates();
     },
     addColour(newColour){
         paletteData.addColour(newColour);
-        textMaker.updateTextColour(newColour);
         if (newColour.name === 'primary') {
             this._addPrimaryColour(newColour);
+            textMaker.updateTextColour(newColour);
+
             return;
         }
+        textMaker.updateTextColour(newColour);
         gradientMaker.updateGradient(newColour);
         userObjects.pickers[newColour.name + '-picker'].value = newColour.hex;
         userObjects.copyButtons[newColour.name + '-copybtn'].innerHTML = newColour[this._getColourspace()];
@@ -250,7 +250,7 @@ export const paletteUi = {
         const hex = x.target.value;
         if (name === 'textcolour') {
             this.setTextMode('custom');
-            this._addTextColour('customText', hex);
+            this._addTextColour('primary-text', hex);
             return;
         }
         let newColour;
@@ -265,8 +265,15 @@ export const paletteUi = {
         this.addColour(newColour);
 
     },
-    _onclickSmallSwatch(e){
+    _onclickPickerText(){
+        if (paletteData.getMainTextColour() != null) {
+            paletteUi._addTextColour('primary-text', paletteData.getMainTextColourHex());
+            this.setTextMode('custom');
+        }
+    },
+    _onclickPickerSmall(e){
         const name = this._splitName(e.target.id);
+
         const customColour = paletteData.getCustomColour(name);
         if (customColour == null) return;
         //this._addCustomColour(customColour.name, customColour.hex);
@@ -437,8 +444,9 @@ export const paletteUi = {
 
         userObjects.sliders.forEach((x) => x.oninput = throttleDebounce.throttle((x) => this._oninputSlider(x), 85));
         Object.keys(userObjects.pickers).forEach((x) => userObjects.pickers[x].oninput = throttleDebounce.throttle((x) => this._oninputPicker(...x), 85) );
-        this.getSmallSwatchNames().forEach(x => userObjects.pickers[x + '-picker'].onclick = (e) => this._onclickSmallSwatch(e));
+        this.getSmallSwatchNames().forEach(x => userObjects.pickers[x + '-picker'].onclick = (e) => this._onclickPickerSmall(e));
 
+        userObjects.pickers['textcolour-picker'].onclick = (e) => this._onclickPickerText(e);
         this._getUiObject('hamburger-toggle').onclick = (x) => {
             this._getUiObject('navbar-list').classList.toggle('active');
         };
@@ -488,6 +496,7 @@ export const paletteUi = {
         if (name !== 'primary') wrapper.dataset.rating = textColour.rating;
     },
     setTextColour(textColour){
+        if (textColour.name === 'primary-text') paletteData.setMainTextColour(textColour);
         this._setWrapperTextColour(textColour);
         paletteData.addTextColour(textColour);
     },
