@@ -123,10 +123,13 @@ const lightness = colour.lightness;
   },
   _convertSrgbtoTwl(colour) {
     colour.lightness = (Math.max(colour.red, colour.green, colour.blue) );
-    let redGreenDecimal = 0.5 * ((Math.min(colour.red, colour.green) / Math.max(colour.red, colour.green)));
-    redGreenDecimal = (Math.max(colour.red, colour.green) === colour.green)? 0.5 + redGreenDecimal: redGreenDecimal;
-    colour.tint =  redGreenDecimal;
-    colour.warmth = (0.5 * ((Math.max(colour.red, colour.green)) / colour.blue));
+    let tintDecimal = 0.5 * ((Math.min(colour.red, colour.green) / Math.max(colour.red, colour.green)));
+    tintDecimal = (Math.max(colour.red <= colour.green))? 0.5 + (0.5 - tintDecimal): tintDecimal;
+    colour.tint =  tintDecimal;
+    let warmthDecimal = 0.5 * ((Math.min(Math.max(colour.red, colour.green), colour.blue) / Math.max(Math.max(colour.red, colour.green), colour.blue)));
+    warmthDecimal = (Math.max(colour.red, colour.green) > colour.blue)? 0.5 + (0.5 - warmthDecimal): warmthDecimal;
+
+    colour.warmth = warmthDecimal;
 /*     colour.red = this._constraintLookupB['red'](colour.red);
     colour.green = this._constraintLookupB['green'](colour.green);
     colour.blue = this._constraintLookupB['blue'](colour.blue);
