@@ -36,14 +36,20 @@
     border: solid 2px transparent;
 }
 .logo {
-    font-family: $font-Bebas-Neue;
+    font-family: $font-logo;
+    font-size: $font-logo-size;
     color: $neutral-1000;
     flex-basis: 1;
-    text-shadow: 1px 1px $neutral-0;
+    text-shadow: 4px 0px $neutral-0;
     font-weight: 900;
 }  
 .gldlogo{
     width: $gem4;
+    outline: 8px solid #fff;
+    border-radius: 50%;
+    padding: 8px;
+    margin: 16px;
+    //background-color: #fff5;
 }
 
 .hamburger-toggle {

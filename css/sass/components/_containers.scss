@@ -87,7 +87,8 @@
   bottom:$gemQuart;
   width:100%;
   line-height: 90%;
-  font-family: $font-Montserrat, sans-serif;
+  font-family: $font-ratings;
+  //font-size: $gem5Eighth;
   font-size: $gem5Eighth;
   font-weight:500;
 
@@ -108,7 +109,7 @@
   top: calc(1.25 *$gem); 
   width:100%;
   line-height: 90%;
-  font-size: $gem3;
+  font-size: $font-primary-size;
 
 }
 .primary-wrapper::after {
@@ -119,7 +120,7 @@
   top:$gem4;
   width:100%;
   line-height: 90%;
-  font-family: $font-Montserrat, sans-serif;
+  font-family: $font-ratings;
   font-size: $gem5Eighth;
   font-weight:500;
 
@@ -141,7 +142,7 @@
   display: flex;
   height: fit-content;
   width:fit-content;
-  font-family: $font-SourceCodePro,'Courier New', Courier, monospace;
+  font-family: $font-clipboard;
   font-size: calc(0.65 * $gem);
   font-weight: 500;
   padding: 0.25em;

@@ -1,11 +1,12 @@
 @use '../abstracts' as *;
 
 .btn,.textmode {
-    white-space: normal;
+    position: relative;
+    //white-space: normal;
     align-items: center;
     border:none;
     cursor: pointer;
-    font-size: $gem;
+    font-size: $font-btn-size;
     background-color: $neutral-200;
   }
   .copy-single, .save-btn {
@@ -17,7 +18,7 @@
   .copy-single:focus::after, 
   .save-btn:hover::after, 
   .save-btn:focus::after {
-    font-size: $gem;
+    font-size: $font-btn-size;
  
       color: $neutral-0;
       background-color: $neutral-500;
@@ -69,8 +70,6 @@
 
       color: $neutral-0;
       background-color: $neutral-500a;
-      //font-family: $font-SourceCodePro,'Courier New', Courier, monospace;
-      //font-size: calc(0.65 * $gem);
       font-weight: 200;
       //padding: 0.25em;
       cursor:pointer;
@@ -99,24 +98,27 @@
     display:block;
   }
   .textmode::before {
-    position:absolute;
-    width:100%;
-    height:100%;
-    line-height: normal;
-    content: attr(data-content);
-    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
     text-align: center;
-    margin:0;
+    justify-content: center;
+    //vertical-align: middle;
+    line-height: 1.25;
+    content: attr(data-content);
+    font-size: $font-btn-size;
+    white-space: normal;
+
   }
 
   .btn-small {
     flex: 1 1 50%;
-    font-size: $gem;
+    font-size: $font-btn-size;
   }
 
   .btn-dual,.textmode {
     flex: 1 1 50%;
-    font-size: $gem;
+    font-size: $font-btn-size;
   }
 
   
@@ -124,7 +126,7 @@
 
   .btn-tiny {
     flex: 1 1 25%;
-    font-size: $gem;
+    font-size: $font-btn-size;
   }
 
   
