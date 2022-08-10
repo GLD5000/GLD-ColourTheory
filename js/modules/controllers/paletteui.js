@@ -105,21 +105,36 @@ export const paletteUi = {
         hsl: '#b5cea8',
         rgb: '#DCDCAA',
     },
+    _randomiseHeaderBackground(){
+        document.querySelector('.header').style.backgroundColor = colourObject.makeRandomHslStringSafer();
+    },
+    _randomiseColourSpace(){
+        const colourspaceArray = ['rgb', 'hsl', 'hex'];
+        const randomIndex = Math.floor(Math.random() * 3);
+        this._setColourspace(colourspaceArray[randomIndex]);
+    },
+    _randomiseGradient(){
+        paletteData.paletteState.gradientMode = 1 + Math.floor(Math.random() * 9);
+        this._updateGradientNumberTones();
+        this._updateGradientsAll();
+        this._setClipboardTextAll();
+    },
     _init() {
+        this._randomiseHeaderBackground();
         this.customBackgroundCounter = this._updateClipboard = 0;
         this._debounce();
-        this._updatePrimaryGradient = (x) => gradientMaker.updateGradient(...x);
-        userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
-        userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
-        document.querySelector('.header').style.backgroundColor = colourObject.makeRandomHslStringSafer();
+        //this._updatePrimaryGradient = (x) => gradientMaker.updateGradient(...x);
+        this._randomiseDice();
         //document.querySelector('.footer').style.backgroundColor = colourObject.makeRandomHslStringSafer();
-        this.addColour(colourObject.makeRandomColour('primary'));
+        this._randomisePrimary();
         this._setOnChange();
-        this.setTextMode('Auto');
+        //this.setTextMode('Auto');
         //this._resetSmallWrapperContent();
         paletteState._resetAllCustomStates();
-        this._setColourspace('hsl');
-        this._setClipboardTextAll();
+        //this._setColourspace('hsl');
+        this._randomiseColourSpace();
+        this._randomiseGradient();
+        //this._setClipboardTextAll();
         paletteState.setCustomStatesfromWrappers();
         paletteState.deepCopyPaletteState(paletteData.paletteState, paletteData.savedState);
         console.log(userObjects);
@@ -230,12 +245,17 @@ export const paletteUi = {
         this._updateGradientNumberTones();
         this._updateGradientsAll();
         this._setClipboardTextAll();
-
     },
-    _onclickRandom() {
-        this.addColour(colourObject.makeRandomColour('primary'));
+    _randomiseDice(){
         userObjects.wrappers['dieA'].style.backgroundColor = colourObject.makeRandomHslString();
         userObjects.wrappers['dieB'].style.backgroundColor = colourObject.makeRandomHslString();
+    },
+    _randomisePrimary(){
+        this.addColour(colourObject.makeRandomColour('primary'));
+    },
+    _onclickRandom() {
+        this._randomisePrimary();
+        this._randomiseDice();
     },
     _addTextColour(name, hex) {
        const textColour = colourObject.fromHex( {name: name, hex: hex});

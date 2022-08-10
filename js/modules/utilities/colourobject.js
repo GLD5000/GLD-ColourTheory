@@ -222,7 +222,8 @@ const lightness = colour.lightness;
     red = Math.round((red + lightness) * 255).toString(16);
     green = Math.round((green + lightness) * 255).toString(16);
     blue = Math.round((blue + lightness) * 255).toString(16);
-  
+
+
     // Prepend 0s, if necessary
     if (red.length == 1)
       red = '0' + red;

@@ -660,23 +660,23 @@ input[name=saturation] {
 }
 
 input[name=red] {
-  background: linear-gradient(to right, #777, #d00);
+  background: linear-gradient(to right, #777, #d33);
 }
 
 input[name=green] {
-  background: linear-gradient(to right, #777, #0d0);
+  background: linear-gradient(to right, #777, #3d3);
 }
 
 input[name=blue] {
-  background: linear-gradient(to right, #777, #00d);
+  background: linear-gradient(to right, #777, #33d);
 }
 
 input[name=tint] {
-  background: linear-gradient(to right, #d00, #0d0);
+  background: linear-gradient(to right, #d33, #3d3);
 }
 
 input[name=warmth] {
-  background: linear-gradient(to left, #dd0, #00d);
+  background: linear-gradient(to left, #dd3, #33d);
 }
 
 input[name=lightness] {
