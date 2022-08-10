@@ -621,7 +621,7 @@ input[type=range]::-webkit-slider-thumb {
   width: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
   transform: rotate(45deg);
   border-radius: 20%;
-  opacity: 70%;
+  opacity: 50%;
   background: #fff;
 }
 
@@ -632,7 +632,7 @@ input[type=range]::-ms-thumb {
   width: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
   transform: rotate(45deg);
   border-radius: 20%;
-  opacity: 70%;
+  opacity: 50%;
   background: #fff;
 }
 
@@ -643,7 +643,7 @@ input[type=range]::-moz-range-thumb {
   width: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
   transform: rotate(45deg);
   border-radius: 20%;
-  opacity: 70%;
+  opacity: 50%;
   background: #fff;
 }
 
@@ -651,11 +651,11 @@ input[name=hue] {
   background: linear-gradient(to right, hsl(0deg, 70%, 70%), hsl(60deg, 70%, 70%), hsl(120deg, 70%, 70%), hsl(180deg, 70%, 70%), hsl(240deg, 70%, 70%), hsl(300deg, 70%, 70%), hsl(0deg, 70%, 70%));
 }
 
-input[name=lum] {
+input[name=luminance] {
   background: linear-gradient(to left, #fff, #555);
 }
 
-input[name=sat] {
+input[name=saturation] {
   background: linear-gradient(to right, hsl(0deg, 0%, 70%), hsl(60deg, 10%, 70%), hsl(120deg, 20%, 70%), hsl(180deg, 40%, 70%), hsl(240deg, 80%, 70%), hsl(300deg, 100%, 70%), hsl(0deg, 100%, 70%));
 }
 
@@ -699,7 +699,7 @@ input[type=range]:hover::before {
   color: #fff;
 }
 
-input[type=range]:focus::before {
+input[type=range]:focus::before, .fakesliderhover::before {
   padding: 0;
   content: attr(name);
   position: absolute;
@@ -709,6 +709,7 @@ input[type=range]:focus::before {
   font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
   line-height: 120%;
   color: #000;
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 /* Grid areas */

@@ -22,7 +22,7 @@
     width: $gem3Quart;
     transform: rotate(45deg);
     border-radius: 20%;
-    opacity: 70%;
+    opacity: 50%;
     background: #fff;
   }
   input[type=range]::-ms-thumb {
@@ -32,7 +32,7 @@
     width: $gem3Quart;
     transform: rotate(45deg);
     border-radius: 20%;
-    opacity: 70%;
+    opacity: 50%;
     background: #fff;
   }
   input[type=range]::-moz-range-thumb {
@@ -42,17 +42,19 @@
     width: $gem3Quart;
     transform: rotate(45deg);
     border-radius: 20%;
-    opacity: 70%;
+    opacity: 50%;
     background: #fff;
   }
+
+ 
 
 input[name="hue"] {
     background:$rainbow-gradient;
   }
-input[name="lum"] {
+input[name="luminance"] {
   background:linear-gradient(to left, #fff,#555);
 }
-input[name="sat"] {
+input[name="saturation"] {
   background:$desaturated-rainbow-gradient;
 }
 
@@ -93,8 +95,7 @@ input[type=range]:hover::before {
   color: $neutral-0;
 }
 
-
-input[type=range]:focus::before {
+input[type=range]:focus::before, .fakesliderhover::before {
   padding:0;
   content: attr(name);
   position: absolute;
@@ -104,5 +105,8 @@ input[type=range]:focus::before {
   font-size: $gem;
   line-height: 120%;
   color: $neutral-1000;
+  background-color: #fff9;
 
 }
+
+

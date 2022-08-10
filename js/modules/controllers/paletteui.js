@@ -381,10 +381,11 @@ export const paletteUi = {
         console.log(`Copied To Clipboard:\n${text}`);
     
     },
+    sliderTimeout: '',
     _setSliderStyles(colourspace) {
         const sliderNameArrays = {
             hex: [ 'tint', 'warmth', 'lightness'],
-            hsl: [ 'hue', 'sat', 'lum'],
+            hsl: [ 'hue', 'saturation', 'luminance'],
             rgb: [ 'red', 'green', 'blue'],
         }
 /*         const sliderGradientArrays = {
@@ -394,17 +395,26 @@ export const paletteUi = {
         }
  */        
         const namesArray = sliderNameArrays[colourspace];
-        
+        clearTimeout(this.sliderTimeout);
+        console.log(this.sliderTimeout);
         userObjects.sliders.forEach((x, i) => {
             x.name = namesArray[i]; 
+            x.classList.add('fakesliderhover');
         });
+        const removeNamesLoop = () => {
+            userObjects.sliders.forEach((x) => {
+                x.classList.remove('fakesliderhover');
+            });
+        };
+        this.sliderTimeout = setTimeout(removeNamesLoop, 1800);
     },
     _onclickColourspace() {
         const colourspaceButton = userObjects.other.colourspace.innerHTML;
         const colourspace = this._getColourspace();
-        const optionsObject = {rgb: 'hex',hex: 'hsl',hsl: 'rgb'};
-        const newColourspace = optionsObject[colourspace];
+        const nextColourspaceSelector = {rgb: 'hex',hex: 'hsl',hsl: 'rgb'};
+        const newColourspace = nextColourspaceSelector[colourspace];
         this._setColourspace(newColourspace);
+
         
     },
     _onclickPrefix() {
