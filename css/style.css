@@ -212,6 +212,10 @@ p, li, ol, ul, a {
   font-weight: 900;
 }
 
+.gldlogo {
+  width: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 1.6 * 1.6);
+}
+
 .hamburger-toggle {
   position: absolute;
   top: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
