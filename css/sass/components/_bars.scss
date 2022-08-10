@@ -45,11 +45,13 @@
 }  
 .gldlogo{
     width: calc(1.25 * $gem3);
-    outline: 8px solid #fff;
+    border: 8px solid #000;
+    box-shadow: 2px 0px 8px 4px #fff;
+    //outline: 8px solid #fff;
     border-radius: 50%;
     padding: 8px;
     margin: 16px;
-    //background-color: #fff5;
+    background-color: #fff5;
 }
 
 .hamburger-toggle {
