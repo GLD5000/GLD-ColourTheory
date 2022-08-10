@@ -120,7 +120,7 @@ export const paletteUi = {
         this._setClipboardTextAll();
     },
     _init() {
-        this._randomiseHeaderBackground();
+        //this._randomiseHeaderBackground();
         this.customBackgroundCounter = this._updateClipboard = 0;
         this._debounce();
         //this._updatePrimaryGradient = (x) => gradientMaker.updateGradient(...x);
