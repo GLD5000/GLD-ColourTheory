@@ -416,7 +416,6 @@ export const paletteUi = {
  */        
         const namesArray = sliderNameArrays[colourspace];
         clearTimeout(this.sliderTimeout);
-        console.log(this.sliderTimeout);
         userObjects.sliders.forEach((x, i) => {
             x.name = namesArray[i]; 
             x.classList.add('fakesliderhover');
