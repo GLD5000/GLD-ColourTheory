@@ -215,7 +215,7 @@ p, li, ol, ul, a {
 }
 
 .gldlogo {
-  width: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 1.6 * 1.6);
+  width: calc(1.25 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 1.6);
   outline: 8px solid #fff;
   border-radius: 50%;
   padding: 8px;
