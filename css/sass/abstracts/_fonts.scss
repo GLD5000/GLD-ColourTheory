@@ -1,5 +1,59 @@
 //@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Libre+Franklin:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Oswald:wght@200;300;400;500;600;700&family=Quattrocento:wght@400;700&display=swap');
 //@import url('/fonts/Source_Code_Pro/static/SourceCodePro-Medium.ttf');
+//@import url('fonts\Bebas_Neue\BebasNeue-Regular.ttf');
+
+
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('/fonts/webfonts/BebasNeue-Regular.woff2') format('woff2'),
+      url('/fonts/webfonts/BebasNeue-Regular.woff') format('woff'),
+      url('/fonts/webfonts/BebasNeue-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/webfonts/Montserrat-Medium.woff2') format('woff2'),
+      url('/fonts/webfonts/Montserrat-Medium.woff') format('woff'),
+      url('/fonts/webfonts/Montserrat-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: //url('/fonts/webfonts/Montserrat-Bold.woff2') format('woff2'),
+      //url('/fonts/webfonts/Montserrat-Bold.woff') format('woff'),
+      url('/fonts/webfonts/Montserrat-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Press Start 2P';
+  src: //url('/fonts/webfonts/PressStart2P-Regular.woff2') format('woff2'),
+      //url('/fonts/webfonts/PressStart2P-Regular.woff') format('woff'),
+      url('/fonts/webfonts/PressStart2P-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  src: //url('/fonts/webfonts/SourceCodePro-Medium.woff2') format('woff2'),
+      //url('/fonts/webfonts/SourceCodePro-Medium.woff') format('woff'),
+      url('/fonts/webfonts/SourceCodePro-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 $font-Bebas-Neue: 'Bebas Neue', cursive;
 $font-Montserrat: 'Montserrat', sans-serif;
 $font-SourceCodePro: 'Source Code Pro', monospace;
