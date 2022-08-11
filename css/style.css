@@ -222,7 +222,7 @@ p, li, ol, ul, a {
   box-shadow: 8px 8px 0px 0px #000;
   padding: 4px;
   margin: 16px;
-  background-color: transparent;
+  background-color: #d01339;
 }
 
 .hamburger-toggle {
