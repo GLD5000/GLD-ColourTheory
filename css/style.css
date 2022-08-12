@@ -207,7 +207,7 @@ p, li, ol, ul, a {
 
 .logo {
   font-family: "Press Start 2P", cursive;
-  font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6);
+  font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 0.9);
   color: #000;
   flex-basis: 1;
   text-shadow: 4px 0px #fff;
@@ -222,7 +222,7 @@ p, li, ol, ul, a {
   box-shadow: 8px 8px 0px 0px #000;
   padding: 4px;
   margin: 16px;
-  background-color: #d01339;
+  background-color: #807de8;
 }
 
 .hamburger-toggle {
@@ -251,26 +251,32 @@ p, li, ol, ul, a {
   .hamburger-toggle {
     display: flex;
   }
+
   .navbar-list {
     display: none;
     width: 100%;
   }
+
   .logo {
     width: 80%;
   }
+
   .navbar {
     flex-direction: column;
     align-items: flex-start;
   }
+
   .navbar-list {
     width: 100%;
     flex-direction: column;
     gap: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
     padding: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) 0 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
   }
+
   .navbar-list li {
     text-align: center;
   }
+
   .navbar-list.active {
     display: flex;
   }
@@ -422,7 +428,8 @@ p, li, ol, ul, a {
   max-width: 40%;
   margin: auto;
   aspect-ratio: 1/1;
-  -webkit-backface-visibility: hidden; /* Safari */
+  -webkit-backface-visibility: hidden;
+  /* Safari */
   backface-visibility: hidden;
 }
 

@@ -169,6 +169,9 @@ export const paletteUi = {
     _getSliderValues(colourspace) {
         return colourObject._convertSliderOutput(userObjects.sliders.map(x => x.value), colourspace);
     },
+    _updateGldLogoColour(hex){
+        userObjects.other.gldlogo.style.backgroundColor = hex;
+    },
     _addPrimaryColour(newColour) {
         const colourspace = this._getColourspace();
         const {hue, sat, lum, red, green, blue, hex, tint, warmth, lightness} = newColour;
@@ -180,6 +183,7 @@ export const paletteUi = {
         this._setSliderValues(selectColourObject[colourspace], colourspace);
         this._resetSmallWrapperContent();
         userObjects.pickers['primary-picker'].value = hex;
+        this._updateGldLogoColour(hex);
         paletteData.setPrimaryHex(hex);
         userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[colourspace];
         gradientMaker.updateGradient(newColour);

@@ -7,7 +7,7 @@ function setAll() {
         ['wrappers','wrapper'],
         //['buttons','button'],
         ['copyButtons',['.copy-single','#clipboard-flexbox']],
-        ['other',['#textmode', '#prefix', '#gradient', '#colourspace', '#dice-btn', '#randomise-btn']],
+        ['other',['#textmode', '#prefix', '#gradient', '#colourspace', '#dice-btn', '#randomise-btn', '#gldlogo']],
         ['clipboard',['#clipboard', '#clipboard-secondary']],     
         ['history',['#history-flexbox', '#save-button']],     
         ['navbar',['#hamburger-toggle', '#navbar-list']],     
