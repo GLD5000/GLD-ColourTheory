@@ -28,16 +28,19 @@
     text-align: left;
     display: flex;
     gap: $gaplg;
+    min-width: max-content;
 }
-.navlink {
-    text-decoration: none;
-    color: $neutral-1000;
-    padding: 4px;
-    border: solid 2px transparent;
+.logo-grid {
+    align-items: center;
+    max-width: 70%;
+    padding: 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: $gem
 }
-.logo {
-    font-family: $font-logo;
-    font-size: $font-logo-size;
+.logoproduct {
+    font-family: $font-logoproduct;
+    font-size: $font-logoproduct-size;
     color: $neutral-1000;
     flex-basis: 1;
     text-shadow: 4px 0px $neutral-0;
@@ -68,9 +71,17 @@
     height: $gem2;
 
 }
+.navlink {
+    text-decoration: none;
+    color: $neutral-1000;
+    padding: 4px;
+    border: solid 4px transparent;
+}
+
 .navlink:hover, .navlink:focus {
-    color: $neutral-0;
-    border: solid 2px white;
+    color: $neutral-1000;
+    background-color: #fff5;
+    border: solid 4px #000;
 }
 
 .hamburger-line {
@@ -88,7 +99,7 @@
         display: none;
         width: 100%;
     }
-    .logo {
+    .logoproduct {
 
         width: 80%;
     }
