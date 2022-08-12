@@ -226,6 +226,7 @@ p, li, ol, ul, a {
   padding: 4px;
   margin: 16px;
   background-color: #807de8;
+  cursor: pointer;
 }
 
 .hamburger-toggle {

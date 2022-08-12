@@ -261,6 +261,12 @@ export const paletteUi = {
         this._randomisePrimary();
         this._randomiseDice();
     },
+    _onclickLogo(){
+        this._randomisePrimary();
+        this._randomiseDice();
+        this._randomiseColourSpace();
+        this._randomiseGradient();
+    },
     _addTextColour(name, hex) {
        const textColour = colourObject.fromHex( {name: name, hex: hex});
        this.getAllSwatchNames().forEach(key => {
@@ -480,6 +486,7 @@ export const paletteUi = {
         userObjects.other['gradient'].onclick = () => this._onclickGradient();
         userObjects.other['dice-btn'].onclick = () => this._onclickRandom();
         userObjects.other['randomise-btn'].onclick = () => this._onclickRandom();
+        userObjects.other['gldlogo'].onclick = () => this._onclickLogo();
        // Object.keys(userObjects.copyButtons).forEach(x => userObjects.copyButtons[x].onclick = (e) => this._onclickCopyButtons(e));
         Object.keys(userObjects.copyButtons).forEach(x => userObjects.copyButtons[x].onclick = (e) => this._onclickCopyButtons(e));        
        //Object.keys(userObjects.clipboard).forEach(x => userObjects.clipboard[x].onclick = (e) => this._onclickCopyAll());
