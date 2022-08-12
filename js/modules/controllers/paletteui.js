@@ -267,6 +267,13 @@ export const paletteUi = {
         this._randomiseColourSpace();
         this._randomiseGradient();
     },
+    _onclickHeader(event){
+        if (event.target.classList.value === 'navbar' || event.target.classList.value === 'logo-grid' || event.target.classList.value === 'logoproduct') {
+            const newHue = 360 * (event.clientX / top.innerWidth).toFixed(2);
+            const primary = paletteData.backgroundColours.get('primary');
+            this.addColour(colourObject.fromHsl({name: primary.name, hue: newHue, sat: primary.sat, lum: primary.lum }));
+        }
+    },
     _addTextColour(name, hex) {
        const textColour = colourObject.fromHex( {name: name, hex: hex});
        this.getAllSwatchNames().forEach(key => {
@@ -487,6 +494,7 @@ export const paletteUi = {
         userObjects.other['dice-btn'].onclick = () => this._onclickRandom();
         userObjects.other['randomise-btn'].onclick = () => this._onclickRandom();
         userObjects.other['gldlogo'].onclick = () => this._onclickLogo();
+        userObjects.other['header'].onclick = (e) => this._onclickHeader(e);
        // Object.keys(userObjects.copyButtons).forEach(x => userObjects.copyButtons[x].onclick = (e) => this._onclickCopyButtons(e));
         Object.keys(userObjects.copyButtons).forEach(x => userObjects.copyButtons[x].onclick = (e) => this._onclickCopyButtons(e));        
        //Object.keys(userObjects.clipboard).forEach(x => userObjects.clipboard[x].onclick = (e) => this._onclickCopyAll());
