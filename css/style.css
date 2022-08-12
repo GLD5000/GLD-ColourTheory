@@ -173,6 +173,9 @@ p, li, ol, ul, a {
 }
 
 .footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-top: #fff solid 4px;
   background-color: #000;
 }
@@ -294,6 +297,14 @@ p, li, ol, ul, a {
     display: flex;
   }
 }
+.githublogo {
+  width: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
+  height: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
+  display: block;
+  align-self: center;
+  margin: 8px;
+}
+
 .btn, .textmode {
   position: relative;
   align-items: center;

@@ -6,6 +6,9 @@
     
 }
 .footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-top: #fff solid 4px;
     background-color: $neutral-1000;
 }
@@ -120,4 +123,11 @@
     .navbar-list.active {
         display: flex;
     }
+}
+.githublogo {
+    width: $gem;
+    height: $gem;
+    display: block;
+    align-self: center;
+    margin: 8px;
 }
