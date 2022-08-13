@@ -226,9 +226,9 @@ p, li, ol, ul, a {
   height: calc(1 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 1.6);
   aspect-ratio: 1/1;
   border: 4px solid #000;
-  box-shadow: 8px 8px 0px 0px #000;
+  box-shadow: #000 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) 0px;
   padding: 0px;
-  margin: 16px;
+  margin: 12px;
   background-color: #807de8;
   cursor: pointer;
 }
@@ -273,8 +273,14 @@ p, li, ol, ul, a {
     width: 100%;
   }
 
+  .logo-grid {
+    align-items: center;
+    max-width: 90%;
+  }
+
   .logoproduct {
-    width: 80%;
+    font-size: calc(0.7 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 0.9);
+    width: auto;
   }
 
   .navbar {
