@@ -48,6 +48,9 @@
     flex-basis: 1;
     text-shadow: 4px 0px $neutral-0;
     font-weight: 900;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
 }  
 .gldlogo{
     width: calc(1 * $gem3);
@@ -128,6 +131,9 @@
     .navbar-list.active {
         display: flex;
     }
+    //.flexbox-history li:hover::after {
+     //   font-size: $gemHalf;
+    //}
 }
 .githublogo {
     width: $gem;

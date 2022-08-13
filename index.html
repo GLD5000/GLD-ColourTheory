@@ -48,10 +48,10 @@
         </wrapper>
         <container class="flexbox-horizontal-btn">
           <button class="btn btn-med copy-single btn-dual" id="primary-copybtn" data-content="copy"></button>
-          <label id="textmode" class="textmode" data-content="">
+          <label id="textmode" class="textmode" data-content="Pick a Colour" data-label="">
             <input type="color" id="textcolour-picker" class="picker textcolour-picker"></input>
           </label>
-          <button class="btn btn-med btn-dual mode" id="gradient">Tones: 0</button>
+          <button class="btn btn-med btn-dual mode" id="gradient" data-content="Add Tones">Tones: 0</button>
         </container>
       </container>
     
@@ -69,7 +69,7 @@
             <figure class="dots dotG"></figure>
           </wrapper>
         </button>
-        <button class="btn btn-med" id="randomise-btn" >Random</button>
+        <button class="btn btn-med randomise-btn" id="randomise-btn" data-content="Randomise">Random</button>
       </container>
 
       <container class="btn-container btn-history">
@@ -94,8 +94,8 @@
 
         <container class="flexbox-horizontal-btn">
           <button class="btn btn-small copy-single" id="copyAllCSS" data-content="copy">Copy All</button>
-          <button class="btn btn-tiny" id="prefix">SCSS</button>
-          <button class="btn btn-tiny" id="colourspace">Hex</button>
+          <button class="btn btn-tiny prefix" id="prefix" data-content="Swap Prefix">SCSS</button>
+          <button class="btn btn-tiny colourspace" id="colourspace" data-content="Change Colour Mode">Hex</button>
         </container>
       </container>
 

@@ -17,7 +17,18 @@
   .copy-single:hover::after, 
   .copy-single:focus::after, 
   .save-btn:hover::after, 
-  .save-btn:focus::after {
+  .save-btn:focus::after,
+  .textmode:hover::after, 
+  .textmode:focus::after,
+  .mode:hover::after, 
+  .mode:focus::after,
+  .randomise-btn:hover::after, 
+  .randomise-btn:focus::after,
+  .prefix:hover::after, 
+  .prefix:focus::after,
+  .colourspace:hover::after, 
+  .colourspace:focus::after 
+  {
     font-size: $font-btn-size;
  
       color: $neutral-0;
@@ -27,16 +38,16 @@
       text-align: center;
       line-height: 1;
       bottom: 100%;
-      left: 0%;
+      left: calc(-1 * $gap);
       padding: 6px;
       margin-left: auto;
       position: absolute;
       height: auto;
       width: auto;
       cursor: copy;
-      border: 4px solid $neutral-1000;
+      border: $gap solid $neutral-1000;
       border-bottom: 0;
-      border-left: 0;
+      //border-left: 0;
       border-radius: 0 6px 0 0;
   }
 
@@ -57,7 +68,7 @@
     justify-content: center;
     //vertical-align: middle;
     line-height: 1.25;
-    content: attr(data-content);
+    content: attr(data-label);
     font-size: $font-btn-size;
     white-space: normal;
 

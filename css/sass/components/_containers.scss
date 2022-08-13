@@ -193,7 +193,7 @@
 
 .clipboard,.clipboard-secondary, .flexbox-history li {
   display: flex;
-  height: fit-content;
+  height: auto;
   width:fit-content;
   font-family: $font-clipboard;
   font-size: calc(0.65 * $gem);

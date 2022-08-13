@@ -531,7 +531,7 @@ export const paletteUi = {
     },
     setTextMode(mode) {
         paletteData.setTextMode(mode);
-        userObjects.other['textmode'].dataset.content = `Text: ${mode}`;
+        userObjects.other['textmode'].dataset.label = `Text: ${mode}`;
     },
     getTextColour(backgroundColour) {
         return paletteData.getTextColour(backgroundColour);
