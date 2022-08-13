@@ -394,15 +394,16 @@ export const paletteUi = {
     _onclickCopyAll(target) {
         const copyAllCSS  = userObjects.copyButtons.copyAllCSS;
         const clipboardFlexbox = userObjects.copyButtons['clipboard-flexbox'];
-        (target.id === 'copyAllCSS')? this._showCopiedMessage(copyAllCSS, ' All ') : this._showCopiedMessage(clipboardFlexbox, 'All');
+        (target.id === 'copyAllCSS')? this._showCompletedMessage(copyAllCSS, 'Copied All') : this._showCompletedMessage(clipboardFlexbox, 'Copied All');
         const textArray = paletteData.getClipboard()[2];
         let text = textArray.join('\n');
         navigator.clipboard.writeText(text);
-        console.log(`Copied To Clipboard:\n${text}`);
+        //console.log(`Copied To Clipboard:\n${text}`);
     },
-    _showCopiedMessage(target, message = '') {
-        target.dataset.content = 'copied '+ message + '✔';
-        setTimeout(() => {target.dataset.content = 'copy';}, 1800);
+    _showCompletedMessage(target, message = 'Copied') {
+        const revertMessage = target.dataset.content;
+        target.dataset.content = message + ' ✔';
+        setTimeout(() => {target.dataset.content = revertMessage;}, 1800);
     },
     _onclickCopyButtons(e) {
         
@@ -411,11 +412,11 @@ export const paletteUi = {
             this._onclickCopyAll(e.target);
             return;
         }
-        const message =  (paletteData.paletteState.gradientMode > 1) ? ' + tones ': '';
-        this._showCopiedMessage(e.target, message);
+        const message =  (paletteData.paletteState.gradientMode > 1) ? 'Copied + Tones ': '';
+        this._showCompletedMessage(e.target, message);
         const text = this._getClipboardTextSingle(name);
         navigator.clipboard.writeText(text);
-        console.log(`Copied To Clipboard:\n${text}`);
+        //console.log(`Copied To Clipboard:\n${text}`);
     
     },
     sliderTimeout: '',
@@ -473,7 +474,7 @@ export const paletteUi = {
         const newState  = paletteState.deepCopyPaletteState(paletteData.savedPalettes[hex]);
         paletteState.applyStatefromHistoryObject(newState);
     },
-    _SaveHistoryObject() {
+    _SaveHistoryObject(event) {
         const hex = paletteData.getPrimaryHex();
         const copyPaletteState  = paletteState.deepCopyPaletteState(paletteData.paletteState);
         if (paletteData.savedPalettes[hex] === undefined) {
@@ -482,7 +483,8 @@ export const paletteUi = {
             userObjects.history['history-flexbox'].append(li);
         }
         paletteData.savedPalettes[hex] = copyPaletteState;
-      },
+        paletteUi._showCompletedMessage(event.target, 'Saved Palette');
+    },
     _clearHistory() {
     userObjects.history['history-flexbox'].innerHTML = "";
     },

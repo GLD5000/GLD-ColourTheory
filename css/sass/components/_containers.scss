@@ -138,6 +138,59 @@
   overflow: auto;
 }
 
+.flexbox-clipboard:hover,
+.flexbox-history li:hover {
+  backdrop-filter: brightness(1.6);
+}
+
+.flexbox-clipboard:hover::after
+{
+  font-size: $gem;
+  position: sticky;
+  display: inline; 
+  color: $neutral-0;
+  background-color: $neutral-500;
+  content: attr(data-content);
+  text-align: center;
+  line-height: 1;
+  top: 0px;
+  right: 100%;
+  padding: 6px;
+  margin-left: none;
+  height: min-content;
+  width: auto;
+  cursor: copy;
+  border: 4px solid $neutral-1000;
+  border-top: 0;
+  border-left: 0;
+  border-radius: 0 0px 6px 0px;
+}
+
+.flexbox-history li:hover::after {
+  font-size: $gem3Quart;
+
+    color: $neutral-0;
+    background-color: $neutral-500a;
+    font-weight: 200;
+    //padding: 0.25em;
+    cursor:pointer;
+    white-space: pre;
+    align-items: center;
+    line-height: 1.125;
+  
+    content: 'load palette';
+    text-align: center;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    position: absolute;
+    border: 4px solid $neutral-1000;
+    border-radius: 0 0px 6px 0px;
+}
+
+
+
 .clipboard,.clipboard-secondary, .flexbox-history li {
   display: flex;
   height: fit-content;
