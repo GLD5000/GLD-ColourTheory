@@ -1,7 +1,7 @@
 /* Dynamic Sizing */
 @font-face {
   font-family: "Bebas Neue";
-  src: url("/fonts/webfonts/BebasNeue-Regular.ttf") format("truetype");
+  src: url("/workspaces/Red-Herring/fonts/Bebas_Neue/BebasNeue-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -267,32 +267,26 @@ p, li, ol, ul, a {
   .hamburger-toggle {
     display: flex;
   }
-
   .navbar-list {
     display: none;
     width: 100%;
   }
-
   .logoproduct {
     width: 80%;
   }
-
   .navbar {
     flex-direction: column;
     align-items: flex-start;
   }
-
   .navbar-list {
     width: 100%;
     flex-direction: column;
     gap: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
     padding: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) 0 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
   }
-
   .navbar-list li {
     text-align: center;
   }
-
   .navbar-list.active {
     display: flex;
   }
@@ -452,8 +446,7 @@ p, li, ol, ul, a {
   max-width: 40%;
   margin: auto;
   aspect-ratio: 1/1;
-  -webkit-backface-visibility: hidden;
-  /* Safari */
+  -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
 }
 

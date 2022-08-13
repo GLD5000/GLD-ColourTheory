@@ -3,12 +3,12 @@
 //@import url('fonts\Bebas_Neue\BebasNeue-Regular.ttf');
 @use 'units' as *;
 
-
+///workspaces/Red-Herring/fonts/Bebas_Neue/BebasNeue-Regular.ttf
 @font-face {
   font-family: 'Bebas Neue';
   src: //url('fonts/webfonts/BebasNeue-Regular.woff2') format('woff2'),
      // url('fonts/webfonts/BebasNeue-Regular.woff') format('woff'),
-      url('/fonts/webfonts/BebasNeue-Regular.ttf') format('truetype');
+      url('/workspaces/Red-Herring/fonts/Bebas_Neue/BebasNeue-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
