@@ -114,7 +114,7 @@ export const paletteData = {
     addTextColour(colour) {
         this.textColours.set(colour.name, colour);
     },
-    getColourSpace(colourspace) {
+    getColourSpace() {
        return this.paletteState.colourspace;
     },
     setColourSpace(colourspace) {

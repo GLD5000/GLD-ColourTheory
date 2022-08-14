@@ -42,16 +42,23 @@
           <input type="range" min="0" max="100" step="0.5" class="slider slider-b" id="slider-b" name="Saturation"></input>
           <input type="range" min="0" max="100" step="0.5" class="slider slider-c" id="slider-c" name="Luminance"></input>
         </container>
-          
-        <wrapper id="primary-wrapper" class="primary-wrapper" name="Primary Colour" data-content="">
-          <input type="color" id="primary-picker" class="picker large-picker"></input>
-        </wrapper>
+        
+        <container id="primary-container" class="primary-container">
+          <wrapper id="primary-wrapper" class="primary-wrapper" name="Primary Colour" data-content="">
+            <input type="color" id="primary-picker" class="picker large-picker"></input>
+          </wrapper>
+            <button class="btn btn-med btn-dual mode" id="gradient" data-content="Add Tones"></button>
+        </container>
+
+
         <container class="flexbox-horizontal-btn">
+          <button class="btn btn-med btn-dual colourspace" id="colourspace" data-content="Change Colour Mode">Mode: Hex</button>
+
           <button class="btn btn-med copy-single btn-dual" id="primary-copybtn" data-content="Copy"></button>
-          <label id="textmode" class="textmode" data-content="Pick a Colour" data-label="">
+          <label id="textmode" class="textmode" data-content="Pick Text Colour" data-label="">
             <input type="color" id="textcolour-picker" class="picker textcolour-picker"></input>
           </label>
-          <button class="btn btn-med btn-dual mode" id="gradient" data-content="Add Tones">Tones: 0</button>
+
         </container>
       </container>
     
@@ -87,15 +94,14 @@
     
       <container class="btn-container btn-copy">
 
-        <container id="clipboard-flexbox" class="flexbox-horizontal flexbox-clipboard" data-content="Copy">
+        <container id="clipboard-flexbox" class="flexbox-clipboard" data-content="Copy">
           <figure id="clipboard" class="clipboard" data-clipboard="" data-content="Copy"></figure>
           <figure id="clipboard-secondary" class="clipboard-secondary" data-content="Copy"></figure>
         </container>
 
         <container class="flexbox-horizontal-btn">
+          <button class="btn btn-tiny prefix" id="prefix" data-content="Swap Prefix">Prefix: SCSS</button>
           <button class="btn btn-small copy-single" id="copyAllCSS" data-content="Copy">Copy All</button>
-          <button class="btn btn-tiny prefix" id="prefix" data-content="Swap Prefix">SCSS</button>
-          <button class="btn btn-tiny colourspace" id="colourspace" data-content="Change Colour Mode">Hex</button>
         </container>
       </container>
 
