@@ -462,15 +462,6 @@ p, li, ol, ul, a {
   background-color: hsl(0deg, 0%, 55.7%);
 }
 
-/* .btn:focus-within, .textmode:focus-within {
-  //box-shadow: none;
-  //border: none;
-  outline: none;
-
-  background-color: $neutral-1000;
-  color: $neutral-0;  
-}
- */
 .swatch-palette {
   width: 100%;
   display: grid;
@@ -528,11 +519,11 @@ p, li, ol, ul, a {
 }
 
 .primary-wrapper:hover, .picker-wrapper:hover, .dice:hover {
-  box-shadow: inset 0px 0px 0px 4px #000;
+  box-shadow: inset 0px 0px 0px calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125) #000;
 }
 
 .primary-wrapper:focus-within, .picker-wrapper:focus-within, .dice:focus-within {
-  box-shadow: inset 0px 0px 0px 4px #fff;
+  box-shadow: inset 0px 0px 0px calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125) #fff;
 }
 
 .picker-wrapper::before {

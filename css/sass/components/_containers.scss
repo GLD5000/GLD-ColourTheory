@@ -63,10 +63,10 @@
   color:black;
 }
 .primary-wrapper:hover, .picker-wrapper:hover, .dice:hover {
-  box-shadow: inset 0px 0px 0px 4px $neutral-1000;
+  box-shadow: $box-shadow-inset-dark;
 }
 .primary-wrapper:focus-within, .picker-wrapper:focus-within, .dice:focus-within {
-  box-shadow: inset 0px 0px 0px 4px $neutral-0;
+  box-shadow: $box-shadow-inset-light;
 }
 
 .picker-wrapper::before {

@@ -152,21 +152,7 @@
 }
 
 .btn:hover, .textmode:hover, .btn:focus-within, .textmode:focus-within {
-  //box-shadow: none;
-  //border: none;
   outline: none;
   color: $neutral-0;
   background-color: $neutral-500;
 }
-
-
-/* .btn:focus-within, .textmode:focus-within {
-  //box-shadow: none;
-  //border: none;
-  outline: none;
-
-  background-color: $neutral-1000;
-  color: $neutral-0;  
-}
- */
-
