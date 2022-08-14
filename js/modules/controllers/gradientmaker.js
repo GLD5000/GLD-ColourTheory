@@ -48,6 +48,7 @@ export const gradientMaker = {
             this._gradientString = mainColour.hex;
             paletteData.clearGradientColours(); // clear colours
         } else {
+            const isPrimary = (mainColour.name === 'primary');
             const satOffset = clampRotate.clamp(mainColour.sat - 50, -30, 25);
             const lumOffset = clampRotate.clamp(mainColour.lum - 50, -15, 15);
             const satMult = this._findMult(this._satStart, this._satEnd, stops)//0.98; 
@@ -56,8 +57,9 @@ export const gradientMaker = {
             const satMultStops  = this._multiplierStopsAbsolute(stops, satMult, this._satStart, satOffset);
             const lumMultStops  = this._multiplierStopsAbsolute(stops, lumMult, this._lumStart, lumOffset);
             this._gradientColours = []; 
-            const gap = '4px';//getComputedStyle(document.querySelector('.slider-container')).gap;
-            this._gradientString = `linear-gradient(to top, #000 ${gap}, ${mainColour.hex} ${gap}, ${mainColour.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;
+            const gap = getComputedStyle(document.querySelector('.slider-container')).gap;
+            const gradientStringStart = (isPrimary)? `linear-gradient(to left`: `linear-gradient(to top, #000 ${gap}, ${mainColour.hex} ${gap}, ${mainColour.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`; 
+            this._gradientString = gradientStringStart;
             const stopWidth = 100 / stops;
             const customName = mainColour.customName || mainColour.name;
             suffixes.forEach((suffix, i) => {
@@ -65,10 +67,11 @@ export const gradientMaker = {
                 this._gradientColours.push(newColour);
                 this._gradientString += `, ${colourObject.hsl(newColour)} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
             });
-            this._gradientString += `) 0% 50% / 100% 30%`;
+            this._gradientString += (isPrimary)?`)`:`) 0% 50% / 100% 30%`;
             paletteData.addGradientColours(mainColour.name, this._gradientColours);
+            //if (isPrimary) console.log(this._gradientString);
         } 
-     },
+    },
     updateGradient(colour) {
         this._makeGradient(colour);
         paletteUi.setBackgroundGradient(colour.name, this._gradientString);

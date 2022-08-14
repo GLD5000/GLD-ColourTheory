@@ -93,7 +93,12 @@
   font-weight:500;
 
 }
+.primary-container{
+  display: grid;
+  grid-template-rows: 7fr 3fr;
+  gap: $gap;
 
+}
 
 .primary-wrapper {
   width:auto;
@@ -133,6 +138,7 @@
   gap: $gap;
 }
 .flexbox-clipboard {
+  position: relative;
   display: flex;
   width: 100%;
   overflow: auto;
@@ -192,7 +198,7 @@
 
 
 .clipboard,.clipboard-secondary, .flexbox-history li {
-  display: flex;
+  display: block;
   height: auto;
   width:fit-content;
   font-family: $font-clipboard;
@@ -206,6 +212,7 @@
 }
 
 .clipboard, .history {
+  display: block;
   position:relative;
   color: $vscode-blue;
 }

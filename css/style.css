@@ -344,7 +344,6 @@ p, li, ol, ul, a {
   font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
   color: #fff;
   background-color: hsl(0deg, 0%, 55.7%);
-  transition-duration: 0s;
   content: attr(data-content);
   text-align: center;
   line-height: 1;
@@ -359,6 +358,11 @@ p, li, ol, ul, a {
   border: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125) solid #000;
   border-bottom: 0;
   border-radius: 0 6px 0 0;
+}
+
+.mode:hover::after,
+.mode:focus::after {
+  border-bottom: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125) solid #000;
 }
 
 /*   .copy-single:focus::after {
@@ -387,13 +391,13 @@ p, li, ol, ul, a {
   font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
 }
 
-.btn-dual, .textmode {
+.btn-dual, .textmode, .btn-med {
   flex: 1 1 50%;
   font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
 }
 
 .btn-tiny {
-  flex: 1 1 25%;
+  flex: 1 1 50%;
   font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
 }
 
@@ -548,6 +552,12 @@ p, li, ol, ul, a {
   font-weight: 500;
 }
 
+.primary-container {
+  display: grid;
+  grid-template-rows: 7fr 3fr;
+  gap: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
+}
+
 .primary-wrapper {
   width: auto;
   position: relative;
@@ -583,6 +593,7 @@ p, li, ol, ul, a {
 }
 
 .flexbox-clipboard {
+  position: relative;
   display: flex;
   width: 100%;
   overflow: auto;
@@ -636,7 +647,7 @@ p, li, ol, ul, a {
 }
 
 .clipboard, .clipboard-secondary, .flexbox-history li {
-  display: flex;
+  display: block;
   height: auto;
   width: fit-content;
   font-family: "Source Code Pro", monospace;
@@ -650,6 +661,7 @@ p, li, ol, ul, a {
 }
 
 .clipboard, .history {
+  display: block;
   position: relative;
   color: #9cdcfe;
 }

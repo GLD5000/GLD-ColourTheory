@@ -131,7 +131,6 @@ export const paletteUi = {
         //this.setTextMode('Auto');
         //this._resetSmallWrapperContent();
         paletteState._resetAllCustomStates();
-        //this._setColourspace('hsl');
         this._randomiseColourSpace();
         this._randomiseGradient();
         //this._setClipboardTextAll();
@@ -151,10 +150,10 @@ export const paletteUi = {
         textMaker.updateTextColour(backgroundColour);
     },
     _getColourspace() {
-        return userObjects.other['colourspace'].innerHTML.toLowerCase();
+        return paletteData.getColourSpace().toLowerCase() || userObjects.other['colourspace'].innerHTML.split(' ')[1].toLowerCase();
     },
     _setColourspace(colourspace) {
-        userObjects.other['colourspace'].innerHTML = colourspace;
+        userObjects.other['colourspace'].innerHTML = `Mode: ${colourspace}`;
         paletteData.setColourSpace(colourspace);
         this._setSliderStyles(colourspace);
         this._setClipboardTextAll();
@@ -208,6 +207,11 @@ export const paletteUi = {
         this._setClipboardTextAll();
     },
     setBackgroundGradient(name, string) {
+        if (name === 'primary'){
+            userObjects.wrappers[name + '-wrapper'].style.background = paletteData.getPrimaryHex();
+            userObjects.other.gradient.style.background = string;
+            return;
+        }
         userObjects.wrappers[name + '-wrapper'].style.background = string;
     },
     _getSliderColourObject() {
@@ -459,13 +463,13 @@ export const paletteUi = {
         const prefixMode = paletteData.getPrefixMode();
         if (prefixMode === 'SCSS') {
             paletteData.setPrefixMode('CSS');
-            userObjects.other['prefix'].innerHTML = 'CSS';
+            userObjects.other['prefix'].innerHTML = `Prefix: CSS`;
             paletteData.setPrefix('--');
             this._setClipboardTextAll();
             return;
         }
         paletteData.setPrefixMode('SCSS');
-        userObjects.other['prefix'].innerHTML = 'SCSS';
+        userObjects.other['prefix'].innerHTML = `Prefix: SCSS`;
         paletteData.setPrefix('$');
         this._setClipboardTextAll();
     },

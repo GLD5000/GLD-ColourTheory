@@ -33,7 +33,7 @@
  
       color: $neutral-0;
       background-color: $neutral-500;
-      transition-duration: 0s;
+      //transition-duration: 0s;
       content: attr(data-content);
       text-align: center;
       line-height: 1;
@@ -50,7 +50,11 @@
       //border-left: 0;
       border-radius: 0 6px 0 0;
   }
-
+  .mode:hover::after, 
+  .mode:focus::after {
+    border-bottom: $gap solid $neutral-1000;
+    //background-color: $neutral-1000;
+  }
 
 /*   .copy-single:focus::after {
       background-color: $neutral-1000;
@@ -79,7 +83,7 @@
     font-size: $font-btn-size;
   }
 
-  .btn-dual,.textmode {
+  .btn-dual,.textmode, .btn-med {
     flex: 1 1 50%;
     font-size: $font-btn-size;
   }
@@ -88,7 +92,7 @@
 
 
   .btn-tiny {
-    flex: 1 1 25%;
+    flex: 1 1 50%;
     font-size: $font-btn-size;
   }
 
@@ -156,3 +160,4 @@
   color: $neutral-0;
   background-color: $neutral-500;
 }
+
