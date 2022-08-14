@@ -416,7 +416,7 @@ export const paletteUi = {
             this._onclickCopyAll(e.target);
             return;
         }
-        const message =  (paletteData.paletteState.gradientMode > 1) ? 'Copied + Tones ': '';
+        const message =  (paletteData.paletteState.gradientMode > 1) ? 'Copied + Tones ': 'Copied';
         this._showCompletedMessage(e.target, message);
         const text = this._getClipboardTextSingle(name);
         navigator.clipboard.writeText(text);
