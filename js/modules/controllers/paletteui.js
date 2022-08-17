@@ -400,9 +400,9 @@ export const paletteUi = {
         const clipboardFlexbox = userObjects.copyButtons['clipboard-flexbox'];
         (target.id === 'copyAllCSS')? this._showCompletedMessage(copyAllCSS, 'Copied All') : this._showCompletedMessage(clipboardFlexbox, 'Copied All');
         const textArray = paletteData.getClipboard()[2];
-        let text = textArray.join('\n');
+        let text = textArray.join(';\n\r');
         navigator.clipboard.writeText(text);
-        //console.log(`Copied To Clipboard:\n${text}`);
+        console.log(`Copied To Clipboard:\n${text}`);
     },
     _showCompletedMessage(target, message = 'Copied') {
         const revertMessage = target.dataset.content;
@@ -411,11 +411,13 @@ export const paletteUi = {
     },
     _onclickEmail(target) {
         const textArray = paletteData.getClipboard()[2];
-        let text = textArray.join('\r');
+        let linebreak = `;%0D%0A`;
+        let text = textArray.join(linebreak);
         const subjectMessage = 'GLD Colourmatic 5000 Palette';
-        const bodyMessage = 'GLD Colourmatic 5000 Palette:\r\n' + text;
-        navigator.clipboard.writeText(text);
-        window.open(window.open(`mailto:someemail@address?subject=${subjectMessage}&body=${bodyMessage}`))
+        const bodyMessage = `GLD Colourmatic 5000 Palette:%0D%0A%0D%0A${text}`;
+        window.open(window.open(`mailto:youremail@address?subject=${subjectMessage}&body=${bodyMessage}`));
+        //window.open(window.open(`mailto:youremail@address?subject=test&body=test%0D%0Atest`))
+
     },
     _onclickCopyButtons(e) {
         
