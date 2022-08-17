@@ -1,6 +1,7 @@
 # GLD Colourmatic 5000
+### The free colour palette generator for web developers.
 ![Overview](./media/img/screenshots/Overview.jpg)  
-### A colour palette generator for web developers.  
+  
 
 Want to generate thousands of colour combinations in seconds?
 Want an entire colour scheme in one click?
