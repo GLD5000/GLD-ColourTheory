@@ -411,11 +411,13 @@ export const paletteUi = {
     },
     _onclickEmail(target) {
         const textArray = paletteData.getClipboard()[2];
-        let text = textArray.join('\r');
+        let linebreak = `
+        `;
+        let text = textArray.join(linebreak);
         const subjectMessage = 'GLD Colourmatic 5000 Palette';
         const bodyMessage = 'GLD Colourmatic 5000 Palette:\r\n' + text;
-        navigator.clipboard.writeText(text);
-        window.open(window.open(`mailto:someemail@address?subject=${subjectMessage}&body=${bodyMessage}`))
+        window.open(window.open(`mailto:youremail@address?subject=${subjectMessage}&body=${bodyMessage}`))
+
     },
     _onclickCopyButtons(e) {
         
