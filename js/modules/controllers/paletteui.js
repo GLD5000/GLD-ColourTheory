@@ -409,12 +409,22 @@ export const paletteUi = {
         target.dataset.content = message + ' ✔';
         setTimeout(() => {target.dataset.content = revertMessage;}, 1800);
     },
+    _onclickEmail(target) {
+        const textArray = paletteData.getClipboard()[2];
+        let text = textArray.join('\r');
+        const subjectMessage = 'GLD Colourmatic 5000 Palette';
+        const bodyMessage = 'GLD Colourmatic 5000 Palette:\r\n' + text;
+        navigator.clipboard.writeText(text);
+        window.open(window.open(`mailto:someemail@address?subject=${subjectMessage}&body=${bodyMessage}`))
+    },
     _onclickCopyButtons(e) {
         
         const name = this._splitName(e.target.id);
         if (name === 'copyAllCSS' || name === 'clipboard') {
             this._onclickCopyAll(e.target);
             return;
+        } else if (name === 'email') {
+            this._onclickEmail(e.target);
         }
         const message =  (paletteData.paletteState.gradientMode > 1) ? 'Copied + Tones ': 'Copied';
         this._showCompletedMessage(e.target, message);
