@@ -6,7 +6,7 @@ function setAll() {
         ['sliders','input[type="range"]','array'],//array
         ['wrappers','wrapper'],
         //['buttons','button'],
-        ['copyButtons',['.copy-single','#clipboard-flexbox']],
+        ['copyButtons',['.copy-single','#clipboard-flexbox','#email']],
         ['other',['#textmode', '#prefix', '#gradient', '#colourspace', '#dice-btn', '#randomise-btn', '#gldlogo', '#header']],
         ['clipboard',['#clipboard', '#clipboard-secondary']],     
         ['history',['#history-flexbox', '#save-button']],     
