@@ -1,5 +1,5 @@
 # GLD Colourmatic 5000
-![GLD Colourmatic 5000](./media/img/screenshots/title%20bar.jpg)
+![GLD Colourmatic 5000](./media/img/screenshots/title-bar-b.jpg)
 ### The free colour palette generator for web developers.
 ![Overview](./media/img/screenshots/Overview.jpg)  
   
