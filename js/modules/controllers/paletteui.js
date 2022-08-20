@@ -338,6 +338,7 @@ export const paletteUi = {
         
     },
     _getClipboardTextSingle(name) {
+
         const colourspace = this._getColourspace();
         const prefix = paletteData.getPrefix();
         let customName = paletteData.getCustomColourName(name)|| name;
@@ -413,20 +414,18 @@ export const paletteUi = {
         const textArray = paletteData.getClipboard()[2];
         let linebreak = `;%0D%0A`;
         let text = textArray.join(linebreak);
-        const subjectMessage = 'GLD Colourmatic 5000 Palette';
-        const bodyMessage = `GLD Colourmatic 5000 Palette:%0D%0A%0D%0A${text}`;
-        window.open(window.open(`mailto:youremail@address?subject=${subjectMessage}&body=${bodyMessage}`));
-        //window.open(window.open(`mailto:youremail@address?subject=test&body=test%0D%0Atest`))
-
+        const subjectMessage = 'GLD Colourmatic 5000 colours for you';
+        const bodyMessage = `Thank you for using the GLD Colourmatic 5000!%0D%0A%0D%0AHere is your chosen palette:%0D%0A%0D%0A${text}`;
+        window.open(`mailto:youremail@address?subject=${subjectMessage}&body=${bodyMessage}`);
     },
     _onclickCopyButtons(e) {
-        
         const name = this._splitName(e.target.id);
         if (name === 'copyAllCSS' || name === 'clipboard') {
             this._onclickCopyAll(e.target);
             return;
         } else if (name === 'email') {
             this._onclickEmail(e.target);
+            return;
         }
         const message =  (paletteData.paletteState.gradientMode > 1) ? 'Copied + Tones ': 'Copied';
         this._showCompletedMessage(e.target, message);
