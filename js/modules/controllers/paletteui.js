@@ -486,6 +486,7 @@ export const paletteUi = {
     },
     _loadHistoryObject(event) {
         const hex = event.target.innerHTML.split(' ')[1];
+        if (hex[0] !== '#') return;
         const newState  = paletteState.deepCopyPaletteState(paletteData.savedPalettes[hex]);
         paletteState.applyStatefromHistoryObject(newState);
     },
