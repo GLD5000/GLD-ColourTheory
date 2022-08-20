@@ -192,7 +192,6 @@
     right: 0px;
     position: absolute;
     border: 4px solid $neutral-1000;
-    border-radius: 0 0px 6px 0px;
 }
 
 
@@ -222,14 +221,15 @@
   flex-wrap: wrap;
   width: 100%;
   overflow:auto;
-  gap:4px;
+  padding: 4px;
+  gap: 4px;
   align-content: flex-start;
 }
 
 .flexbox-history li {
   display: block;
-  border: 2px solid $neutral-300;
+  //border: 2px solid transparent; //$neutral-300;
   height: $gem;
-  width: calc(100% - 8px);
+  width: 100%;//calc(100% - 8px);
   color: $vscode-hex-orange;
 }

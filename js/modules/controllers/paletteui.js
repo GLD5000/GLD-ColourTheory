@@ -496,6 +496,8 @@ export const paletteUi = {
         if (paletteData.savedPalettes[hex] === undefined) {
             const li = document.createElement('li');
             li.innerHTML = `${++paletteState.saveCounter}) ${hex}`;
+            li.style.backgroundColor = hex;
+            li.style.color = paletteData.getMainTextColourHex() || paletteData.getTextColour('primary-text').hex;
             userObjects.history['history-flexbox'].append(li);
         }
         paletteData.savedPalettes[hex] = copyPaletteState;
