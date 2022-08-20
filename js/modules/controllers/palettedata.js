@@ -94,8 +94,8 @@ export const paletteData = {
     setTextMode(mode) {
         this.paletteState.textMode = mode;
     },
-    getTextColour() {
-        return this.paletteState.textColour;
+    getTextColour(name) {
+        return this.textColours.get(name);
     },
     getTextHex() {
         return this.paletteState.textColour.hex;
@@ -108,7 +108,7 @@ export const paletteData = {
         return this.paletteState.textColour;
      },
      getMainTextColourHex(textColour) {
-        return this.paletteState.textColour.hex;
+        return this.paletteState.textColour?.hex;
      },
   
     addTextColour(colour) {
