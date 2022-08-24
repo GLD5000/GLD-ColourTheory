@@ -590,7 +590,8 @@ p, li, ol, ul, a {
 }
 
 .flexbox-clipboard:hover,
-.flexbox-history li:hover {
+.flexbox-history li:hover,
+.flexbox-history button:hover {
   backdrop-filter: brightness(1.6);
 }
 
@@ -616,7 +617,8 @@ p, li, ol, ul, a {
   border-radius: 0 0px 6px 0px;
 }
 
-.flexbox-history li:hover::after {
+.flexbox-history li:hover::after,
+.flexbox-history button:hover::after {
   font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
   color: #fff;
   background-color: hsla(0deg, 0%, 55.7%, 0.6);
@@ -635,7 +637,8 @@ p, li, ol, ul, a {
   border: 4px solid #000;
 }
 
-.clipboard, .clipboard-secondary, .flexbox-history li {
+.clipboard, .clipboard-secondary, .flexbox-history li,
+.flexbox-history button {
   display: block;
   height: auto;
   width: fit-content;
@@ -647,6 +650,7 @@ p, li, ol, ul, a {
   white-space: pre;
   align-items: center;
   line-height: 1.125;
+  background: none;
 }
 
 .clipboard, .history {
@@ -666,7 +670,7 @@ p, li, ol, ul, a {
   align-content: flex-start;
 }
 
-.flexbox-history li {
+.flexbox-history li, .flexbox-history button {
   display: block;
   height: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
   width: 100%;
