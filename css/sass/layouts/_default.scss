@@ -1,4 +1,8 @@
 @use '../abstracts' as *;
+
+.hidden {
+    display: none;
+}
 /* Grid areas */
 .header {
     grid-area: header;
