@@ -499,9 +499,11 @@ export const paletteUi = {
             li.style.backgroundColor = hex;
             li.style.color = paletteData.getMainTextColourHex() || paletteData.getTextColour('primary-text').hex;
             userObjects.history['history-flexbox'].append(li);
+            document.querySelector('#history-flexbox').scrollTop = '1000';
+            console.log(document.querySelector('#history-flexbox').scrollTop);
         }
         paletteData.savedPalettes[hex] = copyPaletteState;
-        paletteUi._showCompletedMessage(event.target, 'Saved Palette');
+        //paletteUi._showCompletedMessage(event.target, 'Saved Palette');
     },
     _clearHistory() {
     userObjects.history['history-flexbox'].innerHTML = "";

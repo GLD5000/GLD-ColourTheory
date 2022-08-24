@@ -322,8 +322,6 @@ p, li, ol, ul, a {
 
 .copy-single:hover::after,
 .copy-single:focus::after,
-.save-btn:hover::after,
-.save-btn:focus::after,
 .textmode:hover::after,
 .textmode:focus::after,
 .mode:hover::after,
@@ -797,6 +795,10 @@ input[type=range]:focus::before, .fakesliderhover::before {
   line-height: 120%;
   color: #000;
   background-color: rgba(255, 255, 255, 0.6);
+}
+
+.hidden {
+  display: none;
 }
 
 /* Grid areas */
