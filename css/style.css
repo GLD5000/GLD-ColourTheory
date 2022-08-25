@@ -648,7 +648,7 @@ p, li, ol, ul, a {
   padding: 0.25em;
   cursor: pointer;
   white-space: pre;
-  align-items: center;
+  text-align: left;
   line-height: 1.125;
   background: none;
 }

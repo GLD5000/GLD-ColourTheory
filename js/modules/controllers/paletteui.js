@@ -494,13 +494,12 @@ export const paletteUi = {
         const hex = paletteData.getPrimaryHex();
         const copyPaletteState  = paletteState.deepCopyPaletteState(paletteData.paletteState);
         if (paletteData.savedPalettes[hex] === undefined) {
-            const li = document.createElement('li');
-            li.innerHTML = `${++paletteState.saveCounter}) ${hex}`;
-            li.style.backgroundColor = hex;
-            li.style.color = paletteData.getMainTextColourHex() || paletteData.getTextColour('primary-text').hex;
-            userObjects.history['history-flexbox'].append(li);
+            const element = document.createElement('button');
+            element.innerHTML = `${++paletteState.saveCounter}) ${hex}`;
+            element.style.backgroundColor = hex;
+            element.style.color = paletteData.getMainTextColourHex() || paletteData.getTextColour('primary-text').hex;
+            userObjects.history['history-flexbox'].append(element);
             document.querySelector('#history-flexbox').scrollTop = '1000';
-            console.log(document.querySelector('#history-flexbox').scrollTop);
         }
         paletteData.savedPalettes[hex] = copyPaletteState;
         //paletteUi._showCompletedMessage(event.target, 'Saved Palette');
