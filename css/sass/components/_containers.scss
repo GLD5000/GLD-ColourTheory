@@ -145,7 +145,7 @@
 }
 
 .flexbox-clipboard:hover,
-.flexbox-history li:hover,
+//.flexbox-history li:hover,
 .flexbox-history button:hover {
   backdrop-filter: brightness(1.6);
 }
@@ -173,7 +173,7 @@
   border-radius: 0 0px 6px 0px;
 }
 
-.flexbox-history li:hover::after,
+//.flexbox-history li:hover::after,
 .flexbox-history button:hover::after {
   font-size: $gem3Quart;
 
