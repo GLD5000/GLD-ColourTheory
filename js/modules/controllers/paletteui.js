@@ -414,7 +414,7 @@ export const paletteUi = {
         const textArray = paletteData.getClipboard()[2];
         let linebreak = `;%0D%0A`;
         let text = textArray.join(linebreak);
-        const subjectMessage = 'GLD Colourmatic 5000 colours for you';
+        const subjectMessage = `GLD Colourmatic 5000 colours for you`;
         const bodyMessage = `Thank you for using the GLD Colourmatic 5000!%0D%0A%0D%0AHere is your chosen palette:%0D%0A%0D%0A${text}`;
         window.open(`mailto:youremail@address?subject=${subjectMessage}&body=${bodyMessage}`);
     },
