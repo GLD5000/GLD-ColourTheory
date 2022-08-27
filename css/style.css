@@ -829,114 +829,77 @@ input[type=range]:focus::before, .fakesliderhover::before {
   grid-template: "header header header" auto ". palette ." 1fr "footer footer footer" auto/1em 1fr 1em;
 }
 
-/*
-Grid level 2 areas
-*/
-.primary-swatch {
-  grid-area: picker;
-}
-
-.monochromeA {
-  grid-area: monochromeA;
-}
-
-.monochromeB {
-  grid-area: monochromeB;
-}
-
-.analogousA {
-  grid-area: analogousA;
-}
-
-.analogousB {
-  grid-area: analogousB;
-}
-
-.triadicA {
-  grid-area: triadicA;
-}
-
-.triadicB {
-  grid-area: triadicB;
-}
-
-.tetradicA {
-  grid-area: tetradicA;
-}
-
-.tetradicB {
-  grid-area: tetradicB;
-}
-
-.tetradicC {
-  grid-area: tetradicC;
-}
-
-.neutral {
-  grid-area: neutral;
-}
-
-.btn-copy {
-  grid-area: copyAll;
-}
-
-.btn-random {
-  grid-area: random;
-}
-
-.btn-history {
-  grid-area: history;
-}
-
-/*.clipboard {
-    grid-area: clipboard;
-}
-
-
-$picker-height-tiny: 24em;
-$swatch-height-tiny: 12em;
-
-$picker-height-small: 16em;
-$swatch-height-small: 8em;
-
-$picker-height-medium: 16em;
-$swatch-height-medium: 12em;
-
-$picker-height-large: 32em;
-$swatch-height-large: 16em;
-*/
 .swatch-palette {
   overflow-y: auto;
   grid-auto-rows: calc(5.4 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
-  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr;
 }
 
-@media all and (min-width: 0px) {
+@media all and (min-width: 0) {
   .swatch-palette {
-    grid-template-areas: "picker" "picker" "random" "history" "copyAll" "monochromeA" "monochromeB" "analogousA" "analogousB" "triadicA" "triadicB" "tetradicA" "tetradicB" "tetradicC" "neutral";
+    overflow-y: auto;
+    grid-auto-rows: calc(5.4 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
+    grid-template-columns: 1fr;
+  }
+  .primary-swatch {
+    grid-column: span 1;
+    grid-row: span 2;
   }
 }
 @media all and (min-width: 37.5em) {
   .swatch-palette {
-    grid-template-areas: "picker picker" "picker picker" "random history" "copyAll copyAll" "monochromeA monochromeB" "analogousA analogousB" "triadicA triadicB" "tetradicA tetradicB" "tetradicC neutral";
+    overflow-y: auto;
+    grid-auto-rows: calc(5.4 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .primary-swatch {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  .btn-copy {
+    grid-column: span 2;
   }
 }
 @media all and (min-width: 60em) {
   .swatch-palette {
-    grid-template-areas: "picker picker picker picker" "picker picker picker picker" "random history copyAll copyAll" "monochromeA monochromeB copyAll copyAll" "analogousA analogousB triadicA triadicB" "tetradicA tetradicB tetradicC neutral";
-    grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)), 1fr);
+    overflow-y: auto;
+    grid-auto-rows: calc(5.4 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .primary-swatch {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  .btn-copy {
+    grid-column: span 2;
   }
 }
 @media all and (min-width: 80em) {
   .swatch-palette {
-    grid-template-areas: "picker picker  random history" "picker picker  copyAll copyAll" "monochromeA monochromeB analogousA analogousB" "triadicA triadicB tetradicA tetradicB" "tetradicC neutral neutral tetradicB";
-    grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)), 1fr);
+    overflow-y: auto;
+    grid-auto-rows: calc(5.4 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .primary-swatch {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  .btn-copy {
+    grid-column: span 2;
   }
 }
 @media all and (min-width: 120em) {
   .swatch-palette {
-    grid-template-areas: "random history picker picker monochromeA monochromeB" "copyAll copyAll picker picker analogousA analogousB" "triadicA triadicB tetradicA tetradicB tetradicC neutral";
-    grid-auto-rows: minmax(calc(5 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)), 1fr);
+    overflow-y: auto;
+    grid-auto-rows: calc(5.4 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .primary-swatch {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  .btn-copy {
+    grid-column: span 2;
   }
 }
 

@@ -30,188 +30,75 @@
     "footer footer footer" auto 
     / 1em 1fr 1em;
 }
-
-
-/*
-Grid level 2 areas
-*/
-.primary-swatch {
-    grid-area: picker;
-}
-.monochromeA {
-    grid-area: monochromeA;
-}
-.monochromeB {
-    grid-area: monochromeB;
-}
-.analogousA {
-    grid-area: analogousA;
-}
-.analogousB {
-    grid-area: analogousB;
-}
-.triadicA {
-    grid-area: triadicA;
-}
-.triadicB {
-    grid-area: triadicB;
-}
-.tetradicA {
-    grid-area: tetradicA;
-}
-.tetradicB {
-    grid-area: tetradicB;
-}
-.tetradicC {
-    grid-area: tetradicC;
-}
-.neutral {
-    grid-area: neutral;
-}
-.btn-copy {
-    grid-area: copyAll;
-}
-.btn-random {
-    grid-area: random;
-}
-.btn-history {
-    grid-area: history;
-}
-/*.clipboard {
-    grid-area: clipboard;
-}
-
-
-$picker-height-tiny: 24em;
-$swatch-height-tiny: 12em;
-
-$picker-height-small: 16em;
-$swatch-height-small: 8em;
-
-$picker-height-medium: 16em;
-$swatch-height-medium: 12em;
-
-$picker-height-large: 32em;
-$swatch-height-large: 16em;
-*/
-$swatch-palette-tiny-areas: 
-"picker" 
-"picker" 
-"random"
-"history"
-"copyAll"
-"monochromeA" 
-"monochromeB" 
-"analogousA" 
-"analogousB" 
-"triadicA" 
-"triadicB" 
-"tetradicA" 
-"tetradicB" 
-"tetradicC" 
-"neutral" 
-;
-//$swatch-palette-tiny-rows: $picker-height-tiny repeat(11, $swatch-height-tiny);
-//$swatch-palette-tiny-columns: 1fr;
-
-$swatch-palette-small-areas: 
-"picker picker"
-"picker picker"
-"random history"
-"copyAll copyAll"
-"monochromeA monochromeB" 
-"analogousA analogousB" 
-"triadicA triadicB" 
-"tetradicA tetradicB" 
-"tetradicC neutral"
-;
-//$swatch-palette-small-rows: $picker-height-small repeat(11, $swatch-height-small);
-//$swatch-palette-small-columns: 1fr 1fr;
-
-$swatch-palette-medium-areas: 
-"picker picker picker picker"
-"picker picker picker picker"
-"random history copyAll copyAll"
-"monochromeA monochromeB copyAll copyAll"
-"analogousA analogousB triadicA triadicB"
-"tetradicA tetradicB tetradicC neutral" 
-;
-//$swatch-palette-medium-rows: $picker-height-medium repeat(6, $swatch-height-medium);
-//$swatch-palette-medium-columns: repeat(4, 1fr);
-
-$swatch-palette-large-areas: 
-"picker picker  random history"
-"picker picker  copyAll copyAll"
-"monochromeA monochromeB analogousA analogousB"
-"triadicA triadicB tetradicA tetradicB"
-"tetradicC neutral neutral tetradicB"
-;
-
-//$swatch-palette-large-rows: repeat(4,$swatch-height-large);
-//$swatch-palette-large-columns: repeat(5, 1fr);
-
-$swatch-palette-huge-areas: 
-"random history picker picker monochromeA monochromeB" 
-"copyAll copyAll picker picker analogousA analogousB" 
-"triadicA triadicB tetradicA tetradicB tetradicC neutral" 
-;
-//$swatch-palette-huge-rows: repeat(3,$swatch-height-large);
-//$swatch-palette-huge-columns: repeat(6, 1fr);
-
-$swatch-palette-extra-huge-areas: 
-"copyAll copyAll monochromeA monochromeB picker picker triadicA triadicB" 
-"copyAll copyAll analogousA analogousB picker picker tetradicA tetradicC" 
-"copyAll copyAll neutral neutral random random  tetradicB tetradicB";
-
-
 .swatch-palette {
     overflow-y:auto; 
     grid-auto-rows: calc(5.4 * $gem);
-    grid-auto-columns: 1fr;
-   
+    grid-template-columns: 1fr;
 }
-@media all and (min-width: 0px) {
+@media all and (min-width: 0) {
     .swatch-palette {
-        grid-template-areas: $swatch-palette-tiny-areas;
-        //grid-template-rows: $swatch-palette-tiny-rows;
-        //grid-template-columns: $swatch-palette-tiny-columns;
+        overflow-y:auto; 
+        grid-auto-rows: calc(5.4 * $gem);
+        grid-template-columns: 1fr;
+    }    
+    .primary-swatch{
+        grid-column: span 1;
+        grid-row: span 2;
     }
 }
-
 @media all and (min-width: $bp-tiny) {
     .swatch-palette {
-        grid-template-areas: $swatch-palette-small-areas;  
-        //grid-template-rows: $swatch-palette-small-rows;    
-        //grid-template-columns: $swatch-palette-small-columns;    
+        overflow-y:auto; 
+        grid-auto-rows: calc(5.4 * $gem);
+        grid-template-columns: repeat(2,1fr);
+    }
+    .primary-swatch {
+        grid-row:   span 2;
+        grid-column: span 2;
+    }
+    .btn-copy{
+        grid-column: span 2;
     }
 }
-
 @media all and (min-width: $bp-small) {
     .swatch-palette {
-        grid-template-areas: $swatch-palette-medium-areas;  
-        //grid-template-rows: $swatch-palette-medium-rows;    
-        //grid-template-columns: $swatch-palette-medium-columns; 
-        grid-auto-rows: minmax(calc(5 * $gem), 1fr);
-   
+        overflow-y:auto; 
+        grid-auto-rows: calc(5.4 * $gem);
+        grid-template-columns: repeat(4,1fr);
+    }
+    .primary-swatch {
+        grid-row:   span 2;
+        grid-column: span 2;
+    }
+    .btn-copy{
+        grid-column: span 2;
     }
 }
-
 @media all and (min-width: $bp-medium) {
     .swatch-palette {
-        grid-template-areas: $swatch-palette-large-areas;  
-        //grid-template-rows: $swatch-palette-large-rows;    
-        //grid-template-columns: $swatch-palette-large-columns;
-        grid-auto-rows: minmax(calc(5 * $gem), 1fr);
-    
+        overflow-y:auto; 
+        grid-auto-rows: calc(5.4 * $gem);
+        grid-template-columns: repeat(4,1fr);
+    }
+    .primary-swatch {
+        grid-row:   span 2;
+        grid-column: span 2;
+    }
+    .btn-copy{
+        grid-column: span 2;
     }
 }
-
 @media all and (min-width: $bp-large) {
     .swatch-palette {
-        grid-template-areas: $swatch-palette-huge-areas;  
-        //grid-template-rows: $swatch-palette-huge-rows;    
-        //grid-template-columns: $swatch-palette-huge-columns; 
-        grid-auto-rows: minmax(calc(5 * $gem), 1fr);
-   
+        overflow-y:auto; 
+        grid-auto-rows: calc(5.4 * $gem);
+        grid-template-columns: repeat(6,1fr);
+    }
+    .primary-swatch {
+        grid-row:   span 2;
+        grid-column: span 2;
+    }
+    .btn-copy{
+        grid-column: span 2;
     }
 }
