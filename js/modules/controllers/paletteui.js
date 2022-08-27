@@ -497,6 +497,7 @@ export const paletteUi = {
             const element = document.createElement('button');
             element.innerHTML = `${++paletteState.saveCounter}) ${hex}`;
             element.style.backgroundColor = hex;
+            element.classList.add('saved-palette');
             element.style.color = paletteData.getMainTextColourHex() || paletteData.getTextColour('primary-text').hex;
             userObjects.history['history-flexbox'].append(element);
             document.querySelector('#history-flexbox').scrollTop = '1000';

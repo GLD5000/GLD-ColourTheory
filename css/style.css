@@ -461,6 +461,13 @@ p, li, ol, ul, a {
   background-color: hsl(0deg, 0%, 55.7%);
 }
 
+.scheme-button {
+  height: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6);
+  width: 100%;
+  font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6);
+  background: linear-gradient(to right, hsl(240deg, 40%, 80%), hsl(240deg, 40%, 80%) 33.3%, hsl(240deg, 40%, 70%) 33.3%, hsl(240deg, 40%, 70%) 66.6%, hsl(240deg, 40%, 60%) 66.6%);
+}
+
 .swatch-palette {
   width: 100%;
   display: grid;
@@ -595,7 +602,7 @@ p, li, ol, ul, a {
 }
 
 .flexbox-clipboard:hover,
-.flexbox-history button:hover {
+.saved-palette:hover {
   backdrop-filter: brightness(1.6);
 }
 
@@ -621,7 +628,7 @@ p, li, ol, ul, a {
   border-radius: 0 0px 6px 0px;
 }
 
-.flexbox-history button:hover::after {
+.saved-palette:hover::after {
   font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
   color: #fff;
   background-color: hsla(0deg, 0%, 55.7%, 0.6);
@@ -641,7 +648,7 @@ p, li, ol, ul, a {
 }
 
 .clipboard, .clipboard-secondary, .flexbox-history li,
-.flexbox-history button {
+.saved-palette {
   display: block;
   height: auto;
   width: fit-content;
@@ -662,7 +669,7 @@ p, li, ol, ul, a {
   color: #9cdcfe;
 }
 
-.flexbox-history {
+.flexbox-history, .flexbox-scheme {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -673,7 +680,7 @@ p, li, ol, ul, a {
   align-content: flex-start;
 }
 
-.flexbox-history li, .flexbox-history button {
+.flexbox-history li, .saved-palette {
   display: block;
   height: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
   width: 100%;
