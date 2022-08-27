@@ -306,6 +306,11 @@ p, li, ol, ul, a {
   margin: 8px;
 }
 
+.header-two {
+  font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
+  color: #000;
+}
+
 .btn, .textmode {
   position: relative;
   align-items: center;
