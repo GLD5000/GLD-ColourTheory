@@ -62,7 +62,7 @@
   position: relative;
   color:black;
 }
-.primary-wrapper:hover, .picker-wrapper:hover, .dice:hover {
+.primary-wrapper:hover, .picker-wrapper:hover {
   box-shadow: $box-shadow-inset-dark;
 }
 .primary-wrapper:focus-within, .picker-wrapper:focus-within, .dice:focus-within {
