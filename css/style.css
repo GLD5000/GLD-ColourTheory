@@ -462,19 +462,10 @@ p, li, ol, ul, a {
 }
 
 .scheme-button {
-  position: relative;
   height: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6);
   width: 100%;
-  font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
-}
-
-.colour-wheel {
-  top: 0%;
-  position: absolute;
-  height: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6);
-  width: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6);
-  border: 2px solid red;
-  background-image: radial-gradient(black 0%, black 20%, white 20%, white 90%);
+  font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6);
+  background: linear-gradient(to right, hsl(240deg, 40%, 80%), hsl(240deg, 40%, 80%) 33.3%, hsl(240deg, 40%, 70%) 33.3%, hsl(240deg, 40%, 70%) 66.6%, hsl(240deg, 40%, 60%) 66.6%);
 }
 
 .swatch-palette {
@@ -678,7 +669,7 @@ p, li, ol, ul, a {
   color: #9cdcfe;
 }
 
-.flexbox-history {
+.flexbox-history, .flexbox-scheme {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
