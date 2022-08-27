@@ -512,11 +512,11 @@ p, li, ol, ul, a {
   color: black;
 }
 
-.primary-wrapper:hover, .picker-wrapper:hover {
+.primary-wrapper:hover, .picker-wrapper:hover, .dice:hover {
   box-shadow: inset 0px 0px 0px calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125) #000;
 }
 
-.primary-wrapper:focus-within, .picker-wrapper:focus-within, .dice:focus-within {
+.primary-wrapper:focus-within, .picker-wrapper:focus-within {
   box-shadow: inset 0px 0px 0px calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125) #fff;
 }
 
