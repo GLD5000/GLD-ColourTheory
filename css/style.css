@@ -867,7 +867,7 @@ input[type=range]:focus::before, .fakesliderhover::before {
     grid-template-columns: repeat(4, 1fr);
   }
   .primary-swatch {
-    grid-row: span 2;
+    grid-row: span 3;
     grid-column: span 2;
   }
   .btn-copy {
@@ -881,7 +881,7 @@ input[type=range]:focus::before, .fakesliderhover::before {
     grid-template-columns: repeat(4, 1fr);
   }
   .primary-swatch {
-    grid-row: span 2;
+    grid-row: span 3;
     grid-column: span 2;
   }
   .btn-copy {
