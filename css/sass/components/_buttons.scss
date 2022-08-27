@@ -158,4 +158,21 @@
   color: $neutral-0;
   background-color: $neutral-500;
 }
+.scheme-button {
+  position: relative;
+  height: $gem2;
+  width: 100%;
+  font-size: $gem3Quart;
+}
 
+.colour-wheel {
+  top: 0%;
+  position: absolute;
+  height: $gem2;
+  width: $gem2;
+
+  border: 2px solid red;
+
+  background-image: radial-gradient(
+    black 0%, black 20%, white 20%, white 90%);
+}
