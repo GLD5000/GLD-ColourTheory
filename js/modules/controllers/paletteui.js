@@ -318,6 +318,7 @@ export const paletteUi = {
 
     },
     _onclickPickerText() {
+        console.log(userObjects.pickers['textcolour-picker'].disabled);
         if (paletteData.getMainTextColour() != null) {
             paletteUi._addTextColour('primary-text', paletteData.getMainTextColourHex());
             this.setTextMode('custom');
@@ -508,6 +509,19 @@ export const paletteUi = {
     _clearHistory() {
     userObjects.history['history-flexbox'].innerHTML = "";
     },
+    _onclickTextMode(event){
+        userObjects.pickers['textcolour-picker'].disabled = (userObjects.pickers['textcolour-picker'].disabled === true)? false: true;
+
+       // userObjects.pickers['textcolour-picker'].input();
+       // event.stopPropagation();
+        console.log(event.target.classList.value);
+       // if (paletteData.getMainTextColour() != null) {
+         //   paletteUi._addTextColour('primary-text', paletteData.getMainTextColourHex());
+          //  paletteUi.setTextMode('custom');
+       // }
+
+
+    },
 
     _setOnChange() {
         userObjects.other['colourspace'].onclick = () => this._onclickColourspace();
@@ -524,8 +538,10 @@ export const paletteUi = {
         userObjects.sliders.forEach((x) => x.oninput = throttleDebounce.throttle((x) => this._oninputSlider(x), 85));
         Object.keys(userObjects.pickers).forEach((x) => userObjects.pickers[x].oninput = throttleDebounce.throttle((x) => this._oninputPicker(...x), 85) );
         this.getSmallSwatchNames().forEach(x => userObjects.pickers[x + '-picker'].onclick = (e) => this._onclickPickerSmall(e));
+        userObjects.other['textmode'].addEventListener('click', this._onclickTextMode, true);
+        userObjects.pickers['textcolour-picker'].addEventListener('click', this._onclickPickerText, true)
 
-        userObjects.pickers['textcolour-picker'].onclick = (e) => this._onclickPickerText(e);
+        //userObjects.pickers['textcolour-picker'].onclick = (e) => this._onclickPickerText(e);
         this._getUiObject('hamburger-toggle').onclick = (x) => {
             this._getUiObject('navbar-list').classList.toggle('active');
         };
