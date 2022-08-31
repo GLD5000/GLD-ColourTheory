@@ -20,7 +20,7 @@ const paletteState = {
     setCustomStatesfromWrappers() {
         const returnObject = {}
         userObjects.smallSwatchNamesArray.forEach((name) => {
-        returnObject[name] = (userObjectsAll[name + '-wrapper'].dataset.content[0] === 'c')? 'Custom': 'Auto';//check wrapper for the 'c' word 
+        returnObject[name] = (userObjectsAll[name + '-wrapper'].dataset.content[0] === 'c')? 'Custom': 'auto';//check wrapper for the 'c' word 
         paletteData.paletteState.smallSwatchCustomState = returnObject;
         });
     },
@@ -98,7 +98,7 @@ export const paletteUi = {
         return userObjectsAll[id];
     },
     _debounce() {
-        this._updateVariants = throttleDebounce.debounce(() => variantMaker.updateVariants(), 250);
+        this._updateVariants = throttleDebounce.debounce((primaryColour) => variantMaker.updateVariants(primaryColour), 250);
     },
     _clipboardColourspaceLookup: {
         hex: '#ce9178',
@@ -120,20 +120,14 @@ export const paletteUi = {
         this._setClipboardTextAll();
     },
     _init() {
-        //this._randomiseHeaderBackground();
         this.customBackgroundCounter = this._updateClipboard = 0;
         this._debounce();
-        //this._updatePrimaryGradient = (x) => gradientMaker.updateGradient(...x);
         this._randomiseDice();
-        //document.querySelector('.footer').style.backgroundColor = colourObject.makeRandomHslStringSafer();
         this._randomisePrimary();
         this._setOnChange();
-        //this.setTextMode('Auto');
-        //this._resetSmallWrapperContent();
         paletteState._resetAllCustomStates();
         this._randomiseColourSpace();
         this._randomiseGradient();
-        //this._setClipboardTextAll();
         paletteState.setCustomStatesfromWrappers();
         paletteState.deepCopyPaletteState(paletteData.paletteState, paletteData.savedState);
         console.log(userObjects);
@@ -171,9 +165,9 @@ export const paletteUi = {
     _updateGldLogoColour(hex){
         userObjects.other.gldlogo.style.backgroundColor = hex;
     },
-    _addPrimaryColour(newColour) {
+    _addPrimaryColour(primaryColour) {
         const colourspace = this._getColourspace();
-        const {hue, sat, lum, red, green, blue, hex, tint, warmth, lightness} = newColour;
+        const {hue, sat, lum, red, green, blue, hex, tint, warmth, lightness} = primaryColour;
         const selectColourObject = {
             'hex': [tint, warmth, lightness],
             'hsl': [hue, sat, lum],
@@ -184,11 +178,11 @@ export const paletteUi = {
         userObjects.pickers['primary-picker'].value = hex;
         this._updateGldLogoColour(hex);
         paletteData.setPrimaryHex(hex);
-        userObjects.copyButtons['primary-copybtn'].innerHTML = newColour[colourspace];
-        gradientMaker.updateGradient(newColour);
-        this.setTextMode('Auto');
+        userObjects.copyButtons['primary-copybtn'].innerHTML = primaryColour[colourspace];
+        gradientMaker.updateGradient(primaryColour);
+        this.setTextMode('auto');
         paletteState._resetAllCustomStates();
-        this._updateVariants();
+        this._updateVariants(primaryColour);
         this._updateClipboard = 1;
         this._setClipboardTextAll();
     },
@@ -317,13 +311,13 @@ export const paletteUi = {
         this.addColour(newColour);
 
     },
-    _onclickPickerText() {
-        console.log(userObjects.pickers['textcolour-picker'].disabled);
-        if (paletteData.getMainTextColour() != null) {
-            paletteUi._addTextColour('primary-text', paletteData.getMainTextColourHex());
-            this.setTextMode('custom');
-        }
-    },
+    //_onclickPickerText() {
+    //    console.log(userObjects.pickers['textcolour-picker'].disabled);
+    //    if (paletteData.getMainTextColour() != null) {
+    //        paletteUi._addTextColour('primary-text', paletteData.getMainTextColourHex());
+    //        this.setTextMode('custom');
+    //    }
+    //},
     _onclickPickerSmall(e) {
         const name = this._splitName(e.target.id);
 
@@ -509,18 +503,22 @@ export const paletteUi = {
     _clearHistory() {
     userObjects.history['history-flexbox'].innerHTML = "";
     },
-    _onclickTextMode(event){
-        userObjects.pickers['textcolour-picker'].disabled = (userObjects.pickers['textcolour-picker'].disabled === true)? false: true;
-
-       // userObjects.pickers['textcolour-picker'].input();
-       // event.stopPropagation();
-        console.log(event.target.classList.value);
-       // if (paletteData.getMainTextColour() != null) {
-         //   paletteUi._addTextColour('primary-text', paletteData.getMainTextColourHex());
-          //  paletteUi.setTextMode('custom');
-       // }
-
-
+    setTextPickerDisabled(boolean){
+        userObjects.pickers['textcolour-picker'].disabled = boolean;
+    },
+    _onclickTextMode(){
+        if (paletteUi.getTextMode() === 'auto') {
+            paletteUi.setTextMode('custom');
+            paletteUi.setTextPickerDisabled(false);
+            if (paletteData.getMainTextColour() != null) {
+                paletteUi._addTextColour('primary-text', paletteData.getMainTextColourHex());
+            }
+        } else { //text mode is custom
+            paletteUi.setTextMode('auto');
+            paletteUi.setTextPickerDisabled(true);
+            const primaryColour = paletteData.getColourObject('primary');
+            paletteUi.addColour(primaryColour);    
+        }
     },
 
     _setOnChange() {
@@ -539,7 +537,7 @@ export const paletteUi = {
         Object.keys(userObjects.pickers).forEach((x) => userObjects.pickers[x].oninput = throttleDebounce.throttle((x) => this._oninputPicker(...x), 85) );
         this.getSmallSwatchNames().forEach(x => userObjects.pickers[x + '-picker'].onclick = (e) => this._onclickPickerSmall(e));
         userObjects.other['textmode'].addEventListener('click', this._onclickTextMode, true);
-        userObjects.pickers['textcolour-picker'].addEventListener('click', this._onclickPickerText, true)
+        //userObjects.pickers['textcolour-picker'].addEventListener('click', this._onclickPickerText, true)
 
         //userObjects.pickers['textcolour-picker'].onclick = (e) => this._onclickPickerText(e);
         this._getUiObject('hamburger-toggle').onclick = (x) => {

@@ -8,7 +8,7 @@ export const paletteData = {
         gradientMode: 1,
         prefixMode: 'SCSS',
         prefix: '$',
-        textMode: 'Auto',
+        textMode: 'auto',
         textColour: null,
         colourspace: 'Hex',
     },
