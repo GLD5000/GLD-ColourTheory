@@ -10,7 +10,8 @@ function setAll() {
         ['other',['#textmode', '#prefix', '#gradient', '#colourspace', '#dice-btn', '#randomise-btn', '#gldlogo', '#header']],
         ['clipboard',['#clipboard', '#clipboard-secondary']],     
         ['history',['#history-flexbox', '#save-button']],     
-        ['navbar',['#hamburger-toggle', '#navbar-list']],     
+        ['navbar',['#hamburger-toggle', '#navbar-list']], 
+        ['schemes', '.scheme-button']    
         // ['labels','label'],
     ];  
     const returnObject = {};// {all: {}};

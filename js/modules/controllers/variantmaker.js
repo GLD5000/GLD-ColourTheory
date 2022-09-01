@@ -32,8 +32,8 @@ export const variantMaker= {
     ['monochromeA', {name: 'monochromeA', lum: -10, operation: 'add'}],
     ['monochromeB', {name: 'monochromeB', lum: 10, operation: 'add'}],
     ['neutral', {name: 'neutral', sat: 0}],
-   // ['splitA', {name: 'splitA', hue: 150, operation: 'add'}],
-   // ['splitB', {name: 'splitB', hue: 210, operation: 'add'}],
+    ['splitA', {name: 'splitA', hue: 150, operation: 'add'}],
+    ['splitB', {name: 'splitB', hue: 210, operation: 'add'}],
   ]), 
   updateVariants(primaryColour) {
     //const primaryColour = paletteUi.getColourObject('primary');

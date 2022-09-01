@@ -1,4 +1,5 @@
 import { userObjects } from './modules/view/userobjects.js';
+import { userObjectsAll } from './modules/view/userobjects.js';
 import { variantMaker } from './modules/controllers/variantmaker.js';
 import { gradientMaker } from './modules/controllers/gradientmaker.js';
 import { paletteData } from './modules/controllers/palettedata.js';
@@ -22,3 +23,4 @@ colourObject._convertSrgbtoTwl(testColour);
 colourArray.push(`t: ${testColour.tint} w: ${testColour.warmth} l: ${testColour.lightness} r: ${testColour.red} b: ${testColour.blue} g: ${testColour.green}`);
 console.log(colourArray.join('\n'));
  */
+console.log(userObjectsAll);

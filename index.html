@@ -16,13 +16,13 @@
     
     <header id="header" class="header" name="header">
       <nav class="navbar">
-        <wrapper class="logo-grid">
+        <container class="logo-grid">
           <img id="gldlogo" class="gldlogo" src="media/img/Logos/gldcondensedpngB.png" alt="GLD">
-          <wrapper>
+          <container>
             <h1 class="logoproduct">COLOUR&shy;MATIC 5000</h1>
-            <h2 class="header-two"> Automatic Colour Palette Generator</h2>
-            </wrapper>
-        </wrapper>
+            <h2 class="header-two"> Automatic CSS Colour Palette Generator</h2>
+          </container>
+        </container>
         <a href="#" class="hamburger-toggle" id="hamburger-toggle">
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
@@ -85,9 +85,12 @@
       <container class="btn-container btn-history">
 
         <ul id="scheme-flexbox" class="flexbox-scheme" data-content="Choose A Scheme">
-          <button class="scheme-button">Monochromatic</button>
-          <button class="scheme-button">Analogous</button>
-          <button class="scheme-button">Triadic</button>
+          <button id="Monochrome" class="scheme-button">Monochrome</button>
+          <button id="Analogous" class="scheme-button">Analogous</button>
+          <button id="Complementary" class="scheme-button">Complementary</button>
+          <button id="Split" class="scheme-button">Split Complementary</button>
+          <button id="Triadic" class="scheme-button">Triadic</button>
+          <button id="Square" class="scheme-button">Tetradic Square</button>
         </ul>
 
         <container class="flexbox-horizontal-btn">
@@ -152,6 +155,21 @@
         </wrapper>
         <button class="btn btn-med copy-single" id="analogousB-copybtn" data-content="Copy"></button>
       </container>
+
+      <container class="swatch splitA" >
+        <wrapper id="splitA-wrapper" class="picker-wrapper splitA-wrapper" name="Split B">
+          <input type="color" id="splitA-picker" class="picker splitA-picker"></input>
+        </wrapper>
+        <button class="btn btn-med copy-single" id="splitA-copybtn" data-content="Copy"></button>
+      </container>
+
+      <container class="swatch splitB" >
+        <wrapper id="splitB-wrapper" class="picker-wrapper splitB-wrapper" name="Split B">
+          <input type="color" id="splitB-picker" class="picker splitB-picker"></input>
+        </wrapper>
+        <button class="btn btn-med copy-single" id="splitB-copybtn" data-content="Copy"></button>
+      </container>
+
 
       <container class="swatch triadicA">
         <wrapper id="triadicA-wrapper" class="picker-wrapper triadicA-wrapper"  name="Triadic A">
