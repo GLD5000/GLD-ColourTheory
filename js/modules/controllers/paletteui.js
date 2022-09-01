@@ -98,7 +98,7 @@ export const paletteUi = {
         return userObjectsAll[id];
     },
     _debounce() {
-        this._updateVariants = throttleDebounce.debounce((primaryColour) => variantMaker.updateVariants(primaryColour), 250);
+        this._addAllColoursToPalette = throttleDebounce.debounce((primaryColour) => variantMaker.addAllColoursToPalette(primaryColour), 250);
     },
     _clipboardColourspaceLookup: {
         hex: '#ce9178',
@@ -182,7 +182,7 @@ export const paletteUi = {
         gradientMaker.updateGradient(primaryColour);
         this.setTextMode('auto');
         paletteState._resetAllCustomStates();
-        this._updateVariants(primaryColour);
+        this._addAllColoursToPalette(primaryColour);
         this._updateClipboard = 1;
         this._setClipboardTextAll();
     },
