@@ -72,8 +72,8 @@ export const paletteData = {
         this.paletteState.smallSwatchCustomState[name] = state;
     },
 
-    clearGradientColours() {
-        this.gradientColours.clear();
+    clearGradientColours(name) {
+        this.gradientColours.set(name, null);
     },
     addGradientColours(name, array) {
         this.gradientColours.set(name, array);

@@ -1,6 +1,4 @@
-import { paletteData } from "./palettedata.js";
 import { colourObject } from "../utilities/colourobject.js";
-import { paletteUi } from "./paletteui.js";
 import { clampRotate} from '../utilities/utilities.js'
 // Fix naming of stops on custom pickers
 
@@ -41,12 +39,11 @@ export const gradientMaker = {
         }
         return this._suffixise(this._names[this._stops]);
     },
-    _makeGradient(mainColour) {
+    _makeGradient(mainColour, stops) {
 
-        const stops = paletteData.paletteState.gradientMode; //|| 1;    
         if (stops < 2) {
             this._gradientString = mainColour.hex;
-            paletteData.clearGradientColours(); // clear colours
+            this._gradientColours = null;
         } else {
             const isPrimary = (mainColour.name === 'primary');
             const satOffset = clampRotate.clamp(mainColour.sat - 50, -30, 25);
@@ -68,13 +65,11 @@ export const gradientMaker = {
                 this._gradientString += `, ${colourObject.hsl(newColour)} ${i * stopWidth}% ${stopWidth + (i * stopWidth)}%`
             });
             this._gradientString += (isPrimary)?`)`:`) 0% 50% / 100% 30%`;
-            paletteData.addGradientColours(mainColour.name, this._gradientColours);
-            //if (isPrimary) console.log(this._gradientString);
         } 
     },
-    updateGradient(colour) {
-        this._makeGradient(colour);
-        paletteUi.setBackgroundGradient(colour.name, this._gradientString);
+    updateGradient(colour, stops) {
+        this._makeGradient(colour, stops);
+        return [this._gradientString, this._gradientColours];
     }
 }
 

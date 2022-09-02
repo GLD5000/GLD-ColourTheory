@@ -183,7 +183,7 @@ export const paletteUi = {
         this._updateGldLogoColour(hex);
         paletteData.setPrimaryHex(hex);
         userObjects.copyButtons['primary-copybtn'].innerHTML = primaryColour[colourspace];
-        gradientMaker.updateGradient(primaryColour);
+        this.setBackgroundGradient(primaryColour);
         this.setTextMode('auto');
         paletteState._resetAllCustomStates();
         this._addAllColoursToPaletteDb(primaryColour);
@@ -199,12 +199,16 @@ export const paletteUi = {
             return;
         }
         textMaker.updateTextColour(newColour);
-        gradientMaker.updateGradient(newColour);
+        this.setBackgroundGradient(newColour);
         userObjects.pickers[newColour.name + '-picker'].value = newColour.hex;
         userObjects.copyButtons[newColour.name + '-copybtn'].innerHTML = newColour[this._getColourspace()];
         this._setClipboardTextAll();
     },
-    setBackgroundGradient(name, string) {
+    setBackgroundGradient(colour) {
+        const stops = paletteData.paletteState.gradientMode;
+        const name = colour.name;
+        const [string, gradientColours] = gradientMaker.updateGradient(colour, stops);
+        (gradientColours === null)? paletteData.clearGradientColours(name): paletteData.addGradientColours(name, gradientColours);        
         if (name === 'primary'){
             userObjects.wrappers[name + '-wrapper'].style.background = paletteData.getPrimaryHex();
             userObjects.other.gradient.style.background = string;
@@ -239,7 +243,7 @@ export const paletteUi = {
         paletteData.paletteState.gradientMode = clampRotate.rotate(1* paletteData.paletteState.gradientMode + 1, 1 , 10) || 1;
     },
     _updateGradientsAll() {
-        paletteData.backgroundColours.forEach(colour => {gradientMaker.updateGradient(colour);});
+        paletteData.backgroundColours.forEach(colour => {this.setBackgroundGradient(colour);});
     },
     _updateGradientNumberTones() {
         let numberTones = parseInt(paletteData.paletteState.gradientMode);
@@ -331,7 +335,7 @@ export const paletteUi = {
         this.addColour(customColour);
         const wrapper = userObjects.wrappers[customColour.name + '-wrapper'];
         wrapper.dataset.content = customColour.customName;
-        gradientMaker.updateGradient(customColour);
+        this.setBackgroundGradient(customColour);
         paletteData.setCustomColourState(name, 'custom');
         this._setClipboardTextAll();
         
