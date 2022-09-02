@@ -7,7 +7,6 @@ import { variantMaker } from "./variantmaker.js";
 import { gradientMaker } from "./gradientmaker.js";
 import { clampRotate } from "../utilities/utilities.js";
 //import { callLogger } from "../utilities/utilities.js";
-import { textMaker } from "./textmaker.js";
 
 const paletteState = {
     saveCounter: 0,
@@ -144,9 +143,6 @@ export const paletteUi = {
     _resetSmallWrapperContent() {
        userObjects.smallSwatchNamesArray.forEach(x => userObjects.wrappers[x + '-wrapper'].dataset.content = x);
     },
-    _updateTextColour(backgroundColour) {
-        textMaker.updateTextColour(backgroundColour);
-    },
     _getColourspace() {
         return paletteData.getColourSpace().toLowerCase() || userObjects.other['colourspace'].innerHTML.split(' ')[1].toLowerCase();
     },
@@ -185,6 +181,7 @@ export const paletteUi = {
         userObjects.copyButtons['primary-copybtn'].innerHTML = primaryColour[colourspace];
         this.setBackgroundGradient(primaryColour);
         this.setTextMode('auto');
+        paletteUi.setTextColour(primaryColour);
         paletteState._resetAllCustomStates();
         this._addAllColoursToPaletteDb(primaryColour);
         this._updateClipboard = 1;
@@ -194,11 +191,9 @@ export const paletteUi = {
         paletteData.addColour(newColour);
         if (newColour.name === 'primary') {
             this._addPrimaryColour(newColour);
-            textMaker.updateTextColour(newColour);
-
             return;
         }
-        textMaker.updateTextColour(newColour);
+        paletteUi.setTextColour(newColour);
         this.setBackgroundGradient(newColour);
         userObjects.pickers[newColour.name + '-picker'].value = newColour.hex;
         userObjects.copyButtons[newColour.name + '-copybtn'].innerHTML = newColour[this._getColourspace()];
@@ -596,10 +591,13 @@ export const paletteUi = {
         }
         if (name !== 'primary') wrapper.dataset.rating = textColour.rating;
     },
-    setTextColour(textColour) {
-        if (textColour.name === 'primary-text') paletteData.setMainTextColour(textColour);
-        this._setWrapperTextColour(textColour);
-        paletteData.addTextColour(textColour);
+    setTextColour(backgroundColour) {
+        const textMode = paletteUi.getTextMode();
+        const oldTextColour = (textMode === 'custom')? paletteUi.getTextColour(backgroundColour): null;
+        const newTextColour = colourObject.getTextColourContrast(oldTextColour, backgroundColour);
+        if (newTextColour.name === 'primary-text') paletteData.setMainTextColour(newTextColour);
+        this._setWrapperTextColour(newTextColour);
+        paletteData.addTextColour(newTextColour);
     },
     getSmallSwatchNames() {
         return userObjects.smallSwatchNamesArray;
