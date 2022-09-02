@@ -49,7 +49,7 @@ export const colourObject = {
     this._convertSrgbToHsl(colour);
     return this._return(colour);
   },
-  getTextColourContrast(textColour = null, backgroundColour = null) {
+  makeTextColour(textColour = null, backgroundColour = null) {
     if (backgroundColour == null) return "No Background Colour Found"; //if background colour == null return
     if (textColour == null) {
       //auto text

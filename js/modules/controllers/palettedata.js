@@ -104,11 +104,11 @@ export const paletteData = {
     if (textColour.sat === 0) return;
     this.paletteState.textColour = textColour;
   },
-  getMainTextColour(textColour) {
-    return this.paletteState.textColour;
+  getMainTextColour() {
+    return this.getTextColour("primary-text");
   },
-  getMainTextColourHex(textColour) {
-    return this.paletteState.textColour?.hex;
+  getMainTextColourHex() {
+    return this.getTextColour("primary-text").hex;
   },
 
   addTextColour(colour) {

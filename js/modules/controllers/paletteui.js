@@ -34,8 +34,8 @@ const paletteState = {
         userObjects.wrappers[name + "-wrapper"].dataset.content =
           customColour.customName;
       } // if colour is custom overwrite background colour with custom colour
-      if (paletteData.getTextMode() === "custom") {
-        paletteUi._addTextColour("primary-text", paletteData.getTextHex());
+      if (paletteUi.getTextMode() === "custom") {
+        paletteUi._addCustomTextColour(paletteData.getTextHex());
         paletteUi.setTextMode("custom");
       }
       paletteUi._updateGradientNumberTones();
@@ -74,6 +74,37 @@ const paletteState = {
     paletteUi.addColour(newColour);
     paletteData.paletteState = newState;
     paletteState.setCustomStatesfromPaletteData();
+  },
+};
+const colourScheme = {
+  nameLookup: {
+    Monochrome: ["monochromeA", "primary", "monochromeB"],
+    Analogous: ["analogousA", "primary", "analogousB"],
+    Complementary: ["primary", "tetradicA"],
+    Split: ["splitA", "primary", "splitB"],
+    Triadic: ["triadicA", "primary", "triadicB"],
+    Tetradic: ["primary", "tetradicA", "tetradicB", "tetradicC"],
+  },
+
+  applyGradient(name) {
+    let gradientString = "linear-gradient(to right, ";
+    const hexArray = [];
+    colourScheme.nameLookup[name].forEach((x, i, array) => {
+      hexArray.push(
+        `${paletteData.getColourObject(x).hex} ${i * (100 / array.length)}%, ${
+          paletteData.getColourObject(x).hex
+        } ${(1 + i) * (100 / array.length)}%`
+      );
+    });
+    gradientString += hexArray.join(",");
+    gradientString += ")";
+    userObjectsAll[name].style.background = gradientString;
+    userObjectsAll[name].style.color = paletteData.getMainTextColour().hex;
+  },
+  applyAllGradients() {
+    Object.keys(colourScheme.nameLookup).forEach((key) => {
+      colourScheme.applyGradient(key);
+    });
   },
 };
 export const paletteUi = {
@@ -209,6 +240,7 @@ export const paletteUi = {
     paletteUi.setTextColour(primaryColour);
     paletteState._resetAllCustomStates();
     this._addAllColoursToPaletteDb(primaryColour);
+    colourScheme.applyAllGradients();
     this._updateClipboard = 1;
     this._setClipboardTextAll();
   },
@@ -327,18 +359,25 @@ export const paletteUi = {
       );
     }
   },
-  _addTextColour(name, hex) {
+  _addCustomTextColour(hex) {
+    this.setTextMode("custom");
+    const name = "primary-text";
     const textColour = colourObject.fromHex({ name: name, hex: hex });
     this.getAllSwatchNames().forEach((key) => {
       const backgroundColour = paletteData.getColourObject(
         this._splitName(key)
       );
-      const newTextColour = colourObject.getTextColourContrast(
+      const newTextColour = colourObject.makeTextColour(
         textColour,
         backgroundColour
       );
-      this.setTextColour(newTextColour);
+      if (newTextColour.name === "primary-text") {
+        paletteData.setMainTextColour(newTextColour);
+      }
+      this._setWrapperTextColour(newTextColour);
+      paletteData.addTextColour(newTextColour);
     });
+    colourScheme.applyAllGradients();
   },
   isCustomColour(name) {
     if (name !== "primary" && this._getWrapperContent(name)[0] === "c")
@@ -365,8 +404,7 @@ export const paletteUi = {
     const name = this._splitName(x.target.id);
     const hex = x.target.value;
     if (name === "textcolour") {
-      this.setTextMode("custom");
-      this._addTextColour("primary-text", hex);
+      this._addCustomTextColour(hex);
       return;
     }
     let newColour;
@@ -379,13 +417,6 @@ export const paletteUi = {
     }
     this.addColour(newColour);
   },
-  //_onclickPickerText() {
-  //    console.log(userObjects.pickers['textcolour-picker'].disabled);
-  //    if (paletteData.getMainTextColour() != null) {
-  //        paletteUi._addTextColour('primary-text', paletteData.getMainTextColourHex());
-  //        this.setTextMode('custom');
-  //    }
-  //},
   _onclickPickerSmall(e) {
     const name = this._splitName(e.target.id);
 
@@ -596,10 +627,7 @@ export const paletteUi = {
       paletteUi.setTextMode("custom");
       paletteUi.setTextPickerDisabled(false);
       if (paletteData.getMainTextColour() != null) {
-        paletteUi._addTextColour(
-          "primary-text",
-          paletteData.getMainTextColourHex()
-        );
+        paletteUi._addCustomTextColour(paletteData.getMainTextColourHex());
       }
     } else {
       //text mode is custom
@@ -711,12 +739,13 @@ export const paletteUi = {
     const textMode = paletteUi.getTextMode();
     const oldTextColour =
       textMode === "custom" ? paletteUi.getTextColour(backgroundColour) : null;
-    const newTextColour = colourObject.getTextColourContrast(
+    const newTextColour = colourObject.makeTextColour(
       oldTextColour,
       backgroundColour
     );
-    if (newTextColour.name === "primary-text")
+    if (newTextColour.name === "primary-text") {
       paletteData.setMainTextColour(newTextColour);
+    }
     this._setWrapperTextColour(newTextColour);
     paletteData.addTextColour(newTextColour);
   },
