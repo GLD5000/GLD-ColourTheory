@@ -84,8 +84,8 @@ const colourScheme = {
     Split: ["splitA", "primary", "splitB"],
     Triadic: ["triadicA", "primary", "triadicB"],
     Tetradic: ["primary", "tetradicA", "tetradicB", "tetradicC"],
+    Neutral: ["neutral"],
   },
-
   applyGradient(name) {
     let gradientString = "linear-gradient(to right, ";
     const hexArray = [];
@@ -105,6 +105,23 @@ const colourScheme = {
     Object.keys(colourScheme.nameLookup).forEach((key) => {
       colourScheme.applyGradient(key);
     });
+  },
+  _onclickSchemeButtons(event) {
+    const target = event.target;
+    let innerHtml = target.innerHTML;
+    if (target.id === "Tetradic") {
+      console.log("tetradiicicc");
+      return;
+    }
+    if (target.classList.contains("dimmed")) {
+      target.classList.remove("dimmed");
+      innerHtml = innerHtml.split(" ");
+      innerHtml.pop();
+      target.innerHTML = innerHtml.join(" ");
+    } else {
+      target.classList.add("dimmed");
+      target.innerHTML = innerHtml + " Off";
+    }
   },
 };
 export const paletteUi = {
@@ -607,6 +624,7 @@ export const paletteUi = {
       element.innerHTML = `${++paletteState.saveCounter}) ${hex}`;
       element.style.backgroundColor = hex;
       element.classList.add("saved-palette");
+      element.dataset.content = "Load Palette";
       element.style.color =
         paletteData.getMainTextColourHex() ||
         paletteData.getTextColour("primary-text").hex;
@@ -637,7 +655,6 @@ export const paletteUi = {
       paletteUi.addColour(primaryColour);
     }
   },
-
   _setOnChange() {
     userObjects.other["colourspace"].onclick = () => this._onclickColourspace();
     userObjects.other["prefix"].onclick = () => this._onclickPrefix();
@@ -646,13 +663,16 @@ export const paletteUi = {
     userObjects.other["randomise-btn"].onclick = () => this._onclickRandom();
     userObjects.other["gldlogo"].onclick = () => this._onclickLogo();
     userObjects.other["header"].onclick = (e) => this._onclickHeader(e);
-    // Object.keys(userObjects.copyButtons).forEach(x => userObjects.copyButtons[x].onclick = (e) => this._onclickCopyButtons(e));
     Object.keys(userObjects.copyButtons).forEach(
       (x) =>
         (userObjects.copyButtons[x].onclick = (e) =>
           this._onclickCopyButtons(e))
     );
-    //Object.keys(userObjects.clipboard).forEach(x => userObjects.clipboard[x].onclick = (e) => this._onclickCopyAll());
+    Object.keys(userObjects.schemes).forEach(
+      (x) =>
+        (userObjects.schemes[x].onclick = (e) =>
+          colourScheme._onclickSchemeButtons(e))
+    );
 
     userObjects.sliders.forEach(
       (x) =>

@@ -45,6 +45,10 @@
         grid-column: span 1;
         grid-row: span 2;
     }
+        .btn-scheme{
+        grid-row:   span 2;
+    }
+
 }
 @media all and (min-width: $bp-tiny) {
     .swatch-palette {
@@ -58,6 +62,9 @@
     }
     .btn-copy{
         grid-column: span 2;
+    }
+    .btn-scheme{
+        grid-row:   span 2;
     }
 }
 @media all and (min-width: $bp-small) {
@@ -87,6 +94,10 @@
     .btn-copy{
         grid-column: span 2;
     }
+        .btn-scheme{
+        grid-row:   span 2;
+    }
+
 }
 @media all and (min-width: $bp-large) {
     .swatch-palette {
@@ -101,4 +112,8 @@
     .btn-copy{
         grid-column: span 2;
     }
+        .btn-scheme{
+        grid-row:   span 2;
+    }
+
 }

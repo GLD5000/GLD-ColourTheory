@@ -469,11 +469,57 @@ p, li, ol, ul, a {
   background-color: hsl(0deg, 0%, 55.7%);
 }
 
-.scheme-button {
-  height: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6);
+.saved-palette:hover {
+  filter: contrast(1.1);
+}
+
+.saved-palette:hover::after {
+  font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
+  color: #fff;
+  background-color: hsla(0deg, 0%, 55.7%, 0.6);
+  font-weight: 200;
+  cursor: pointer;
+  white-space: pre;
+  align-items: center;
+  line-height: 1.125;
+  content: attr(data-content);
+  text-align: center;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  position: absolute;
+  border: 4px solid #000;
+}
+
+.scheme-button:hover {
+  filter: brightness(80%);
+}
+
+.flexbox-history li, .saved-palette, .scheme-button {
+  display: block;
+  height: auto;
+  width: fit-content;
+  font-family: "Source Code Pro", monospace;
+  font-size: calc(0.65 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
+  font-weight: 500;
+  padding: 0.25em;
+  cursor: pointer;
+  white-space: pre;
+  text-align: left;
+  line-height: 1.125;
+  background: none;
+}
+
+.flexbox-history li, .saved-palette, .scheme-button {
+  display: block;
+  height: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
   width: 100%;
-  font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
-  background: linear-gradient(to right, hsl(240deg, 40%, 80%), hsl(240deg, 40%, 80%) 33.3%, hsl(240deg, 40%, 70%) 33.3%, hsl(240deg, 40%, 70%) 66.6%, hsl(240deg, 40%, 60%) 66.6%);
+  color: #ce9178;
+}
+
+.dimmed {
+  filter: brightness(85%) grayscale(100%);
 }
 
 .swatch-palette {
@@ -609,8 +655,7 @@ p, li, ol, ul, a {
   overflow: auto;
 }
 
-.flexbox-clipboard:hover,
-.saved-palette:hover {
+.flexbox-clipboard:hover {
   backdrop-filter: brightness(1.6);
 }
 
@@ -636,27 +681,7 @@ p, li, ol, ul, a {
   border-radius: 0 0px 6px 0px;
 }
 
-.saved-palette:hover::after {
-  font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.75);
-  color: #fff;
-  background-color: hsla(0deg, 0%, 55.7%, 0.6);
-  font-weight: 200;
-  cursor: pointer;
-  white-space: pre;
-  align-items: center;
-  line-height: 1.125;
-  content: "load palette";
-  text-align: center;
-  top: 0px;
-  left: 0px;
-  bottom: 0px;
-  right: 0px;
-  position: absolute;
-  border: 4px solid #000;
-}
-
-.clipboard, .clipboard-secondary, .flexbox-history li,
-.saved-palette {
+.clipboard, .clipboard-secondary {
   display: block;
   height: auto;
   width: fit-content;
@@ -686,13 +711,6 @@ p, li, ol, ul, a {
   padding: 4px;
   gap: 4px;
   align-content: flex-start;
-}
-
-.flexbox-history li, .saved-palette {
-  display: block;
-  height: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
-  width: 100%;
-  color: #ce9178;
 }
 
 .large-picker, .btn-container {
@@ -866,6 +884,10 @@ input[type=range]:focus::before, .fakesliderhover::before {
     grid-column: span 1;
     grid-row: span 2;
   }
+
+  .btn-scheme {
+    grid-row: span 2;
+  }
 }
 @media all and (min-width: 37.5em) {
   .swatch-palette {
@@ -881,6 +903,10 @@ input[type=range]:focus::before, .fakesliderhover::before {
 
   .btn-copy {
     grid-column: span 2;
+  }
+
+  .btn-scheme {
+    grid-row: span 2;
   }
 }
 @media all and (min-width: 60em) {
@@ -914,6 +940,10 @@ input[type=range]:focus::before, .fakesliderhover::before {
   .btn-copy {
     grid-column: span 2;
   }
+
+  .btn-scheme {
+    grid-row: span 2;
+  }
 }
 @media all and (min-width: 120em) {
   .swatch-palette {
@@ -929,6 +959,10 @@ input[type=range]:focus::before, .fakesliderhover::before {
 
   .btn-copy {
     grid-column: span 2;
+  }
+
+  .btn-scheme {
+    grid-row: span 2;
   }
 }
 
