@@ -97,8 +97,12 @@ export const paletteUi = {
     _getUiObject(id) {
         return userObjectsAll[id];
     },
+    _addAllColoursToPalette(primaryColour){
+        const variantColoursArray = variantMaker.addAllColoursToPalette(primaryColour);
+        variantColoursArray.forEach(x => this.addColour(x));
+    },
     _debounce() {
-        this._addAllColoursToPalette = throttleDebounce.debounce((primaryColour) => variantMaker.addAllColoursToPalette(primaryColour), 250);
+        this._addAllColoursToPaletteDb = throttleDebounce.debounce((primaryColour) => paletteUi._addAllColoursToPalette(primaryColour), 250);
     },
     _clipboardColourspaceLookup: {
         hex: '#ce9178',
@@ -182,7 +186,7 @@ export const paletteUi = {
         gradientMaker.updateGradient(primaryColour);
         this.setTextMode('auto');
         paletteState._resetAllCustomStates();
-        this._addAllColoursToPalette(primaryColour);
+        this._addAllColoursToPaletteDb(primaryColour);
         this._updateClipboard = 1;
         this._setClipboardTextAll();
     },

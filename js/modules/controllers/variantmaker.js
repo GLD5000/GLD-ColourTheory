@@ -1,6 +1,4 @@
 import { colourObject } from "../utilities/colourobject.js";
-//import { callLogger } from "../utilities/utilities.js";
-import { paletteUi } from "./paletteui.js";
 export const variantMaker= {
   _tetradicSwitchObject: {
     square: {
@@ -36,9 +34,12 @@ export const variantMaker= {
     ['splitB', {name: 'splitB', hue: 210, operation: 'add'}],
   ]), 
   addAllColoursToPalette(primaryColour) {
+    const returnArray = [];
     this._swatchRecipeMap.forEach(newColourPartial => { // Create colours for all variations
-    paletteUi.addColour(colourObject.assign(primaryColour, newColourPartial));// make variations based on new primary colour
+    //paletteUi.addColour(colourObject.assign(primaryColour, newColourPartial));// make variations based on new primary colour
+    returnArray.push(colourObject.assign(primaryColour, newColourPartial));
     });
+    return returnArray;
   },
 }
 
