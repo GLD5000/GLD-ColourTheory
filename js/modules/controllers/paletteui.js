@@ -86,6 +86,28 @@ const colourScheme = {
     Tetradic: ["primary", "tetradicA", "tetradicB", "tetradicC"],
     Neutral: ["neutral"],
   },
+  hideLookup: {
+    Monochrome: ["monochromeA", "monochromeB"],
+    Analogous: ["analogousA", "analogousB"],
+    Complementary: ["tetradicA"],
+    Split: ["splitA", "splitB"],
+    Triadic: ["triadicA", "triadicB"],
+    Tetradic: ["tetradicB", "tetradicC"],
+    Neutral: ["neutral"],
+  },
+  hideSwatches(name){
+    if (name === "Complementary" && !userObjectsAll["Tetradic"].classList.contains("dimmed")) return;
+    if (name === "Tetradic" && userObjectsAll["Complementary"].classList.contains("dimmed")) userObjectsAll["tetradicA"].classList.add("hidden");
+    colourScheme.nameLookup[name].forEach((x) => {
+      userObjectsAll[x].classList.add("hidden");
+    });
+  },
+  showSwatches(name){
+    if (name === "Tetradic") userObjectsAll["tetradicA"].classList.remove("hidden");
+    colourScheme.nameLookup[name].forEach((x) => {
+      userObjectsAll[x].classList.remove("hidden");
+    });
+  },
   applyGradient(name) {
     let gradientString = "linear-gradient(to right, ";
     const hexArray = [];
