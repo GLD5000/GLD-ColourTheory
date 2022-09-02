@@ -97,15 +97,15 @@ const colourScheme = {
   },
   hideSwatches(name){
     if (name === "Complementary" && !userObjectsAll["Tetradic"].classList.contains("dimmed")) return;
-    if (name === "Tetradic" && userObjectsAll["Complementary"].classList.contains("dimmed")) userObjectsAll["tetradicA"].classList.add("hidden");
-    colourScheme.nameLookup[name].forEach((x) => {
-      userObjectsAll[x].classList.add("hidden");
+    if (name === "Tetradic" && userObjectsAll["Complementary"].classList.contains("dimmed")) userObjects.swatches["tetradicA"].classList.add("hidden");
+    colourScheme.hideLookup[name].forEach((x) => {
+      userObjects.swatches[x].classList.add("hidden");
     });
   },
   showSwatches(name){
-    if (name === "Tetradic") userObjectsAll["tetradicA"].classList.remove("hidden");
-    colourScheme.nameLookup[name].forEach((x) => {
-      userObjectsAll[x].classList.remove("hidden");
+    if (name === "Tetradic") userObjects.swatches["tetradicA"].classList.remove("hidden");
+    colourScheme.hideLookup[name].forEach((x) => {
+      userObjects.swatches[x].classList.remove("hidden");
     });
   },
   applyGradient(name) {
@@ -140,9 +140,12 @@ const colourScheme = {
       innerHtml = innerHtml.split(" ");
       innerHtml.pop();
       target.innerHTML = innerHtml.join(" ");
+      colourScheme.showSwatches(target.id);
     } else {
       target.classList.add("dimmed");
       target.innerHTML = innerHtml + " Off";
+      colourScheme.hideSwatches(target.id);
+
     }
   },
 };

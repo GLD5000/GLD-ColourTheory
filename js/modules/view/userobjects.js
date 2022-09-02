@@ -2,6 +2,7 @@ export const userObjectsAll = {};
 
 function setAll() {
   const selectorsArray = [
+    ["swatches", '.swatch'],
     ["pickers", 'input[type="color"]'],
     ["sliders", 'input[type="range"]', "array"], //array
     ["wrappers", "wrapper"],
