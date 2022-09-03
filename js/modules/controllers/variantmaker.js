@@ -5,11 +5,11 @@ export const variantMaker = {
       tetradicB: { name: "tetradicB", hue: 90, operation: "add" },
       tetradicC: { name: "tetradicC", hue: 270, operation: "add" },
     },
-    "Rectangle A": {
+    "Rectangular A": {
       tetradicB: { name: "tetradicB", hue: 60, operation: "add" },
       tetradicC: { name: "tetradicC", hue: 240, operation: "add" },
     },
-    "Rectangle B": {
+    "Rectangular B": {
       tetradicB: { name: "tetradicB", hue: -60, operation: "add" },
       tetradicC: { name: "tetradicC", hue: 120, operation: "add" },
     },

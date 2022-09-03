@@ -26,9 +26,9 @@ export const paletteData = {
   },
   incrementTetradicMode() {
     const tetradicIncrementLookup = {
-      Square: "Rectangle A",
-      "Rectangle A": "Rectangle B",
-      "Rectangle B": "Square",
+      Square: "Rectangular A",
+      "Rectangular A": "Rectangular B",
+      "Rectangular B": "Square",
     };
     const mode = this.paletteState.tetradicMode;
     this.paletteState.tetradicMode = tetradicIncrementLookup[mode];

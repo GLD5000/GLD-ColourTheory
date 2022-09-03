@@ -177,7 +177,7 @@ const colourScheme = {
       if (target.classList.contains("dimmed")) {
         paletteUi.setTetradicMode("Square");
         this.unDimSchemeButton(target);
-      } else if (paletteData.getTetradicMode() === "Rectangle B") {
+      } else if (paletteData.getTetradicMode() === "Rectangular B") {
         paletteUi.setTetradicMode("Square");
         this.dimSchemeButton(target);
       } else {
@@ -197,8 +197,8 @@ const colourScheme = {
   },
   onclickSelectAll() {
     const targets = Array.from(Object.values(userObjects.schemes));
-    targets.forEach(target => {
-      if (target.classList.contains("dimmed")) this.unDimSchemeButton(target);    
+    targets.forEach((target) => {
+      if (target.classList.contains("dimmed")) this.unDimSchemeButton(target);
     });
   },
   onclickSelectNone() {
