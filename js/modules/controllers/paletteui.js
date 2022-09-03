@@ -95,15 +95,24 @@ const colourScheme = {
     Tetradic: ["tetradicB", "tetradicC"],
     Neutral: ["neutral"],
   },
-  hideSwatches(name){
-    if (name === "Complementary" && !userObjectsAll["Tetradic"].classList.contains("dimmed")) return;
-    if (name === "Tetradic" && userObjectsAll["Complementary"].classList.contains("dimmed")) userObjects.swatches["tetradicA"].classList.add("hidden");
+  hideSwatches(name) {
+    if (
+      name === "Complementary" &&
+      !userObjectsAll["Tetradic"].classList.contains("dimmed")
+    )
+      return;
+    if (
+      name === "Tetradic" &&
+      userObjectsAll["Complementary"].classList.contains("dimmed")
+    )
+      userObjects.swatches["tetradicA"].classList.add("hidden");
     colourScheme.hideLookup[name].forEach((x) => {
       userObjects.swatches[x].classList.add("hidden");
     });
   },
-  showSwatches(name){
-    if (name === "Tetradic") userObjects.swatches["tetradicA"].classList.remove("hidden");
+  showSwatches(name) {
+    if (name === "Tetradic")
+      userObjects.swatches["tetradicA"].classList.remove("hidden");
     colourScheme.hideLookup[name].forEach((x) => {
       userObjects.swatches[x].classList.remove("hidden");
     });
@@ -128,11 +137,35 @@ const colourScheme = {
       colourScheme.applyGradient(key);
     });
   },
+  unDimComplementary() {
+    if (userObjects.schemes["Complementary"].classList.contains("dimmed")) {
+      userObjects.schemes["Complementary"].classList.remove("dimmed");
+      userObjects.schemes["Complementary"].innerHTML = "Complementary";
+    }
+  },
   _onclickSchemeButtons(event) {
     const target = event.target;
     let innerHtml = target.innerHTML;
     if (target.id === "Tetradic") {
-      console.log("tetradiicicc");
+      if (target.classList.contains("dimmed")) {
+        target.classList.remove("dimmed");
+        colourScheme.unDimComplementary();
+        target.innerHTML = `${
+          innerHtml.split(" ")[0]
+        } ${paletteData.getTetradicMode()}`;
+        colourScheme.showSwatches(target.id);
+      } else if (paletteData.getTetradicMode() === "Rectangle B") {
+        target.classList.add("dimmed");
+        target.innerHTML = innerHtml.split(" ")[0] + " Off";
+        colourScheme.hideSwatches(target.id);
+        paletteData.setTetradicMode("Square");
+      } else {
+        paletteData.incrementTetradicMode();
+        target.innerHTML = `${
+          innerHtml.split(" ")[0]
+        } ${paletteData.getTetradicMode()}`;
+        colourScheme.unDimComplementary();
+      }
       return;
     }
     if (target.classList.contains("dimmed")) {
@@ -145,7 +178,6 @@ const colourScheme = {
       target.classList.add("dimmed");
       target.innerHTML = innerHtml + " Off";
       colourScheme.hideSwatches(target.id);
-
     }
   },
 };

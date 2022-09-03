@@ -1,15 +1,15 @@
 import { colourObject } from "../utilities/colourobject.js";
 export const variantMaker = {
   _tetradicSwitchObject: {
-    square: {
+    Square: {
       tetradicB: { name: "tetradicB", hue: 90, operation: "add" },
       tetradicC: { name: "tetradicB", hue: 270, operation: "add" },
     },
-    rectangleA: {
+    "Rectangle A": {
       tetradicB: { name: "tetradicB", hue: 60, operation: "add" },
       tetradicC: { name: "tetradicB", hue: 240, operation: "add" },
     },
-    rectangleB: {
+    "Rectangle B": {
       tetradicB: { name: "tetradicB", hue: -60, operation: "add" },
       tetradicC: { name: "tetradicB", hue: 120, operation: "add" },
     },

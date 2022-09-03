@@ -11,12 +11,28 @@ export const paletteData = {
     textMode: "auto",
     textColour: null,
     colourspace: "Hex",
+    tetradicMode: "Square",
   },
   backgroundColours: new Map(),
   gradientColours: new Map(),
   textColours: new Map(),
   clipboard: [],
   savedPalettes: {},
+  getTetradicMode() {
+    return this.paletteState.tetradicMode;
+  },
+  setTetradicMode(mode) {
+    this.paletteState.tetradicMode = mode;
+  },
+  incrementTetradicMode() {
+    const tetradicIncrementLookup = {
+      Square: "Rectangle A",
+      "Rectangle A": "Rectangle B",
+      "Rectangle B": "Square",
+    };
+    const mode = this.paletteState.tetradicMode;
+    this.paletteState.tetradicMode = tetradicIncrementLookup[mode];
+  },
   getPrimaryHex(hex) {
     return this.paletteState.primaryHex;
   },
