@@ -1,108 +1,105 @@
-@use '../abstracts' as *;
+@use "../abstracts" as *;
 
-.btn,.textmode {
-    position: relative;
-    //white-space: normal;
-    align-items: center;
-    border:none;
-    cursor: pointer;
-    font-size: $font-btn-size;
-    background-color: $neutral-200;
-  }
-  .copy-single, .save-btn {
-    position: relative;
-    cursor: copy;
-  }
+.btn,
+.textmode {
+  position: relative;
+  //white-space: normal;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  font-size: $font-btn-size;
+  background-color: $neutral-200;
+}
+.copy-single,
+.save-btn {
+  position: relative;
+  cursor: copy;
+}
 
-  .copy-single:hover::after, 
-  .copy-single:focus::after, 
-  .textmode:hover::after, 
-  .textmode:focus::after,
-  .mode:hover::after, 
-  .mode:focus::after,
-  .randomise-btn:hover::after, 
-  .randomise-btn:focus::after,
-  .prefix:hover::after, 
-  .prefix:focus::after,
-  .colourspace:hover::after, 
-  .colourspace:focus::after 
-  {
-    font-size: $font-btn-size;
- 
-      color: $neutral-0;
-      background-color: $neutral-500;
-      //transition-duration: 0s;
-      content: attr(data-content);
-      text-align: center;
-      line-height: 1;
-      bottom: 100%;
-      left: calc(-1 * $gap);
-      padding: 6px;
-      margin-left: auto;
-      position: absolute;
-      height: auto;
-      width: auto;
-      cursor: copy;
-      border: $gap solid $neutral-1000;
-      border-bottom: 0;
-      //border-left: 0;
-      border-radius: 0 6px 0 0;
-  }
-  .mode:hover::after, 
-  .mode:focus::after {
-    border-bottom: $gap solid $neutral-1000;
-    //background-color: $neutral-1000;
-  }
+.copy-single:hover::after,
+.copy-single:focus::after,
+.textmode:hover::after,
+.textmode:focus::after,
+.mode:hover::after,
+.mode:focus::after,
+.random-btn:hover::after,
+.random-btn:focus::after,
+.prefix:hover::after,
+.prefix:focus::after,
+.colourspace:hover::after,
+.colourspace:focus::after {
+  font-size: $font-btn-size;
+
+  color: $neutral-0;
+  background-color: $neutral-500;
+  //transition-duration: 0s;
+  content: attr(data-content);
+  text-align: center;
+  line-height: 1;
+  bottom: 100%;
+  left: calc(-1 * $gap);
+  padding: 6px;
+  margin-left: auto;
+  position: absolute;
+  height: auto;
+  width: auto;
+  cursor: copy;
+  border: $gap solid $neutral-1000;
+  border-bottom: 0;
+  //border-left: 0;
+  border-radius: 0 6px 0 0;
+}
+.mode:hover::after,
+.mode:focus::after {
+  border-bottom: $gap solid $neutral-1000;
+  //background-color: $neutral-1000;
+}
 
 /*   .copy-single:focus::after {
       background-color: $neutral-1000;
   }
  */
-  .textmode {
-    position:relative;
-    display:block;
-  }
-  .textmode::before {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    justify-content: center;
-    //vertical-align: middle;
-    line-height: 1.25;
-    content: attr(data-label);
-    font-size: $font-btn-size;
-    white-space: normal;
+.textmode {
+  position: relative;
+  display: block;
+}
+.textmode::before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  justify-content: center;
+  //vertical-align: middle;
+  line-height: 1.25;
+  content: attr(data-label);
+  font-size: $font-btn-size;
+  white-space: normal;
+}
 
-  }
+.btn-small {
+  flex: 1 1 50%;
+  font-size: $font-btn-size;
+}
 
-  .btn-small {
-    flex: 1 1 50%;
-    font-size: $font-btn-size;
-  }
+.btn-dual,
+.textmode,
+.btn-med {
+  flex: 1 1 50%;
+  font-size: $font-btn-size;
+}
 
-  .btn-dual,.textmode, .btn-med {
-    flex: 1 1 50%;
-    font-size: $font-btn-size;
-  }
-
-  
-
-
-  .btn-tiny {
-    flex: 1 1 50%;
-    font-size: $font-btn-size;
-  }
-
-  
+.btn-tiny {
+  flex: 1 1 50%;
+  font-size: $font-btn-size;
+}
 
 .dice {
   align-items: center;
-  width:100%;
+  width: 100%;
   //aspect-ratio: 2/1;
-  border:none;
+  border: none;
   background: $rainbow-gradient;
-  display:flex;
+  display: flex;
   //grid-template-columns: 1fr 1fr auto;
   //grid-template-rows: 1fr auto;
   /*grid-template:20px 1fr 20px / 20px 1fr 20px 1fr 20px;
@@ -115,35 +112,36 @@
   transform: rotateZ(1deg);
 }
 
-.dieA,.dieB {
+.dieA,
+.dieB {
   border: $border;
   //border-radius: $gemHalf;
   box-shadow: $box-shadow;
   background-color: $neutral-500;
-  display:grid;
-  grid-template:$gemQuart repeat(3, 1fr) $gemQuart/ $gemQuart repeat(3, 1fr) $gemQuart;
-  min-height: calc(2.5 * $gem);
+  display: grid;
+  grid-template: $gemQuart repeat(3, 1fr) $gemQuart/ $gemQuart repeat(3, 1fr) $gemQuart;
+  min-height: calc(2.25 * $gem);
   max-width: 40%;
-  margin:auto;
+  margin: auto;
   aspect-ratio: 1 / 1;
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
-
 }
 .dots {
   background-color: $neutral-0;
   border: $border;
   border-radius: 50%;
- 
 }
 
-.dotA,.dotD {
+.dotA,
+.dotD {
   grid-area: 2/2;
 }
 .dotB {
   grid-area: 3/3;
 }
-.dotC,.dotG {
+.dotC,
+.dotG {
   grid-area: 4/4;
 }
 .dotE {
@@ -153,49 +151,53 @@
   grid-area: 4/2;
 }
 
-.btn:hover, .textmode:hover, .btn:focus-within, .textmode:focus-within {
+.btn:hover,
+.textmode:hover,
+.btn:focus-within,
+.textmode:focus-within {
   outline: none;
   color: $neutral-0;
   background-color: $neutral-500;
 }
-.saved-palette:hover{
+.saved-palette:hover {
   filter: contrast(1.1);
 }
 .saved-palette:hover::after {
   font-size: $gem3Quart;
 
-    color: $neutral-0;
-    background-color: $neutral-500a;
-    font-weight: 200;
-    //padding: 0.25em;
-    cursor:pointer;
-    white-space: pre;
-    align-items: center;
-    line-height: 1.125;
-  
-    content: attr(data-content);
-    text-align: center;
-    top: 0px;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
-    position: absolute;
-    border: 4px solid $neutral-1000;
+  color: $neutral-0;
+  background-color: $neutral-500a;
+  font-weight: 200;
+  //padding: 0.25em;
+  cursor: pointer;
+  white-space: pre;
+  align-items: center;
+  line-height: 1.125;
+
+  content: attr(data-content);
+  text-align: center;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  position: absolute;
+  border: 4px solid $neutral-1000;
 }
 
-
-.scheme-button:hover{
+.scheme-button:hover {
   filter: brightness(120%);
 }
-.flexbox-history li, .saved-palette, .scheme-button {
+.flexbox-history li,
+.saved-palette,
+.scheme-button {
   display: block;
   height: auto;
-  width:fit-content;
+  width: fit-content;
   font-family: $font-clipboard;
   font-size: calc(0.65 * $gem);
   font-weight: 500;
   padding: 0.25em;
-  cursor:pointer;
+  cursor: pointer;
   white-space: pre;
   //align-items: center;
   text-align: left;
@@ -203,11 +205,13 @@
   background: none;
 }
 
-.flexbox-history li, .saved-palette, .scheme-button{
+.flexbox-history li,
+.saved-palette,
+.scheme-button {
   display: block;
   //border: 2px solid transparent; //$neutral-300;
   height: $gem;
-  width: 100%;//calc(100% - 8px);
+  width: 100%; //calc(100% - 8px);
   color: $vscode-hex-orange;
 }
 

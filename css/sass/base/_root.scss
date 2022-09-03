@@ -17,6 +17,18 @@ li, ol, ul {
 h1 {
     font-size: $gem3;
 }
+h2 {
+    font-size: $gem;
+    color: $neutral-1000;
+}
+h3 {
+    //font-family: $font-clipboard;
+    font-size: $gem;
+    color: $neutral-0;
+    text-align: center;
+    line-height: 1.25;
+    background-color: $neutral-500;
+}
 p, li, ol, ul, a {
     font-weight: 700;
     font-size: $gem;

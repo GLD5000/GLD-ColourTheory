@@ -16,7 +16,7 @@ function setAll() {
         "#gradient",
         "#colourspace",
         "#dice-btn",
-        "#randomise-btn",
+        "#random-colour",
         "#gldlogo",
         "#header",
         "#select-all",

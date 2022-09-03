@@ -117,6 +117,19 @@ h1 {
   font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6 * 1.6);
 }
 
+h2 {
+  font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
+  color: #000;
+}
+
+h3 {
+  font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
+  color: #fff;
+  text-align: center;
+  line-height: 1.25;
+  background-color: hsl(0deg, 0%, 55.7%);
+}
+
 p, li, ol, ul, a {
   font-weight: 700;
   font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
@@ -313,12 +326,8 @@ p, li, ol, ul, a {
   margin: 8px;
 }
 
-.header-two {
-  font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
-  color: #000;
-}
-
-.btn, .textmode {
+.btn,
+.textmode {
   position: relative;
   align-items: center;
   border: none;
@@ -327,7 +336,8 @@ p, li, ol, ul, a {
   background-color: hsl(0deg, 0%, 83.9%);
 }
 
-.copy-single, .save-btn {
+.copy-single,
+.save-btn {
   position: relative;
   cursor: copy;
 }
@@ -338,8 +348,8 @@ p, li, ol, ul, a {
 .textmode:focus::after,
 .mode:hover::after,
 .mode:focus::after,
-.randomise-btn:hover::after,
-.randomise-btn:focus::after,
+.random-btn:hover::after,
+.random-btn:focus::after,
 .prefix:hover::after,
 .prefix:focus::after,
 .colourspace:hover::after,
@@ -394,7 +404,9 @@ p, li, ol, ul, a {
   font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
 }
 
-.btn-dual, .textmode, .btn-med {
+.btn-dual,
+.textmode,
+.btn-med {
   flex: 1 1 50%;
   font-size: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
 }
@@ -422,13 +434,14 @@ p, li, ol, ul, a {
   transform: rotateZ(1deg);
 }
 
-.dieA, .dieB {
+.dieA,
+.dieB {
   border: solid #000 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.125);
   box-shadow: #000 calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) 0px;
   background-color: hsl(0deg, 0%, 55.7%);
   display: grid;
   grid-template: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) repeat(3, 1fr) calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25)/calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25) repeat(3, 1fr) calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 0.25);
-  min-height: calc(2.5 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
+  min-height: calc(2.25 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
   max-width: 40%;
   margin: auto;
   aspect-ratio: 1/1;
@@ -443,7 +456,8 @@ p, li, ol, ul, a {
   border-radius: 50%;
 }
 
-.dotA, .dotD {
+.dotA,
+.dotD {
   grid-area: 2/2;
 }
 
@@ -451,7 +465,8 @@ p, li, ol, ul, a {
   grid-area: 3/3;
 }
 
-.dotC, .dotG {
+.dotC,
+.dotG {
   grid-area: 4/4;
 }
 
@@ -463,7 +478,10 @@ p, li, ol, ul, a {
   grid-area: 4/2;
 }
 
-.btn:hover, .textmode:hover, .btn:focus-within, .textmode:focus-within {
+.btn:hover,
+.textmode:hover,
+.btn:focus-within,
+.textmode:focus-within {
   outline: none;
   color: #fff;
   background-color: hsl(0deg, 0%, 55.7%);
@@ -496,7 +514,9 @@ p, li, ol, ul, a {
   filter: brightness(120%);
 }
 
-.flexbox-history li, .saved-palette, .scheme-button {
+.flexbox-history li,
+.saved-palette,
+.scheme-button {
   display: block;
   height: auto;
   width: fit-content;
@@ -511,7 +531,9 @@ p, li, ol, ul, a {
   background: none;
 }
 
-.flexbox-history li, .saved-palette, .scheme-button {
+.flexbox-history li,
+.saved-palette,
+.scheme-button {
   display: block;
   height: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
   width: 100%;
@@ -558,11 +580,11 @@ p, li, ol, ul, a {
   font-size: calc(clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem) * 1.6);
 }
 
-.swatch, .btn-container {
+.swatch {
   grid-template-rows: 1fr calc(1.25 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
 }
 
-.primary-swatch {
+.primary-swatch, .btn-container {
   grid-template-rows: calc(1.25 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem)) 1fr calc(1.25 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
 }
 

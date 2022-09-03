@@ -66,6 +66,8 @@
       </container>
     
       <container class="btn-container btn-random">
+                <h3>Randomise</h3>
+
         <figure class="dice" id="dice-btn">
           <wrapper class="dieA" id="dieA">
             <figure class="dots dotA"></figure>
@@ -79,11 +81,16 @@
             <figure class="dots dotG"></figure>
           </wrapper>
         </figure>
-        <button class="btn btn-med randomise-btn" id="randomise-btn" data-content="Randomise Colours">Randomise</button>
+        
+        <container class="flexbox-horizontal-btn">
+          <button class="btn btn-med random-colour random-btn" id="random-colour" data-content="Random Colour">Colour</button>
+          <button class="btn btn-med random-scheme random-btn" id="random-scheme" data-content="Random Colour Scheme">Scheme</button>
+          <button class="btn btn-med random-all random-btn" id="random-all" data-content="Random All">All</button>
+        </container>
       </container>
 
       <container class="btn-container btn-scheme">
-
+        <h3>Colour Schemes</h3>
         <ul id="scheme-flexbox" class="flexbox-scheme" data-content="Choose A Scheme">
           <button id="Monochrome" class="scheme-button" data-content="Click To Change">Monochrome</button>
           <button id="Analogous" class="scheme-button" data-content="Click To Change">Analogous</button>
@@ -102,7 +109,7 @@
 
 
       <container class="btn-container btn-history">
-
+        <h3>Saved Palettes</h3>
         <ul id="history-flexbox" class="flexbox-history" data-content="Load Palette">
           <li># Save     #</li>
           <li># Palettes #</li>
@@ -115,6 +122,7 @@
       </container>
     
       <container class="btn-container btn-copy">
+        <h3>Clipboard</h3>
 
         <container id="clipboard-flexbox" class="flexbox-clipboard" data-content="Copy">
           <figure id="clipboard" class="clipboard" data-clipboard="" data-content="Copy"></figure>

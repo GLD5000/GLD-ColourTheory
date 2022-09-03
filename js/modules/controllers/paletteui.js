@@ -744,7 +744,7 @@ export const paletteUi = {
     userObjects.other["prefix"].onclick = () => this._onclickPrefix();
     userObjects.other["gradient"].onclick = () => this._onclickGradient();
     userObjects.other["dice-btn"].onclick = () => this._onclickRandom();
-    userObjects.other["randomise-btn"].onclick = () => this._onclickRandom();
+    userObjects.other["random-colour"].onclick = () => this._onclickRandom();
     userObjects.other["gldlogo"].onclick = () => this._onclickLogo();
     userObjects.other["header"].onclick = (e) => this._onclickHeader(e);
     Object.keys(userObjects.copyButtons).forEach(
