@@ -969,6 +969,7 @@ input[type=range]:focus::before, .fakesliderhover::before {
 }
 @media all and (min-width: 120em) {
   .swatch-palette {
+    grid-auto-flow: row;
     overflow-y: auto;
     grid-auto-rows: calc(5.4 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
     grid-template-columns: repeat(6, 1fr);
@@ -980,6 +981,7 @@ input[type=range]:focus::before, .fakesliderhover::before {
   }
 
   .btn-copy {
+    grid-row: span 2;
     grid-column: span 2;
   }
 

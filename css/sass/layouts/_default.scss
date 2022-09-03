@@ -1,119 +1,118 @@
-@use '../abstracts' as *;
+@use "../abstracts" as *;
 
 .hidden {
-    display: none;
+  display: none;
 }
 /* Grid areas */
 .header {
-    grid-area: header;
+  grid-area: header;
 }
 .swatch-palette {
-    grid-area: palette;
+  grid-area: palette;
 }
 .footer {
-    grid-area: footer;
+  grid-area: footer;
 }
 .body-grid {
-   // background-color: $neutral-600;
-    background: linear-gradient(to bottom right, $neutral-500, $neutral-600);
-    position:relative;
-    top:0;
-    left:0;
-    height: 100vh;
-    width: clamp(270px, 100vw, 170em);
-    margin-left: auto;
-    margin-right: auto;
-    display:grid;
-    grid-template: 
+  // background-color: $neutral-600;
+  background: linear-gradient(to bottom right, $neutral-500, $neutral-600);
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: clamp(270px, 100vw, 170em);
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template:
     "header header header" auto
     ". palette ." 1fr
-    "footer footer footer" auto 
+    "footer footer footer" auto
     / 1em 1fr 1em;
 }
 .swatch-palette {
-    overflow-y:auto; 
-    grid-auto-rows: calc(5.4 * $gem);
-    grid-template-columns: 1fr;
+  overflow-y: auto;
+  grid-auto-rows: calc(5.4 * $gem);
+  grid-template-columns: 1fr;
 }
 @media all and (min-width: 0) {
-    .swatch-palette {
-        overflow-y:auto; 
-        grid-auto-rows: calc(5.4 * $gem);
-        grid-template-columns: 1fr;
-    }    
-    .primary-swatch{
-        grid-column: span 1;
-        grid-row: span 2;
-    }
-        .btn-scheme{
-        grid-row:   span 2;
-    }
-
+  .swatch-palette {
+    overflow-y: auto;
+    grid-auto-rows: calc(5.4 * $gem);
+    grid-template-columns: 1fr;
+  }
+  .primary-swatch {
+    grid-column: span 1;
+    grid-row: span 2;
+  }
+  .btn-scheme {
+    grid-row: span 2;
+  }
 }
 @media all and (min-width: $bp-tiny) {
-    .swatch-palette {
-        overflow-y:auto; 
-        grid-auto-rows: calc(5.4 * $gem);
-        grid-template-columns: repeat(2,1fr);
-    }
-    .primary-swatch {
-        grid-row:   span 2;
-        grid-column: span 2;
-    }
-    .btn-copy{
-        grid-column: span 2;
-    }
-    .btn-scheme{
-        grid-row:   span 2;
-    }
+  .swatch-palette {
+    overflow-y: auto;
+    grid-auto-rows: calc(5.4 * $gem);
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .primary-swatch {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  .btn-copy {
+    grid-column: span 2;
+  }
+  .btn-scheme {
+    grid-row: span 2;
+  }
 }
 @media all and (min-width: $bp-small) {
-    .swatch-palette {
-        overflow-y:auto; 
-        grid-auto-rows: calc(5.4 * $gem);
-        grid-template-columns: repeat(4,1fr);
-    }
-    .primary-swatch {
-        grid-row:   span 3;
-        grid-column: span 2;
-    }
-    .btn-copy{
-        grid-column: span 2;
-    }
+  .swatch-palette {
+    overflow-y: auto;
+    grid-auto-rows: calc(5.4 * $gem);
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .primary-swatch {
+    grid-row: span 3;
+    grid-column: span 2;
+  }
+  .btn-copy {
+    grid-column: span 2;
+  }
 }
 @media all and (min-width: $bp-medium) {
-    .swatch-palette {
-        overflow-y:auto; 
-        grid-auto-rows: calc(5.4 * $gem);
-        grid-template-columns: repeat(4,1fr);
-    }
-    .primary-swatch {
-        grid-row:   span 3;
-        grid-column: span 2;
-    }
-    .btn-copy{
-        grid-column: span 2;
-    }
-        .btn-scheme{
-        grid-row:   span 2;
-    }
-
+  .swatch-palette {
+    overflow-y: auto;
+    grid-auto-rows: calc(5.4 * $gem);
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .primary-swatch {
+    grid-row: span 3;
+    grid-column: span 2;
+  }
+  .btn-copy {
+    grid-column: span 2;
+  }
+  .btn-scheme {
+    grid-row: span 2;
+  }
 }
 @media all and (min-width: $bp-large) {
-    .swatch-palette {
-        overflow-y:auto; 
-        grid-auto-rows: calc(5.4 * $gem);
-        grid-template-columns: repeat(6,1fr);
-    }
-    .primary-swatch {
-        grid-row:   span 2;
-        grid-column: span 2;
-    }
-    .btn-copy{
-        grid-column: span 2;
-    }
-        .btn-scheme{
-        grid-row:   span 2;
-    }
-
+  .swatch-palette {
+    grid-auto-flow: row;
+    overflow-y: auto;
+    grid-auto-rows: calc(5.4 * $gem);
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .primary-swatch {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  .btn-copy {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  .btn-scheme {
+    grid-row: span 2;
+  }
 }

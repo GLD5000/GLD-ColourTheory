@@ -64,30 +64,38 @@
 
         </container>
       </container>
-    
-      <container class="btn-container btn-random">
-                <h3>Randomise</h3>
 
-        <figure class="dice" id="dice-btn">
-          <wrapper class="dieA" id="dieA">
-            <figure class="dots dotA"></figure>
-            <figure class="dots dotB"></figure>
-            <figure class="dots dotC"></figure>
-          </wrapper>
-          <wrapper class="dieB" id="dieB">
-            <figure class="dots dotD"></figure>
-            <figure class="dots dotE"></figure>
-            <figure class="dots dotF"></figure>
-            <figure class="dots dotG"></figure>
-          </wrapper>
-        </figure>
-        
+      <container class="btn-container btn-history">
+        <h3>Saved Palettes</h3>
+        <ul id="history-flexbox" class="flexbox-history" data-content="Load Palette">
+          <li># Save #</li>
+          <li># Palettes #</li>
+          <li># Here #</li>
+        </ul>
+      
         <container class="flexbox-horizontal-btn">
-          <button class="btn btn-med random-colour random-btn" id="random-colour" data-content="Random Colour">Colour</button>
-          <button class="btn btn-med random-scheme random-btn" id="random-scheme" data-content="Random Colour Scheme">Scheme</button>
-          <button class="btn btn-med random-all random-btn" id="random-all" data-content="Random All">All</button>
+          <button class="btn btn-small save-btn" id="save-button">Save Palette</button>
         </container>
       </container>
+
+    
+
+            <container class="btn-container btn-copy">
+              <h3>Clipboard</h3>
+            
+              <container id="clipboard-flexbox" class="flexbox-clipboard" data-content="Copy">
+                <figure id="clipboard" class="clipboard" data-clipboard="" data-content="Copy"></figure>
+                <figure id="clipboard-secondary" class="clipboard-secondary" data-content="Copy"></figure>
+              </container>
+            
+              <container class="flexbox-horizontal-btn">
+                <button class="btn btn-tiny prefix" id="prefix" data-content="Swap Prefix">Prefix: SCSS</button>
+                <button class="btn btn-small copy-single" id="copyAllCSS" data-content="Copy">Copy All</button>
+                <button class="btn btn-small email" id="email" data-content="Email">Email All</button>
+              </container>
+            </container>
+
+
 
       <container class="btn-container btn-scheme">
         <h3>Colour Schemes</h3>
@@ -108,33 +116,31 @@
       </container>
 
 
-      <container class="btn-container btn-history">
-        <h3>Saved Palettes</h3>
-        <ul id="history-flexbox" class="flexbox-history" data-content="Load Palette">
-          <li># Save     #</li>
-          <li># Palettes #</li>
-          <li># Here     #</li>
-        </ul>
+          <container class="btn-container btn-random">
+            <h3>Randomise</h3>
+          
+            <figure class="dice" id="dice-btn">
+              <wrapper class="dieA" id="dieA">
+                <figure class="dots dotA"></figure>
+                <figure class="dots dotB"></figure>
+                <figure class="dots dotC"></figure>
+              </wrapper>
+              <wrapper class="dieB" id="dieB">
+                <figure class="dots dotD"></figure>
+                <figure class="dots dotE"></figure>
+                <figure class="dots dotF"></figure>
+                <figure class="dots dotG"></figure>
+              </wrapper>
+            </figure>
+          
+            <container class="flexbox-horizontal-btn">
+              <button class="btn btn-med random-colour random-btn" id="random-colour" data-content="Random Colour">Colour</button>
+              <button class="btn btn-med random-scheme random-btn" id="random-scheme"
+                data-content="Random Colour Scheme">Scheme</button>
+              <button class="btn btn-med random-all random-btn" id="random-all" data-content="Random All">All</button>
+            </container>
+          </container>
 
-        <container class="flexbox-horizontal-btn">
-          <button class="btn btn-small save-btn" id="save-button">Save Palette</button>
-        </container>
-      </container>
-    
-      <container class="btn-container btn-copy">
-        <h3>Clipboard</h3>
-
-        <container id="clipboard-flexbox" class="flexbox-clipboard" data-content="Copy">
-          <figure id="clipboard" class="clipboard" data-clipboard="" data-content="Copy"></figure>
-          <figure id="clipboard-secondary" class="clipboard-secondary" data-content="Copy"></figure>
-        </container>
-
-        <container class="flexbox-horizontal-btn">
-          <button class="btn btn-tiny prefix" id="prefix" data-content="Swap Prefix">Prefix: SCSS</button>
-          <button class="btn btn-small copy-single" id="copyAllCSS" data-content="Copy">Copy All</button>
-          <button class="btn btn-small email" id="email" data-content="Email">Email All</button>
-        </container>
-      </container>
 
 
       <container class="swatch monochromeA" id="monochromeA">
