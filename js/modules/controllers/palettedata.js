@@ -33,7 +33,10 @@ export const paletteData = {
     const mode = this.paletteState.tetradicMode;
     this.paletteState.tetradicMode = tetradicIncrementLookup[mode];
   },
-  getPrimaryHex(hex) {
+  getPrimaryColour() {
+    return this.getColourObject("primary");
+  },
+  getPrimaryHex() {
     return this.paletteState.primaryHex;
   },
 

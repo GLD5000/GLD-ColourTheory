@@ -3,18 +3,18 @@ export const variantMaker = {
   _tetradicSwitchObject: {
     Square: {
       tetradicB: { name: "tetradicB", hue: 90, operation: "add" },
-      tetradicC: { name: "tetradicB", hue: 270, operation: "add" },
+      tetradicC: { name: "tetradicC", hue: 270, operation: "add" },
     },
     "Rectangle A": {
       tetradicB: { name: "tetradicB", hue: 60, operation: "add" },
-      tetradicC: { name: "tetradicB", hue: 240, operation: "add" },
+      tetradicC: { name: "tetradicC", hue: 240, operation: "add" },
     },
     "Rectangle B": {
       tetradicB: { name: "tetradicB", hue: -60, operation: "add" },
-      tetradicC: { name: "tetradicB", hue: 120, operation: "add" },
+      tetradicC: { name: "tetradicC", hue: 120, operation: "add" },
     },
   },
-  updateTetradicMode(tetradicMode) {
+  updateSwatchRecipeMap(tetradicMode) {
     variantMaker._swatchRecipeMap.set(
       "tetradicB",
       this._tetradicSwitchObject[tetradicMode]["tetradicB"]
@@ -23,6 +23,16 @@ export const variantMaker = {
       "tetradicC",
       this._tetradicSwitchObject[tetradicMode]["tetradicC"]
     );
+  },
+  getUpdatedTetradicColours(tetradicMode, primaryColour) {
+    const TetradicKeys = ["tetradicA", "tetradicB", "tetradicC"];
+    const returnArray = [];
+    this.updateSwatchRecipeMap(tetradicMode);
+    TetradicKeys.forEach((key) => {
+      const newColourPartial = this._swatchRecipeMap.get(key);
+      returnArray.push(colourObject.assign(primaryColour, newColourPartial));
+    });
+    return returnArray;
   },
   _swatchRecipeMap: new Map([
     ["analogousA", { name: "analogousA", hue: -30, operation: "add" }],

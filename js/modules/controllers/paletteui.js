@@ -137,34 +137,27 @@ const colourScheme = {
       colourScheme.applyGradient(key);
     });
   },
-  unDimComplementary() {
-    if (userObjects.schemes["Complementary"].classList.contains("dimmed")) {
-      userObjects.schemes["Complementary"].classList.remove("dimmed");
-      userObjects.schemes["Complementary"].innerHTML = "Complementary";
-    }
-  },
   _onclickSchemeButtons(event) {
     const target = event.target;
     let innerHtml = target.innerHTML;
     if (target.id === "Tetradic") {
       if (target.classList.contains("dimmed")) {
         target.classList.remove("dimmed");
-        colourScheme.unDimComplementary();
         target.innerHTML = `${
           innerHtml.split(" ")[0]
         } ${paletteData.getTetradicMode()}`;
         colourScheme.showSwatches(target.id);
+        paletteUi.setTetradicMode("Square");
       } else if (paletteData.getTetradicMode() === "Rectangle B") {
         target.classList.add("dimmed");
         target.innerHTML = innerHtml.split(" ")[0] + " Off";
         colourScheme.hideSwatches(target.id);
-        paletteData.setTetradicMode("Square");
+        paletteUi.setTetradicMode("Square");
       } else {
-        paletteData.incrementTetradicMode();
+        paletteUi.setTetradicMode();
         target.innerHTML = `${
           innerHtml.split(" ")[0]
         } ${paletteData.getTetradicMode()}`;
-        colourScheme.unDimComplementary();
       }
       return;
     }
@@ -825,6 +818,21 @@ export const paletteUi = {
     }
     this._setWrapperTextColour(newTextColour);
     paletteData.addTextColour(newTextColour);
+  },
+  setTetradicMode(tetradicToSet = null) {
+    tetradicToSet === null
+      ? paletteData.incrementTetradicMode()
+      : paletteData.setTetradicMode(tetradicToSet);
+    const tetradicMode = paletteData.getTetradicMode();
+    const primaryColour = paletteData.getPrimaryColour();
+    const newTetradicColours = variantMaker.getUpdatedTetradicColours(
+      tetradicMode,
+      primaryColour
+    );
+    newTetradicColours.forEach(x => {
+      paletteUi.addColour(x);
+    });
+    colourScheme.applyGradient("Tetradic");
   },
   getSmallSwatchNames() {
     return userObjects.smallSwatchNamesArray;
