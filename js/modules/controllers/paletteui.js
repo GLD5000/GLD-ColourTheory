@@ -137,24 +137,52 @@ const colourScheme = {
       colourScheme.applyGradient(key);
     });
   },
-  _onclickSchemeButtons(event) {
-    const target = event.target;
+  dimSchemeButton(target) {
     let innerHtml = target.innerHTML;
     if (target.id === "Tetradic") {
+      target.classList.add("dimmed");
+      target.innerHTML = innerHtml.split(" ")[0] + " Off";
+      colourScheme.hideSwatches(target.id);
+      return;
+    }
+    target.classList.add("dimmed");
+    target.innerHTML = innerHtml + " Off";
+    colourScheme.hideSwatches(target.id);
+  },
+  unDimSchemeButton(target) {
+    let innerHtml = target.innerHTML;
+    if (target.id === "Split") {
+      target.classList.remove("dimmed");
+      innerHtml = innerHtml.split(" ");
+      innerHtml.pop();
+      target.innerHTML = innerHtml.join(" ");
+      colourScheme.showSwatches(target.id);
+      return;
+    }
+    if (target.id === "Tetradic") {
+      target.classList.remove("dimmed");
+      target.innerHTML = `${
+        innerHtml.split(" ")[0]
+      } ${paletteData.getTetradicMode()}`;
+      colourScheme.showSwatches(target.id);
+      return;
+    }
+    target.classList.remove("dimmed");
+    target.innerHTML = innerHtml.split(" ")[0];
+    colourScheme.showSwatches(target.id);
+  },
+  _onclickSchemeButtons(event) {
+    const target = event.target;
+    if (target.id === "Tetradic") {
       if (target.classList.contains("dimmed")) {
-        target.classList.remove("dimmed");
-        target.innerHTML = `${
-          innerHtml.split(" ")[0]
-        } ${paletteData.getTetradicMode()}`;
-        colourScheme.showSwatches(target.id);
         paletteUi.setTetradicMode("Square");
+        this.unDimSchemeButton(target);
       } else if (paletteData.getTetradicMode() === "Rectangle B") {
-        target.classList.add("dimmed");
-        target.innerHTML = innerHtml.split(" ")[0] + " Off";
-        colourScheme.hideSwatches(target.id);
         paletteUi.setTetradicMode("Square");
+        this.dimSchemeButton(target);
       } else {
         paletteUi.setTetradicMode();
+        let innerHtml = target.innerHTML;
         target.innerHTML = `${
           innerHtml.split(" ")[0]
         } ${paletteData.getTetradicMode()}`;
@@ -162,16 +190,22 @@ const colourScheme = {
       return;
     }
     if (target.classList.contains("dimmed")) {
-      target.classList.remove("dimmed");
-      innerHtml = innerHtml.split(" ");
-      innerHtml.pop();
-      target.innerHTML = innerHtml.join(" ");
-      colourScheme.showSwatches(target.id);
+      this.unDimSchemeButton(target);
     } else {
-      target.classList.add("dimmed");
-      target.innerHTML = innerHtml + " Off";
-      colourScheme.hideSwatches(target.id);
+      this.dimSchemeButton(target);
     }
+  },
+  onclickSelectAll() {
+    const targets = Array.from(Object.values(userObjects.schemes));
+    targets.forEach(target => {
+      if (target.classList.contains("dimmed")) this.unDimSchemeButton(target);    
+    });
+  },
+  onclickSelectNone() {
+    const targets = Array.from(Object.values(userObjects.schemes));
+    targets.forEach((target) => {
+      if (!target.classList.contains("dimmed")) this.dimSchemeButton(target);
+    });
   },
 };
 export const paletteUi = {
@@ -723,6 +757,10 @@ export const paletteUi = {
         (userObjects.schemes[x].onclick = (e) =>
           colourScheme._onclickSchemeButtons(e))
     );
+    userObjects.other["select-all"].onclick = () =>
+      colourScheme.onclickSelectAll();
+    userObjects.other["select-none"].onclick = () =>
+      colourScheme.onclickSelectNone();
 
     userObjects.sliders.forEach(
       (x) =>
@@ -829,7 +867,7 @@ export const paletteUi = {
       tetradicMode,
       primaryColour
     );
-    newTetradicColours.forEach(x => {
+    newTetradicColours.forEach((x) => {
       paletteUi.addColour(x);
     });
     colourScheme.applyGradient("Tetradic");

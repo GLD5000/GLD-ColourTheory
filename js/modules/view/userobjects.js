@@ -2,7 +2,7 @@ export const userObjectsAll = {};
 
 function setAll() {
   const selectorsArray = [
-    ["swatches", '.swatch'],
+    ["swatches", ".swatch"],
     ["pickers", 'input[type="color"]'],
     ["sliders", 'input[type="range"]', "array"], //array
     ["wrappers", "wrapper"],
@@ -19,6 +19,8 @@ function setAll() {
         "#randomise-btn",
         "#gldlogo",
         "#header",
+        "#select-all",
+        "#select-none",
       ],
     ],
     ["clipboard", ["#clipboard", "#clipboard-secondary"]],
