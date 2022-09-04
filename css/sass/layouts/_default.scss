@@ -104,7 +104,6 @@
 @media all and (min-width: $bp-large) {
   //120em
   .swatch-palette {
-    grid-auto-flow: row dense;
     overflow-y: auto;
     grid-auto-rows: calc(5.4 * $gem);
     grid-template-columns: repeat(6, 1fr);
