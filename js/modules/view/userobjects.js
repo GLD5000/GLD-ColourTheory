@@ -17,6 +17,8 @@ function setAll() {
         "#colourspace",
         "#dice-btn",
         "#random-colour",
+        "#random-scheme",
+        "#random-all",
         "#gldlogo",
         "#header",
         "#select-all",

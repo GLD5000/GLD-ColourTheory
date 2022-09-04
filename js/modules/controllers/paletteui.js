@@ -260,15 +260,37 @@ export const paletteUi = {
     this._updateGradientsAll();
     this._setClipboardTextAll();
   },
+  _randomiseAll() {
+    this._randomiseDice();
+    this._randomisePrimary();
+    this._randomiseColourSpace();
+    this._randomiseGradient();
+    this.randomiseScheme();
+  },
+  randomiseScheme(){
+    const schemeArray = [
+      ["Monochrome", "Neutral"],
+      ["Analogous", "Neutral"],
+      ["Complementary", "Neutral"],
+      ["Split", "Neutral"],
+      ["Triadic", "Neutral"],
+      ["Tetradic", "Neutral"],
+      ["Monochrome", "Analogous", "Neutral"],
+      ["Split", "Analogous", "Neutral"],
+      ["Monochrome", "Split", "Neutral"],
+      ["Triadic", "Monochrome", "Neutral"],
+      ["Tetradic", "Monochrome", "Neutral"],
+      ["Monochrome", "Complementary", "Neutral"],
+    ];
+    // if scheme contains tetradic, randomise tetradic mode
+    
+  },
   _init() {
     this.customBackgroundCounter = this._updateClipboard = 0;
     this._debounce();
-    this._randomiseDice();
-    this._randomisePrimary();
+    this._randomiseAll();
     this._setOnChange();
     paletteState._resetAllCustomStates();
-    this._randomiseColourSpace();
-    this._randomiseGradient();
     paletteState.setCustomStatesfromWrappers();
     paletteState.deepCopyPaletteState(
       paletteData.paletteState,
@@ -745,6 +767,8 @@ export const paletteUi = {
     userObjects.other["gradient"].onclick = () => this._onclickGradient();
     userObjects.other["dice-btn"].onclick = () => this._onclickRandom();
     userObjects.other["random-colour"].onclick = () => this._onclickRandom();
+    userObjects.other["random-scheme"].onclick = () => this._onclickRandom();
+    userObjects.other["random-all"].onclick = () => this._randomiseAll();
     userObjects.other["gldlogo"].onclick = () => this._onclickLogo();
     userObjects.other["header"].onclick = (e) => this._onclickHeader(e);
     Object.keys(userObjects.copyButtons).forEach(
