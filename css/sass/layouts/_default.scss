@@ -45,11 +45,13 @@
     grid-column: span 1;
     grid-row: span 2;
   }
-  .btn-scheme {
+  .btn-scheme, .btn-copy {
     grid-row: span 2;
   }
+
 }
 @media all and (min-width: $bp-tiny) {
+  //37.5em
   .swatch-palette {
     overflow-y: auto;
     grid-auto-rows: calc(5.4 * $gem);
@@ -60,6 +62,7 @@
     grid-column: span 2;
   }
   .btn-copy {
+    grid-row: span 2;
     grid-column: span 2;
   }
   .btn-scheme {
@@ -67,6 +70,7 @@
   }
 }
 @media all and (min-width: $bp-small) {
+  //60em
   .swatch-palette {
     overflow-y: auto;
     grid-auto-rows: calc(5.4 * $gem);
@@ -76,11 +80,13 @@
     grid-row: span 3;
     grid-column: span 2;
   }
-  .btn-copy {
-    grid-column: span 2;
+  .btn-copy, .btn-scheme {
+    grid-row: span 2;
+    grid-column: span 1;
   }
 }
 @media all and (min-width: $bp-medium) {
+  //80em
   .swatch-palette {
     overflow-y: auto;
     grid-auto-rows: calc(5.4 * $gem);
@@ -90,16 +96,15 @@
     grid-row: span 3;
     grid-column: span 2;
   }
-  .btn-copy {
-    grid-column: span 2;
-  }
-  .btn-scheme {
+  .btn-copy, .btn-scheme {
     grid-row: span 2;
+    grid-column: span 1;
   }
 }
 @media all and (min-width: $bp-large) {
+  //120em
   .swatch-palette {
-    grid-auto-flow: row;
+    grid-auto-flow: row dense;
     overflow-y: auto;
     grid-auto-rows: calc(5.4 * $gem);
     grid-template-columns: repeat(6, 1fr);
@@ -112,7 +117,12 @@
     grid-row: span 2;
     grid-column: span 2;
   }
+  .btn-history {
+    grid-row: 2;
+    grid-column: 3;
+  }
   .btn-scheme {
     grid-row: span 2;
+    grid-column: span 1;
   }
 }
