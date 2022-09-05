@@ -265,9 +265,9 @@ export const paletteUi = {
     this._randomisePrimary();
     this._randomiseColourSpace();
     this._randomiseGradient();
-    this.randomiseScheme();
+    this._randomiseScheme();
   },
-  randomiseScheme(){
+  _randomiseScheme(){
     const schemeArray = [
       ["Monochrome", "Neutral"],
       ["Analogous", "Neutral"],
@@ -282,6 +282,13 @@ export const paletteUi = {
       ["Tetradic", "Monochrome", "Neutral"],
       ["Monochrome", "Complementary", "Neutral"],
     ];
+    const randomIndex = Math.floor(schemeArray.length * Math.random()); 
+    colourScheme.onclickSelectNone();
+    schemeArray[randomIndex].forEach(name => {
+      colourScheme.unDimSchemeButton(userObjects.schemes[name]);
+    });
+    
+    
     // if scheme contains tetradic, randomise tetradic mode
     
   },
@@ -767,7 +774,7 @@ export const paletteUi = {
     userObjects.other["gradient"].onclick = () => this._onclickGradient();
     userObjects.other["dice-btn"].onclick = () => this._onclickRandom();
     userObjects.other["random-colour"].onclick = () => this._onclickRandom();
-    userObjects.other["random-scheme"].onclick = () => this._onclickRandom();
+    userObjects.other["random-scheme"].onclick = () => this._randomiseScheme();
     userObjects.other["random-all"].onclick = () => this._randomiseAll();
     userObjects.other["gldlogo"].onclick = () => this._onclickLogo();
     userObjects.other["header"].onclick = (e) => this._onclickHeader(e);
