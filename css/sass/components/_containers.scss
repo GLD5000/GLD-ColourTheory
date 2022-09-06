@@ -45,7 +45,11 @@
   grid-template-rows: 1fr calc(1.25 *$gem);
 }
 
-.primary-swatch, .btn-container {
+.primary-swatch {
+  grid-template-rows: calc(1.25 *$gem) 1fr calc(1.25 *$gem) calc(1.25 *$gem);
+}
+
+.btn-container {
   grid-template-rows: calc(1.25 *$gem) 1fr calc(1.25 *$gem);
 }
 

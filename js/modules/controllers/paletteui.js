@@ -261,7 +261,6 @@ export const paletteUi = {
     this._setClipboardTextAll();
   },
   _randomiseAll() {
-    this._randomiseDice();
     this._randomisePrimary();
     this._randomiseColourSpace();
     this._randomiseGradient();
@@ -452,22 +451,14 @@ export const paletteUi = {
     this._updateGradientsAll();
     this._setClipboardTextAll();
   },
-  _randomiseDice() {
-    userObjects.wrappers["dieA"].style.backgroundColor =
-      colourObject.makeRandomHslString();
-    userObjects.wrappers["dieB"].style.backgroundColor =
-      colourObject.makeRandomHslString();
-  },
   _randomisePrimary() {
     this.addColour(colourObject.makeRandomColour("primary"));
   },
   _onclickRandom() {
     this._randomisePrimary();
-    this._randomiseDice();
   },
   _onclickLogo() {
     this._randomisePrimary();
-    this._randomiseDice();
     this._randomiseColourSpace();
     this._randomiseGradient();
   },
@@ -650,7 +641,7 @@ export const paletteUi = {
     let linebreak = `;%0D%0A`;
     let text = textArray.join(linebreak);
     const subjectMessage = `GLD Colourmatic 5000 colours for you`;
-    const bodyMessage = `Thank you for using the GLD Colourmatic 5000!%0D%0A%0D%0AHere is your chosen palette:%0D%0A%0D%0A${text}`;
+    const bodyMessage = `Thank you for using the GLD Colourmatic 5000!%0D%0A%0D%0AHere is your chosen colour palette:%0D%0A%0D%0A${text}`;
     window.open(
       `mailto:youremail@address?subject=${subjectMessage}&body=${bodyMessage}`
     );
@@ -772,7 +763,6 @@ export const paletteUi = {
     userObjects.other["colourspace"].onclick = () => this._onclickColourspace();
     userObjects.other["prefix"].onclick = () => this._onclickPrefix();
     userObjects.other["gradient"].onclick = () => this._onclickGradient();
-    userObjects.other["dice-btn"].onclick = () => this._onclickRandom();
     userObjects.other["random-colour"].onclick = () => this._onclickRandom();
     userObjects.other["random-scheme"].onclick = () => this._randomiseScheme();
     userObjects.other["random-all"].onclick = () => this._randomiseAll();

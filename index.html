@@ -40,12 +40,10 @@
 
     
       <container class="primary-swatch" name="primary Colour">
-        <container class="slider-container">
-          <input type="range" min="0" max="100" step="0.5" class="slider slider-a" id="slider-a" name="Hue"></input>
-          <input type="range" min="0" max="100" step="0.5" class="slider slider-b" id="slider-b" name="Saturation"></input>
-          <input type="range" min="0" max="100" step="0.5" class="slider slider-c" id="slider-c" name="Luminance"></input>
-        </container>
-        
+
+        <h3>Pick Colour</h3>
+
+
         <container id="primary-container" class="primary-container">
           <wrapper id="primary-wrapper" class="primary-wrapper" name="Primary Colour" data-content="">
             <input type="color" id="primary-picker" class="picker large-picker"></input>
@@ -53,6 +51,11 @@
             <button class="btn btn-med btn-dual mode" id="gradient" data-content="Add Tones"></button>
         </container>
 
+        <container class="slider-container">
+          <input type="range" min="0" max="100" step="0.5" class="slider slider-a" id="slider-a" name="Hue"></input>
+          <input type="range" min="0" max="100" step="0.5" class="slider slider-b" id="slider-b" name="Saturation"></input>
+          <input type="range" min="0" max="100" step="0.5" class="slider slider-c" id="slider-c" name="Luminance"></input>
+        </container>
 
         <container class="flexbox-horizontal-btn">
           <button class="btn btn-med btn-dual colourspace" id="colourspace" data-content="Change Colour Mode">Mode: Hex</button>
@@ -61,50 +64,24 @@
           <button id="textmode" class="textmode" data-content="Change Text Colour" data-label="">
             <input type="color" id="textcolour-picker" class="picker textcolour-picker"></input>
           </button>
-
+          <button class="btn btn-med random-colour random-btn" id="random-colour" data-content="Random Colour">Random</button>
         </container>
       </container>
       
-      <container class="btn-container btn-random">
-        <h3>Randomise</h3>
-      
-        <figure class="dice" id="dice-btn">
-          <wrapper class="dieA" id="dieA">
-            <figure class="dots dotA"></figure>
-            <figure class="dots dotB"></figure>
-            <figure class="dots dotC"></figure>
-          </wrapper>
-          <wrapper class="dieB" id="dieB">
-            <figure class="dots dotD"></figure>
-            <figure class="dots dotE"></figure>
-            <figure class="dots dotF"></figure>
-            <figure class="dots dotG"></figure>
-          </wrapper>
-        </figure>
-      
-        <container class="flexbox-horizontal-btn">
-          <button class="btn btn-med random-colour random-btn" id="random-colour" data-content="Random Colour">Colour</button>
-          <button class="btn btn-med random-scheme random-btn" id="random-scheme"
-            data-content="Random Colour Scheme">Scheme</button>
-          <button class="btn btn-med random-all random-btn" id="random-all" data-content="Random All">All</button>
-        </container>
-      </container>
-
       <container class="btn-container btn-history">
-        <h3>Saved Palettes</h3>
+        <h3>Save Colours</h3>
         <ul id="history-flexbox" class="flexbox-history" data-content="Load Palette">
-          <li># Save #</li>
-          <li># Palettes #</li>
-          <li># Here #</li>
+          <li># Save Colours Here #</li>
         </ul>
       
         <container class="flexbox-horizontal-btn">
-          <button class="btn btn-small save-btn" id="save-button">Save Palette</button>
+          <button class="btn btn-small save-btn" id="save-button">Save</button>
+          <button class="btn btn-med random-all random-btn" id="random-all" data-content="Random All">Random</button>
         </container>
       </container>
 
       <container class="btn-container btn-copy">
-        <h3>Clipboard</h3>
+        <h3>Copy Colours</h3>
       
         <container id="clipboard-flexbox" class="flexbox-clipboard" data-content="Copy">
           <figure id="clipboard" class="clipboard" data-clipboard="" data-content="Copy"></figure>
@@ -112,9 +89,9 @@
         </container>
       
         <container class="flexbox-horizontal-btn">
-          <button class="btn btn-tiny prefix" id="prefix" data-content="Swap Prefix">Prefix: SCSS</button>
-          <button class="btn btn-small copy-single" id="copyAllCSS" data-content="Copy">Copy All</button>
-          <button class="btn btn-small email" id="email" data-content="Email">Email All</button>
+          <button class="btn btn-tiny prefix" id="prefix" data-content="Swap Prefix">Prefix</button>
+          <button class="btn btn-small copy-single" id="copyAllCSS" data-content="Copy">Copy</button>
+          <button class="btn btn-small email" id="email" data-content="Email">Email</button>
         </container>
       </container>
 
@@ -131,8 +108,11 @@
         </ul>
 
         <container class="flexbox-horizontal-btn">
-          <button class="btn btn-small all-btn" id="select-all">Select All</button>
-          <button class="btn btn-small none-btn" id="select-none">Select None</button>
+          <button class="btn btn-small all-btn" id="select-all">All</button>
+          <button class="btn btn-small none-btn" id="select-none">None</button>
+          <button class="btn btn-med random-scheme random-btn" id="random-scheme"
+          data-content="Random Colour Scheme">Random</button>
+
         </container>
       </container>
 
