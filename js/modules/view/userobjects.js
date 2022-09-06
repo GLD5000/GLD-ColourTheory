@@ -23,6 +23,7 @@ function setAll() {
         "#header",
         "#select-all",
         "#select-none",
+        "#current-colours",
       ],
     ],
     ["clipboard", ["#clipboard", "#clipboard-secondary"]],

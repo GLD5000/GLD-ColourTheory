@@ -20,7 +20,8 @@ const paletteState = {
     const returnObject = {};
     userObjects.smallSwatchNamesArray.forEach((name) => {
       returnObject[name] =
-        userObjectsAll[name + "-wrapper"].dataset.content[0] === "c"
+        userObjectsAll[name + "-wrapper"].dataset.content[0].toLowerCase() ===
+        "c"
           ? "Custom"
           : "auto"; //check wrapper for the 'c' word
       paletteData.paletteState.smallSwatchCustomState = returnObject;
@@ -135,22 +136,31 @@ const colourScheme = {
       userObjects.swatches[x].classList.remove("hidden");
     });
   },
+  convertSwatchNamesToGradientString(swatchNamesArray) {
+    let gradientString = "linear-gradient(to right, ";
+    const hexArray = [];
+    swatchNamesArray.forEach((name, i) => {
+      hexArray.push(
+        `${paletteData.getColourObject(name).hex} ${
+          i * (100 / swatchNamesArray.length)
+        }%, 
+        ${paletteData.getColourObject(name).hex} ${
+          (1 + i) * (100 / swatchNamesArray.length)
+        }%`
+      );
+    });
+    gradientString += hexArray.join(",");
+    gradientString += ")";
+    return gradientString;
+  },
   applyGradient(name) {
     if (name === "Neutral") {
       colourScheme.unDimNeutralSchemeButton();
       return;
     }
-    let gradientString = "linear-gradient(to right, ";
-    const hexArray = [];
-    colourScheme.nameLookup[name].forEach((x, i, array) => {
-      hexArray.push(
-        `${paletteData.getColourObject(x).hex} ${i * (100 / array.length)}%, ${
-          paletteData.getColourObject(x).hex
-        } ${(1 + i) * (100 / array.length)}%`
-      );
-    });
-    gradientString += hexArray.join(",");
-    gradientString += ")";
+    const gradientString = 
+    colourScheme.convertSwatchNamesToGradientString(colourScheme.nameLookup[name]);
+
     userObjects.schemes[name].style.background = gradientString;
     userObjects.schemes[name].style.color = paletteData.getMainTextColour().hex;
   },
