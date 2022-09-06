@@ -182,15 +182,11 @@
   border: 4px solid $neutral-1000;
 }
 
-.scheme-button:hover {
-  filter: brightness(120%);
-}
 .flexbox-history li,
 .saved-palette,
 .scheme-button {
   display: block;
   height: auto;
-  width: fit-content;
   font-family: $font-clipboard;
   font-size: calc(0.65 * $gem);
   font-weight: 500;
@@ -212,7 +208,19 @@
   width: 100%; //calc(100% - 8px);
   color: $vscode-hex-orange;
 }
+.scheme-button {
+  width: auto; //calc(100% - 8px);
+}
+
+.scheme-button:hover {
+  filter: brightness(120%);
+  color: $neutral-0;
+}
 
 .dimmed {
   filter: brightness(85%) grayscale(100%);
 }
+//.dimmed-neutral {
+ // filter: invert(100%);
+//}
+

@@ -500,16 +500,11 @@ p, li, ol, ul, a {
   border: 4px solid #000;
 }
 
-.scheme-button:hover {
-  filter: brightness(120%);
-}
-
 .flexbox-history li,
 .saved-palette,
 .scheme-button {
   display: block;
   height: auto;
-  width: fit-content;
   font-family: "Source Code Pro", monospace;
   font-size: calc(0.65 * clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem));
   font-weight: 500;
@@ -528,6 +523,15 @@ p, li, ol, ul, a {
   height: clamp(1rem, 0.6707920792rem + 1.3861386139vw, 2.75rem);
   width: 100%;
   color: #ce9178;
+}
+
+.scheme-button {
+  width: auto;
+}
+
+.scheme-button:hover {
+  filter: brightness(120%);
+  color: #fff;
 }
 
 .dimmed {
