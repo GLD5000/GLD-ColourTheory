@@ -23,4 +23,4 @@ colourObject._convertSrgbtoTwl(testColour);
 colourArray.push(`t: ${testColour.tint} w: ${testColour.warmth} l: ${testColour.lightness} r: ${testColour.red} b: ${testColour.blue} g: ${testColour.green}`);
 console.log(colourArray.join('\n'));
  */
-console.log(userObjectsAll);
+//console.log(userObjectsAll);

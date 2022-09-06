@@ -78,6 +78,36 @@ const paletteState = {
   },
 };
 const colourScheme = {
+  storeSchemeStatus(scheme) {
+    const id = scheme.id;
+    const classToApply = id === "Neutral" ? "dimmed-neutral" : "dimmed";
+    paletteData.paletteState.schemes[id] = scheme.classList.contains(
+      classToApply
+    )
+      ? "dimmed"
+      : null; // dimmed / null
+  },
+  storeSwatchVisibility(swatch) {
+    const id = swatch.id;
+    const classToApply = "hidden";
+
+    paletteData.paletteState.swatchVisibility[id] = swatch.classList.contains(
+      classToApply
+    )
+      ? "hidden"
+      : null; // hidden / null
+  },
+
+  storeStatusAllSchemes() {
+    Object.keys(userObjects.schemes).forEach((key) => {
+      const scheme = userObjects.schemes[key];
+      colourScheme.storeSchemeStatus(scheme);
+    });
+    Object.keys(userObjects.swatches).forEach(key => {
+      const swatch = userObjects.swatches[key];
+      colourScheme.storeSwatchVisibility(swatch);
+    });
+  },
   nameLookup: {
     Monochrome: ["monochromeA", "primary", "monochromeB"],
     Analogous: ["analogousA", "primary", "analogousB"],
@@ -158,8 +188,9 @@ const colourScheme = {
       colourScheme.unDimNeutralSchemeButton();
       return;
     }
-    const gradientString = 
-    colourScheme.convertSwatchNamesToGradientString(colourScheme.nameLookup[name]);
+    const gradientString = colourScheme.convertSwatchNamesToGradientString(
+      colourScheme.nameLookup[name]
+    );
 
     userObjects.schemes[name].style.background = gradientString;
     userObjects.schemes[name].style.color = paletteData.getMainTextColour().hex;
@@ -347,6 +378,7 @@ export const paletteUi = {
     this._setOnChange();
     paletteState._resetAllCustomStates();
     paletteState.setCustomStatesfromWrappers();
+    colourScheme.storeStatusAllSchemes();
     paletteState.deepCopyPaletteState(
       paletteData.paletteState,
       paletteData.savedState

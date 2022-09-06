@@ -12,6 +12,9 @@ export const paletteData = {
     textColour: null,
     colourspace: "Hex",
     tetradicMode: "Square",
+    schemes: {},
+    swatchVisibility: {},
+
   },
   backgroundColours: new Map(),
   gradientColours: new Map(),
