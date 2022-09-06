@@ -210,6 +210,7 @@
 }
 .scheme-button {
   width: auto; //calc(100% - 8px);
+  cursor: pointer;
 }
 
 .scheme-button:hover {
@@ -224,3 +225,6 @@
  // filter: invert(100%);
 //}
 
+.current-colours {
+  cursor:auto;
+}

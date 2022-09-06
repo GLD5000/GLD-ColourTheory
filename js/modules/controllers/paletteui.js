@@ -98,8 +98,7 @@ const colourScheme = {
   hideSwatches(name) {
     if (name === "Neutral") {
       userObjects.swatches["neutral"].classList.add("hidden");
-      userObjects.schemes[name].style.backgroundColor = "#555";
-      userObjects.schemes[name].style.color = "#fff";  
+      colourScheme.dimNeutralSchemeButton();
       return;
     }
     if (
@@ -112,28 +111,33 @@ const colourScheme = {
       userObjects.schemes["Complementary"].classList.contains("dimmed")
     )
       userObjects.swatches["tetradicA"].classList.add("hidden");
-      colourScheme.hideLookup[name].forEach((x) => {
+    colourScheme.hideLookup[name].forEach((x) => {
       userObjects.swatches[x].classList.add("hidden");
     });
   },
-
+  dimNeutralSchemeButton() {
+    userObjects.schemes["Neutral"].style.backgroundColor = "#555";
+    userObjects.schemes["Neutral"].style.color = "#fff";
+  },
+  unDimNeutralSchemeButton() {
+    userObjects.schemes["Neutral"].style.backgroundColor = "#ccc";
+    userObjects.schemes["Neutral"].style.color = "#000";
+  },
   showSwatches(name) {
     if (name === "Neutral") {
       userObjects.swatches["neutral"].classList.remove("hidden");
-      userObjects.schemes[name].style.backgroundColor = "#ccc";
-      userObjects.schemes[name].style.color = "#000";  
+      colourScheme.unDimNeutralSchemeButton();
       return;
     }
     if (name === "Tetradic")
       userObjects.swatches["tetradicA"].classList.remove("hidden");
-      colourScheme.hideLookup[name].forEach((x) => {
+    colourScheme.hideLookup[name].forEach((x) => {
       userObjects.swatches[x].classList.remove("hidden");
     });
   },
   applyGradient(name) {
     if (name === "Neutral") {
-      userObjects.schemes["Neutral"].style.backgroundColor = "#ccc";
-      userObjects.schemes["Neutral"].style.color = "#000";  
+      colourScheme.unDimNeutralSchemeButton();
       return;
     }
     let gradientString = "linear-gradient(to right, ";
@@ -158,16 +162,16 @@ const colourScheme = {
   dimSchemeButton(target) {
     //let innerHtml = target.innerHTML;
     if (target.id === "Tetradic") {
-    let innerHtml = target.innerHTML;
-    target.classList.add("dimmed");
+      let innerHtml = target.innerHTML;
+      target.classList.add("dimmed");
       //target.innerHTML = innerHtml.split(" ")[0] + " Off";
       target.innerHTML = innerHtml.split(" ")[0];
       colourScheme.hideSwatches(target.id);
       return;
     }
-    target.id === "Neutral"?  
-    target.classList.add("dimmed-neutral"):
-    target.classList.add("dimmed");
+    target.id === "Neutral"
+      ? target.classList.add("dimmed-neutral")
+      : target.classList.add("dimmed");
     //target.innerHTML = innerHtml + " Off";
     colourScheme.hideSwatches(target.id);
   },
@@ -190,9 +194,9 @@ const colourScheme = {
       colourScheme.showSwatches(target.id);
       return;
     }
-    target.id === "Neutral"?  
-    target.classList.remove("dimmed-neutral"):
-    target.classList.remove("dimmed");
+    target.id === "Neutral"
+      ? target.classList.remove("dimmed-neutral")
+      : target.classList.remove("dimmed");
     //target.classList.remove("dimmed");
     //target.innerHTML = innerHtml.split(" ")[0];
     colourScheme.showSwatches(target.id);
@@ -215,7 +219,10 @@ const colourScheme = {
       }
       return;
     }
-    if (target.classList.contains("dimmed") || target.classList.contains("dimmed-neutral")) {
+    if (
+      target.classList.contains("dimmed") ||
+      target.classList.contains("dimmed-neutral")
+    ) {
       this.unDimSchemeButton(target);
     } else {
       this.dimSchemeButton(target);
@@ -224,13 +231,21 @@ const colourScheme = {
   onclickSelectAll() {
     const targets = Array.from(Object.values(userObjects.schemes));
     targets.forEach((target) => {
-      if (target.classList.contains("dimmed") || target.classList.contains("dimmed-neutral")) this.unDimSchemeButton(target);
+      if (
+        target.classList.contains("dimmed") ||
+        target.classList.contains("dimmed-neutral")
+      )
+        this.unDimSchemeButton(target);
     });
   },
   onclickSelectNone() {
     const targets = Array.from(Object.values(userObjects.schemes));
     targets.forEach((target) => {
-      if (!target.classList.contains("dimmed") || !target.classList.contains("dimmed-neutral")) this.dimSchemeButton(target);
+      if (
+        !target.classList.contains("dimmed") ||
+        !target.classList.contains("dimmed-neutral")
+      )
+        this.dimSchemeButton(target);
     });
   },
 };
@@ -292,7 +307,7 @@ export const paletteUi = {
     this._randomiseGradient();
     this._randomiseScheme();
   },
-  _randomiseScheme(){
+  _randomiseScheme() {
     const schemeArray = [
       ["Monochrome", "Neutral"],
       ["Analogous", "Neutral"],
@@ -307,15 +322,13 @@ export const paletteUi = {
       ["Tetradic", "Monochrome", "Neutral"],
       ["Monochrome", "Complementary", "Neutral"],
     ];
-    const randomIndex = Math.floor(schemeArray.length * Math.random()); 
+    const randomIndex = Math.floor(schemeArray.length * Math.random());
     colourScheme.onclickSelectNone();
-    schemeArray[randomIndex].forEach(name => {
+    schemeArray[randomIndex].forEach((name) => {
       colourScheme.unDimSchemeButton(userObjects.schemes[name]);
     });
-    
-    
+
     // if scheme contains tetradic, randomise tetradic mode
-    
   },
   _init() {
     this.customBackgroundCounter = this._updateClipboard = 0;
