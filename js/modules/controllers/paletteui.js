@@ -507,7 +507,8 @@ export const paletteUi = {
     paletteData.setPrimaryHex(hex);
 /*     userObjects.copyButtons["primary-copybtn"].innerHTML =
       primaryColour[colourspace];
- */    this.setBackgroundGradient(primaryColour);
+ */    
+    this.setBackgroundGradient(primaryColour);
     this.setTextMode("auto");
     paletteUi.setTextColour(primaryColour);
     paletteState._resetAllCustomStates();
@@ -822,11 +823,12 @@ export const paletteUi = {
     clearTimeout(this.sliderTimeout);
     userObjects.sliders.forEach((x, i) => {
       x.name = namesArray[i];
-      x.classList.add("fakesliderhover");
+      userObjects["slider-headers"][i].innerHTML = `Adjust ${namesArray[i]}`;
+      //x.classList.add("fakesliderhover");
     });
     const removeNamesLoop = () => {
       userObjects.sliders.forEach((x) => {
-        x.classList.remove("fakesliderhover");
+        //x.classList.remove("fakesliderhover");
       });
     };
     this.sliderTimeout = setTimeout(removeNamesLoop, 1800);

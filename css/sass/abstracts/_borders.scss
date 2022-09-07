@@ -2,6 +2,7 @@
 @use './colours' as *;
 
 $border: solid $neutral-1000 $gemEighth;
+$borderRadius: $gemEighth;
 $gap: $gemEighth;
 $gaplg: $gem3Quart;
 $box-shadow: $neutral-1000 $gemQuart $gemQuart 0px;

@@ -38,7 +38,7 @@
 @media all and (min-width: 0) {
   .swatch-palette {
     overflow-y: auto;
-    grid-auto-rows: calc(5.4 * $gem);
+    grid-auto-rows: calc(6 * $gem);
     grid-template-columns: 1fr;
   }
   .primary-swatch {
@@ -77,7 +77,7 @@
   //60em
   .swatch-palette {
     overflow-y: auto;
-    grid-auto-rows: calc(5.4 * $gem);
+    grid-auto-rows: calc(6 * $gem);
     grid-template-columns: repeat(4, 1fr);
   }
   .primary-swatch {
@@ -101,7 +101,7 @@
   //80em
   .swatch-palette {
     overflow-y: auto;
-    grid-auto-rows: calc(5.4 * $gem);
+    grid-auto-rows: calc(6 * $gem);
     grid-template-columns: repeat(4, 1fr);
   }
   .primary-swatch {

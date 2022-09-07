@@ -5,6 +5,7 @@ function setAll() {
     ["swatches", ".swatch"],
     ["pickers", 'input[type="color"]'],
     ["sliders", 'input[type="range"]', "array"], //array
+    ["slider-headers", ".slider-header", "array"], //array
     ["wrappers", "wrapper"],
     //['buttons','button'],
     ["copyButtons", [".copy-single", "#clipboard-flexbox", "#email"]],
