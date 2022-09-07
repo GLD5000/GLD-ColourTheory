@@ -11,22 +11,17 @@
   background-color: $neutral-200;
 }
 .copy-single,
+.copy-all,
 .save-btn {
   position: relative;
   cursor: copy;
 }
 
-.copy-single:hover::after,
-.copy-single:focus::after,
-.textmode:hover::after,
-.textmode:focus::after,
-.mode:hover::after,
-.mode:focus::after,
+.hover-btn:hover::after,
+.hover-btn:focus::after,
 .prefix:hover::after,
-.prefix:focus::after,
-.colourspace:hover::after,
-.colourspace:focus::after {
-  font-size: $font-btn-size;
+.prefix:focus::after
+{  font-size: $font-btn-size;
 
   color: $neutral-0;
   background-color: $neutral-500;

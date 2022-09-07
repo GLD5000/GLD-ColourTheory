@@ -337,21 +337,16 @@ p, li, ol, ul, a {
 }
 
 .copy-single,
+.copy-all,
 .save-btn {
   position: relative;
   cursor: copy;
 }
 
-.copy-single:hover::after,
-.copy-single:focus::after,
-.textmode:hover::after,
-.textmode:focus::after,
-.mode:hover::after,
-.mode:focus::after,
+.hover-btn:hover::after,
+.hover-btn:focus::after,
 .prefix:hover::after,
-.prefix:focus::after,
-.colourspace:hover::after,
-.colourspace:focus::after {
+.prefix:focus::after {
   font-size: clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem);
   color: #fff;
   background-color: hsl(0deg, 0%, 55.7%);
@@ -574,11 +569,19 @@ p, li, ol, ul, a {
   gap: calc(clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem) * 0.125);
 }
 
-.slider-container {
+.slider-container, .slider-headers {
   width: 100%;
   display: flex;
   flex-basis: 100% 100% 100%;
   gap: calc(clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem) * 0.125);
+}
+
+.slider-headers {
+  cursor: auto;
+}
+
+.slider-header {
+  width: 100%;
 }
 
 .swatch, .btn-container, .primary-swatch {
@@ -601,7 +604,7 @@ p, li, ol, ul, a {
 }
 
 .primary-swatch {
-  grid-template-rows: calc(1.25 * clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem)) 1fr calc(1.25 * clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem)) calc(1.25 * clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem));
+  grid-template-rows: calc(1.25 * clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem)) 1fr calc(1.25 * clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem)) calc(1.25 * clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem)) calc(1.25 * clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem));
 }
 
 .btn-scheme {
@@ -787,6 +790,7 @@ p, li, ol, ul, a {
   outline: none;
   -webkit-appearance: none;
   grid-row: 1/span 1;
+  border-radius: 8px;
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -858,8 +862,10 @@ input[name=lightness] {
   background: linear-gradient(to left, #fff, #555);
 }
 
-input[type=range]:focus, input[type=range]:hover {
+input[type=range]:focus,
+input[type=range]:hover {
   border: solid 4px #fff;
+  border-radius: 8px;
 }
 
 input[type=range]:hover::before {
@@ -874,7 +880,8 @@ input[type=range]:hover::before {
   color: #fff;
 }
 
-input[type=range]:focus::before, .fakesliderhover::before {
+input[type=range]:focus::before,
+.fakesliderhover::before {
   padding: 0;
   content: attr(name);
   position: absolute;
@@ -885,6 +892,7 @@ input[type=range]:focus::before, .fakesliderhover::before {
   line-height: 120%;
   color: #000;
   background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
 }
 
 .hidden {

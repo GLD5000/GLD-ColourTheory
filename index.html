@@ -50,7 +50,11 @@
           </wrapper>
             <button class="btn btn-med btn-dual mode" id="gradient" data-content="Add Tones"></button>
         </container>
-
+        <container class="slider-headers">
+          <h3 class="slider-header">Adjust Hue</h3>
+          <h3 class="slider-header">Adjust Saturation</h3>
+          <h3 class="slider-header">Adjust Luminance</h3>
+        </container> 
         <container class="slider-container">
           <input type="range" min="0" max="100" step="0.5" class="slider slider-a" id="slider-a" name="Hue"></input>
           <input type="range" min="0" max="100" step="0.5" class="slider slider-b" id="slider-b" name="Saturation"></input>
@@ -60,7 +64,7 @@
         <container class="flexbox-horizontal-btn">
           <button class="btn btn-med btn-dual colourspace" id="colourspace" data-content="Change Colour Mode">Mode: Hex</button>
 
-          <button class="btn btn-med copy-single btn-dual" id="primary-copybtn" data-content="Copy"></button>
+          <button class="btn btn-med copy-single btn-dual" id="primary-copybtn" data-content="Copy">Copy</button>
           <button id="textmode" class="textmode" data-content="Change Text Colour" data-label="">
             <input type="color" id="textcolour-picker" class="picker textcolour-picker"></input>
           </button>
@@ -102,7 +106,7 @@
       </container>
 
       <container class="btn-container btn-copy">
-        <h3>Copy Colours</h3>
+        <h3>Copy To Clipboard</h3>
       
         <container id="clipboard-flexbox" class="flexbox-clipboard" data-content="Copy">
           <figure id="clipboard" class="clipboard" data-clipboard="" data-content="Copy"></figure>
@@ -110,9 +114,9 @@
         </container>
       
         <container class="flexbox-horizontal-btn">
-          <button class="btn btn-tiny prefix" id="prefix" data-content="Swap Prefix">Prefix</button>
-          <button class="btn btn-small copy-single" id="copyAllCSS" data-content="Copy">Copy</button>
-          <button class="btn btn-small email" id="email" data-content="Email">Email</button>
+          <button class="btn btn-tiny prefix hover-btn" id="prefix" data-content="Swap Prefix">Prefix</button>
+          <button class="btn btn-small copy-all hover-btn" id="copyAllCSS" data-content="Copy">Copy</button>
+          <button class="btn btn-small email-all hover-btn" id="email" data-content="Send to...">Email</button>
         </container>
       </container>
 
@@ -121,84 +125,84 @@
         <wrapper id="monochromeA-wrapper" class="picker-wrapper monochromeA-wrapper" name="Monochrome A">
           <input type="color" id="monochromeA-picker" class="picker monochromeA-picker"></input>
         </wrapper>
-        <button class="btn btn-med copy-single" id="monochromeA-copybtn" data-content="Copy"></button>
+        <button class="btn btn-med copy-single" id="monochromeA-copybtn" data-content="Copy">Copy</button>
       </container>
 
       <container class="swatch monochromeB" id="monochromeB">
         <wrapper id="monochromeB-wrapper" class="picker-wrapper monochromeB-wrapper"  name="Monochrome B">
           <input type="color" id="monochromeB-picker" class="picker monochromeB-picker"></input>
         </wrapper>
-        <button class="btn btn-med copy-single" id="monochromeB-copybtn" data-content="Copy"></button>
+        <button class="btn btn-med copy-single" id="monochromeB-copybtn" data-content="Copy">Copy</button>
       </container>
 
       <container class="swatch analogousA" id="analogousA">
         <wrapper id="analogousA-wrapper" class="picker-wrapper analogousA-wrapper" name="Analogous A">
           <input type="color" id="analogousA-picker" class="picker analogousA-picker"></input>
         </wrapper>
-        <button class="btn btn-med copy-single" id="analogousA-copybtn" data-content="Copy"></button>
+        <button class="btn btn-med copy-single" id="analogousA-copybtn" data-content="Copy">Copy</button>
       </container>
 
       <container class="swatch analogousB"  id="analogousB">
         <wrapper id="analogousB-wrapper" class="picker-wrapper analogousB-wrapper" name="Analogous B">
           <input type="color" id="analogousB-picker" class="picker analogousB-picker"></input>
         </wrapper>
-        <button class="btn btn-med copy-single" id="analogousB-copybtn" data-content="Copy"></button>
+        <button class="btn btn-med copy-single" id="analogousB-copybtn" data-content="Copy">Copy</button>
       </container>
 
       <container class="swatch splitA"  id="splitA">
         <wrapper id="splitA-wrapper" class="picker-wrapper splitA-wrapper" name="Split B">
           <input type="color" id="splitA-picker" class="picker splitA-picker"></input>
         </wrapper>
-        <button class="btn btn-med copy-single" id="splitA-copybtn" data-content="Copy"></button>
+        <button class="btn btn-med copy-single" id="splitA-copybtn" data-content="Copy">Copy</button>
       </container>
 
       <container class="swatch splitB"  id="splitB">
         <wrapper id="splitB-wrapper" class="picker-wrapper splitB-wrapper" name="Split B">
           <input type="color" id="splitB-picker" class="picker splitB-picker"></input>
         </wrapper>
-        <button class="btn btn-med copy-single" id="splitB-copybtn" data-content="Copy"></button>
+        <button class="btn btn-med copy-single" id="splitB-copybtn" data-content="Copy">Copy</button>
       </container>
 
       <container class="swatch triadicA" id="triadicA">
         <wrapper id="triadicA-wrapper" class="picker-wrapper triadicA-wrapper"  name="Triadic A">
           <input type="color" id="triadicA-picker" class="picker triadicA-picker"></input>
         </wrapper>
-        <button class="btn btn-med copy-single" id="triadicA-copybtn" data-content="Copy"></button>
+        <button class="btn btn-med copy-single" id="triadicA-copybtn" data-content="Copy">Copy</button>
       </container>
 
       <container class="swatch triadicB" id="triadicB">
         <wrapper id="triadicB-wrapper" class="picker-wrapper triadicB-wrapper"  name="Triadic B">
           <input type="color" id="triadicB-picker" class="picker triadicB-picker"></input>
         </wrapper>
-        <button class="btn btn-med copy-single" id="triadicB-copybtn" data-content="Copy"></button>
+        <button class="btn btn-med copy-single" id="triadicB-copybtn" data-content="Copy">Copy</button>
       </container>
 
       <container class="swatch tetradicA" id="tetradicA">
         <wrapper id="tetradicA-wrapper" class="picker-wrapper tetradicA-wrapper" data-content="" name="Tetradic A">
           <input type="color" id="tetradicA-picker" class="picker tetradicA-picker"></input>
         </wrapper>
-        <button class="btn btn-med copy-single" id="tetradicA-copybtn" data-content="Copy"></button>
+        <button class="btn btn-med copy-single" id="tetradicA-copybtn" data-content="Copy">Copy</button>
       </container>
 
       <container class="swatch tetradicB" id="tetradicB">
         <wrapper id="tetradicB-wrapper" class="picker-wrapper tetradicB-wrapper"  name="Tetradic B / Complement">
           <input type="color" id="tetradicB-picker" class="picker tetradicB-picker"></input>
         </wrapper>
-        <button class="btn btn-med copy-single" id="tetradicB-copybtn" data-content="Copy"></button>
+        <button class="btn btn-med copy-single" id="tetradicB-copybtn" data-content="Copy">Copy</button>
       </container>
 
       <container class="swatch tetradicC" id="tetradicC">
         <wrapper id="tetradicC-wrapper" class="picker-wrapper tetradicC-wrapper"  name="Tetradic C">
           <input type="color" id="tetradicC-picker" class="picker tetradicC-picker"></input>
         </wrapper>
-        <button class="btn btn-med copy-single" id="tetradicC-copybtn" data-content="Copy"></button>
+        <button class="btn btn-med copy-single" id="tetradicC-copybtn" data-content="Copy">Copy</button>
       </container> 
       
       <container class="swatch neutral" id="neutral">
         <wrapper id="neutral-wrapper" class="picker-wrapper neutral-wrapper"  name="Neutral">
           <input type="color" id="neutral-picker" class="picker neutral-picker"></input>
         </wrapper>
-        <button class="btn btn-med copy-single" id="neutral-copybtn" data-content="Copy"></button>
+        <button class="btn btn-med copy-single" id="neutral-copybtn" data-content="Copy">Copy</button>
       </container>   
         
 

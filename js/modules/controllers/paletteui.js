@@ -467,12 +467,12 @@ export const paletteUi = {
     paletteData.setColourSpace(colourspace);
     this._setSliderStyles(colourspace);
     this._setClipboardTextAll();
-    this.getAllSwatchNames().forEach(
+/*     this.getAllSwatchNames().forEach(
       (name) =>
         (userObjects.copyButtons[name + "-copybtn"].innerHTML =
           this.getColourObject(name)[colourspace])
     );
-    this._addPrimaryColour(this.getColourObject("primary"));
+ */    this._addPrimaryColour(this.getColourObject("primary"));
   },
 
   _setSliderValues(valuesArray, colourspace) {
@@ -505,9 +505,9 @@ export const paletteUi = {
     userObjects.pickers["primary-picker"].value = hex;
     this._updateGldLogoColour(hex);
     paletteData.setPrimaryHex(hex);
-    userObjects.copyButtons["primary-copybtn"].innerHTML =
+/*     userObjects.copyButtons["primary-copybtn"].innerHTML =
       primaryColour[colourspace];
-    this.setBackgroundGradient(primaryColour);
+ */    this.setBackgroundGradient(primaryColour);
     this.setTextMode("auto");
     paletteUi.setTextColour(primaryColour);
     paletteState._resetAllCustomStates();
@@ -525,9 +525,9 @@ export const paletteUi = {
     paletteUi.setTextColour(newColour);
     this.setBackgroundGradient(newColour);
     userObjects.pickers[newColour.name + "-picker"].value = newColour.hex;
-    userObjects.copyButtons[newColour.name + "-copybtn"].innerHTML =
+/*     userObjects.copyButtons[newColour.name + "-copybtn"].innerHTML =
       newColour[this._getColourspace()];
-    this._setClipboardTextAll();
+ */    this._setClipboardTextAll();
   },
   setBackgroundGradient(colour) {
     const stops = paletteData.paletteState.gradientMode;
