@@ -207,10 +207,13 @@
   height: $gem;
   width: 100%; //calc(100% - 8px);
   color: $vscode-hex-orange;
+  line-height: 0.8;
 }
 .scheme-button {
   width: auto; //calc(100% - 8px);
   cursor: pointer;
+  border-radius: 2px;
+
 }
 
 .scheme-button:hover {
@@ -226,5 +229,12 @@
 //}
 
 .current-colours {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: 100%;
   cursor:auto;
+  border: 4px solid $neutral-1000;
+  border-top: 0;
+  border-radius: 0 0 8px 8px;
 }

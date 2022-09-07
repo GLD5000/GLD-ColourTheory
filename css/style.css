@@ -531,11 +531,13 @@ p, li, ol, ul, a {
   height: clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem);
   width: 100%;
   color: #ce9178;
+  line-height: 0.8;
 }
 
 .scheme-button {
   width: auto;
   cursor: pointer;
+  border-radius: 2px;
 }
 
 .scheme-button:hover {
@@ -548,7 +550,14 @@ p, li, ol, ul, a {
 }
 
 .current-colours {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: 100%;
   cursor: auto;
+  border: 4px solid #000;
+  border-top: 0;
+  border-radius: 0 0 8px 8px;
 }
 
 .swatch-palette {
