@@ -91,6 +91,8 @@ const paletteState = {
     paletteUi.addColour(newColour);
     paletteData.paletteState = newState;
     paletteState.setCustomStatesfromPaletteData();
+    colourScheme.applyAll();
+
   },
 };
 const colourScheme = {
@@ -142,8 +144,7 @@ const colourScheme = {
           (1 + i) * (100 / namesArray.length)
         }%`
       );
-            paletteUi._setClipboardTextAll();
-
+      paletteUi._setClipboardTextAll();
     });
 
     colourScheme.overallGradientString = "linear-gradient(to right, ";
@@ -258,6 +259,20 @@ const colourScheme = {
       colourScheme.applyGradient(key);
     });
     colourScheme.buildOverallGradient();
+  },
+  restoreStatusAllSchemes() {
+    Object.keys(userObjects.schemes).forEach((key) => {
+      const scheme = userObjects.schemes[key];
+      colourScheme.storeSchemeStatus(scheme);
+    });
+    Object.keys(userObjects.swatches).forEach((key) => {
+      const swatch = userObjects.swatches[key];
+      colourScheme.storeSwatchVisibility(swatch);
+    });
+  },
+
+  applyAll() {
+    colourScheme.applyAllGradients();
   },
   dimSchemeButton(target) {
     //let innerHtml = target.innerHTML;
