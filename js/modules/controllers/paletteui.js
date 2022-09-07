@@ -108,6 +108,32 @@ const colourScheme = {
       colourScheme.storeSwatchVisibility(swatch);
     });
   },
+  buildOverallGradient(){
+    const namesArray = ["primary"];
+    const hexArray = [];
+    let gradientString;
+    userObjects.smallSwatchNamesArray.forEach(name => {
+      if (paletteData.paletteState.swatchVisibility[name] === null)
+      namesArray.push(name);
+    });
+
+    namesArray.forEach((name, i) => {
+      hexArray.push(
+        `${paletteData.getColourObject(name).hex} ${
+          i * (100 / namesArray.length)
+        }%, 
+        ${paletteData.getColourObject(name).hex} ${
+          (1 + i) * (100 / namesArray.length)
+        }%`
+      );
+    });
+
+    gradientString = "linear-gradient(to right, ";
+    gradientString += hexArray.join(",");
+    gradientString += ")";
+    userObjects.other["current-colours"].style.background = gradientString;
+
+  },
   nameLookup: {
     Monochrome: ["monochromeA", "primary", "monochromeB"],
     Analogous: ["analogousA", "primary", "analogousB"],
@@ -129,9 +155,14 @@ const colourScheme = {
   hideSwatches(name) {
     if (name === "Neutral") {
       userObjects.swatches["neutral"].classList.add("hidden");
+      paletteData.paletteState.swatchVisibility["neutral"] = "hidden";
+      paletteData.paletteState.schemes["Neutral"] = "dimmed-neutral";
+
       colourScheme.dimNeutralSchemeButton();
       return;
     }
+    paletteData.paletteState.schemes[name] = "dimmed";
+
     if (
       name === "Complementary" &&
       !userObjects.schemes["Tetradic"].classList.contains("dimmed")
@@ -144,6 +175,8 @@ const colourScheme = {
       userObjects.swatches["tetradicA"].classList.add("hidden");
     colourScheme.hideLookup[name].forEach((x) => {
       userObjects.swatches[x].classList.add("hidden");
+      paletteData.paletteState.swatchVisibility[x] = "hidden";
+
     });
   },
   dimNeutralSchemeButton() {
@@ -155,19 +188,28 @@ const colourScheme = {
     userObjects.schemes["Neutral"].style.color = "#000";
   },
   showSwatches(name) {
+
     if (name === "Neutral") {
       userObjects.swatches["neutral"].classList.remove("hidden");
+      paletteData.paletteState.swatchVisibility["neutral"] = null;
+      paletteData.paletteState.schemes[name] = null;
       colourScheme.unDimNeutralSchemeButton();
       return;
     }
+    paletteData.paletteState.schemes[name] = null;
+
     if (name === "Tetradic")
-      userObjects.swatches["tetradicA"].classList.remove("hidden");
+      {
+        userObjects.swatches["tetradicA"].classList.remove("hidden");
+        paletteData.paletteState.swatchVisibility["tetradicA"] = null;
+      }
     colourScheme.hideLookup[name].forEach((x) => {
       userObjects.swatches[x].classList.remove("hidden");
+      paletteData.paletteState.swatchVisibility[x] = null;
+
     });
   },
   convertSwatchNamesToGradientString(swatchNamesArray) {
-    let gradientString = "linear-gradient(to right, ";
     const hexArray = [];
     swatchNamesArray.forEach((name, i) => {
       hexArray.push(
@@ -179,6 +221,7 @@ const colourScheme = {
         }%`
       );
     });
+    let gradientString = "linear-gradient(to right, ";
     gradientString += hexArray.join(",");
     gradientString += ")";
     return gradientString;
@@ -258,6 +301,7 @@ const colourScheme = {
           innerHtml.split(" ")[0]
         } ${paletteData.getTetradicMode()}`;
       }
+      colourScheme.buildOverallGradient();
       return;
     }
     if (
@@ -268,6 +312,7 @@ const colourScheme = {
     } else {
       this.dimSchemeButton(target);
     }
+    colourScheme.buildOverallGradient();
   },
   onclickSelectAll() {
     const targets = Array.from(Object.values(userObjects.schemes));
@@ -278,6 +323,7 @@ const colourScheme = {
       )
         this.unDimSchemeButton(target);
     });
+    colourScheme.buildOverallGradient();
   },
   onclickSelectNone() {
     const targets = Array.from(Object.values(userObjects.schemes));
@@ -288,6 +334,7 @@ const colourScheme = {
       )
         this.dimSchemeButton(target);
     });
+    colourScheme.buildOverallGradient();
   },
 };
 export const paletteUi = {
@@ -368,17 +415,17 @@ export const paletteUi = {
     schemeArray[randomIndex].forEach((name) => {
       colourScheme.unDimSchemeButton(userObjects.schemes[name]);
     });
-
+    colourScheme.buildOverallGradient();
     // if scheme contains tetradic, randomise tetradic mode
   },
   _init() {
     this.customBackgroundCounter = this._updateClipboard = 0;
     this._debounce();
+    colourScheme.storeStatusAllSchemes();
     this._randomiseAll();
     this._setOnChange();
     paletteState._resetAllCustomStates();
     paletteState.setCustomStatesfromWrappers();
-    colourScheme.storeStatusAllSchemes();
     paletteState.deepCopyPaletteState(
       paletteData.paletteState,
       paletteData.savedState
@@ -708,7 +755,7 @@ export const paletteUi = {
     const textArray = paletteData.getClipboard()[2];
     let text = textArray.join(";\n\r");
     navigator.clipboard.writeText(text);
-    console.log(`Copied To Clipboard:\n${text}`);
+    //console.log(`Copied To Clipboard:\n${text}`);
   },
   _showCompletedMessage(target, message = "Copied") {
     const revertMessage = target.dataset.content;
