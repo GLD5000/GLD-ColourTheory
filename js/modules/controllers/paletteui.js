@@ -45,7 +45,18 @@ const paletteState = {
     });
   },
   deepCopyPaletteState(sourceObject) {
-    const primitiveAddressArray = [
+    const primitiveAddressArray = [];
+    const objectAddressArray = [];
+    Object.keys(sourceObject).forEach((key) => {
+      if (typeof sourceObject[key] !== "object"){
+        
+        primitiveAddressArray.push(key);
+        return;
+      }
+      objectAddressArray.push(key);
+    });
+    //console.log(objectAddressArray);
+    /* const primitiveAddressArray = [
       "primaryHex",
       "gradientMode",
       "prefixMode",
@@ -53,13 +64,19 @@ const paletteState = {
       "textMode",
       "textColour",
       "colourspace",
-    ];
+      "tetradicMode",
+    ]; */
     const deepCopy = {};
     primitiveAddressArray.forEach((name) => {
       deepCopy[name] = sourceObject[name];
     });
-    const objectAddressArray = ["smallSwatchCustomState", "customColours"];
-    objectAddressArray.forEach((name) => {
+/*     const objectAddressArray = [
+      "smallSwatchCustomState",
+      "customColours",
+      "schemes",
+      "swatchVisibility",
+    ];
+ */    objectAddressArray.forEach((name) => {
       deepCopy[name] = {};
       Object.keys(sourceObject[name]).forEach((key) => {
         deepCopy[name][key] = sourceObject[name][key];
@@ -103,18 +120,18 @@ const colourScheme = {
       const scheme = userObjects.schemes[key];
       colourScheme.storeSchemeStatus(scheme);
     });
-    Object.keys(userObjects.swatches).forEach(key => {
+    Object.keys(userObjects.swatches).forEach((key) => {
       const swatch = userObjects.swatches[key];
       colourScheme.storeSwatchVisibility(swatch);
     });
   },
-  buildOverallGradient(){
+  overallGradientString: "",
+  buildOverallGradient() {
     const namesArray = ["primary"];
     const hexArray = [];
-    let gradientString;
-    userObjects.smallSwatchNamesArray.forEach(name => {
+    userObjects.smallSwatchNamesArray.forEach((name) => {
       if (paletteData.paletteState.swatchVisibility[name] === null)
-      namesArray.push(name);
+        namesArray.push(name);
     });
 
     namesArray.forEach((name, i) => {
@@ -128,11 +145,11 @@ const colourScheme = {
       );
     });
 
-    gradientString = "linear-gradient(to right, ";
-    gradientString += hexArray.join(",");
-    gradientString += ")";
-    userObjects.other["current-colours"].style.background = gradientString;
-
+    colourScheme.overallGradientString = "linear-gradient(to right, ";
+    colourScheme.overallGradientString += hexArray.join(",");
+    colourScheme.overallGradientString += ")";
+    userObjects.other["current-colours"].style.background =
+      colourScheme.overallGradientString;
   },
   nameLookup: {
     Monochrome: ["monochromeA", "primary", "monochromeB"],
@@ -173,10 +190,10 @@ const colourScheme = {
       userObjects.schemes["Complementary"].classList.contains("dimmed")
     )
       userObjects.swatches["tetradicA"].classList.add("hidden");
+    paletteData.paletteState.swatchVisibility["tetradicA"] = "hidden";
     colourScheme.hideLookup[name].forEach((x) => {
       userObjects.swatches[x].classList.add("hidden");
       paletteData.paletteState.swatchVisibility[x] = "hidden";
-
     });
   },
   dimNeutralSchemeButton() {
@@ -188,7 +205,6 @@ const colourScheme = {
     userObjects.schemes["Neutral"].style.color = "#000";
   },
   showSwatches(name) {
-
     if (name === "Neutral") {
       userObjects.swatches["neutral"].classList.remove("hidden");
       paletteData.paletteState.swatchVisibility["neutral"] = null;
@@ -198,15 +214,13 @@ const colourScheme = {
     }
     paletteData.paletteState.schemes[name] = null;
 
-    if (name === "Tetradic")
-      {
-        userObjects.swatches["tetradicA"].classList.remove("hidden");
-        paletteData.paletteState.swatchVisibility["tetradicA"] = null;
-      }
+    if (name === "Tetradic") {
+      userObjects.swatches["tetradicA"].classList.remove("hidden");
+      paletteData.paletteState.swatchVisibility["tetradicA"] = null;
+    }
     colourScheme.hideLookup[name].forEach((x) => {
       userObjects.swatches[x].classList.remove("hidden");
       paletteData.paletteState.swatchVisibility[x] = null;
-
     });
   },
   convertSwatchNamesToGradientString(swatchNamesArray) {
@@ -242,6 +256,7 @@ const colourScheme = {
     Object.keys(colourScheme.nameLookup).forEach((key) => {
       colourScheme.applyGradient(key);
     });
+    colourScheme.buildOverallGradient();
   },
   dimSchemeButton(target) {
     //let innerHtml = target.innerHTML;
@@ -854,7 +869,7 @@ export const paletteUi = {
     if (paletteData.savedPalettes[hex] === undefined) {
       const element = document.createElement("button");
       element.innerHTML = `${++paletteState.saveCounter}) ${hex}`;
-      element.style.backgroundColor = hex;
+      element.style.background = colourScheme.overallGradientString;
       element.classList.add("saved-palette");
       element.dataset.content = "Load Palette";
       element.style.color =

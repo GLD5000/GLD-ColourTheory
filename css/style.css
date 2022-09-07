@@ -591,8 +591,12 @@ p, li, ol, ul, a {
   grid-template-rows: 1fr calc(1.25 * clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem));
 }
 
-.primary-swatch, .btn-scheme {
+.primary-swatch {
   grid-template-rows: calc(1.25 * clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem)) 1fr calc(1.25 * clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem)) calc(1.25 * clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem));
+}
+
+.btn-scheme {
+  grid-template-rows: calc(1.25 * clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem)) calc(2.5 * clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem)) 1fr calc(1.25 * clamp(1rem, 0.7641843972rem + 0.9929078014vw, 2.75rem));
 }
 
 .btn-scheme, .btn-history {

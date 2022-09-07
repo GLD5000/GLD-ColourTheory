@@ -2,16 +2,16 @@ import { paletteUi } from "./paletteui.js";
 
 export const paletteData = {
   paletteState: {
-    primaryHex: null,
-    smallSwatchCustomState: {},
-    customColours: {},
+    primaryHex: undefined,
     gradientMode: 1,
     prefixMode: "SCSS",
     prefix: "$",
     textMode: "auto",
-    textColour: null,
+    textColour: undefined,
     colourspace: "Hex",
     tetradicMode: "Square",
+    customColours: {},
+    smallSwatchCustomState: {},
     schemes: {},
     swatchVisibility: {},
 
