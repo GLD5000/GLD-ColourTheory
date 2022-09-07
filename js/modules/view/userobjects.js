@@ -8,7 +8,10 @@ function setAll() {
     ["slider-headers", ".slider-header", "array"], //array
     ["wrappers", "wrapper"],
     //['buttons','button'],
-    ["copyButtons", [".copy-single", "#clipboard-flexbox", "#email"]],
+    [
+      "copyButtons",
+      [".copy-single", "#clipboard-flexbox", "#email", "#copyAllCSS"],
+    ],
     [
       "other",
       [

@@ -142,6 +142,8 @@ const colourScheme = {
           (1 + i) * (100 / namesArray.length)
         }%`
       );
+            paletteUi._setClipboardTextAll();
+
     });
 
     colourScheme.overallGradientString = "linear-gradient(to right, ";
@@ -748,15 +750,23 @@ export const paletteUi = {
     const prefix = paletteData.getPrefix();
     const textArray = [[], [], []];
     swatchNames.forEach((x) => {
-      const returnArray = this._getClipboardTextSingleAsArray(x);
-      textArray[0].push(...returnArray[0]);
-      textArray[1].push(...returnArray[1]);
-      textArray[2].push(...returnArray[2]);
+      if (paletteData.paletteState.swatchVisibility[x] !== "hidden"){
+
+        const returnArray = this._getClipboardTextSingleAsArray(x);
+        textArray[0].push(...returnArray[0]);
+        textArray[1].push(...returnArray[1]);
+        textArray[2].push(...returnArray[2]);
+      }
     });
     paletteData.setClipboard(textArray);
 
     this._clipboard.innerHTML = textArray[0].join("\n");
-
+    //document.getElementById("clipboard-h3").innerHTML = `Copy ${textArray[0].length} CSS Variables`;
+    userObjects.copyButtons.email.innerHTML = `Email (${textArray[0].length})`;
+    userObjects.copyButtons.copyAllCSS.innerHTML = `Copy (${textArray[0].length})`;
+    userObjects.copyButtons[
+      "clipboard-flexbox"
+    ].dataset.content = `Copy (${textArray[0].length})`;
     this._clipboardSecondary.innerHTML = textArray[1].join("\n");
     this._clipboardSecondary.style.color =
       this._clipboardColourspaceLookup[this._getColourspace()];
@@ -845,12 +855,14 @@ export const paletteUi = {
     if (prefixMode === "SCSS") {
       paletteData.setPrefixMode("CSS");
       userObjects.other["prefix"].innerHTML = `Prefix: CSS`;
+      document.getElementById("clipboard-h3").innerHTML = `Copy CSS Variables`;
       paletteData.setPrefix("--");
       this._setClipboardTextAll();
       return;
     }
     paletteData.setPrefixMode("SCSS");
     userObjects.other["prefix"].innerHTML = `Prefix: SCSS`;
+      document.getElementById("clipboard-h3").innerHTML = `Copy SCSS Variables`;
     paletteData.setPrefix("$");
     this._setClipboardTextAll();
   },
