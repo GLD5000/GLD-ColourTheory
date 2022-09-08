@@ -912,23 +912,29 @@ export const paletteUi = {
   _clearHistory() {
     userObjects.history["history-flexbox"].innerHTML = "";
   },
-  setTextPickerDisabled(boolean) {
+/*   setTextPickerDisabled(boolean) {
     userObjects.pickers["textcolour-picker"].disabled = boolean;
   },
-  _onclickTextMode() {
+ */  _onclickTextMode() {
     if (paletteUi.getTextMode() === "auto") {
       paletteUi.setTextMode("custom");
-      paletteUi.setTextPickerDisabled(false);
+      //paletteUi.setTextPickerDisabled(false);
+      userObjects.pickers["textcolour-picker"].click();
       if (paletteData.getMainTextColour() != null) {
         console.log(paletteData.getMainTextColourHex());
         paletteUi._addCustomTextColour(paletteData.getMainTextColourHex());
       }
     } else {
       paletteUi.setTextMode("auto");
-      paletteUi.setTextPickerDisabled(true);
+      //paletteUi.setTextPickerDisabled(true);
       const primaryColour = paletteData.getColourObject("primary");
       paletteUi.addColour(primaryColour);
     }
+  },
+  _onclickCustomPicker(e){
+    const pickerName = e.target.id.split("-")[0] + "-picker"
+    //console.log(pickerName);
+    userObjects.pickers[pickerName].click();
   },
   _setOnChange() {
     userObjects.other["colourspace"].onclick = () => this._onclickColourspace();
@@ -978,6 +984,12 @@ export const paletteUi = {
       this._onclickTextMode,
       true
     );
+        userObjects.customButtons["monochromeA-custom"].addEventListener(
+          "click",
+          this._onclickCustomPicker,
+          true
+        );
+
     //userObjects.pickers['textcolour-picker'].addEventListener('click', this._onclickPickerText, true)
 
     //userObjects.pickers['textcolour-picker'].onclick = (e) => this._onclickPickerText(e);
@@ -1013,7 +1025,8 @@ export const paletteUi = {
   },
   setTextMode(mode) {
     paletteData.setTextMode(mode);
-    userObjects.other["textmode"].dataset.label = `Text: ${mode}`;
+    //userObjects.other["textmode"].dataset.label = `Text: ${mode}`;
+    userObjects.other["textmode"].innerHTML = `Text: ${mode}`;
   },
   getTextColour(backgroundColour) {
     return paletteData.getTextColour(backgroundColour);

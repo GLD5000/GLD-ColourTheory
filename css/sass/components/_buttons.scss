@@ -13,7 +13,6 @@
 .copy-single,
 .copy-all,
 .save-btn {
-  position: relative;
   cursor: copy;
 }
 
@@ -52,10 +51,6 @@
       background-color: $neutral-1000;
   }
  */
-.textmode {
-  position: relative;
-  display: block;
-}
 .textmode::before {
   position: absolute;
   width: 100%;
@@ -238,3 +233,4 @@
   border-top: 0;
   border-radius: 0 0 8px 8px;
 }
+

@@ -46,7 +46,7 @@
 
         <container id="primary-container" class="primary-container">
           <wrapper id="primary-wrapper" class="primary-wrapper" name="Primary Colour" data-content="">
-            <input type="color" id="primary-picker" class="picker large-picker"></input>
+            <input type="color" id="primary-picker" class="picker primary-picker"></input>
           </wrapper>
             <button class="btn btn-med btn-dual mode" id="gradient" data-content="Add Tones"></button>
         </container>
@@ -65,9 +65,11 @@
           <button class="btn btn-med btn-dual colourspace" id="colourspace" data-content="Change Colour Mode">Mode: Hex</button>
 
           <button class="btn btn-med copy-single btn-dual" id="primary-copybtn" data-content="Copy">Copy</button>
-          <button id="textmode" class="textmode" data-content="Change Text Colour" data-label="">
-            <input type="color" id="textcolour-picker" class="picker textcolour-picker"></input>
+
+          <button id="textmode" class="btn btn-med textmode" data-content="Change Text Colour">
+            <input type="color" id="textcolour-picker" class="picker textmode-picker"></input>
           </button>
+
           <button class="btn btn-med random-colour random-btn" id="random-colour" data-content="Random Colour">Random</button>
         </container>
       </container>
@@ -123,9 +125,15 @@
 
       <container class="swatch monochromeA" id="monochromeA">
         <wrapper id="monochromeA-wrapper" class="picker-wrapper monochromeA-wrapper" name="Monochrome A">
-          <input type="color" id="monochromeA-picker" class="picker monochromeA-picker"></input>
         </wrapper>
-        <button class="btn btn-med copy-single" id="monochromeA-copybtn" data-content="Copy">Copy</button>
+        
+        <container class="flexbox-horizontal-btn">
+          <button class="btn btn-med btn-picker" id="monochromeA-custom">Customise
+            <input type="color" id="monochromeA-picker" class="picker monochromeA-picker"></input>
+          </button>
+          <button class="btn btn-med copy-single" id="monochromeA-copybtn" data-content="Copy">Copy</button>
+          <button class="btn btn-med btn-close" id="monochromeA-close">Close</button>
+        </container>
       </container>
 
       <container class="swatch monochromeB" id="monochromeB">
