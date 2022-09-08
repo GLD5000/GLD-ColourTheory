@@ -6,6 +6,7 @@ import { throttleDebounce } from "../utilities/utilities.js";
 import { variantMaker } from "./variantmaker.js";
 import { gradientMaker } from "./gradientmaker.js";
 import { clampRotate } from "../utilities/utilities.js";
+import {randomItemFromArray} from "../utilities/utilities.js"
 //import { callLogger } from "../utilities/utilities.js";
 
 const paletteState = {
@@ -96,6 +97,10 @@ const paletteState = {
   },
 };
 const colourScheme = {
+  _randomiseTetradicMode(){
+    const tetradicModeArray = ["Square", "Rectangular A", "Rectangular B"];
+    paletteUi.setTetradicMode(randomItemFromArray(tetradicModeArray));
+  },
   _randomiseScheme() {
     const schemeArray = [
       ["Monochrome", "Neutral"],
@@ -111,13 +116,14 @@ const colourScheme = {
       ["Tetradic", "Monochrome", "Neutral"],
       ["Monochrome", "Complementary", "Neutral"],
     ];
-    const randomIndex = Math.floor(schemeArray.length * Math.random());
     colourScheme.onclickSelectNone();
-    schemeArray[randomIndex].forEach((name) => {
+    const randomScheme = randomItemFromArray(schemeArray);
+    if (randomScheme.includes("Tetradic"))
+      colourScheme._randomiseTetradicMode();// if scheme contains tetradic, randomise tetradic mode
+    randomScheme.forEach((name) => {
       colourScheme.unDimSchemeButton(userObjects.schemes[name]);
     });
     colourScheme.buildOverallGradient();
-    // if scheme contains tetradic, randomise tetradic mode
   },
 
   storeSchemeStatus(scheme) {

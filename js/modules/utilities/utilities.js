@@ -1,3 +1,9 @@
+export const randomItemFromArray = (array) => {
+  const randomIndex = Math.floor(array.length * Math.random());
+  return array[randomIndex];
+};
+
+
 export const clampRotate = {
   clamp(value, min = 0, max = 100) {
     return Math.min(Math.max(min, value), max);
