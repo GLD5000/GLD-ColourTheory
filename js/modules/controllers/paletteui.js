@@ -176,8 +176,6 @@ const colourScheme = {
       userObjects.swatches["neutral"].classList.add("hidden");
       paletteData.paletteState.swatchVisibility["neutral"] = "hidden";
       paletteData.paletteState.schemes["Neutral"] = "dimmed-neutral";
-
-      colourScheme.dimNeutralSchemeButton();
       return;
     }
     paletteData.paletteState.schemes[name] = "dimmed";
@@ -198,20 +196,11 @@ const colourScheme = {
       paletteData.paletteState.swatchVisibility[x] = "hidden";
     });
   },
-  dimNeutralSchemeButton() {
-    userObjects.schemes["Neutral"].style.backgroundColor = "#555";
-    userObjects.schemes["Neutral"].style.color = "#fff";
-  },
-  unDimNeutralSchemeButton() {
-    userObjects.schemes["Neutral"].style.backgroundColor = "#ccc";
-    userObjects.schemes["Neutral"].style.color = "#000";
-  },
   showSwatches(name) {
     if (name === "Neutral") {
       userObjects.swatches["neutral"].classList.remove("hidden");
       paletteData.paletteState.swatchVisibility["neutral"] = null;
       paletteData.paletteState.schemes[name] = null;
-      colourScheme.unDimNeutralSchemeButton();
       return;
     }
     paletteData.paletteState.schemes[name] = null;
@@ -244,7 +233,6 @@ const colourScheme = {
   },
   applyGradient(name) {
     if (name === "Neutral") {
-      colourScheme.unDimNeutralSchemeButton();
       return;
     }
     const gradientString = colourScheme.convertSwatchNamesToGradientString(
