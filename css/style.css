@@ -544,6 +544,16 @@ p, li, ol, ul, a {
   filter: brightness(85%) grayscale(100%);
 }
 
+.neutral-scheme {
+  background-color: hsl(0deg, 0%, 78.8%);
+  color: #000;
+}
+
+.dimmed-neutral {
+  background-color: hsl(0deg, 0%, 41.2%);
+  color: #fff;
+}
+
 .current-colours {
   box-sizing: border-box;
   position: relative;
