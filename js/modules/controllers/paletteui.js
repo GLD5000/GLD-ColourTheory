@@ -932,9 +932,9 @@ export const paletteUi = {
     }
   },
   _onclickCustomPicker(e){
-    const pickerName = e.target.id.split("-")[0] + "-picker"
-    //console.log(pickerName);
-    userObjects.pickers[pickerName].click();
+    const pickerName =
+      e.target.id?.split("-")[0] || e.target.parentElement.id.split("-")[0];
+    userObjects.pickers[pickerName + "-picker"].click();
   },
   _setOnChange() {
     userObjects.other["colourspace"].onclick = () => this._onclickColourspace();
@@ -984,11 +984,11 @@ export const paletteUi = {
       this._onclickTextMode,
       true
     );
-        userObjects.customButtons["monochromeA-custom"].addEventListener(
-          "click",
-          this._onclickCustomPicker,
-          true
-        );
+    userObjects.customButtons["monochromeA-custom"].addEventListener(
+      "click",
+      this._onclickCustomPicker,
+      {useCapture: true}
+    );
 
     //userObjects.pickers['textcolour-picker'].addEventListener('click', this._onclickPickerText, true)
 
