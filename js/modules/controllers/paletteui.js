@@ -91,11 +91,35 @@ const paletteState = {
     paletteUi.addColour(newColour);
     paletteData.paletteState = newState;
     paletteState.setCustomStatesfromPaletteData();
-    colourScheme.applyAll();
+    colourScheme.restoreAll();
 
   },
 };
 const colourScheme = {
+  _randomiseScheme() {
+    const schemeArray = [
+      ["Monochrome", "Neutral"],
+      ["Analogous", "Neutral"],
+      ["Complementary", "Neutral"],
+      ["Split", "Neutral"],
+      ["Triadic", "Neutral"],
+      ["Tetradic", "Neutral"],
+      ["Monochrome", "Analogous", "Neutral"],
+      ["Split", "Analogous", "Neutral"],
+      ["Monochrome", "Split", "Neutral"],
+      ["Triadic", "Monochrome", "Neutral"],
+      ["Tetradic", "Monochrome", "Neutral"],
+      ["Monochrome", "Complementary", "Neutral"],
+    ];
+    const randomIndex = Math.floor(schemeArray.length * Math.random());
+    colourScheme.onclickSelectNone();
+    schemeArray[randomIndex].forEach((name) => {
+      colourScheme.unDimSchemeButton(userObjects.schemes[name]);
+    });
+    colourScheme.buildOverallGradient();
+    // if scheme contains tetradic, randomise tetradic mode
+  },
+
   storeSchemeStatus(scheme) {
     const id = scheme.id;
     const classToApply = id === "Neutral" ? "dimmed-neutral" : "dimmed";
@@ -249,9 +273,23 @@ const colourScheme = {
     colourScheme.buildOverallGradient();
   },
   restoreStatusAllSchemes() {
-    Object.keys(userObjects.schemes).forEach((key) => {
-      const scheme = userObjects.schemes[key];
-      colourScheme.storeSchemeStatus(scheme);
+    Object.entries(userObjects.schemes).forEach((pair) => {
+      const name = pair[0];
+      const element = pair[1];
+      const schemeState = paletteData.paletteState.schemes[name];
+      const schemeStateIsDimmed =
+        schemeState === "dimmed" || schemeState === "dimmed-neutral";
+      const elementContainsDimmed =
+        element.classList.contains("dimmed") ||
+        element.classList.contains("dimmed-neutral");
+
+      if (schemeStateIsDimmed && !elementContainsDimmed) {
+        colourScheme.dimSchemeButton(element);
+      }
+      if (!schemeStateIsDimmed && elementContainsDimmed) {
+        console.log(`undim ${element.id}`);
+        colourScheme.unDimSchemeButton(element);
+      }
     });
     Object.keys(userObjects.swatches).forEach((key) => {
       const swatch = userObjects.swatches[key];
@@ -259,15 +297,14 @@ const colourScheme = {
     });
   },
 
-  applyAll() {
+  restoreAll() {
+    colourScheme.restoreStatusAllSchemes();
     colourScheme.applyAllGradients();
   },
   dimSchemeButton(target) {
-    //let innerHtml = target.innerHTML;
     if (target.id === "Tetradic") {
       let innerHtml = target.innerHTML;
       target.classList.add("dimmed");
-      //target.innerHTML = innerHtml.split(" ")[0] + " Off";
       target.innerHTML = innerHtml.split(" ")[0];
       colourScheme.hideSwatches(target.id);
       return;
@@ -275,16 +312,11 @@ const colourScheme = {
     target.id === "Neutral"
       ? target.classList.add("dimmed-neutral")
       : target.classList.add("dimmed");
-    //target.innerHTML = innerHtml + " Off";
     colourScheme.hideSwatches(target.id);
   },
   unDimSchemeButton(target) {
-    //let innerHtml = target.innerHTML;
     if (target.id === "Split") {
       target.classList.remove("dimmed");
-      //innerHtml = innerHtml.split(" ");
-      //innerHtml.pop();
-      //target.innerHTML = innerHtml.join(" ");
       colourScheme.showSwatches(target.id);
       return;
     }
@@ -300,8 +332,6 @@ const colourScheme = {
     target.id === "Neutral"
       ? target.classList.remove("dimmed-neutral")
       : target.classList.remove("dimmed");
-    //target.classList.remove("dimmed");
-    //target.innerHTML = innerHtml.split(" ")[0];
     colourScheme.showSwatches(target.id);
   },
   _onclickSchemeButtons(event) {
@@ -412,30 +442,7 @@ export const paletteUi = {
     this._randomisePrimary();
     this._randomiseColourSpace();
     this._randomiseGradient();
-    this._randomiseScheme();
-  },
-  _randomiseScheme() {
-    const schemeArray = [
-      ["Monochrome", "Neutral"],
-      ["Analogous", "Neutral"],
-      ["Complementary", "Neutral"],
-      ["Split", "Neutral"],
-      ["Triadic", "Neutral"],
-      ["Tetradic", "Neutral"],
-      ["Monochrome", "Analogous", "Neutral"],
-      ["Split", "Analogous", "Neutral"],
-      ["Monochrome", "Split", "Neutral"],
-      ["Triadic", "Monochrome", "Neutral"],
-      ["Tetradic", "Monochrome", "Neutral"],
-      ["Monochrome", "Complementary", "Neutral"],
-    ];
-    const randomIndex = Math.floor(schemeArray.length * Math.random());
-    colourScheme.onclickSelectNone();
-    schemeArray[randomIndex].forEach((name) => {
-      colourScheme.unDimSchemeButton(userObjects.schemes[name]);
-    });
-    colourScheme.buildOverallGradient();
-    // if scheme contains tetradic, randomise tetradic mode
+    colourScheme._randomiseScheme();
   },
   _init() {
     this.customBackgroundCounter = this._updateClipboard = 0;
@@ -923,7 +930,7 @@ export const paletteUi = {
     userObjects.other["prefix"].onclick = () => this._onclickPrefix();
     userObjects.other["gradient"].onclick = () => this._onclickGradient();
     userObjects.other["random-colour"].onclick = () => this._onclickRandom();
-    userObjects.other["random-scheme"].onclick = () => this._randomiseScheme();
+    userObjects.other["random-scheme"].onclick = () => colourScheme._randomiseScheme();
     userObjects.other["random-all"].onclick = () => this._randomiseAll();
     userObjects.other["gldlogo"].onclick = () => this._onclickLogo();
     userObjects.other["header"].onclick = (e) => this._onclickHeader(e);
