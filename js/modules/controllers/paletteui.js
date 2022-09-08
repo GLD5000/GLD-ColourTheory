@@ -287,7 +287,6 @@ const colourScheme = {
         colourScheme.dimSchemeButton(element);
       }
       if (!schemeStateIsDimmed && elementContainsDimmed) {
-        console.log(`undim ${element.id}`);
         colourScheme.unDimSchemeButton(element);
       }
     });
