@@ -262,6 +262,7 @@ const colourScheme = {
     return gradientString;
   },
   applyGradient(name) {
+    userObjects.schemes[name].style.color = paletteData.getMainTextColourHex();
     if (name === "Neutral") {
       return;
     }
@@ -270,7 +271,6 @@ const colourScheme = {
     );
 
     userObjects.schemes[name].style.background = gradientString;
-    //userObjects.schemes[name].style.color = userObjects.pickers[""];
   },
   applyAllGradients() {
     Object.keys(colourScheme.nameLookup).forEach((key) => {

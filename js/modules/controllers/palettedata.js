@@ -130,7 +130,10 @@ export const paletteData = {
     return this.paletteState.textColour || this.getTextColour("primary-text");
   },
   getMainTextColourHex() {
-    return this.paletteState.textColour?.hex || this.getTextColour("primary-text").hex;
+    return this.paletteState.textMode === "custom"
+      ? this.paletteState.textColour?.hex ||
+          this.getTextColour("primary-text").hex
+      : this.getTextColour("primary-text").hex;
   },
 
   addTextColour(colour) {

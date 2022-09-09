@@ -541,12 +541,10 @@ p, li, ol, ul, a {
 
 .neutral-scheme {
   background-color: hsl(0deg, 0%, 78.8%);
-  color: #000;
 }
 
 .dimmed-neutral {
   background-color: hsl(0deg, 0%, 41.2%);
-  color: #fff;
 }
 
 .current-colours {
@@ -799,7 +797,6 @@ p, li, ol, ul, a {
   outline: none;
   -webkit-appearance: none;
   grid-row: 1/span 1;
-  border: solid #000 calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
   border-radius: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
 }
 
