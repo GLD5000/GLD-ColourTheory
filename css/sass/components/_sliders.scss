@@ -79,7 +79,7 @@ input[name="lightness"] {
 
 input[type="range"]:focus,
 input[type="range"]:hover {
-  border: solid 4px #fff;
+  box-shadow: inset 0 0  0 4px #fff;
   border-radius: $borderRadius;
 }
 /* input[type="range"]:hover::before {

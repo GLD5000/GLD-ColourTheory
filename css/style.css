@@ -871,7 +871,7 @@ input[name=lightness] {
 
 input[type=range]:focus,
 input[type=range]:hover {
-  border: solid 4px #fff;
+  box-shadow: inset 0 0 0 4px #fff;
   border-radius: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
 }
 
