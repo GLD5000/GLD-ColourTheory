@@ -270,7 +270,7 @@ const colourScheme = {
     );
 
     userObjects.schemes[name].style.background = gradientString;
-    userObjects.schemes[name].style.color = paletteData.getMainTextColour().hex;
+    //userObjects.schemes[name].style.color = userObjects.pickers[""];
   },
   applyAllGradients() {
     Object.keys(colourScheme.nameLookup).forEach((key) => {
@@ -698,6 +698,9 @@ export const paletteUi = {
     }
     this.addColour(newColour);
   },
+  _onclickPickerMain(e) {
+    userObjects.pickers["primary-picker"].click();
+  },
   _onclickPickerSmall(e) {
     const name = this._splitName(e.target.id);
 
@@ -912,24 +915,30 @@ export const paletteUi = {
   _clearHistory() {
     userObjects.history["history-flexbox"].innerHTML = "";
   },
-/*   setTextPickerDisabled(boolean) {
+  setTextPickerDisabled(boolean) {
     userObjects.pickers["textcolour-picker"].disabled = boolean;
   },
- */  _onclickTextMode() {
+  _onclickTextMode(e) {
+    //if (e.target.id !== "textmode") return;
+    //console.log(e.target.id);
     if (paletteUi.getTextMode() === "auto") {
-      paletteUi.setTextMode("custom");
-      //paletteUi.setTextPickerDisabled(false);
-      userObjects.pickers["textcolour-picker"].click();
-      if (paletteData.getMainTextColour() != null) {
-        console.log(paletteData.getMainTextColourHex());
+      //paletteUi.setTextMode("custom");
+      paletteUi.setTextPickerDisabled(false);
+      //userObjects.pickers["textcolour-picker"].click();
+      if (
+        paletteData.getMainTextColour().hex != "#000000" &&
+        paletteData.getMainTextColour().hex != "#FFFFFF"
+      ) {
         paletteUi._addCustomTextColour(paletteData.getMainTextColourHex());
       }
     } else {
-      paletteUi.setTextMode("auto");
-      //paletteUi.setTextPickerDisabled(true);
+      //paletteUi.setTextMode("auto");
+      paletteUi.setTextPickerDisabled(true);
       const primaryColour = paletteData.getColourObject("primary");
       paletteUi.addColour(primaryColour);
     }
+    colourScheme.applyAllGradients();
+
   },
   _onclickCustomPicker(e){
     const pickerName =
@@ -979,10 +988,12 @@ export const paletteUi = {
         (userObjects.pickers[x + "-picker"].onclick = (e) =>
           this._onclickPickerSmall(e))
     );
+    userObjects.wrappers["primary-wrapper"].onclick = (e) =>
+      this._onclickPickerMain(e);
     userObjects.other["textmode"].addEventListener(
       "click",
       this._onclickTextMode,
-      true
+      { useCapture: true  }
     );
     userObjects.customButtons["monochromeA-custom"].addEventListener(
       "click",
@@ -1010,6 +1021,7 @@ export const paletteUi = {
       "click",
       this._SaveHistoryObject
     );
+    //document.onclick = (e) => {console.log(e.target);};
   },
   getStops() {
     return userObjects.other["gradient"].innerHTML.toLowerCase();

@@ -374,18 +374,19 @@ p, li, ol, ul, a {
       background-color: $neutral-1000;
   }
  */
-.textmode::before {
+/* .textmode::before {
   position: absolute;
   width: 100%;
   height: 100%;
   text-align: center;
   justify-content: center;
+  //vertical-align: middle;
   line-height: 1.25;
   content: attr(data-label);
-  font-size: clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem);
+  font-size: $font-btn-size;
   white-space: normal;
 }
-
+ */
 .btn-small {
   flex: 1 1 50%;
   font-size: clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem);
@@ -566,13 +567,13 @@ p, li, ol, ul, a {
   padding: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.5);
 }
 
-.primary-picker {
+/* .primary-picker {
   width: 100%;
   display: grid;
-  grid-template: 1fr 11fr/1fr;
-  gap: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
-}
+  grid-template: 1fr 11fr / 1fr;
+  gap: $gap;
 
+} */
 .slider-container, .slider-headers {
   width: 100%;
   display: flex;
@@ -776,7 +777,11 @@ p, li, ol, ul, a {
 }
 
 .picker {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
   padding: 0;
   cursor: pointer;
