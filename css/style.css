@@ -99,6 +99,10 @@ table {
   transition: 0.18s;
 }
 
+button {
+  background: none;
+}
+
 :root {
   background: #000;
   box-shadow: none;
