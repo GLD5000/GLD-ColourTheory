@@ -21,8 +21,9 @@ h2 {
     font-size: $gem;
     color: $neutral-1000;
 }
-h3 {
+h3, label {
     //font-family: $font-clipboard;
+    width: 100%;
     font-size: $gem;
     color: $neutral-0;
     text-align: center;

@@ -126,7 +126,8 @@ h2 {
   color: #000;
 }
 
-h3 {
+h3, label {
+  width: 100%;
   font-size: clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem);
   color: #fff;
   text-align: center;
@@ -525,6 +526,7 @@ p, li, ol, ul, a {
   height: clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem);
   width: 100%;
   color: #ce9178;
+  background-color: #000;
   line-height: 0.8;
 }
 
@@ -598,7 +600,7 @@ p, li, ol, ul, a {
   height: 100%;
   grid-template-columns: 1fr;
   row-gap: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
-  background-color: hsl(0deg, 0%, 23.1%);
+  background-color: #000;
   border: solid #000 calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
   box-shadow: #000 calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.25) calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.25) 0px;
   cursor: pointer;
