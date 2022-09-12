@@ -177,9 +177,51 @@ export const colourObject = {
     return colour;
   },
   _convertHexToSrgb(colour) {
+/*     const getSrgbfromShortHex = (hex) => {
+      const hexWithoutHashtag = hex.slice(1);
+      let coloursArray = [...hexWithoutHashtag].map(
+        (value) => `0x${value}${value}` / 255
+      );
+      const [red, green, blue] = coloursArray;
+      return [red, green, blue];
+    };
+    const getSrgbfromLongHex = (hex) => {
+      const hexWithoutHashtag = hex.slice(1);
+      let coloursArray = [1, 1, 1];
+      coloursArray.forEach((_, index, array) => {
+        const secondDigit = 2 * (1 + index) - 1;
+        const firstDigit = secondDigit - 1;
+        array[index] =
+          `0x${hexWithoutHashtag[firstDigit]}${hexWithoutHashtag[secondDigit]}` /
+          255;
+      });
+      const [red, green, blue] = coloursArray;
+      return [red, green, blue];
+    };
+ */
     const hex = colour.hex;
+    const isLongHex = hex.length === 7 ? true : false;
+    const convertHexDigitsToDecimal = (digitOne, digitTwo = digitOne) => {
+      return (`0x${digitOne}${digitTwo}`) / 255;
+    };
+    
+      colour.red = isLongHex
+        ? convertHexDigitsToDecimal(hex[1], hex[2])
+        : convertHexDigitsToDecimal(hex[1]);
+
+      colour.green = isLongHex
+        ? convertHexDigitsToDecimal(hex[3], hex[4])
+        : convertHexDigitsToDecimal(hex[2]);
+
+      colour.blue = isLongHex
+        ? convertHexDigitsToDecimal(hex[5], hex[6])
+        : convertHexDigitsToDecimal(hex[3]);
+
+        
+    
+
     // 3 digits
-    if (hex.length == 4) {
+    /*     if (hex.length == 4) {
       colour.red = ("0x" + hex[1] + hex[1]) / 255;
       colour.green = ("0x" + hex[2] + hex[2]) / 255;
       colour.blue = ("0x" + hex[3] + hex[3]) / 255;
@@ -189,6 +231,7 @@ export const colourObject = {
       colour.green = ("0x" + hex[3] + hex[4]) / 255;
       colour.blue = ("0x" + hex[5] + hex[6]) / 255;
     }
+    */
     return colour;
   },
   _convertSrgbToHsl(colour) {
@@ -343,12 +386,12 @@ export const colourObject = {
   },
 
   _convertHslToString(hue, sat, lum) {
-    return `hsl(${Math.round(hue)},${sat.toFixed(0)}%,${lum.toFixed(0)}%)`;
+    return `hsl(${Math.round(hue)},${Math.round(sat)}%,${Math.round(lum)}%)`;
   },
   _convertTwlToString(tint, warmth, lightness) {
-    return `twl(${Math.round(tint)}%,${warmth.toFixed(0)}%,${lightness.toFixed(
-      0
-    )}%)`;
+    return `twl(${Math.round(tint * 100)}%,${Math.round(
+      warmth * 100
+    )}%,${Math.round(lightness * 100)}%)`;
   },
 
   _convertRgbToString(red, green, blue) {
