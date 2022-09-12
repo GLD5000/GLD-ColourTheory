@@ -24,3 +24,34 @@ colourArray.push(`t: ${testColour.tint} w: ${testColour.warmth} l: ${testColour.
 console.log(colourArray.join('\n'));
  */
 //console.log(userObjectsAll);
+function* hexGeneratorThreeDigit(string, index = 1) {
+  while (index < string.length)
+    yield `0x${string[index]}${string[index++]}` / 255;
+}
+function* hexGeneratorSixDigit(string, index = 1) {
+  while (index < string.length)
+    yield `0x${string[index++]}${string[index++]}` / 255;
+}
+const hexString = "#04ff0d";
+const hexStringIsShort = hexString.length === 4 ? true : false;
+//const testIterator = hexStringIsShort? hexGeneratorThreeDigit(hexString): hexGeneratorSixDigit(hexString);
+
+const getGenerator = (string) => {
+  function* hexGeneratorThreeDigit(string, index = 1) {
+    while (index < string.length)
+      yield `0x${string[index]}${string[index++]}` / 255;
+  }
+  function* hexGeneratorSixDigit(string, index = 1) {
+    while (index < string.length)
+      yield `0x${string[index++]}${string[index++]}` / 255;
+  }
+  const hexStringIsShort = hexString.length === 4 ? true : false;
+  return hexStringIsShort
+    ? hexGeneratorThreeDigit(string)
+    : hexGeneratorSixDigit(string);
+};
+const testIterator = getGenerator(hexString);
+
+console.log(testIterator.next().value);
+console.log(testIterator.next().value);
+console.log(testIterator.next().value);
