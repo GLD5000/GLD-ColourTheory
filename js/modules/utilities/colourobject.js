@@ -177,17 +177,14 @@ export const colourObject = {
     return colour;
   },
   _convertHexToSrgb(colour) {
-    const hexToDecimal = (digitOne, digitTwo = digitOne) => {
-      return `0x${digitOne}${digitTwo}` / 255;
+    const [ , a, b, c, d, e, f] = colour.hex;
+    const splitHex = [[a, b], [c, d], [e, f]];
+    const targetNames = ["red", "green", "blue"];
+    const hexToDecimal = (digitA, digitB = digitA) => {
+      return `0x${digitA}${digitB}` / 255;
     };
-    function* hexParserGenerator(hex, index = 1) {
-      while (true) {
-        yield hexToDecimal(hex[index++], hex[index++]);
-      }
-    }
-    const getNextColour = hexParserGenerator(colour.hex);
-    ["red", "green", "blue"].forEach(
-      (target) => (colour[target] = getNextColour.next().value)
+    targetNames.forEach(
+      (name, index) => (colour[name] = hexToDecimal(...splitHex[index]))
     );
     return colour;
   },
