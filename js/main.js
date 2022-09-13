@@ -32,14 +32,21 @@ function* hexGeneratorSixDigit(string, index = 1) {
   while (index < string.length)
     yield `0x${string[index++]}${string[index++]}` / 255;
 }
-const hexString = "#04ff0d";
+const hexString = "#04f";
 const hexStringIsShort = hexString.length === 4 ? true : false;
 //const testIterator = hexStringIsShort? hexGeneratorThreeDigit(hexString): hexGeneratorSixDigit(hexString);
 
 const getGenerator = (string) => {
+  const convertHexDigitsToDecimal = (digitOne, digitTwo) => {
+    return `0x${digitOne}${digitTwo}` / 255;
+  };
+
   function* hexGeneratorThreeDigit(string, index = 1) {
-    while (index < string.length)
-      yield `0x${string[index]}${string[index++]}` / 255;
+    while (index < string.length) {
+      const digitOne = string[index];
+      const digitTwo = string[index++];
+      yield convertHexDigitsToDecimal(digitOne, digitTwo);
+    }
   }
   function* hexGeneratorSixDigit(string, index = 1) {
     while (index < string.length)
