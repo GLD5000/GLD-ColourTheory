@@ -85,7 +85,8 @@ const hexChunkerConverter = (string) => {
     callBackFn: convertHexDigitsToSrgb,
   });
 };
-
+const [, a, b, c, d, e, f] = "#12ff34";
+console.log([a, b], [c, d], [e, f]);
 const testIterator = hexChunkerConverter(hexString);
 console.log(testIterator.next().value);
 console.log(testIterator.next().value);

@@ -177,42 +177,18 @@ export const colourObject = {
     return colour;
   },
   _convertHexToSrgb(colour) {
-    function* characterIterator(string, startIndex = 0) {
-      let index = startIndex;
-      while (true) {
-        yield string[index++];
-      }
-    }
-    const hex = colour.hex;
-    const hexIterator = characterIterator(hex, 1);
-    const isShortHex = hex.length < 6 ? true : false;
-    if (isShortHex) console.log("short");
-    const convertHexDigits = (digitOne, digitTwo = digitOne) => {
+    const hexToDecimal = (digitOne, digitTwo = digitOne) => {
       return `0x${digitOne}${digitTwo}` / 255;
     };
-    const getNextColour = isShortHex
-      ? () => convertHexDigits(hexIterator.next().value)
-      : () =>
-          convertHexDigits(
-            hexIterator.next().value,
-            hexIterator.next().value
-          );
-    ["red", "green", "blue"].forEach(
-      (target) => (colour[target] = getNextColour())
-    );
-
-    // 3 digits
-    /*     if (hex.length == 4) {
-      colour.red = ("0x" + hex[1] + hex[1]) / 255;
-      colour.green = ("0x" + hex[2] + hex[2]) / 255;
-      colour.blue = ("0x" + hex[3] + hex[3]) / 255;
-      // 6 digits
-    } else if (hex.length == 7) {
-      colour.red = ("0x" + hex[1] + hex[2]) / 255;
-      colour.green = ("0x" + hex[3] + hex[4]) / 255;
-      colour.blue = ("0x" + hex[5] + hex[6]) / 255;
+    function* hexParserGenerator(hex, index = 1) {
+      while (true) {
+        yield hexToDecimal(hex[index++], hex[index++]);
+      }
     }
-    */
+    const getNextColour = hexParserGenerator(colour.hex);
+    ["red", "green", "blue"].forEach(
+      (target) => (colour[target] = getNextColour.next().value)
+    );
     return colour;
   },
   _convertSrgbToHsl(colour) {
