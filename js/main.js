@@ -32,12 +32,13 @@ function* hexGeneratorSixDigit(string, index = 1) {
   while (index < string.length)
     yield `0x${string[index++]}${string[index++]}` / 255;
 }
-const hexString = "#04f";
+let hexString = "#dd55aa";
+//hexString = "#f5a";
 const hexStringIsShort = hexString.length === 4 ? true : false;
 //const testIterator = hexStringIsShort? hexGeneratorThreeDigit(hexString): hexGeneratorSixDigit(hexString);
 
 const getGenerator = (string) => {
-  const convertHexDigitsToDecimal = (digitOne, digitTwo) => {
+  const convertHexDigitsToSrgb = (digitOne, digitTwo = digitOne) => {
     return `0x${digitOne}${digitTwo}` / 255;
   };
 
@@ -45,7 +46,7 @@ const getGenerator = (string) => {
     while (index < string.length) {
       const digitOne = string[index];
       const digitTwo = string[index++];
-      yield convertHexDigitsToDecimal(digitOne, digitTwo);
+      yield convertHexDigitsToSrgb(digitOne, digitTwo);
     }
   }
   function* hexGeneratorSixDigit(string, index = 1) {
@@ -57,8 +58,35 @@ const getGenerator = (string) => {
     ? hexGeneratorThreeDigit(string)
     : hexGeneratorSixDigit(string);
 };
-const testIterator = getGenerator(hexString);
 
+const hexChunkerConverter = (string) => {
+  const convertHexDigitsToSrgb = (digitOne, digitTwo = digitOne) => {
+    return `0x${digitOne}${digitTwo}` / 255;
+  };
+  const firstChar = string[0] === "#" ? 1 : 0;
+  const chunkSize = string.length > 5 ? 2 : 1;
+  function* stringChunker(
+    string,
+    { chunkSize = 1, firstChar = 0, callBackFn = null }
+  ) {
+    let index = firstChar;
+    const length = string.length;
+    while (index < length) {
+      const characters = [];
+      for (let i = 1; i <= chunkSize; i++) {
+        characters.push(string[index++]);
+      }
+      yield callBackFn === null ? characters : callBackFn(...characters);
+    }
+  }
+  return stringChunker(string, {
+    chunkSize,
+    firstChar,
+    callBackFn: convertHexDigitsToSrgb,
+  });
+};
+
+const testIterator = hexChunkerConverter(hexString);
 console.log(testIterator.next().value);
 console.log(testIterator.next().value);
 console.log(testIterator.next().value);
