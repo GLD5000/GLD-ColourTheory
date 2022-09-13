@@ -177,14 +177,20 @@ export const colourObject = {
     return colour;
   },
   _convertHexToSrgb(colour) {
-    const [ , a, b, c, d, e, f] = colour.hex;
-    const splitHex = [[a, b], [c, d], [e, f]];
-    const targetNames = ["red", "green", "blue"];
+    const hex = colour.hex;
+    const splitHex = (() => {
+      const [, a, b, c, d, e, f] = hex;
+      return [
+        [a, b],
+        [c, d],
+        [e, f],
+      ];
+    })();
     const hexToDecimal = (digitA, digitB = digitA) => {
       return `0x${digitA}${digitB}` / 255;
     };
-    targetNames.forEach(
-      (name, index) => (colour[name] = hexToDecimal(...splitHex[index]))
+    [colour.red, colour.blue, colour.green] = splitHex.map(
+      (digits) => hexToDecimal(...digits)
     );
     return colour;
   },
