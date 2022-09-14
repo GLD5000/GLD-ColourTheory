@@ -45,7 +45,7 @@ export const colourObject = {
     return ratio > 4.5 ? (ratio > 7 ? "AAA+" : "AA+") : "Low";
   },
   _textColourFromHex(colour) {
-    this._convertHexToSrgb(colour);
+    this._convertColourHexToSrgb(colour);
     this._convertSrgbToHsl(colour);
     return this._return(colour);
   },
@@ -176,21 +176,29 @@ export const colourObject = {
  */
     return colour;
   },
-  _convertHexToSrgb(colour) {
-    const hex = colour.hex;
-    const splitHex = (() => {
-      const [, a, b, c, d, e, f] = hex;
-      return [
-        [a, b],
-        [c, d],
-        [e, f],
-      ];
-    })();
-    const hexToDecimal = (digitA, digitB = digitA) => {
-      return `0x${digitA}${digitB}` / 255;
-    };
-    [colour.red, colour.blue, colour.green] = splitHex.map(
-      (digits) => hexToDecimal(...digits)
+  _hexDigitsToDecimal(charA, charB = charA) {
+    return `0x${charA}${charB}` / 255;
+  },
+  _splitHexString(hex) {
+    return hex.length === 7
+      ? [
+          [hex[1], hex[2]],
+          [hex[3], hex[4]],
+          [hex[5], hex[6]],
+        ]
+      : [
+          [hex[1], hex[1]],
+          [hex[2], hex[2]],
+          [hex[3], hex[3]],
+        ];
+  },
+  _getSrgbArrayFromHexArray(hex) {
+    const splitHex = this._splitHexString(hex);
+    return splitHex.map((digits) => this._hexDigitsToDecimal(...digits));
+  },
+  _convertColourHexToSrgb(colour) {
+    [colour.red, colour.blue, colour.green] = this._getSrgbArrayFromHexArray(
+      colour.hex
     );
     return colour;
   },
@@ -294,12 +302,12 @@ export const colourObject = {
   },
   fromHsl(colour) {
     this._convertHslToHex(colour);
-    this._convertHexToSrgb(colour);
+    this._convertColourHexToSrgb(colour);
     if (colour.name === "primary") this._convertSrgbtoTwl(colour);
     return this._return(colour);
   },
   fromHex(colour) {
-    this._convertHexToSrgb(colour);
+    this._convertColourHexToSrgb(colour);
     this._convertSrgbToHsl(colour);
     if (colour.name === "primary") this._convertSrgbtoTwl(colour);
     return this._return(colour);
