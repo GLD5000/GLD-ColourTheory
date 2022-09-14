@@ -18,13 +18,20 @@ export const colourObject = {
   },
   _calculateRelativeLuminance(RsRGB, GsRGB, BsRGB) {
     const R =
-      RsRGB <= 0.04045 ? RsRGB / 12.92 : Math.pow((RsRGB + 0.055) / 1.055, 2.4);
+      modifyColourValue(RsRGB);
     const G =
-      GsRGB <= 0.04045 ? GsRGB / 12.92 : Math.pow((GsRGB + 0.055) / 1.055, 2.4);
+      modifyColourValue(GsRGB);
     const B =
-      BsRGB <= 0.04045 ? BsRGB / 12.92 : Math.pow((BsRGB + 0.055) / 1.055, 2.4);
+      modifyColourValue(BsRGB);
 
-    return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+    const redMult = 0.2126;
+    const greenMult = 0.7152;
+    const blueMult = 0.0722;
+    return redMult * R + greenMult * G + blueMult * B;
+
+    function modifyColourValue(value) {
+      return value <= 0.04045 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
+    }
   },
   _calculateContrastRatio(...args) {
     /*A contrast ratio of 3:1 is the minimum level recommended by [[ISO-9241-3]] and [[ANSI-HFES-100-1988]] for standard text and vision. 
