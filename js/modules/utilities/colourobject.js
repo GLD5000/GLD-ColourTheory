@@ -24,10 +24,14 @@ export const colourObject = {
     const B =
       modifyColourValue(BsRGB);
 
-    const redMult = 0.2126;
-    const greenMult = 0.7152;
-    const blueMult = 0.0722;
-    return redMult * R + greenMult * G + blueMult * B;
+    return sumColourValues(R, G, B);
+
+    function sumColourValues(R, G, B) {
+      const redMult = 0.2126;
+      const greenMult = 0.7152;
+      const blueMult = 0.0722;
+      return redMult * R + greenMult * G + blueMult * B;
+    }
 
     function modifyColourValue(value) {
       return value <= 0.04045 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
