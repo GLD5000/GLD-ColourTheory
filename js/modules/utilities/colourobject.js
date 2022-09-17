@@ -1,52 +1,22 @@
 //Creates colours
 import { clampRotate } from "./utilities.js";
-
+import { luminance } from "./colourmodules/luminance.js";
 export const colourObject = {
   _autoTextColour(backgroundColour) {
-    const { red, green, blue } = backgroundColour;
-    const contrastBlack = this._calculateContrastRatio(
-      [0, 0, 0],
-      [red, green, blue]
-    );
-    const contrastWhite = this._calculateContrastRatio(
-      [1, 1, 1],
-      [red, green, blue]
-    );
+    const relativeLuminance = backgroundColour.relativeLuminance;
+    const contrastBlack = this._calculateContrastRatio([0, relativeLuminance]);
+    const contrastWhite = this._calculateContrastRatio([1, relativeLuminance]);
     const autoColour = contrastBlack > contrastWhite ? "#000000" : "#ffffff";
     const autoContrast = Math.max(contrastBlack, contrastWhite);
     return [autoColour, autoContrast];
   },
-  _calculateRelativeLuminance(RsRGB, GsRGB, BsRGB) {
-    const R =
-      modifyColourValue(RsRGB);
-    const G =
-      modifyColourValue(GsRGB);
-    const B =
-      modifyColourValue(BsRGB);
-
-    return sumColourValues(R, G, B);
-
-    function sumColourValues(R, G, B) {
-      const redMult = 0.2126;
-      const greenMult = 0.7152;
-      const blueMult = 0.0722;
-      return redMult * R + greenMult * G + blueMult * B;
-    }
-
-    function modifyColourValue(value) {
-      return value <= 0.04045 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
-    }
-  },
-  _calculateContrastRatio(...args) {
+  _calculateContrastRatio(args) {
     /*A contrast ratio of 3:1 is the minimum level recommended by [[ISO-9241-3]] and [[ANSI-HFES-100-1988]] for standard text and vision. 
     Large-scale text and images of large-scale text have a contrast ratio of at least 4.5:1;
     */
-    const relativeLumArr = args.map((x) =>
-      this._calculateRelativeLuminance(...x)
-    );
-    const L1 = Math.max(...relativeLumArr);
-    const L2 = Math.min(...relativeLumArr);
-    return (L1 + 0.05) / (L2 + 0.05);
+    const maxLum = Math.max(...args);
+    const minLum = Math.min(...args);
+    return (maxLum + 0.05) / (minLum + 0.05);
   },
   _makeContrastRatioString(ratio) {
     const rating = ratio > 4.5 ? (ratio > 7 ? "AAA+" : "AA+") : "Low";
@@ -78,8 +48,7 @@ export const colourObject = {
     const returnColour = { name: `${backgroundColour.name}-text` };
     returnColour.hex = textColour.hex;
     returnColour.contrastRatio = this._calculateContrastRatio(
-      [textColour.red, textColour.green, textColour.blue],
-      [backgroundColour.red, backgroundColour.green, backgroundColour.blue]
+      [textColour.relativeLuminance, backgroundColour.relativeLuminance]
     );
     returnColour.rating = this._makeContrastRating(returnColour.contrastRatio);
     returnColour.contrastString = this._makeContrastRatioString(
@@ -303,6 +272,7 @@ export const colourObject = {
   },
   _return(colour) {
     this._createStrings(colour);
+    luminance.addLuminanceToObject(colour);
     return Object.freeze(colour);
   },
   fromTwl(colour) {
