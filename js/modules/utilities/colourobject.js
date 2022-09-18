@@ -1,29 +1,15 @@
 //Creates colours
 import { clampRotate } from "./utilities.js";
 import { luminance } from "./colourmodules/luminance.js";
+import { contrast } from "./colourmodules/contrast.js"
 export const colourObject = {
   _autoTextColour(backgroundColour) {
     const relativeLuminance = backgroundColour.relativeLuminance;
-    const contrastBlack = this._calculateContrastRatio([0, relativeLuminance]);
-    const contrastWhite = this._calculateContrastRatio([1, relativeLuminance]);
+    const contrastBlack = contrast.getContrastRatio([0, relativeLuminance]);
+    const contrastWhite = contrast.getContrastRatio([1, relativeLuminance]);
     const autoColour = contrastBlack > contrastWhite ? "#000000" : "#ffffff";
     const autoContrast = Math.max(contrastBlack, contrastWhite);
     return [autoColour, autoContrast];
-  },
-  _calculateContrastRatio(args) {
-    /*A contrast ratio of 3:1 is the minimum level recommended by [[ISO-9241-3]] and [[ANSI-HFES-100-1988]] for standard text and vision. 
-    Large-scale text and images of large-scale text have a contrast ratio of at least 4.5:1;
-    */
-    const maxLum = Math.max(...args);
-    const minLum = Math.min(...args);
-    return (maxLum + 0.05) / (minLum + 0.05);
-  },
-  _makeContrastRatioString(ratio) {
-    const rating = ratio > 4.5 ? (ratio > 7 ? "AAA+" : "AA+") : "Low";
-    return `Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;
-  },
-  _makeContrastRating(ratio) {
-    return ratio > 4.5 ? (ratio > 7 ? "AAA+" : "AA+") : "Low";
   },
   _textColourFromHex(colour) {
     this._convertColourHexToSrgb(colour);
@@ -37,21 +23,21 @@ export const colourObject = {
       const returnColour = { name: `${backgroundColour.name}-text` };
       [returnColour.hex, returnColour.contrastRatio] =
         this._autoTextColour(backgroundColour);
-      returnColour.rating = this._makeContrastRating(
+      returnColour.rating = contrast.makeContrastRating(
         returnColour.contrastRatio
       );
-      returnColour.contrastString = this._makeContrastRatioString(
+      returnColour.contrastString = contrast.makeContrastRatioString(
         returnColour.contrastRatio
       );
       return this._textColourFromHex(returnColour);
     }
     const returnColour = { name: `${backgroundColour.name}-text` };
     returnColour.hex = textColour.hex;
-    returnColour.contrastRatio = this._calculateContrastRatio(
+    returnColour.contrastRatio = contrast.getContrastRatio(
       [textColour.relativeLuminance, backgroundColour.relativeLuminance]
     );
-    returnColour.rating = this._makeContrastRating(returnColour.contrastRatio);
-    returnColour.contrastString = this._makeContrastRatioString(
+    returnColour.rating = contrast.makeContrastRating(returnColour.contrastRatio);
+    returnColour.contrastString = contrast.makeContrastRatioString(
       returnColour.contrastRatio
     );
     return this._textColourFromHex(returnColour);
