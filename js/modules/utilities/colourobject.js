@@ -1,5 +1,4 @@
 //Creates colours
-import { clampRotate } from "./utilities.js";
 import { luminance } from "./colourmodules/luminance.js";
 import { contrast } from "./colourmodules/contrast.js";
 import { colourspace } from "./colourmodules/colourspace.js";
