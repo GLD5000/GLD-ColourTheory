@@ -4,6 +4,15 @@ import { contrast } from "./colourmodules/contrast.js";
 import { colourspace } from "./colourmodules/colourspace.js";
 import { constraints } from "./colourmodules/constraints.js";
 export const colourObject = {
+  _convertTwltoSrgb(colour) {
+    colourspace._convertTwltoSrgb(colour);
+    return colour;
+  },
+  _convertSrgbtoTwl(colour) {
+    colourspace._convertSrgbtoTwl(colour);
+    return colour;
+
+  },
   _autoTextColour(backgroundColour) {
     const relativeLuminance = backgroundColour.relativeLuminance;
     const contrastBlack = contrast.getContrastRatio([0, relativeLuminance]);
