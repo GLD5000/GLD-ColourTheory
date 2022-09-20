@@ -2,4 +2,6 @@ media/img/Logos/gldcondensedpng.pdn
 package.json
 package-lock.json
 node_modules
-.gitignore
+.prettierignore
+.prettierrc.json
+/home/gfunk/Documents/Red-Herring/.gitignore
