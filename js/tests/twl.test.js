@@ -1,27 +1,70 @@
 import { colourspace } from "../modules/utilities/colourmodules/colourspace.js";
-function sum (...args){
-    console.log(args);
-    return args[0] + args[1];
+function sum(...args) {
+  console.log(args);
+  return args[0] + args[1];
 }
+function newTest(fn, object, option, result) {
+  test(`${fn.name}(${object.name}).${option} = ${result}`, () => {
+    expect(fn(object)[option]).toBe(result);
+  });
+}
+function testloop(object, array, fn) {
+  array.forEach((entry) => {
+    newTest(fn, object, entry[0], entry[1]);
+  });
+}
+const whiteObject = { name: "white", tint: 0.5, warmth: 0.5, lightness: 1 };
+const whiteResults = [
+  ["red", 1],
+  ["blue", 1],
+  ["green", 1],
+];
+testloop(whiteObject, whiteResults, colourspace._convertTwltoSrgb);
 
-const testColour = {name:'test colour', tint: Math.random().toFixed(2), warmth: Math.random().toFixed(2), lightness: Math.random().toFixed(2)};
-const colourArray = [];//[`t: ${testColour.tint} w: ${testColour.warmth} l: ${testColour.lightness} r: ${testColour.red} b: ${testColour.blue} g: ${testColour.green}`];
-//colourArray.push('_convertTwltoSrgb');
-colourspace._convertTwltoSrgb(testColour);
-colourArray.push(`t: ${testColour.tint + 0.5} w: ${testColour.warmth} l: ${testColour.lightness} r: ${testColour.red} b: ${testColour.blue} g: ${testColour.green}`);
-//colourArray.push('_convertSrgbtoTwl');
-colourspace._convertSrgbtoTwl(testColour);
-colourArray.push(`t: ${testColour.tint} w: ${testColour.warmth} l: ${testColour.lightness} r: ${testColour.red} b: ${testColour.blue} g: ${testColour.green}`);
-//colourArray.push('_convertTwltoSrgb');
-colourspace._convertTwltoSrgb(testColour);
-colourArray.push(`t: ${testColour.tint} w: ${testColour.warmth} l: ${testColour.lightness} r: ${testColour.red} b: ${testColour.blue} g: ${testColour.green}`);
-//colourArray.push('_convertSrgbtoTwl');
-colourspace._convertSrgbtoTwl(testColour);
-colourArray.push(`t: ${testColour.tint} w: ${testColour.warmth} l: ${testColour.lightness} r: ${testColour.red} b: ${testColour.blue} g: ${testColour.green}`);
-console.log(colourArray.join('\n'));
-test('adds 1 + 2 to equal 3', () => {
-    expect(sum(1, 2)).toBe(3);
-  });
-  test('adds 2 + 2 to equal 3', () => {
-    expect(sum(2, 2)).toBe(4);
-  });
+const blackObject = { name: "black", tint: 0, warmth: 0, lightness: 0 };
+const blackResults = [
+  ["red", 0],
+  ["blue", 0],
+  ["green", 0],
+];
+testloop(blackObject, blackResults, colourspace._convertTwltoSrgb);
+
+const redObject = { name: "red", tint: 0, warmth: 1, lightness: 1 };
+const redResults = [
+  ["red", 1],
+  ["blue", 0],
+  ["green", 0],
+];
+testloop(redObject, redResults, colourspace._convertTwltoSrgb);
+
+const blueObject = { name: "blue", tint: 0, warmth: 0, lightness: 1 };
+const blueResults = [
+  ["red", 0],
+  ["blue", 1],
+  ["green", 0],
+];
+testloop(blueObject, blueResults, colourspace._convertTwltoSrgb);
+
+const greenObject = { name: "green", tint: 1, warmth: 1, lightness: 1 };
+const greenResults = [
+  ["red", 0],
+  ["blue", 0],
+  ["green", 1],
+];
+testloop(greenObject, greenResults, colourspace._convertTwltoSrgb);
+
+const yellowObject = { name: "yellow", tint: 0.5, warmth: 1, lightness: 1 };
+const yellowResults = [
+  ["red", 1],
+  ["blue", 0],
+  ["green", 1],
+];
+testloop(yellowObject, yellowResults, colourspace._convertTwltoSrgb);
+
+const turquoiseObject = { name: "turquoise", tint: 1, warmth: 0.5, lightness: 1 };
+const turquoiseResults = [
+  ["red", 0],
+  ["blue", 1],
+  ["green", 1],
+];
+testloop(yellowObject, yellowResults, colourspace._convertTwltoSrgb);
