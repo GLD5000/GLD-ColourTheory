@@ -4,14 +4,13 @@ import { contrast } from "./colourmodules/contrast.js";
 import { colourspace } from "./colourmodules/colourspace.js";
 import { constraints } from "./colourmodules/constraints.js";
 export const colourObject = {
-  _convertTwltoSrgb(colour) {
-    colourspace._convertTwltoSrgb(colour);
+  _convertTwlToSrgb(colour) {
+    colourspace._convertTwlToSrgb(colour);
     return colour;
   },
-  _convertSrgbtoTwl(colour) {
-    colourspace._convertSrgbtoTwl(colour);
+  _convertSrgbToTwl(colour) {
+    colourspace._convertSrgbToTwl(colour);
     return colour;
-
   },
   _autoTextColour(backgroundColour) {
     const relativeLuminance = backgroundColour.relativeLuminance;
@@ -122,7 +121,7 @@ export const colourObject = {
     return Object.freeze(colour);
   },
   fromTwl(colour) {
-    colourspace._convertTwltoSrgb(colour);
+    colourspace._convertTwlToSrgb(colour);
     colourspace._convertSrgbToHsl(colour);
     colourspace._convertHslToHex(colour);
     return this._return(colour);
@@ -130,19 +129,19 @@ export const colourObject = {
   fromHsl(colour) {
     colourspace._convertHslToHex(colour);
     colourspace._convertColourHexToSrgb(colour);
-    if (colour.name === "primary") colourspace._convertSrgbtoTwl(colour);
+    if (colour.name === "primary") colourspace._convertSrgbToTwl(colour);
     return this._return(colour);
   },
   fromHex(colour) {
     colourspace._convertColourHexToSrgb(colour);
     colourspace._convertSrgbToHsl(colour);
-    if (colour.name === "primary") colourspace._convertSrgbtoTwl(colour);
+    if (colour.name === "primary") colourspace._convertSrgbToTwl(colour);
     return this._return(colour);
   },
   fromSrgb(colour) {
     colourspace._convertSrgbToHsl(colour);
     colourspace._convertHslToHex(colour);
-    if (colour.name === "primary") colourspace._convertSrgbtoTwl(colour);
+    if (colour.name === "primary") colourspace._convertSrgbToTwl(colour);
     return this._return(colour);
   },
   _operationsLookup: {

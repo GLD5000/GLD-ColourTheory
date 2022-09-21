@@ -1,7 +1,7 @@
 import { constraints } from "./constraints.js";
 
 export const colourspace = {
-  _convertTwltoSrgb(colour) {
+  _convertTwlToSrgb(colour) {
     /*     colour.tint = constraints._constraintLookupB['tint'](colour.tint);
         colour.warmth = constraints._constraintLookupB['warmth'](colour.warmth);
         colour.lightness = constraints._constraintLookupB['lightness'](colour.lightness);
@@ -16,7 +16,7 @@ export const colourspace = {
 
     return colour;
   },
-  _convertSrgbtoTwl(colour) {
+  _convertSrgbToTwl(colour) {
     colour.lightness = Math.max(colour.red, colour.green, colour.blue);
     let tintDecimal =
       0.5 *

@@ -19,7 +19,7 @@ const whiteResults = [
   ["blue", 1],
   ["green", 1],
 ];
-testloop(whiteObject, whiteResults, colourspace._convertTwltoSrgb);
+testloop(whiteObject, whiteResults, colourspace._convertTwlToSrgb);
 
 const blackObject = { name: "black", tint: 0, warmth: 0, lightness: 0 };
 const blackResults = [
@@ -27,7 +27,7 @@ const blackResults = [
   ["blue", 0],
   ["green", 0],
 ];
-testloop(blackObject, blackResults, colourspace._convertTwltoSrgb);
+testloop(blackObject, blackResults, colourspace._convertTwlToSrgb);
 
 const redObject = { name: "red", tint: 0, warmth: 1, lightness: 1 };
 const redResults = [
@@ -35,7 +35,7 @@ const redResults = [
   ["blue", 0],
   ["green", 0],
 ];
-testloop(redObject, redResults, colourspace._convertTwltoSrgb);
+testloop(redObject, redResults, colourspace._convertTwlToSrgb);
 
 const blueObject = { name: "blue", tint: 0, warmth: 0, lightness: 1 };
 const blueResults = [
@@ -43,7 +43,7 @@ const blueResults = [
   ["blue", 1],
   ["green", 0],
 ];
-testloop(blueObject, blueResults, colourspace._convertTwltoSrgb);
+testloop(blueObject, blueResults, colourspace._convertTwlToSrgb);
 
 const greenObject = { name: "green", tint: 1, warmth: 1, lightness: 1 };
 const greenResults = [
@@ -51,7 +51,7 @@ const greenResults = [
   ["blue", 0],
   ["green", 1],
 ];
-testloop(greenObject, greenResults, colourspace._convertTwltoSrgb);
+testloop(greenObject, greenResults, colourspace._convertTwlToSrgb);
 
 const yellowObject = { name: "yellow", tint: 0.5, warmth: 1, lightness: 1 };
 const yellowResults = [
@@ -59,12 +59,25 @@ const yellowResults = [
   ["blue", 0],
   ["green", 1],
 ];
-testloop(yellowObject, yellowResults, colourspace._convertTwltoSrgb);
+testloop(yellowObject, yellowResults, colourspace._convertTwlToSrgb);
 
-const turquoiseObject = { name: "turquoise", tint: 1, warmth: 0.5, lightness: 1 };
+const turquoiseObject = {
+  name: "turquoise",
+  tint: 1,
+  warmth: 0.5,
+  lightness: 1,
+};
 const turquoiseResults = [
   ["red", 0],
   ["blue", 1],
   ["green", 1],
 ];
-testloop(yellowObject, yellowResults, colourspace._convertTwltoSrgb);
+testloop(turquoiseObject, turquoiseResults, colourspace._convertTwlToSrgb);
+
+const turquoiseObjectB = { name: "turquoise", red: 0, blue: 1, green: 1 };
+const turquoiseResultsB = [
+  ["tint", 1],
+  ["warmth", 0.5],
+  ["lightness", 1],
+];
+testloop(turquoiseObjectB, turquoiseResultsB, colourspace._convertSrgbToTwl);
