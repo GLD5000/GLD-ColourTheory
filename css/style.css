@@ -287,38 +287,31 @@ p, li, ol, ul, a {
   .hamburger-toggle {
     display: flex;
   }
-
   .navbar-list {
     display: none;
     width: 100%;
   }
-
   .logo-grid {
     align-items: center;
     max-width: 90%;
   }
-
   .logoproduct {
     font-size: calc(0.7 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 1.6 * 0.9);
     width: auto;
   }
-
   .navbar {
     flex-direction: column;
     align-items: flex-start;
   }
-
   .navbar-list {
     width: 100%;
     flex-direction: column;
     gap: clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem);
     padding: clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) 0 calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.75);
   }
-
   .navbar-list li {
     text-align: center;
   }
-
   .navbar-list.active {
     display: flex;
   }
@@ -438,8 +431,7 @@ p, li, ol, ul, a {
   max-width: 40%;
   margin: auto;
   aspect-ratio: 1/1;
-  -webkit-backface-visibility: hidden;
-  /* Safari */
+  -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
 }
 
@@ -952,12 +944,10 @@ input[type="range"]:focus::before,
     grid-template-rows: none;
     grid-template-columns: 1fr;
   }
-
   .primary-swatch {
     grid-column: span 1;
     grid-row: span 3;
   }
-
   .btn-scheme, .btn-copy, .btn-history {
     grid-row: span 2;
   }
@@ -969,21 +959,17 @@ input[type="range"]:focus::before,
     grid-template-rows: none;
     grid-template-columns: repeat(2, 1fr);
   }
-
   .primary-swatch {
     grid-row: span 2;
     grid-column: span 2;
   }
-
   .btn-copy {
     grid-row: span 2;
     grid-column: span 2;
   }
-
   .btn-history {
     grid-row: span 2;
   }
-
   .btn-scheme {
     grid-row: span 2;
   }
@@ -994,22 +980,18 @@ input[type="range"]:focus::before,
     grid-auto-rows: calc(6.8 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
     grid-template-columns: repeat(4, 1fr);
   }
-
   .primary-swatch {
     grid-row: span 2;
     grid-column: span 2;
   }
-
   .btn-history {
     grid-row: span 1;
     grid-column: span 2;
   }
-
   .btn-scheme {
     grid-row: span 2;
     grid-column: span 2;
   }
-
   .btn-copy {
     grid-row: span 1;
     grid-column: span 2;
@@ -1021,22 +1003,18 @@ input[type="range"]:focus::before,
     grid-auto-rows: calc(6 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
     grid-template-columns: repeat(4, 1fr);
   }
-
   .primary-swatch {
     grid-row: span 3;
     grid-column: span 2;
   }
-
   .btn-history {
     grid-row: 1/3;
     grid-column: 4;
   }
-
   .btn-scheme {
     grid-row: span 2;
     grid-column: span 1;
   }
-
   .btn-copy {
     grid-row: 3/4;
     grid-column: 3/5;
@@ -1048,22 +1026,18 @@ input[type="range"]:focus::before,
     grid-auto-rows: calc(5.4 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
     grid-template-columns: repeat(6, 1fr);
   }
-
   .primary-swatch {
     grid-row: span 2;
     grid-column: span 2;
   }
-
   .btn-copy {
     grid-row: span 2;
     grid-column: span 2;
   }
-
   .btn-history {
     grid-row: span 2;
     grid-column: span 1;
   }
-
   .btn-scheme {
     grid-row: span 2;
     grid-column: span 1;

@@ -164,19 +164,17 @@ const colourScheme = {
       if (paletteData.paletteState.swatchVisibility[name] === null)
         namesArray.push(name);
     });
-
-    namesArray.forEach((name, i) => {
+    const stopWidth = (50 / (namesArray.length - 1));
+    const stopOffset = 50 - stopWidth;
+    namesArray.forEach((name, index) => {
+      const stopBegin = (index * stopWidth) + stopOffset + "%";
+      const stopEnd = ((index + 1) * stopWidth) + stopOffset + "%";
       hexArray.push(
-        `${paletteData.getColourObject(name).hex} ${
-          i * (100 / namesArray.length)
-        }%, 
-        ${paletteData.getColourObject(name).hex} ${
-          (1 + i) * (100 / namesArray.length)
-        }%`
+        `${paletteData.getColourObject(name).hex} ${stopBegin}, 
+        ${paletteData.getColourObject(name).hex} ${stopEnd}`
       );
       paletteUi._setClipboardTextAll();
     });
-
     colourScheme.overallGradientString = "linear-gradient(to right, ";
     colourScheme.overallGradientString += hexArray.join(",");
     colourScheme.overallGradientString += ")";
