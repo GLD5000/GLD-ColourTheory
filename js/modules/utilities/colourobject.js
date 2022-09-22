@@ -3,6 +3,7 @@ import { luminance } from "./colourmodules/luminance.js";
 import { contrast } from "./colourmodules/contrast.js";
 import { colourspace } from "./colourmodules/colourspace.js";
 import { constraints } from "./colourmodules/constraints.js";
+import { colourString } from "./colourmodules/colourstring.js"
 export const colourObject = {
   _convertTwlToSrgb(colour) {
     colourspace._convertTwlToSrgb(colour);
@@ -100,23 +101,9 @@ export const colourObject = {
     };
     return this[functionLookup[colourspace]](sliderArray);
   },
-  _createStrings(colour) {
-    if (colour.name === "primary")
-      colour.twl = this._convertTwlToString(
-        colour.tint,
-        colour.warmth,
-        colour.lightness
-      );
-    colour.rgb = this._convertRgbToString(
-      colour.red,
-      colour.green,
-      colour.blue
-    );
-    colour.hsl = this._convertHslToString(colour.hue, colour.sat, colour.lum);
-  },
 
   _return(colour) {
-    this._createStrings(colour);
+    colourString.createStrings(colour);
     luminance.addLuminanceToObject(colour);
     return Object.freeze(colour);
   },
@@ -168,28 +155,8 @@ export const colourObject = {
     return [hue, sat, lum];
   },
 
-  _convertHslToString(hue, sat, lum) {
-    return `hsl(${Math.round(hue)},${Math.round(sat)}%,${Math.round(lum)}%)`;
-  },
-  _convertTwlToString(tint, warmth, lightness) {
-    return `twl(${Math.round(tint * 100)}%,${Math.round(
-      warmth * 100
-    )}%,${Math.round(lightness * 100)}%)`;
-  },
-
-  _convertRgbToString(red, green, blue) {
-    return `rgb(${Math.round(red * 255)},${Math.round(
-      green * 255
-    )},${Math.round(blue * 255)})`;
-  },
   _convertHslToColourObject(hue, sat, lum, name) {
     return { name: name, hue: hue, sat: sat, lum: lum };
-  },
-  hsl(colour) {
-    return this._convertHslToString(colour.hue, colour.sat, colour.lum);
-  },
-  rgb(colour) {
-    return this._convertRgbToString(colour.red, colour.green, colour.blue);
   },
   makeRandomHslString() {
     return this._convertHslToString(...this._makeRandomHsl());
@@ -197,7 +164,6 @@ export const colourObject = {
   makeRandomHslStringSafer() {
     return this._convertHslToString(...this._makeRandomHslSafer());
   },
-
   makeRandomColour(name = "primary") {
     return this.fromHsl(
       this._convertHslToColourObject(...this._makeRandomHsl(), name)

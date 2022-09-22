@@ -94,7 +94,7 @@ export const gradientMaker = {
           operation: "replace",
         });
         this._gradientColours.push(newColour);
-        this._gradientString += `, ${colourObject.hsl(newColour)} ${
+        this._gradientString += `, ${newColour.hsl} ${
           i * stopWidth
         }% ${stopWidth + i * stopWidth}%`;
       });
