@@ -62,7 +62,7 @@ export const colourspace = {
     return splitHex.map((digits) => this._hexDigitsToDecimal(...digits));
   },
   _convertColourHexToSrgb(colour) {
-    [colour.red, colour.blue, colour.green] = this._getSrgbArrayFromHexArray(
+    [colour.red, colour.green, colour.blue] = this._getSrgbArrayFromHexArray(
       colour.hex
     );
     return colour;

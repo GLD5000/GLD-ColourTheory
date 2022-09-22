@@ -514,6 +514,8 @@ export const paletteUi = {
       hsl: [hue, sat, lum],
       rgb: [red, green, blue],
     };
+    console.clear();
+    console.log(`red:${red}, blue:${blue}, green${green}, tint:${tint}, warmth:${warmth}, lightness:${lightness}`)
     this._setSliderValues(selectColourObject[colourspace], colourspace);
     this._resetSmallWrapperContent();
     userObjects.pickers["primary-picker"].value = hex;
