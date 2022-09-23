@@ -94,9 +94,9 @@ export const gradientMaker = {
           operation: "replace",
         });
         this._gradientColours.push(newColour);
-        this._gradientString += `, ${newColour.hsl} ${
-          i * stopWidth
-        }% ${stopWidth + i * stopWidth}%`;
+        this._gradientString += `, ${newColour.hsl} ${i * stopWidth}% ${
+          stopWidth + i * stopWidth
+        }%`;
       });
       this._gradientString += isPrimary ? `)` : `) 0% 50% / 100% 30%`;
     }
