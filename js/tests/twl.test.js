@@ -3,9 +3,9 @@ function sum(...args) {
   console.log(args);
   return args[0] + args[1];
 }
-function newTest(fn, object, option, result) {
-  test(`${fn.name}(${object.name}).${option} = ${result}`, () => {
-    expect(fn(object)[option]).toBe(result);
+function newTest(testFunction, object, resultKey, resultValue) {
+  test(`${testFunction.name}(${object.name}).${resultKey} = ${resultValue}`, () => {
+    expect(testFunction(object)[resultKey]).toBe(resultValue);
   });
 }
 function testLoop(object, array, fn) {
@@ -18,7 +18,7 @@ function testLoopReverse({
   inputs = [],
   outputs = [],
   functionA,
-  functionB
+  functionB,
 }) {
   testLoop(arrayA, arrayB, fn);
   testLoop(arrayB, arrayA, fnB);
