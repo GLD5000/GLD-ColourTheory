@@ -839,7 +839,6 @@ export const paletteUi = {
       rgb: ["red", "green", "blue"],
     };
     const namesArray = sliderNameArrays[colourspace];
-    clearTimeout(this.sliderTimeout);
     userObjects.sliders.forEach((x, i) => {
       x.name = namesArray[i];
       userObjects["slider-headers"][i].innerHTML = `Adjust ${namesArray[i]}`;
