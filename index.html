@@ -101,6 +101,13 @@
         <h3>Save Scheme</h3>
         <ul id="history-flexbox" class="flexbox-history" data-content="Load Palette">
           <li># Save Colours Here #</li>
+          <button id="copy" aria-label="Copy Colours">
+            <svg id="copy-svg" alt="Copy" height='20px' width='20px'>
+              <rect x="10%" y="30%" width="60%" height="60%" rx="5%" style='stroke:rgb(255,255,255);stroke-width:2px;stroke-linecap:round'/>   
+              <rect x="30%" y="10%" width="60%" height="60%" rx="5%" style='stroke:rgb(255,255,255);stroke-width:2px;stroke-linecap:round'/>   
+              </svg>
+          </button>
+
           <button id="close" aria-label="Close Swatch">
             <svg id="close-svg"  alt="Close" height='100%' width='100%'>
               <line x1='10%' y1='10%' x2='90%' y2='90%' style='stroke:rgb(255,255,255);stroke-width:10%;stroke-linecap:round' />
@@ -114,8 +121,8 @@
             </svg>
           </button>
 
-          <button id="copy" aria-label="Copy Colours">
-            <svg id="copy-svg" alt="Copy" height='100%' width='100%'>
+          <button id="copyB" aria-label="Copy Colours">
+            <svg id="copy-svgB" alt="Copy" height='100%' width='100%'>
                 <line x1='10%' y1='30%' x2='10%' y2='90%' style='stroke:rgb(255,255,255);stroke-width:10%;stroke-linecap:round' />
                 <line x1='10%' y1='90%' x2='70%' y2='90%' style='stroke:rgb(255,255,255);stroke-width:10%;stroke-linecap:round' />
                 <line x1='70%' y1='90%' x2='70%' y2='30%' style='stroke:rgb(255,255,255);stroke-width:10%;stroke-linecap:round' />
