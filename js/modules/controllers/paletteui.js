@@ -967,7 +967,7 @@ export const paletteUi = {
           85
         ))
     );
-    this.getSmallSwatchNames().forEach(
+    userObjects.smallSwatchNamesArray.forEach(
       (x) =>
         (userObjects.pickers[x + "-picker"].onclick = (e) =>
           this._onclickPickerSmall(e))
@@ -1070,9 +1070,6 @@ export const paletteUi = {
       paletteUi.addColour(x);
     });
     colourScheme.applyGradient("Tetradic");
-  },
-  getSmallSwatchNames() {
-    return userObjects.smallSwatchNamesArray;
   },
   getAllSwatchNames() {
     return ["primary", ...userObjects.smallSwatchNamesArray];
