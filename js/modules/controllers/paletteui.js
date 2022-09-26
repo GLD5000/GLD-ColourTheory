@@ -733,12 +733,14 @@ export const paletteUi = {
   _getClipboardTextSingleAsArray(name) {
     const colourspace = this._getColourspace();
     const prefix = paletteData.getPrefix();
-    let customName = paletteData.getCustomColourName(name) || name;
+    let lookupName = userObjects.wrappers[name + "-wrapper"].dataset.content[0] === "c"?
+     paletteData.getCustomColourName(name) || name:
+     name;
     const textArray = [
-      [`${prefix}${customName}: `],
+      [`${prefix}${lookupName}: `],
       [`${paletteData.getColourObject(name)[colourspace]}`],
       [
-        `${prefix}${customName}: ${
+        `${prefix}${lookupName}: ${
           paletteData.getColourObject(name)[colourspace]
         }`,
       ],
@@ -746,11 +748,11 @@ export const paletteUi = {
     const gradientColours = paletteData.getGradientColours(name);
     if (gradientColours != null) {
       gradientColours.forEach((x) => {
-        customName = paletteData.getCustomColourName(x.name) || x.name;
+        lookupName = paletteData.getCustomColourName(x.name) || x.name;
 
-        textArray[0].push(`${prefix}${customName}: `);
+        textArray[0].push(`${prefix}${lookupName}: `);
         textArray[1].push(`${x[colourspace]}`);
-        textArray[2].push(`${prefix}${customName}: ${x[colourspace]}`);
+        textArray[2].push(`${prefix}${lookupName}: ${x[colourspace]}`);
       });
     }
 
