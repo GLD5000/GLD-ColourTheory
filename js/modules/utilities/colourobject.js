@@ -6,14 +6,6 @@ import { constraints } from "./colourmodules/constraints.js";
 import { colourString } from "./colourmodules/colourstring.js";
 import { randomHsl } from "./colourmodules/randomhsl.js";
 export const colourObject = {
-  _convertTwlToSrgb(colour) {
-    colourspace._convertTwlToSrgb(colour);
-    return colour;
-  },
-  _convertSrgbToTwl(colour) {
-    colourspace._convertSrgbToTwl(colour);
-    return colour;
-  },
   _autoTextColour(backgroundColour) {
     const relativeLuminance = backgroundColour.relativeLuminance;
     const contrastBlack = contrast.getContrastRatio([0, relativeLuminance]);
