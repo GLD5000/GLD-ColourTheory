@@ -50,54 +50,12 @@ export const colourObject = {
     const colour = contrast.makeTextColour(textColour, backgroundColour);
     return colourObject._textColourFromHex(colour);
   },
-  _operationsLookup: {
-    multiply: (oldVal, newVal) => oldVal * newVal,
-    add: (oldVal, newVal) => oldVal + newVal,
-    subtract: (oldVal, newVal) => oldVal - newVal,
-    divide: (oldVal, newVal) => oldVal / newVal,
-    replace: (_, newVal) => newVal,
-    keep: (oldVal, _) => oldVal,
-  },
-
   assign(oldColour, newColour) {
-    const hslArr = ["hue", "sat", "lum"];
-    const rgbArr = ["red", "green", "blue"];
-    //default mode is replace
-    if (newColour.hasOwnProperty("hex"))
-      return "Error: Hex found in newColour object"; //Exit for Hex
-    const colourName = newColour.name || oldColour.name; // set colour name
-    let mode, keysArray;
-    Object.keys(newColour).forEach((x) => {
-      //Loop through object keys of newColour to check for hsl or rgb
-      if (hslArr.includes(x)) {
-        mode = "hsl"; // set mode
-        keysArray = hslArr; // set keys to hsl
-      } else if (rgbArr.includes(x)) {
-        mode = "rgb"; // set mode
-        keysArray = rgbArr; // set keys to rgb
-      }
-      if (mode != null) return; //exit outer loop if assignment has been made
-    });
-
-    const returnArray = keysArray.map((x) => [
-      x,
-      newColour[x] == null
-        ? oldColour[x]
-        : constraints._constraintLookupB[x](
-            this._operationsLookup[
-              newColour[`${x}Operation`] || newColour.operation || "replace"
-            ](oldColour[x], newColour[x])
-          ),
-    ]);
-
-    const returnObj = Object.fromEntries([
-      ["name", colourName],
-      ...returnArray,
-    ]);
-
+    const mode = constraints.getAssignMode(newColour);
+    const newPartial = constraints.getAssignPartial(oldColour, newColour, mode);
     return mode === "hsl"
-      ? this.fromHsl({ ...returnObj })
-      : this.fromSrgb({ ...returnObj });
+      ? this.fromHsl({ ...newPartial })
+      : this.fromSrgb({ ...newPartial });
   },
   makeRandomHslString() {
     return randomHsl.makeRandomHslString();
