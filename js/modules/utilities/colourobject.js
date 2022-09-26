@@ -3,7 +3,8 @@ import { luminance } from "./colourmodules/luminance.js";
 import { contrast } from "./colourmodules/contrast.js";
 import { colourspace } from "./colourmodules/colourspace.js";
 import { constraints } from "./colourmodules/constraints.js";
-import { colourString } from "./colourmodules/colourstring.js"
+import { colourString } from "./colourmodules/colourstring.js";
+import { randomHsl } from "./colourmodules/randomhsl.js";
 export const colourObject = {
   _convertTwlToSrgb(colour) {
     colourspace._convertTwlToSrgb(colour);
@@ -139,37 +140,10 @@ export const colourObject = {
     replace: (_, newVal) => newVal,
     keep: (oldVal, _) => oldVal,
   },
-  _hslArr: ["hue", "sat", "lum"],
-  _rgbArr: ["red", "green", "blue"],
 
-  _makeRandomHsl() {
-    const hue = parseInt(Math.random() * 360);
-    const sat = 48 + parseInt(Math.random() * 40); // 48 - 87
-    const lum = 63 + parseInt(Math.random() * 25); // 63 - 88
-    return [hue, sat, lum];
-  },
-  _makeRandomHslSafer() {
-    const hue = parseInt(Math.random() * 360);
-    const sat = 28 + parseInt(Math.random() * 5); // 48 - 87
-    const lum = 65 + parseInt(Math.random() * 5); // 63 - 88
-    return [hue, sat, lum];
-  },
-
-  _convertHslToColourObject(hue, sat, lum, name) {
-    return { name: name, hue: hue, sat: sat, lum: lum };
-  },
-  makeRandomHslString() {
-    return this._convertHslToString(...this._makeRandomHsl());
-  },
-  makeRandomHslStringSafer() {
-    return this._convertHslToString(...this._makeRandomHslSafer());
-  },
-  makeRandomColour(name = "primary") {
-    return this.fromHsl(
-      this._convertHslToColourObject(...this._makeRandomHsl(), name)
-    );
-  },
   assign(oldColour, newColour) {
+    const hslArr = ["hue", "sat", "lum"];
+    const rgbArr = ["red", "green", "blue"];
     //default mode is replace
     if (newColour.hasOwnProperty("hex"))
       return "Error: Hex found in newColour object"; //Exit for Hex
@@ -177,12 +151,12 @@ export const colourObject = {
     let mode, keysArray;
     Object.keys(newColour).forEach((x) => {
       //Loop through object keys of newColour to check for hsl or rgb
-      if (this._hslArr.includes(x)) {
+      if (hslArr.includes(x)) {
         mode = "hsl"; // set mode
-        keysArray = this._hslArr; // set keys to hsl
-      } else if (this._rgbArr.includes(x)) {
+        keysArray = hslArr; // set keys to hsl
+      } else if (rgbArr.includes(x)) {
         mode = "rgb"; // set mode
-        keysArray = this._rgbArr; // set keys to rgb
+        keysArray = rgbArr; // set keys to rgb
       }
       if (mode != null) return; //exit outer loop if assignment has been made
     });
@@ -206,5 +180,16 @@ export const colourObject = {
     return mode === "hsl"
       ? this.fromHsl({ ...returnObj })
       : this.fromSrgb({ ...returnObj });
+  },
+  makeRandomHslString() {
+    return randomHsl.makeRandomHslString();
+  },
+  makeRandomHslStringSafer() {
+    return randomHsl.makeRandomHslStringSafer();
+  },
+  makeRandomColour(name = "primary") {
+    return this.fromHsl(
+      randomHsl.makeRandomColourPartial(name)
+    );
   },
 };
