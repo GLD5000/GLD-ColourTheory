@@ -6,95 +6,12 @@ import { constraints } from "./colourmodules/constraints.js";
 import { colourString } from "./colourmodules/colourstring.js";
 import { randomHsl } from "./colourmodules/randomhsl.js";
 export const colourObject = {
-  _autoTextColour(backgroundColour) {
-    const relativeLuminance = backgroundColour.relativeLuminance;
-    const contrastBlack = contrast.getContrastRatio([0, relativeLuminance]);
-    const contrastWhite = contrast.getContrastRatio([1, relativeLuminance]);
-    const autoColour = contrastBlack > contrastWhite ? "#000000" : "#ffffff";
-    const autoContrast = Math.max(contrastBlack, contrastWhite);
-    return [autoColour, autoContrast];
+  convertSliderInput(sliderArray, colourspace) {
+    return constraints.convertSliderInput(sliderArray, colourspace);
   },
-  _textColourFromHex(colour) {
-    colourspace._convertColourHexToSrgb(colour);
-    colourspace._convertSrgbToHsl(colour);
-    return this._return(colour);
+  convertSliderOutput(sliderArray, colourspace) {
+    return constraints.convertSliderOutput(sliderArray, colourspace);
   },
-  makeTextColour(textColour = null, backgroundColour = null) {
-    if (backgroundColour == null) return "No Background Colour Found"; //if background colour == null return
-    if (textColour == null) {
-      //auto text
-      const returnColour = { name: `${backgroundColour.name}-text` };
-      [returnColour.hex, returnColour.contrastRatio] =
-        this._autoTextColour(backgroundColour);
-      returnColour.rating = contrast.makeContrastRating(
-        returnColour.contrastRatio
-      );
-      returnColour.contrastString = contrast.makeContrastRatioString(
-        returnColour.contrastRatio
-      );
-      return this._textColourFromHex(returnColour);
-    }
-    const returnColour = { name: `${backgroundColour.name}-text` };
-    returnColour.hex = textColour.hex;
-    returnColour.contrastRatio = contrast.getContrastRatio([
-      textColour.relativeLuminance,
-      backgroundColour.relativeLuminance,
-    ]);
-    returnColour.rating = contrast.makeContrastRating(
-      returnColour.contrastRatio
-    );
-    returnColour.contrastString = contrast.makeContrastRatioString(
-      returnColour.contrastRatio
-    );
-    return this._textColourFromHex(returnColour);
-  },
-  _convertSlidertoHsl(sliderArray) {
-    return [
-      sliderArray[0] * 3.6,
-      constraints._constraintLookupB["sat"](sliderArray[1]),
-      constraints._constraintLookupB["lum"](sliderArray[2]),
-    ];
-  },
-  _convertSlidertoSrgb(sliderArray) {
-    return [
-      constraints._constraintLookupB["red"](sliderArray[0] / 100),
-      constraints._constraintLookupB["green"](sliderArray[1] / 100),
-      constraints._constraintLookupB["blue"](sliderArray[2] / 100),
-    ];
-  },
-  _convertSlidertoTwl(sliderArray) {
-    return [
-      constraints._constraintLookupB["tint"](sliderArray[0] / 100),
-      constraints._constraintLookupB["warmth"](sliderArray[1] / 100),
-      constraints._constraintLookupB["lightness"](sliderArray[2] / 100),
-    ];
-  },
-  _convertHsltoSlider(sliderArray) {
-    return [sliderArray[0] / 3.6, sliderArray[1], sliderArray[2]];
-  },
-  _convertSrgbtoSlider(sliderArray) {
-    return [sliderArray[0] * 100, sliderArray[1] * 100, sliderArray[2] * 100];
-  },
-  _convertTwltoSlider(sliderArray) {
-    return [sliderArray[0] * 100, sliderArray[1] * 100, sliderArray[2] * 100];
-  },
-  _convertSliderInput(sliderArray, colourspace) {
-    const functionLookup = {
-      hex: "_convertTwltoSlider",
-      hsl: "_convertHsltoSlider",
-      rgb: "_convertSrgbtoSlider",
-    };
-    return this[functionLookup[colourspace]](sliderArray);
-  },
-  _convertSliderOutput(sliderArray, colourspace) {
-    const functionLookup = {
-      hex: "_convertSlidertoTwl",
-      hsl: "_convertSlidertoHsl",
-      rgb: "_convertSlidertoSrgb",
-    };
-    return this[functionLookup[colourspace]](sliderArray);
-  },
-
   _return(colour) {
     colourString.createStrings(colour);
     luminance.addLuminanceToObject(colour);
@@ -123,6 +40,15 @@ export const colourObject = {
     colourspace._convertHslToHex(colour);
     colourspace._convertSrgbToTwl(colour);
     return colourObject._return(colour);
+  },
+  _textColourFromHex(colour) {
+    colourspace._convertColourHexToSrgb(colour);
+    colourspace._convertSrgbToHsl(colour);
+    return this._return(colour);
+  },
+  makeTextColour(textColour = null, backgroundColour = null) {
+    const colour = contrast.makeTextColour(textColour, backgroundColour);
+    return colourObject._textColourFromHex(colour);
   },
   _operationsLookup: {
     multiply: (oldVal, newVal) => oldVal * newVal,
@@ -180,8 +106,6 @@ export const colourObject = {
     return randomHsl.makeRandomHslStringSafer();
   },
   makeRandomColour(name = "primary") {
-    return this.fromHsl(
-      randomHsl.makeRandomColourPartial(name)
-    );
+    return this.fromHsl(randomHsl.makeRandomColourPartial(name));
   },
 };

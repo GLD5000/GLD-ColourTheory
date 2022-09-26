@@ -6,7 +6,7 @@ import { throttleDebounce } from "../utilities/utilities.js";
 import { variantMaker } from "./variantmaker.js";
 import { gradientMaker } from "./gradientmaker.js";
 import { clampRotate } from "../utilities/utilities.js";
-import {randomItemFromArray} from "../utilities/utilities.js"
+import { randomItemFromArray } from "../utilities/utilities.js";
 //import { callLogger } from "../utilities/utilities.js";
 
 const paletteState = {
@@ -93,11 +93,10 @@ const paletteState = {
     paletteData.paletteState = newState;
     paletteState.setCustomStatesfromPaletteData();
     colourScheme.restoreAll();
-
   },
 };
 const colourScheme = {
-  _randomiseTetradicMode(){
+  _randomiseTetradicMode() {
     const tetradicModeArray = ["Square", "Rectangular A", "Rectangular B"];
     paletteUi.setTetradicMode(randomItemFromArray(tetradicModeArray));
   },
@@ -119,7 +118,7 @@ const colourScheme = {
     colourScheme.onclickSelectNone();
     const randomScheme = randomItemFromArray(schemeArray);
     if (randomScheme.includes("Tetradic"))
-      colourScheme._randomiseTetradicMode();// if scheme contains tetradic, randomise tetradic mode
+      colourScheme._randomiseTetradicMode(); // if scheme contains tetradic, randomise tetradic mode
     randomScheme.forEach((name) => {
       colourScheme.unDimSchemeButton(userObjects.schemes[name]);
     });
@@ -164,11 +163,11 @@ const colourScheme = {
       if (paletteData.paletteState.swatchVisibility[name] === null)
         namesArray.push(name);
     });
-    const stopWidth = (50 / (namesArray.length - 1));
+    const stopWidth = 50 / (namesArray.length - 1);
     const stopOffset = 50 - stopWidth;
     namesArray.forEach((name, index) => {
-      const stopBegin = (index * stopWidth) + stopOffset + "%";
-      const stopEnd = ((index + 1) * stopWidth) + stopOffset + "%";
+      const stopBegin = index * stopWidth + stopOffset + "%";
+      const stopEnd = (index + 1) * stopWidth + stopOffset + "%";
       hexArray.push(
         `${paletteData.getColourObject(name).hex} ${stopBegin}, 
         ${paletteData.getColourObject(name).hex} ${stopEnd}`
@@ -490,14 +489,14 @@ export const paletteUi = {
   },
 
   _setSliderValues(valuesArray, colourspace) {
-    const inputArray = colourObject._convertSliderInput(
+    const inputArray = colourObject.convertSliderInput(
       valuesArray,
       colourspace
     );
     userObjects.sliders.forEach((x, i) => (x.value = inputArray[i]));
   },
   _getSliderValues(colourspace) {
-    return colourObject._convertSliderOutput(
+    return colourObject.convertSliderOutput(
       userObjects.sliders.map((x) => x.value),
       colourspace
     );
@@ -733,9 +732,10 @@ export const paletteUi = {
   _getClipboardTextSingleAsArray(name) {
     const colourspace = this._getColourspace();
     const prefix = paletteData.getPrefix();
-    let lookupName = userObjects.wrappers[name + "-wrapper"].dataset.content[0] === "c"?
-     paletteData.getCustomColourName(name) || name:
-     name;
+    let lookupName =
+      userObjects.wrappers[name + "-wrapper"].dataset.content[0] === "c"
+        ? paletteData.getCustomColourName(name) || name
+        : name;
     const textArray = [
       [`${prefix}${lookupName}: `],
       [`${paletteData.getColourObject(name)[colourspace]}`],
@@ -768,8 +768,7 @@ export const paletteUi = {
     const prefix = paletteData.getPrefix();
     const textArray = [[], [], []];
     swatchNames.forEach((x) => {
-      if (paletteData.paletteState.swatchVisibility[x] !== "hidden"){
-
+      if (paletteData.paletteState.swatchVisibility[x] !== "hidden") {
         const returnArray = this._getClipboardTextSingleAsArray(x);
         textArray[0].push(...returnArray[0]);
         textArray[1].push(...returnArray[1]);
@@ -880,7 +879,7 @@ export const paletteUi = {
     }
     paletteData.setPrefixMode("SCSS");
     userObjects.other["prefix"].innerHTML = `Prefix: SCSS`;
-      document.getElementById("clipboard-h3").innerHTML = `Copy SCSS Variables`;
+    document.getElementById("clipboard-h3").innerHTML = `Copy SCSS Variables`;
     paletteData.setPrefix("$");
     this._setClipboardTextAll();
   },
@@ -938,9 +937,8 @@ export const paletteUi = {
       paletteUi.addColour(primaryColour);
     }
     colourScheme.applyAllGradients();
-
   },
-  _onclickCustomPicker(e){
+  _onclickCustomPicker(e) {
     const pickerName =
       e.target.id?.split("-")[0] || e.target.parentElement.id.split("-")[0];
     userObjects.pickers[pickerName + "-picker"].click();
@@ -950,7 +948,8 @@ export const paletteUi = {
     userObjects.other["prefix"].onclick = () => this._onclickPrefix();
     userObjects.other["gradient"].onclick = () => this._onclickGradient();
     userObjects.other["random-colour"].onclick = () => this._onclickRandom();
-    userObjects.other["random-scheme"].onclick = () => colourScheme._randomiseScheme();
+    userObjects.other["random-scheme"].onclick = () =>
+      colourScheme._randomiseScheme();
     userObjects.other["random-all"].onclick = () => this._randomiseAll();
     userObjects.other["gldlogo"].onclick = () => this._onclickLogo();
     userObjects.other["header"].onclick = (e) => this._onclickHeader(e);
@@ -993,12 +992,12 @@ export const paletteUi = {
     userObjects.other["textmode"].addEventListener(
       "click",
       this._onclickTextMode,
-      { useCapture: true  }
+      { useCapture: true }
     );
     userObjects.customButtons["monochromeA-custom"].addEventListener(
       "click",
       this._onclickCustomPicker,
-      {useCapture: true}
+      { useCapture: true }
     );
 
     //userObjects.pickers['textcolour-picker'].addEventListener('click', this._onclickPickerText, true)
