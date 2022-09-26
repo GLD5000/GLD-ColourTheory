@@ -832,32 +832,18 @@ export const paletteUi = {
     navigator.clipboard.writeText(text);
     //console.log(`Copied To Clipboard:\n${text}`);
   },
-  sliderTimeout: "",
   _setSliderStyles(colourspace) {
     const sliderNameArrays = {
       hex: ["tint", "warmth", "lightness"],
       hsl: ["hue", "saturation", "luminance"],
       rgb: ["red", "green", "blue"],
     };
-    /*         const sliderGradientArrays = {
-            hex: [ 'background:linear-gradient(to right, #d00,#0d0)', 'background:linear-gradient(to left, #dd0,#00d)', 'background:linear-gradient(to left, #fff,#555)'],
-            hsl: [ 'linear-gradient(to right, hsl(0,$sat,$lum), hsl(60,$sat,$lum), hsl(120,$sat,$lum), hsl(180,$sat,$lum), hsl(240,$sat,$lum), hsl(300,$sat,$lum), hsl(360,$sat,$lum))', 'linear-gradient(to right, hsl(0, 0%,$lum), hsl(60, 10%,$lum), hsl(120, 20%,$lum), hsl(180, 40%,$lum), hsl(240, 80%,$lum), hsl(300, 100%,$lum), hsl(360, 100%,$lum))', 'background:linear-gradient(to left, #fff,#555)'],
-            rgb: [ 'background:linear-gradient(to left, #000,#d00)', 'background:linear-gradient(to left, #000,#0d0)', 'background:linear-gradient(to left, #000,#00d)'],
-        }
- */
     const namesArray = sliderNameArrays[colourspace];
     clearTimeout(this.sliderTimeout);
     userObjects.sliders.forEach((x, i) => {
       x.name = namesArray[i];
       userObjects["slider-headers"][i].innerHTML = `Adjust ${namesArray[i]}`;
-      //x.classList.add("fakesliderhover");
     });
-    const removeNamesLoop = () => {
-      userObjects.sliders.forEach((x) => {
-        //x.classList.remove("fakesliderhover");
-      });
-    };
-    this.sliderTimeout = setTimeout(removeNamesLoop, 1800);
   },
   _onclickColourspace() {
     const colourspaceButton = userObjects.other.colourspace.innerHTML;
@@ -1048,7 +1034,6 @@ export const paletteUi = {
     if (name === "primary") return null;
     return userObjects.wrappers[name + "-wrapper"].dataset.content;
   },
-
   _setWrapperTextColour(textColour) {
     const name = this._splitName(textColour.name);
     const wrapper = this._getWrapper(name);
