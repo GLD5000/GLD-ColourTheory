@@ -1,4 +1,5 @@
 import { colourspace } from "../modules/utilities/colourmodules/colourspace.js";
+import { colourObject } from "../modules/utilities/colourobject.js"
 function sum(...args) {
   console.log(args);
   return args[0] + args[1];
@@ -8,10 +9,24 @@ function newTest(testFunction, object, resultKey, resultValue) {
     expect(testFunction(object)[resultKey]).toBe(resultValue);
   });
 }
+function equalityTest(a, b, name = "Unnamed", objectName = "Unknown Colour", functionName = "Equality test") {
+  function testHandler(a, b) {return a === b};
+  test(`${functionName} ${objectName} ${name} ${a} = ${b}`, () => {
+    expect(testHandler(a,b)).toBe(true);
+  });
+}
+
 function testLoop(object, array, fn) {
   array.forEach((entry) => {
-    newTest(fn, object, entry[0], entry[1]);
+    const newObject = {...object};
+    newTest(fn, newObject, entry[0], entry[1]);
   });
+}
+function testLoopB(object, array, fn) {
+  const testObject = fn(object);
+
+  array.forEach((entry) => {
+    equalityTest(testObject[entry[0]], entry[1], entry[0], object.name, fn.name)});
 }
 function testLoopReverse({
   name = "Anon",
@@ -28,48 +43,66 @@ const whiteResults = [
   ["red", 1],
   ["blue", 1],
   ["green", 1],
+  ["hue", 0],
+  ["sat", 0],
+  ["lum", 100],
 ];
-testLoop(whiteObject, whiteResults, colourspace._convertTwlToSrgb);
+testLoopB(whiteObject, whiteResults, colourObject.fromTwl);
 
 const blackObject = { name: "black", tint: 0, warmth: 0, lightness: 0 };
 const blackResults = [
   ["red", 0],
   ["blue", 0],
   ["green", 0],
+  ["hue", 0],
+  ["sat", 0],
+  ["lum", 0.001],
 ];
-testLoop(blackObject, blackResults, colourspace._convertTwlToSrgb);
+testLoopB(blackObject, blackResults, colourObject.fromTwl);
 
 const redObject = { name: "red", tint: 0, warmth: 1, lightness: 1 };
 const redResults = [
   ["red", 1],
   ["blue", 0],
   ["green", 0],
+  ["hue", 0],
+  ["sat", 100],
+  ["lum", 50],
 ];
-testLoop(redObject, redResults, colourspace._convertTwlToSrgb);
+testLoopB(redObject, redResults, colourObject.fromTwl);
 
 const blueObject = { name: "blue", tint: 0, warmth: 0, lightness: 1 };
 const blueResults = [
   ["red", 0],
   ["blue", 1],
   ["green", 0],
+  ["hue", 240],
+  ["sat", 100],
+  ["lum", 50],
 ];
-testLoop(blueObject, blueResults, colourspace._convertTwlToSrgb);
+testLoopB(blueObject, blueResults, colourObject.fromTwl);
 
 const greenObject = { name: "green", tint: 1, warmth: 1, lightness: 1 };
 const greenResults = [
   ["red", 0],
   ["blue", 0],
   ["green", 1],
+  ["hue", 120],
+  ["sat", 100],
+  ["lum", 50],
 ];
-testLoop(greenObject, greenResults, colourspace._convertTwlToSrgb);
+testLoopB(greenObject, greenResults, colourObject.fromTwl);
 
 const yellowObject = { name: "yellow", tint: 0.5, warmth: 1, lightness: 1 };
 const yellowResults = [
   ["red", 1],
   ["blue", 0],
   ["green", 1],
+  ["hue", 60],
+  ["sat", 100],
+  ["lum", 50],
 ];
-testLoop(yellowObject, yellowResults, colourspace._convertTwlToSrgb);
+testLoopB(yellowObject, yellowResults, colourObject.fromTwl);
 
 const turquoiseObject = {
   name: "turquoise",
@@ -81,13 +114,19 @@ const turquoiseResults = [
   ["red", 0],
   ["blue", 1],
   ["green", 1],
+  ["hue", 180],
+  ["sat", 100],
+  ["lum", 50],
 ];
-testLoop(turquoiseObject, turquoiseResults, colourspace._convertTwlToSrgb);
+testLoopB(turquoiseObject, turquoiseResults, colourObject.fromTwl);
 
 const turquoiseObjectB = { name: "turquoise", red: 0, blue: 1, green: 1 };
 const turquoiseResultsB = [
   ["tint", 1],
   ["warmth", 0.5],
   ["lightness", 1],
+  ["hue", 180],
+  ["sat", 100],
+  ["lum", 50],
 ];
-testLoop(turquoiseObjectB, turquoiseResultsB, colourspace._convertSrgbToTwl);
+testLoopB(turquoiseObjectB, turquoiseResultsB, colourObject.fromSrgb);

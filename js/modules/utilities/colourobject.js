@@ -111,25 +111,25 @@ export const colourObject = {
     colourspace._convertTwlToSrgb(colour);
     colourspace._convertSrgbToHsl(colour);
     colourspace._convertHslToHex(colour);
-    return this._return(colour);
+    return colourObject._return(colour);
   },
   fromHsl(colour) {
     colourspace._convertHslToHex(colour);
     colourspace._convertColourHexToSrgb(colour);
-    if (colour.name === "primary") colourspace._convertSrgbToTwl(colour);
-    return this._return(colour);
+    colourspace._convertSrgbToTwl(colour);
+    return colourObject._return(colour);
   },
   fromHex(colour) {
     colourspace._convertColourHexToSrgb(colour);
     colourspace._convertSrgbToHsl(colour);
-    if (colour.name === "primary") colourspace._convertSrgbToTwl(colour);
-    return this._return(colour);
+    colourspace._convertSrgbToTwl(colour);
+    return colourObject._return(colour);
   },
   fromSrgb(colour) {
     colourspace._convertSrgbToHsl(colour);
     colourspace._convertHslToHex(colour);
-    if (colour.name === "primary") colourspace._convertSrgbToTwl(colour);
-    return this._return(colour);
+    colourspace._convertSrgbToTwl(colour);
+    return colourObject._return(colour);
   },
   _operationsLookup: {
     multiply: (oldVal, newVal) => oldVal * newVal,
