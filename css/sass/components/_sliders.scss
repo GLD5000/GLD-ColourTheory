@@ -44,33 +44,33 @@ input[type="range"]::-moz-range-thumb {
 }
 
 input[name="hue"] {
-  background: no-repeat $rainbow-gradient 50% 50% / 95% 50%, $neutral-1000;
+  background: no-repeat $rainbow-gradient 50% 50% / 95% 50%;
 }
 input[name="luminance"] {
-  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50% / 95% 50%, $neutral-1000;
+  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50% / 95% 50%;
 }
 input[name="saturation"] {
-  background: no-repeat $desaturated-rainbow-gradient 50% 50% / 95% 50%, $neutral-1000;
+  background: no-repeat $desaturated-rainbow-gradient 50% 50% / 95% 50%;
 }
 
 input[name="red"] {
-  background: no-repeat linear-gradient(to right, #777, #d33) 50% 50% / 95% 50%, $neutral-1000;
+  background: no-repeat linear-gradient(to right, #777, #d33) 50% 50% / 95% 50%;
 }
 input[name="green"] {
-  background: no-repeat linear-gradient(to right, #777, #3d3) 50% 50% / 95% 50%, $neutral-1000;
+  background: no-repeat linear-gradient(to right, #777, #3d3) 50% 50% / 95% 50%;
 }
 input[name="blue"] {
-  background: no-repeat linear-gradient(to right, #777, #33d) 50% 50% / 95% 50%, $neutral-1000;
+  background: no-repeat linear-gradient(to right, #777, #33d) 50% 50% / 95% 50%;
 }
 
 input[name="tint"] {
-  background: no-repeat linear-gradient(to right, #d33, #3d3) 50% 50% / 95% 50%, $neutral-1000;
+  background: no-repeat linear-gradient(to right, #d33, #3d3) 50% 50% / 95% 50%;
 }
 input[name="warmth"] {
-  background: no-repeat linear-gradient(to left, #dd3, #33d) 50% 50% / 95% 50%, $neutral-1000;
+  background: no-repeat linear-gradient(to left, #dd3, #33d) 50% 50% / 95% 50%;
 }
 input[name="lightness"] {
-  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50% / 95% 50%, $neutral-1000;
+  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50% / 95% 50%;
 }
 
 input[type="range"]:focus,

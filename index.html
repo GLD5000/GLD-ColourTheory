@@ -43,6 +43,11 @@
       <container class="primary-swatch" name="primary Colour">
 
         <h3>Pick Colour</h3>
+        <container class="slider-container">
+          <input aria-label="Hue Slider" type="range" min="0" max="100" step="0.5" class="slider slider-a" id="slider-a" name="Hue"></input>
+          <input aria-label="Saturation Slider" type="range" min="0" max="100" step="0.5" class="slider slider-b" id="slider-b" name="Saturation"></input>
+          <input aria-label="Luminance Slider" type="range" min="0" max="100" step="0.5" class="slider slider-c" id="slider-c" name="Luminance"></input>
+        </container>
 
 
         <container id="primary-container" class="primary-container">
@@ -69,11 +74,6 @@
             <button class="btn btn-med btn-dual mode" id="gradient" data-content="Add Tones"></button>
         </container>
 
-        <container class="slider-container">
-          <input aria-label="Hue Slider" type="range" min="0" max="100" step="0.5" class="slider slider-a" id="slider-a" name="Hue"></input>
-          <input aria-label="Saturation Slider" type="range" min="0" max="100" step="0.5" class="slider slider-b" id="slider-b" name="Saturation"></input>
-          <input aria-label="Luminance Slider" type="range" min="0" max="100" step="0.5" class="slider slider-c" id="slider-c" name="Luminance"></input>
-        </container>
 
         <container class="flexbox-horizontal-btn">
           <button class="btn btn-med btn-dual colourspace" id="colourspace" data-content="Change Colour Mode">Mode: Hex</button>

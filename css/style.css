@@ -644,7 +644,7 @@ p, li, ol, ul, a {
 }
 
 .primary-swatch {
-  grid-template-rows: calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)) 1fr calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)) calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  grid-template-rows: calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)) calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)) 1fr calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
 }
 
 .btn-scheme {
@@ -874,39 +874,39 @@ input[type=range]::-moz-range-thumb {
 }
 
 input[name=hue] {
-  background: no-repeat linear-gradient(to right, hsl(0deg, 70%, 70%), hsl(60deg, 70%, 70%), hsl(120deg, 70%, 70%), hsl(180deg, 70%, 70%), hsl(240deg, 70%, 70%), hsl(300deg, 70%, 70%), hsl(0deg, 70%, 70%)) 50% 50%/95% 50%, #000;
+  background: no-repeat linear-gradient(to right, hsl(0deg, 70%, 70%), hsl(60deg, 70%, 70%), hsl(120deg, 70%, 70%), hsl(180deg, 70%, 70%), hsl(240deg, 70%, 70%), hsl(300deg, 70%, 70%), hsl(0deg, 70%, 70%)) 50% 50%/95% 50%;
 }
 
 input[name=luminance] {
-  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50%/95% 50%, #000;
+  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50%/95% 50%;
 }
 
 input[name=saturation] {
-  background: no-repeat linear-gradient(to right, hsl(0deg, 0%, 70%), hsl(60deg, 10%, 70%), hsl(120deg, 20%, 70%), hsl(180deg, 40%, 70%), hsl(240deg, 80%, 70%), hsl(300deg, 100%, 70%), hsl(0deg, 100%, 70%)) 50% 50%/95% 50%, #000;
+  background: no-repeat linear-gradient(to right, hsl(0deg, 0%, 70%), hsl(60deg, 10%, 70%), hsl(120deg, 20%, 70%), hsl(180deg, 40%, 70%), hsl(240deg, 80%, 70%), hsl(300deg, 100%, 70%), hsl(0deg, 100%, 70%)) 50% 50%/95% 50%;
 }
 
 input[name=red] {
-  background: no-repeat linear-gradient(to right, #777, #d33) 50% 50%/95% 50%, #000;
+  background: no-repeat linear-gradient(to right, #777, #d33) 50% 50%/95% 50%;
 }
 
 input[name=green] {
-  background: no-repeat linear-gradient(to right, #777, #3d3) 50% 50%/95% 50%, #000;
+  background: no-repeat linear-gradient(to right, #777, #3d3) 50% 50%/95% 50%;
 }
 
 input[name=blue] {
-  background: no-repeat linear-gradient(to right, #777, #33d) 50% 50%/95% 50%, #000;
+  background: no-repeat linear-gradient(to right, #777, #33d) 50% 50%/95% 50%;
 }
 
 input[name=tint] {
-  background: no-repeat linear-gradient(to right, #d33, #3d3) 50% 50%/95% 50%, #000;
+  background: no-repeat linear-gradient(to right, #d33, #3d3) 50% 50%/95% 50%;
 }
 
 input[name=warmth] {
-  background: no-repeat linear-gradient(to left, #dd3, #33d) 50% 50%/95% 50%, #000;
+  background: no-repeat linear-gradient(to left, #dd3, #33d) 50% 50%/95% 50%;
 }
 
 input[name=lightness] {
-  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50%/95% 50%, #000;
+  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50%/95% 50%;
 }
 
 input[type=range]:focus,
