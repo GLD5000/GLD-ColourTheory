@@ -262,4 +262,8 @@
 .icon-button-text {
   font-family: $font-ratings;
   font-size: $font-ratings-size;
+  display: none;
+}
+.icon-button:focus .icon-button-text, .icon-button:hover .icon-button-text{
+  display:block;
 }

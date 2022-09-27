@@ -569,8 +569,8 @@ p, li, ol, ul, a {
 }
 
 .svg-icon {
-  width: calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
-  height: calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  width: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  height: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
 }
 
 .copy-svg {
@@ -588,6 +588,11 @@ p, li, ol, ul, a {
 .icon-button-text {
   font-family: "Montserrat", sans-serif;
   font-size: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.625);
+  display: none;
+}
+
+.icon-button:focus .icon-button-text, .icon-button:hover .icon-button-text {
+  display: block;
 }
 
 .swatch-palette {
@@ -835,112 +840,81 @@ p, li, ol, ul, a {
   outline: none;
   -webkit-appearance: none;
   grid-row: 1/span 1;
-  border-radius: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
+  border-radius: 0;
 }
 
 input[type=range]::-webkit-slider-thumb {
   position: relative;
   appearance: none;
-  height: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.75);
-  width: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.75);
-  transform: rotate(45deg);
-  border-radius: 20%;
-  opacity: 50%;
-  background: #fff;
+  height: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  width: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  border-radius: 50%;
+  border: solid #fff calc(1.5 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
+  background: transparent;
 }
 
 input[type=range]::-ms-thumb {
   position: relative;
   appearance: none;
-  height: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.75);
-  width: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.75);
-  transform: rotate(45deg);
-  border-radius: 20%;
-  opacity: 50%;
-  background: #fff;
+  height: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  width: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  border-radius: 50%;
+  border: solid #fff calc(1.5 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
+  background: transparent;
 }
 
 input[type=range]::-moz-range-thumb {
   position: relative;
   appearance: none;
-  height: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.75);
-  width: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.75);
-  transform: rotate(45deg);
-  border-radius: 20%;
-  opacity: 50%;
-  background: #fff;
+  height: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  width: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  border-radius: 50%;
+  border: solid #fff calc(1.5 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
+  background: transparent;
 }
 
 input[name=hue] {
-  background: linear-gradient(to right, hsl(0deg, 70%, 70%), hsl(60deg, 70%, 70%), hsl(120deg, 70%, 70%), hsl(180deg, 70%, 70%), hsl(240deg, 70%, 70%), hsl(300deg, 70%, 70%), hsl(0deg, 70%, 70%));
+  background: no-repeat linear-gradient(to right, hsl(0deg, 70%, 70%), hsl(60deg, 70%, 70%), hsl(120deg, 70%, 70%), hsl(180deg, 70%, 70%), hsl(240deg, 70%, 70%), hsl(300deg, 70%, 70%), hsl(0deg, 70%, 70%)) 50% 50%/95% 50%, #000;
 }
 
 input[name=luminance] {
-  background: linear-gradient(to left, #fff, #555);
+  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50%/95% 50%, #000;
 }
 
 input[name=saturation] {
-  background: linear-gradient(to right, hsl(0deg, 0%, 70%), hsl(60deg, 10%, 70%), hsl(120deg, 20%, 70%), hsl(180deg, 40%, 70%), hsl(240deg, 80%, 70%), hsl(300deg, 100%, 70%), hsl(0deg, 100%, 70%));
+  background: no-repeat linear-gradient(to right, hsl(0deg, 0%, 70%), hsl(60deg, 10%, 70%), hsl(120deg, 20%, 70%), hsl(180deg, 40%, 70%), hsl(240deg, 80%, 70%), hsl(300deg, 100%, 70%), hsl(0deg, 100%, 70%)) 50% 50%/95% 50%, #000;
 }
 
 input[name=red] {
-  background: linear-gradient(to right, #777, #d33);
+  background: no-repeat linear-gradient(to right, #777, #d33) 50% 50%/95% 50%, #000;
 }
 
 input[name=green] {
-  background: linear-gradient(to right, #777, #3d3);
+  background: no-repeat linear-gradient(to right, #777, #3d3) 50% 50%/95% 50%, #000;
 }
 
 input[name=blue] {
-  background: linear-gradient(to right, #777, #33d);
+  background: no-repeat linear-gradient(to right, #777, #33d) 50% 50%/95% 50%, #000;
 }
 
 input[name=tint] {
-  background: linear-gradient(to right, #d33, #3d3);
+  background: no-repeat linear-gradient(to right, #d33, #3d3) 50% 50%/95% 50%, #000;
 }
 
 input[name=warmth] {
-  background: linear-gradient(to left, #dd3, #33d);
+  background: no-repeat linear-gradient(to left, #dd3, #33d) 50% 50%/95% 50%, #000;
 }
 
 input[name=lightness] {
-  background: linear-gradient(to left, #fff, #555);
+  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50%/95% 50%, #000;
 }
 
 input[type=range]:focus,
 input[type=range]:hover {
   box-shadow: inset 0 0 0 4px #fff;
-  border-radius: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
+  border-radius: 0;
 }
 
-/* input[type="range"]:hover::before {
-  padding: 0;
-  content: attr(name);
-  position: absolute;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-  font-size: $font-btn-size;
-  line-height: 120%;
-  color: $neutral-0;
-}
-
-input[type="range"]:focus::before,
-.fakesliderhover::before {
-  padding: 0;
-  content: attr(name);
-  position: absolute;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-  font-size: $font-btn-size;
-  line-height: 120%;
-  color: $neutral-1000;
-  background-color: #fff9;
-  border-radius: $borderRadius;
-
-}
- */
 .hidden {
   display: none;
 }

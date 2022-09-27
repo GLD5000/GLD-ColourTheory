@@ -10,103 +10,71 @@
   -webkit-appearance: none;
   grid-row: 1 / span 1;
   //border: $border;
-  border-radius: $borderRadius;
+  border-radius: 0;
   //border: 0;
   //margin: 0;
-  //padding: 0;
 }
 
 input[type="range"]::-webkit-slider-thumb {
   position: relative;
   appearance: none;
-  height: $gem3Quart;
-  width: $gem3Quart;
-  transform: rotate(45deg);
-  border-radius: 20%;
-  opacity: 50%;
-  background: #fff;
+  height: $slider-thumb-size;
+  width: $slider-thumb-size;
+  border-radius: 50%;
+  border: $border-slider-thumb;
+  background: transparent;
 }
 input[type="range"]::-ms-thumb {
   position: relative;
   appearance: none;
-  height: $gem3Quart;
-  width: $gem3Quart;
-  transform: rotate(45deg);
-  border-radius: 20%;
-  opacity: 50%;
-  background: #fff;
+  height: $slider-thumb-size;
+  width: $slider-thumb-size;
+  border-radius: 50%;
+  border: $border-slider-thumb;
+  background: transparent;
 }
 input[type="range"]::-moz-range-thumb {
   position: relative;
   appearance: none;
-  height: $gem3Quart;
-  width: $gem3Quart;
-  transform: rotate(45deg);
-  border-radius: 20%;
-  opacity: 50%;
-  background: #fff;
+  height: $slider-thumb-size;
+  width: $slider-thumb-size;
+  border-radius: 50%;
+  border: $border-slider-thumb;
+  background: transparent;
 }
 
 input[name="hue"] {
-  background: $rainbow-gradient;
+  background: no-repeat $rainbow-gradient 50% 50% / 95% 50%, $neutral-1000;
 }
 input[name="luminance"] {
-  background: linear-gradient(to left, #fff, #555);
+  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50% / 95% 50%, $neutral-1000;
 }
 input[name="saturation"] {
-  background: $desaturated-rainbow-gradient;
+  background: no-repeat $desaturated-rainbow-gradient 50% 50% / 95% 50%, $neutral-1000;
 }
 
 input[name="red"] {
-  background: linear-gradient(to right, #777, #d33);
+  background: no-repeat linear-gradient(to right, #777, #d33) 50% 50% / 95% 50%, $neutral-1000;
 }
 input[name="green"] {
-  background: linear-gradient(to right, #777, #3d3);
+  background: no-repeat linear-gradient(to right, #777, #3d3) 50% 50% / 95% 50%, $neutral-1000;
 }
 input[name="blue"] {
-  background: linear-gradient(to right, #777, #33d);
+  background: no-repeat linear-gradient(to right, #777, #33d) 50% 50% / 95% 50%, $neutral-1000;
 }
 
 input[name="tint"] {
-  background: linear-gradient(to right, #d33, #3d3);
+  background: no-repeat linear-gradient(to right, #d33, #3d3) 50% 50% / 95% 50%, $neutral-1000;
 }
 input[name="warmth"] {
-  background: linear-gradient(to left, #dd3, #33d);
+  background: no-repeat linear-gradient(to left, #dd3, #33d) 50% 50% / 95% 50%, $neutral-1000;
 }
 input[name="lightness"] {
-  background: linear-gradient(to left, #fff, #555);
+  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50% / 95% 50%, $neutral-1000;
 }
 
 input[type="range"]:focus,
 input[type="range"]:hover {
   box-shadow: inset 0 0  0 4px #fff;
-  border-radius: $borderRadius;
+  border-radius: 0;
 }
-/* input[type="range"]:hover::before {
-  padding: 0;
-  content: attr(name);
-  position: absolute;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-  font-size: $font-btn-size;
-  line-height: 120%;
-  color: $neutral-0;
-}
-
-input[type="range"]:focus::before,
-.fakesliderhover::before {
-  padding: 0;
-  content: attr(name);
-  position: absolute;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-  font-size: $font-btn-size;
-  line-height: 120%;
-  color: $neutral-1000;
-  background-color: #fff9;
-  border-radius: $borderRadius;
-
-}
- */
