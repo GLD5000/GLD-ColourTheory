@@ -116,13 +116,17 @@
 }
 
 .primary-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
   width:auto;
   //padding: 0.1em;
   position: relative;
   }
   
-.primary-wrapper::before {
-  content: attr(name);
+ .swatch-name-primary{ //.primary-wrapper::before
+  //content: attr(name);
   position: absolute;
   text-align: center; 
   left:0;
@@ -132,8 +136,7 @@
   font-size: $font-primary-size;
 
 }
-.primary-wrapper::after {
-  content: attr(data-content);
+.swatch-info { //.primary-wrapper::after
   position: absolute;
   text-align: center; 
   left:0;

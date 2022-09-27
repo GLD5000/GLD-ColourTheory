@@ -126,7 +126,7 @@ h2 {
   color: #000;
 }
 
-h3, label {
+h3, .slider-header {
   width: 100%;
   font-size: clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem);
   color: #fff;
@@ -556,6 +556,12 @@ p, li, ol, ul, a {
   border-radius: 0 0 8px 8px;
 }
 
+.swatch-label {
+  width: 100%;
+  text-align: center;
+  cursor: text;
+}
+
 .swatch-palette {
   width: 100%;
   display: grid;
@@ -670,12 +676,15 @@ p, li, ol, ul, a {
 }
 
 .primary-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
   width: auto;
   position: relative;
 }
 
-.primary-wrapper::before {
-  content: attr(name);
+.swatch-name-primary {
   position: absolute;
   text-align: center;
   left: 0;
@@ -685,8 +694,7 @@ p, li, ol, ul, a {
   font-size: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 1.6 * 1.6);
 }
 
-.primary-wrapper::after {
-  content: attr(data-content);
+.swatch-info {
   position: absolute;
   text-align: center;
   left: 0;

@@ -8,6 +8,7 @@ function setAll() {
     ["sliders", 'input[type="range"]', "array"], //array
     ["slider-headers", ".slider-header", "array"], //array
     ["wrappers", "wrapper"],
+    ["labels", "label"],
     //['buttons','button'],
     [
       "copyButtons",
