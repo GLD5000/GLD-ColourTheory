@@ -886,15 +886,15 @@ input[name=saturation] {
 }
 
 input[name=red] {
-  background: no-repeat linear-gradient(to right, #777, #d33) 50% 50%/95% 50%;
+  background: no-repeat linear-gradient(to right, #aaa, #d33) 50% 50%/95% 50%;
 }
 
 input[name=green] {
-  background: no-repeat linear-gradient(to right, #777, #3d3) 50% 50%/95% 50%;
+  background: no-repeat linear-gradient(to right, #aaa, #3d3) 50% 50%/95% 50%;
 }
 
 input[name=blue] {
-  background: no-repeat linear-gradient(to right, #777, #33d) 50% 50%/95% 50%;
+  background: no-repeat linear-gradient(to right, #aaa, #33d) 50% 50%/95% 50%;
 }
 
 input[name=tint] {
