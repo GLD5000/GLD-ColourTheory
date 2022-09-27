@@ -1038,7 +1038,7 @@ export const paletteUi = {
     const wrapper = this._getWrapper(name);
     wrapper.style.color = textColour.hex || "#000000";
     if (name === "primary") {
-      wrapper.dataset.content = textColour.contrastString;
+      userObjects.labels["primary-info"].innerHTML = textColour.contrastString;
     }
     if (name !== "primary") wrapper.dataset.rating = textColour.rating;
   },
