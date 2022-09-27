@@ -52,9 +52,10 @@
             <container class="name-label-container">
               <button id="primary-name" class="swatch-name-primary swatch-label">Primary</button>
               <button class="icon-button" id="primary-copybtn" data-content="Copy">
-                <svg class="svg-icon">
-                  <use href="#copy-svg" />
-                </svg>
+                  <svg id="copy-svg" class="copy-svg svg-icon" alt="Copy Colours" height='100%' width='100%'>
+                    <rect x="10%" y="30%" width="60%" height="60%" rx="4%" style='stroke-width:4%;stroke-linecap:round'/>   
+                    <rect x="30%" y="10%" width="60%" height="60%" rx="4%" style='stroke-width:4%;stroke-linecap:round'/>  
+                    </svg>
                 <h2 class="icon-button-text">Copy Colours</h2>
               </button>
             </container>
@@ -117,11 +118,6 @@
         <ul id="history-flexbox" class="flexbox-history" data-content="Load Palette">
           <li># Save Colours Here #</li>
           <button id="copy" aria-label="Copy Colours">
-            <svg id="copy-svg" class="copy-svg" alt="Copy Colours" height='100%' width='100%'>
-              <rect x="10%" y="30%" width="60%" height="60%" rx="5%" style='stroke-width:2px;stroke-linecap:round'/>   
-              <rect x="30%" y="10%" width="60%" height="60%" rx="5%" style='stroke-width:2px;stroke-linecap:round'/>  
-              <!-- stroke:rgb(255,255,255);  -->
-              </svg>
           </button>
 
           <button id="close" aria-label="Close Swatch">

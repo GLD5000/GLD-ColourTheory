@@ -103,8 +103,7 @@
   width:100%;
   line-height: 90%;
   font-family: $font-ratings;
-  //font-size: $gem5Eighth;
-  font-size: $gem5Eighth;
+  font-size: $font-ratings-size;
   font-weight:500;
 
 }
@@ -141,7 +140,7 @@
   width:100%;
   line-height: 90%;
   font-family: $font-ratings;
-  font-size: $gem5Eighth;
+  font-size: $font-ratings-size;
   font-weight:500;
 
 }
@@ -225,4 +224,5 @@
 .name-label-container{
   display: grid;
   grid-template-columns: 1fr auto 1fr;
+  place-items: start start;
 }

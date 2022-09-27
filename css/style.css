@@ -585,6 +585,11 @@ p, li, ol, ul, a {
   text-align: left;
 }
 
+.icon-button-text {
+  font-family: "Montserrat", sans-serif;
+  font-size: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.625);
+}
+
 .swatch-palette {
   width: 100%;
   display: grid;
@@ -800,6 +805,7 @@ p, li, ol, ul, a {
 .name-label-container {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
+  place-items: start start;
 }
 
 .btn-container {

@@ -62,8 +62,9 @@ $font-logoproduct-size: calc($gem2 * .9);
 $font-primary-size: $gem3;
 //font: italic small-caps bold 16px/2 cursive;
 $font-ratings: 'Montserrat', sans-serif;
+$font-ratings-size: $gem5Eighth;
 $font-clipboard: 'Source Code Pro', monospace;
-
+$font-ratings-size: $gem5Eighth;
 *,*::after,*::before {
     font-family: $font-main;
     font-size: $font-main-size;
