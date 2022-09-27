@@ -648,7 +648,7 @@ p, li, ol, ul, a {
 }
 
 .btn-scheme {
-  grid-template-rows: calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)) calc(2.5 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)) 1fr calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  grid-template-rows: calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)) calc(5 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)) 1fr calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
 }
 
 .btn-scheme, .btn-history {

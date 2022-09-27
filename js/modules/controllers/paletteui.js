@@ -155,30 +155,56 @@ const colourScheme = {
       colourScheme.storeSwatchVisibility(swatch);
     });
   },
-  overallGradientString: "",
-  buildOverallGradient() {
-    const namesArray = ["primary"];
+  getOverallGradientString(hexArray){
+    let string = "linear-gradient(to right, ";
+    string += hexArray.join(",");
+    string += ")";
+    return string;
+  },
+  getColourHexValue(name){
+    return paletteData.getColourObject(name).hex;
+  },
+  getOverallHexArray(namesArray){
     const hexArray = [];
+    const stopWidth = 50 / (namesArray.length - 1);
+    const stopOffset = 50 - stopWidth;
+    namesArray.forEach((name, index) => {
+      const hexValue = colourScheme.getColourHexValue(name);
+      const stopBegin = index * stopWidth + stopOffset + "%";
+      const stopEnd = (index + 1) * stopWidth + stopOffset + "%";
+      hexArray.push(
+        `${hexValue} ${stopBegin}, 
+        ${hexValue} ${stopEnd}`
+      );
+    });
+    return hexArray;
+  },
+  getOverallNamesArray(){
+    const namesArray = ["primary"];
     userObjects.smallSwatchNamesArray.forEach((name) => {
       if (paletteData.paletteState.swatchVisibility[name] === null)
         namesArray.push(name);
     });
-    const stopWidth = 50 / (namesArray.length - 1);
-    const stopOffset = 50 - stopWidth;
-    namesArray.forEach((name, index) => {
-      const stopBegin = index * stopWidth + stopOffset + "%";
-      const stopEnd = (index + 1) * stopWidth + stopOffset + "%";
-      hexArray.push(
-        `${paletteData.getColourObject(name).hex} ${stopBegin}, 
-        ${paletteData.getColourObject(name).hex} ${stopEnd}`
-      );
-      paletteUi._setClipboardTextAll();
-    });
-    colourScheme.overallGradientString = "linear-gradient(to right, ";
-    colourScheme.overallGradientString += hexArray.join(",");
-    colourScheme.overallGradientString += ")";
+    return namesArray;
+  },
+  applyOverallGradient(overallGradientString){
     userObjects.other["current-colours"].style.background =
-      colourScheme.overallGradientString;
+    overallGradientString;
+    paletteUi._setClipboardTextAll();
+  },
+  applySingleHex(name){
+    const hex = colourScheme.getColourHexValue(name);
+    colourScheme.applyOverallGradient(hex);
+  },
+  buildOverallGradient() {
+    const namesArray = colourScheme.getOverallNamesArray();
+    if (namesArray.length === 1) {
+      colourScheme.applySingleHex(namesArray[0]);
+      return;
+    }
+    const hexArray = colourScheme.getOverallHexArray(namesArray);
+    colourScheme.overallGradientString = colourScheme.getOverallGradientString(hexArray);
+    colourScheme.applyOverallGradient(colourScheme.overallGradientString);
   },
   nameLookup: {
     Monochrome: ["monochromeA", "primary", "monochromeB"],
