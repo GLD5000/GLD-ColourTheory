@@ -240,3 +240,22 @@
   text-align: center;
   cursor: text;
 }
+.copy-single {
+  position: relative;
+  display: block;
+  width: min-content;
+}
+.svg-icon {
+  width: $icon-size;
+  height: $icon-size;
+}
+.copy-svg {
+  fill: grey;
+  stroke: black;
+}
+.icon-button {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  text-align: left;
+}

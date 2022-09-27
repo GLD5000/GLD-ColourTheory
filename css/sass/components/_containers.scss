@@ -126,18 +126,15 @@
   }
   
  .swatch-name-primary{ //.primary-wrapper::before
-  //content: attr(name);
-  position: absolute;
+  grid-column: 2;
   text-align: center; 
   left:0;
   top: calc(1.25 *$gem); 
-  width:100%;
   line-height: 90%;
   font-size: $font-primary-size;
 
 }
 .swatch-info { //.primary-wrapper::after
-  position: absolute;
   text-align: center; 
   left:0;
   top:$gem4;
@@ -225,3 +222,7 @@
   align-content: flex-start;
 }
 
+.name-label-container{
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+}

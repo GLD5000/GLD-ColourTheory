@@ -47,10 +47,24 @@
 
         <container id="primary-container" class="primary-container">
           <wrapper id="primary-wrapper" class="primary-wrapper" name="Primary Colour" data-content="">
-            <label id="primary-name" class="swatch-name-primary swatch-label">Primary</label>
-            <label id="primary-info" class="swatch-info swatch-label">Info</label>
             <input type="color" id="primary-picker" class="picker primary-picker"></input>
+            
+            <container class="name-label-container">
+              <button id="primary-name" class="swatch-name-primary swatch-label">Primary</button>
+              <button class="icon-button" id="primary-copybtn" data-content="Copy">
+                <svg class="svg-icon">
+                  <use href="#copy-svg" />
+                </svg>
+                <h2 class="icon-button-text">Copy Colours</h2>
+              </button>
+            </container>
+            
+            
+
+            
+            <label id="primary-info" class="swatch-info swatch-label">Info</label>
           </wrapper>
+          
             <button class="btn btn-med btn-dual mode" id="gradient" data-content="Add Tones"></button>
         </container>
         <container class="slider-headers">
@@ -67,7 +81,6 @@
         <container class="flexbox-horizontal-btn">
           <button class="btn btn-med btn-dual colourspace" id="colourspace" data-content="Change Colour Mode">Mode: Hex</button>
 
-          <button class="btn btn-med copy-single btn-dual" id="primary-copybtn" data-content="Copy">Copy</button>
 
           <button id="textmode" class="btn btn-med textmode" data-content="Change Text Colour">
             <h4>Text: Auto</h4>
@@ -104,20 +117,21 @@
         <ul id="history-flexbox" class="flexbox-history" data-content="Load Palette">
           <li># Save Colours Here #</li>
           <button id="copy" aria-label="Copy Colours">
-            <svg id="copy-svg" alt="Copy Colours" height='20px' width='20px'>
-              <rect x="10%" y="30%" width="60%" height="60%" rx="5%" style='stroke:rgb(255,255,255);stroke-width:2px;stroke-linecap:round'/>   
-              <rect x="30%" y="10%" width="60%" height="60%" rx="5%" style='stroke:rgb(255,255,255);stroke-width:2px;stroke-linecap:round'/>   
+            <svg id="copy-svg" class="copy-svg" alt="Copy Colours" height='100%' width='100%'>
+              <rect x="10%" y="30%" width="60%" height="60%" rx="5%" style='stroke-width:2px;stroke-linecap:round'/>   
+              <rect x="30%" y="10%" width="60%" height="60%" rx="5%" style='stroke-width:2px;stroke-linecap:round'/>  
+              <!-- stroke:rgb(255,255,255);  -->
               </svg>
           </button>
 
           <button id="close" aria-label="Close Swatch">
-            <svg id="close-svg"  alt="Close" height='20px' width='20px'>
+            <svg id="close-svg"  alt="Close" height='100%' width='100%'>
               <line x1='10%' y1='10%' x2='90%' y2='90%' style='stroke:rgb(255,255,255);stroke-width:10%;stroke-linecap:round' />
               <line x1='10%' y1='90%' x2='90%' y2='10%' style='stroke:rgb(255,255,255);stroke-width:10%;stroke-linecap:round' />
             </svg>
           </button>
           <button id="tick" aria-label="Tick">
-            <svg id="tick-svg" alt="Tick" height='20px' width='20px'>
+            <svg id="tick-svg" alt="Tick" height='100%' width='100%'>
               <line x1='10%' y1='40%' x2='30%' y2='90%' style='stroke:rgb(255,255,255);stroke-width:10%;stroke-linecap:round' />
               <line x1='30%' y1='90%' x2='90%' y2='10%' style='stroke:rgb(255,255,255);stroke-width:10%;stroke-linecap:round' />
             </svg>
