@@ -68,15 +68,11 @@
           
             <button class="btn btn-med btn-dual mode" id="gradient" data-content="Add Tones"></button>
         </container>
-        <container class="slider-headers">
-          <label for="slider-a" id="slider-label-a" class="slider-header">Adjust Hue</label>
-          <label for="slider-b" id="slider-label-b" class="slider-header">Adjust Saturation</label>
-          <label for="slider-c" id="slider-label-c" class="slider-header">Adjust Luminance</label>
-        </container> 
+
         <container class="slider-container">
-          <input type="range" min="0" max="100" step="0.5" class="slider slider-a" id="slider-a" name="Hue"></input>
-          <input type="range" min="0" max="100" step="0.5" class="slider slider-b" id="slider-b" name="Saturation"></input>
-          <input type="range" min="0" max="100" step="0.5" class="slider slider-c" id="slider-c" name="Luminance"></input>
+          <input aria-label="Hue Slider" type="range" min="0" max="100" step="0.5" class="slider slider-a" id="slider-a" name="Hue"></input>
+          <input aria-label="Saturation Slider" type="range" min="0" max="100" step="0.5" class="slider slider-b" id="slider-b" name="Saturation"></input>
+          <input aria-label="Luminance Slider" type="range" min="0" max="100" step="0.5" class="slider slider-c" id="slider-c" name="Luminance"></input>
         </container>
 
         <container class="flexbox-horizontal-btn">

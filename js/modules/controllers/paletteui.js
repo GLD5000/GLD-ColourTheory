@@ -722,6 +722,7 @@ export const paletteUi = {
     this.addColour(newColour);
   },
   _onclickPickerMain(e) {
+    if (e.target.id === "primary-wrapper")
     userObjects.pickers["primary-picker"].click();
   },
   _onclickPickerSmall(e) {
@@ -867,7 +868,7 @@ export const paletteUi = {
     const namesArray = sliderNameArrays[colourspace];
     userObjects.sliders.forEach((x, i) => {
       x.name = namesArray[i];
-      userObjects["slider-headers"][i].innerHTML = `Adjust ${namesArray[i]}`;
+      userObjects["sliders"][i].ariaLabel = `Adjust ${namesArray[i]}`;
     });
   },
   _onclickColourspace() {
