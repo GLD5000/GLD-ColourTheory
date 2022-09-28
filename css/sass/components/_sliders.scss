@@ -2,14 +2,14 @@
 .slider {
   position: relative;
   opacity: 100%;
-  width: 90%;
-  height: 30%;
+  width: 70%;
+  height: 50%;
   cursor: ew-resize;
   //border: none;
   outline: none;
   -webkit-appearance: none;
   grid-row: 1 / span 1;
-  border: solid white 2px;
+  border: solid black 2px;
   border-radius: 0;
   //border: 0;
   //margin: 0;
@@ -75,6 +75,5 @@ input[name="lightness"] {
 
 input[type="range"]:focus,
 input[type="range"]:hover {
-  box-shadow: inset 0 0  0 4px #fff;
-  border-radius: 0;
+  border-color: white;
 }

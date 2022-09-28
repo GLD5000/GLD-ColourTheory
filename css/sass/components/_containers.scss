@@ -21,7 +21,8 @@
   display: flex;
   flex-basis: 100% 100% 100%;
   gap: $gap;
-  //padding: 1px 2px 2px 1px;
+  padding: $gap;
+  align-items: center;
 }
 .slider-headers {
   cursor: auto;
@@ -51,7 +52,7 @@
 }
 
 .primary-swatch {
-  grid-template-rows: calc(1.25 *$gem) calc(1.25 *$gem) 1fr calc(1.25 *$gem);
+  grid-template-rows: calc(1.25 *$gem) 1fr calc(1.25 *$gem)  ;
 }
 .btn-scheme {
   grid-template-rows: calc(1.25 *$gem) calc(5 *$gem) 1fr calc(1.25 *$gem);

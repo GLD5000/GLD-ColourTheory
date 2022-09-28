@@ -580,8 +580,11 @@ export const paletteUi = {
       ? paletteData.clearGradientColours(name)
       : paletteData.addGradientColours(name, gradientColours);
     if (name === "primary") {
-      userObjects.wrappers[name + "-wrapper"].style.background =
-        paletteData.getPrimaryHex();
+      const hex = paletteData.getPrimaryHex();
+      userObjects.wrappers[name + "-wrapper"].style.background = hex;
+      userObjects.wrappers[name + "-wrapper"].style.background = hex;
+      userObjects.wrappers[name + "-wrapper"].style.background = hex;
+        
       userObjects.other.gradient.style.background = string;
       return;
     }
