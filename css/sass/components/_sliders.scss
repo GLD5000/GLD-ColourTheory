@@ -2,14 +2,14 @@
 .slider {
   position: relative;
   opacity: 100%;
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 30%;
   cursor: ew-resize;
   //border: none;
   outline: none;
   -webkit-appearance: none;
   grid-row: 1 / span 1;
-  //border: $border;
+  border: solid white 2px;
   border-radius: 0;
   //border: 0;
   //margin: 0;
@@ -44,33 +44,33 @@ input[type="range"]::-moz-range-thumb {
 }
 
 input[name="hue"] {
-  background: no-repeat $rainbow-gradient 50% 50% / 95% 50%;
+  background: no-repeat $rainbow-gradient;
 }
 input[name="luminance"] {
-  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50% / 95% 50%;
+  background: no-repeat linear-gradient(to left, #fff, #555);
 }
 input[name="saturation"] {
-  background: no-repeat $desaturated-rainbow-gradient 50% 50% / 95% 50%;
+  background: no-repeat $desaturated-rainbow-gradient;
 }
 
 input[name="red"] {
-  background: no-repeat linear-gradient(to right, #aaa, #d33) 50% 50% / 95% 50%;
+  background: no-repeat linear-gradient(to right, #aaa, #d33);
 }
 input[name="green"] {
-  background: no-repeat linear-gradient(to right, #aaa, #3d3) 50% 50% / 95% 50%;
+  background: no-repeat linear-gradient(to right, #aaa, #3d3);
 }
 input[name="blue"] {
-  background: no-repeat linear-gradient(to right, #aaa, #33d) 50% 50% / 95% 50%;
+  background: no-repeat linear-gradient(to right, #aaa, #33d);
 }
 
 input[name="tint"] {
-  background: no-repeat linear-gradient(to right, #d33, #3d3) 50% 50% / 95% 50%;
+  background: no-repeat linear-gradient(to right, #d33, #3d3);
 }
 input[name="warmth"] {
-  background: no-repeat linear-gradient(to left, #dd3, #33d) 50% 50% / 95% 50%;
+  background: no-repeat linear-gradient(to left, #dd3, #33d);
 }
 input[name="lightness"] {
-  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50% / 95% 50%;
+  background: no-repeat linear-gradient(to left, #fff, #555);
 }
 
 input[type="range"]:focus,

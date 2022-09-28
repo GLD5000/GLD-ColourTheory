@@ -834,79 +834,80 @@ p, li, ol, ul, a {
 .slider {
   position: relative;
   opacity: 100%;
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 30%;
   cursor: ew-resize;
   outline: none;
   -webkit-appearance: none;
   grid-row: 1/span 1;
+  border: solid white 2px;
   border-radius: 0;
 }
 
 input[type=range]::-webkit-slider-thumb {
   position: relative;
   appearance: none;
-  height: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
-  width: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  height: calc(0.65 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  width: calc(0.65 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
   border-radius: 50%;
-  border: solid #fff calc(1.5 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
+  border: solid #fff calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
   background: transparent;
 }
 
 input[type=range]::-ms-thumb {
   position: relative;
   appearance: none;
-  height: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
-  width: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  height: calc(0.65 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  width: calc(0.65 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
   border-radius: 50%;
-  border: solid #fff calc(1.5 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
+  border: solid #fff calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
   background: transparent;
 }
 
 input[type=range]::-moz-range-thumb {
   position: relative;
   appearance: none;
-  height: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
-  width: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  height: calc(0.65 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  width: calc(0.65 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
   border-radius: 50%;
-  border: solid #fff calc(1.5 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
+  border: solid #fff calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
   background: transparent;
 }
 
 input[name=hue] {
-  background: no-repeat linear-gradient(to right, hsl(0deg, 70%, 70%), hsl(60deg, 70%, 70%), hsl(120deg, 70%, 70%), hsl(180deg, 70%, 70%), hsl(240deg, 70%, 70%), hsl(300deg, 70%, 70%), hsl(0deg, 70%, 70%)) 50% 50%/95% 50%;
+  background: no-repeat linear-gradient(to right, hsl(0deg, 70%, 70%), hsl(60deg, 70%, 70%), hsl(120deg, 70%, 70%), hsl(180deg, 70%, 70%), hsl(240deg, 70%, 70%), hsl(300deg, 70%, 70%), hsl(0deg, 70%, 70%));
 }
 
 input[name=luminance] {
-  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50%/95% 50%;
+  background: no-repeat linear-gradient(to left, #fff, #555);
 }
 
 input[name=saturation] {
-  background: no-repeat linear-gradient(to right, hsl(0deg, 0%, 70%), hsl(60deg, 10%, 70%), hsl(120deg, 20%, 70%), hsl(180deg, 40%, 70%), hsl(240deg, 80%, 70%), hsl(300deg, 100%, 70%), hsl(0deg, 100%, 70%)) 50% 50%/95% 50%;
+  background: no-repeat linear-gradient(to right, hsl(0deg, 0%, 70%), hsl(60deg, 10%, 70%), hsl(120deg, 20%, 70%), hsl(180deg, 40%, 70%), hsl(240deg, 80%, 70%), hsl(300deg, 100%, 70%), hsl(0deg, 100%, 70%));
 }
 
 input[name=red] {
-  background: no-repeat linear-gradient(to right, #aaa, #d33) 50% 50%/95% 50%;
+  background: no-repeat linear-gradient(to right, #aaa, #d33);
 }
 
 input[name=green] {
-  background: no-repeat linear-gradient(to right, #aaa, #3d3) 50% 50%/95% 50%;
+  background: no-repeat linear-gradient(to right, #aaa, #3d3);
 }
 
 input[name=blue] {
-  background: no-repeat linear-gradient(to right, #aaa, #33d) 50% 50%/95% 50%;
+  background: no-repeat linear-gradient(to right, #aaa, #33d);
 }
 
 input[name=tint] {
-  background: no-repeat linear-gradient(to right, #d33, #3d3) 50% 50%/95% 50%;
+  background: no-repeat linear-gradient(to right, #d33, #3d3);
 }
 
 input[name=warmth] {
-  background: no-repeat linear-gradient(to left, #dd3, #33d) 50% 50%/95% 50%;
+  background: no-repeat linear-gradient(to left, #dd3, #33d);
 }
 
 input[name=lightness] {
-  background: no-repeat linear-gradient(to left, #fff, #555) 50% 50%/95% 50%;
+  background: no-repeat linear-gradient(to left, #fff, #555);
 }
 
 input[type=range]:focus,
