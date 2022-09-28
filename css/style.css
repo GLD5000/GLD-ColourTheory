@@ -711,11 +711,9 @@ p, li, ol, ul, a {
 }
 
 .primary-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
+  display: grid;
   width: auto;
+  grid-template-rows: auto auto auto 1fr;
   position: relative;
 }
 

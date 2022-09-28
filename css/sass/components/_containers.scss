@@ -116,12 +116,9 @@
 }
 
 .primary-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
+  display: grid;
   width:auto;
-  //padding: 0.1em;
+  grid-template-rows: auto auto auto 1fr;
   position: relative;
   }
   
