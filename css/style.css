@@ -611,6 +611,12 @@ svg, .pointless {
   pointer-events: none;
 }
 
+svg {
+  fill: inherit;
+  stroke: inherit;
+  display: block;
+}
+
 .swatch-palette {
   width: 100%;
   display: grid;

@@ -838,6 +838,25 @@ export const paletteUi = {
       target.dataset.content = revertMessage;
     }, 1800);
   },
+  _showCopiedMessage(name) {
+    const label = document.getElementById(name + "-copybtn-text");
+    const svgWrapper = document.getElementById(name + "-copybtn-svg-wrapper");
+    const color = document.getElementById(name + "-wrapper").style.color;
+    const originalText = label.innerHTML;
+    const originalSvg = svgWrapper.innerHTML;
+    const newSvg = `            <svg id="tick-svg" alt="Tick" height='100%' width='100%'>
+    <line x1='10%' y1='40%' x2='30%' y2='80%' style='stroke:rgb(255,255,255);stroke-width:10%;stroke-linecap:round; stroke:${color};' />
+    <line x1='30%' y1='80%' x2='90%' y2='25%' style='stroke:rgb(255,255,255);stroke-width:10%;stroke-linecap:round; stroke:${color}' />
+  </svg>
+`;
+    const newText = "Copied!";
+    label.innerHTML = newText;
+    svgWrapper.innerHTML = newSvg;
+    setTimeout(() => {
+      label.innerHTML = originalText;
+      svgWrapper.innerHTML = originalSvg;
+      }, 1800);
+  },
   _onclickEmail(target) {
     const textArray = paletteData.getClipboard()[2];
     let linebreak = `;%0D%0A`;
@@ -857,9 +876,10 @@ export const paletteUi = {
       this._onclickEmail(e.target);
       return;
     }
-    const message =
-      paletteData.paletteState.gradientMode > 1 ? "Copied + Tones " : "Copied";
-    this._showCompletedMessage(e.target, message);
+    // const message =
+    //   paletteData.paletteState.gradientMode > 1 ? "Copied + Tones " : "Copied";
+    paletteUi._showCopiedMessage(name);
+    //this._showCompletedMessage(e.target, message);
     const text = this._getClipboardTextSingle(name);
     navigator.clipboard.writeText(text);
     //console.log(`Copied To Clipboard:\n${text}`);
