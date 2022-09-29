@@ -587,7 +587,6 @@ p, li, ol, ul, a {
 }
 
 .icon-copybtn {
-  width: 100%;
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
