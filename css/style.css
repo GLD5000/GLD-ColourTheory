@@ -569,34 +569,46 @@ p, li, ol, ul, a {
   width: min-content;
 }
 
-.svg-icon {
+.primary-svg-wrapper {
   width: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
   height: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
 }
 
-.copy-svg {
+.svg-icon {
+  display: block;
+  width: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  height: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+}
+
+.icon-copybtn-svg {
+  grid-column: 1;
   fill: inherit;
   stroke: inherit;
 }
 
-.icon-button {
+.icon-copybtn {
+  width: 100%;
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
   text-align: left;
+  place-items: start start;
 }
 
-.icon-button-text {
+.icon-copybtn-text {
+  position: relative;
+  grid-column: 2;
   font-family: "Montserrat", sans-serif;
   font-size: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.625);
   display: none;
 }
 
-.icon-button:focus .icon-button-text, .icon-button:hover .icon-button-text {
+.icon-copybtn:focus .icon-copybtn-text,
+.icon-copybtn:hover .icon-copybtn-text {
   display: block;
 }
 
-svg {
+svg, .pointless {
   pointer-events: none;
 }
 
@@ -719,7 +731,9 @@ svg {
   display: grid;
   width: auto;
   grid-template-rows: auto auto auto 1fr;
+  gap: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.75);
   position: relative;
+  padding: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
 }
 
 .swatch-name-primary {

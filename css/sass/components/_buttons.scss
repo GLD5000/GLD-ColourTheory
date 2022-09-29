@@ -19,8 +19,8 @@
 .hover-btn:hover::after,
 .hover-btn:focus::after,
 .prefix:hover::after,
-.prefix:focus::after
-{  font-size: $font-btn-size;
+.prefix:focus::after {
+  font-size: $font-btn-size;
 
   color: $neutral-0;
   background-color: $neutral-500;
@@ -204,7 +204,6 @@
   width: auto; //calc(100% - 8px);
   cursor: pointer;
   border-radius: 2px;
-
 }
 
 .scheme-button:hover {
@@ -215,11 +214,11 @@
 .dimmed {
   filter: brightness(85%) grayscale(100%);
 }
-.neutral-scheme{
+.neutral-scheme {
   background-color: $neutral-300;
   //color: $neutral-1000;
 }
-.dimmed-neutral { 
+.dimmed-neutral {
   background-color: $neutral-600;
   //color: $neutral-0;
 }
@@ -229,13 +228,13 @@
   position: relative;
   width: 100%;
   height: 100%;
-  cursor:auto;
+  cursor: auto;
   border: 4px solid $neutral-1000;
   border-top: 0;
   border-radius: 0 0 8px 8px;
 }
 
-.swatch-label{
+.swatch-label {
   color: inherit;
   width: 100%;
   text-align: center;
@@ -246,28 +245,39 @@
   display: block;
   width: min-content;
 }
-.svg-icon {
+.primary-svg-wrapper{
   width: $icon-size;
   height: $icon-size;
 }
-.copy-svg {
+.svg-icon {
+  display: block;
+  width: $icon-size;
+  height: $icon-size;
+}
+.icon-copybtn-svg {
+  grid-column: 1;
   fill: inherit;
   stroke: inherit;
 }
-.icon-button {
+.icon-copybtn {
+  width: 100%;
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
   text-align: left;
+  place-items: start start;
 }
-.icon-button-text {
+.icon-copybtn-text {
+  position: relative;
+  grid-column: 2;
   font-family: $font-ratings;
   font-size: $font-ratings-size;
   display: none;
 }
-.icon-button:focus .icon-button-text, .icon-button:hover .icon-button-text{
-  display:block;
+.icon-copybtn:focus .icon-copybtn-text,
+.icon-copybtn:hover .icon-copybtn-text {
+  display: block;
 }
-svg {
+svg, .pointless {
   pointer-events: none;
 }

@@ -119,7 +119,9 @@
   display: grid;
   width:auto;
   grid-template-rows: auto auto auto 1fr;
+  gap: $gaplg;
   position: relative;
+  padding: $gap;
   }
   
  .swatch-name-primary{ //.primary-wrapper::before
