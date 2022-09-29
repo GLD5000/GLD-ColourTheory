@@ -575,8 +575,8 @@ p, li, ol, ul, a {
 }
 
 .copy-svg {
-  fill: grey;
-  stroke: black;
+  fill: inherit;
+  stroke: inherit;
 }
 
 .icon-button {
@@ -594,6 +594,10 @@ p, li, ol, ul, a {
 
 .icon-button:focus .icon-button-text, .icon-button:hover .icon-button-text {
   display: block;
+}
+
+svg {
+  pointer-events: none;
 }
 
 .swatch-palette {

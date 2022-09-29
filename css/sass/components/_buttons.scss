@@ -251,8 +251,8 @@
   height: $icon-size;
 }
 .copy-svg {
-  fill: grey;
-  stroke: black;
+  fill: inherit;
+  stroke: inherit;
 }
 .icon-button {
   display: grid;
@@ -267,4 +267,7 @@
 }
 .icon-button:focus .icon-button-text, .icon-button:hover .icon-button-text{
   display:block;
+}
+svg {
+  pointer-events: none;
 }

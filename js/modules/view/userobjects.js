@@ -12,7 +12,13 @@ function setAll() {
     //['buttons','button'],
     [
       "copyButtons",
-      [".copy-single", "#clipboard-flexbox", "#email", "#copyAllCSS"],
+      [
+        ".copy-single",
+        "#clipboard-flexbox",
+        "#email",
+        "#copyAllCSS",
+        ".icon-copybtn",
+      ],
     ],
     [
       "other",

@@ -582,8 +582,8 @@ export const paletteUi = {
     if (name === "primary") {
       const hex = paletteData.getPrimaryHex();
       userObjects.wrappers[name + "-wrapper"].style.background = hex;
-      userObjects.wrappers[name + "-wrapper"].style.background = hex;
-      userObjects.wrappers[name + "-wrapper"].style.background = hex;
+      userObjects.copyButtons[name + "-copybtn"].children[0].style.fill = hex;
+      userObjects.copyButtons[name + "-copybtn"].children[0].style.stroke = userObjects.wrappers[name + "-wrapper"].style.color;
         
       userObjects.other.gradient.style.background = string;
       return;

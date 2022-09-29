@@ -46,7 +46,7 @@
 
 
         <container id="primary-container" class="primary-container">
-          <wrapper id="primary-wrapper" class="primary-wrapper" name="Primary Colour" data-content="">
+          <wrapper id="primary-wrapper" class="primary-wrapper wrapper" name="Primary Colour" data-content="">
             <container class="slider-container">
               <input aria-label="Hue Slider" type="range" min="0" max="100" step="0.5" class="slider slider-a" id="slider-a" name="Hue"></input>
               <input aria-label="Saturation Slider" type="range" min="0" max="100" step="0.5" class="slider slider-b" id="slider-b" name="Saturation"></input>
@@ -57,10 +57,10 @@
             
             <container class="name-label-container">
               <button id="primary-name" class="swatch-name-primary swatch-label">Primary</button>
-              <button class="icon-button" id="primary-copybtn" data-content="Copy">
-                  <svg id="copy-svg" class="copy-svg svg-icon" alt="Copy Colours" height='100%' width='100%'>
-                    <rect x="10%" y="30%" width="60%" height="60%" rx="4%" style='stroke-width:4%;stroke-linecap:round'/>   
-                    <rect x="30%" y="10%" width="60%" height="60%" rx="4%" style='stroke-width:4%;stroke-linecap:round'/>  
+              <button class="icon-copybtn" id="primary-copybtn" data-content="Copy">
+                  <svg id="copy-svg" class="copy-svg svg-icon svg" alt="Copy Colours" height='100%' width='100%'>
+                    <rect class="svg" x="10%" y="30%" width="60%" height="60%" rx="4%" style='stroke-width:4%;stroke-linecap:round'/>   
+                    <rect class="svg" x="30%" y="10%" width="60%" height="60%" rx="4%" style='stroke-width:4%;stroke-linecap:round'/>  
                     </svg>
                 <h2 class="icon-button-text">Copy Colours</h2>
               </button>
