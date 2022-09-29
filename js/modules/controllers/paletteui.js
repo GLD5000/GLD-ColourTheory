@@ -155,16 +155,16 @@ const colourScheme = {
       colourScheme.storeSwatchVisibility(swatch);
     });
   },
-  getOverallGradientString(hexArray){
+  getOverallGradientString(hexArray) {
     let string = "linear-gradient(to right, ";
     string += hexArray.join(",");
     string += ")";
     return string;
   },
-  getColourHexValue(name){
+  getColourHexValue(name) {
     return paletteData.getColourObject(name).hex;
   },
-  getOverallHexArray(namesArray){
+  getOverallHexArray(namesArray) {
     const hexArray = [];
     const stopWidth = 50 / (namesArray.length - 1);
     const stopOffset = 50 - stopWidth;
@@ -179,7 +179,7 @@ const colourScheme = {
     });
     return hexArray;
   },
-  getOverallNamesArray(){
+  getOverallNamesArray() {
     const namesArray = ["primary"];
     userObjects.smallSwatchNamesArray.forEach((name) => {
       if (paletteData.paletteState.swatchVisibility[name] === null)
@@ -187,12 +187,12 @@ const colourScheme = {
     });
     return namesArray;
   },
-  applyOverallGradient(overallGradientString){
+  applyOverallGradient(overallGradientString) {
     userObjects.other["current-colours"].style.background =
-    overallGradientString;
+      overallGradientString;
     paletteUi._setClipboardTextAll();
   },
-  applySingleHex(name){
+  applySingleHex(name) {
     const hex = colourScheme.getColourHexValue(name);
     colourScheme.applyOverallGradient(hex);
   },
@@ -203,7 +203,8 @@ const colourScheme = {
       return;
     }
     const hexArray = colourScheme.getOverallHexArray(namesArray);
-    colourScheme.overallGradientString = colourScheme.getOverallGradientString(hexArray);
+    colourScheme.overallGradientString =
+      colourScheme.getOverallGradientString(hexArray);
     colourScheme.applyOverallGradient(colourScheme.overallGradientString);
   },
   nameLookup: {
@@ -583,8 +584,9 @@ export const paletteUi = {
       const hex = paletteData.getPrimaryHex();
       userObjects.wrappers[name + "-wrapper"].style.background = hex;
       userObjects.copyButtons[name + "-copybtn"].children[0].style.fill = hex;
-      userObjects.copyButtons[name + "-copybtn"].children[0].style.stroke = userObjects.wrappers[name + "-wrapper"].style.color;
-        
+      userObjects.copyButtons[name + "-copybtn"].children[0].style.stroke =
+        userObjects.wrappers[name + "-wrapper"].style.color;
+
       userObjects.other.gradient.style.background = string;
       return;
     }
@@ -726,7 +728,7 @@ export const paletteUi = {
   },
   _onclickPickerMain(e) {
     if (e.target.id === "primary-wrapper")
-    userObjects.pickers["primary-picker"].click();
+      userObjects.pickers["primary-picker"].click();
   },
   _onclickPickerSmall(e) {
     const name = this._splitName(e.target.id);

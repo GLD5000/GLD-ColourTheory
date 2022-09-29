@@ -1055,7 +1055,7 @@ input[type=range]:hover {
 @media all and (min-width: 120em) {
   .swatch-palette {
     overflow-y: auto;
-    grid-auto-rows: calc(5.4 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+    grid-auto-rows: calc(6.4 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
     grid-template-columns: repeat(6, 1fr);
   }
   .primary-swatch {

@@ -127,7 +127,7 @@
   //120em
   .swatch-palette {
     overflow-y: auto;
-    grid-auto-rows: calc(5.4 * $gem);
+    grid-auto-rows: calc(6.4 * $gem);
     grid-template-columns: repeat(6, 1fr);
   }
   .primary-swatch {
