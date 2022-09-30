@@ -277,29 +277,47 @@
   width: $icon-size;
   height: $icon-size;
 }
-.svg-icon, .close-btn {
-  display: block;
-  width: $icon-size;
-  height: $icon-size;
+.svg-wrapper-sml {
+  width: $icon-size-sml;
+  height: $icon-size-sml;
 }
+.svg-icon {
+  display: block;
+} 
 .close-btn {
   margin-left: auto;
+  width: $icon-size-sml;
+  height: $icon-size-sml;
+}
+.close-btn .background {
+  display: none;
+}
+.close-btn:hover .background {
+  display: block;
 }
 .icon-copybtn-svg {
-  grid-column: 1;
+  // grid-column: 1;
   fill: inherit;
   stroke: inherit;
 }
-.icon-copybtn {
+.icon-copybtn-lg {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
   text-align: left;
   place-items: start start;
 }
+.icon-copybtn-sml {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  align-items: center;
+  text-align: left;
+  place-items: start start;
+
+}
 .icon-copybtn-text {
   position: relative;
-  grid-column: 2;
+  // grid-column: 2;
   font-family: $font-ratings;
   font-size: $font-ratings-size;
   display: none;

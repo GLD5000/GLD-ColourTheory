@@ -608,23 +608,35 @@ p, li, ol, ul, a {
   height: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
 }
 
-.svg-icon, .close-btn {
+.svg-wrapper-sml {
+  width: calc(0.65 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  height: calc(0.65 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+}
+
+.svg-icon {
   display: block;
-  width: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
-  height: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
 }
 
 .close-btn {
   margin-left: auto;
+  width: calc(0.65 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  height: calc(0.65 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+}
+
+.close-btn .background {
+  display: none;
+}
+
+.close-btn:hover .background {
+  display: block;
 }
 
 .icon-copybtn-svg {
-  grid-column: 1;
   fill: inherit;
   stroke: inherit;
 }
 
-.icon-copybtn {
+.icon-copybtn-lg {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
@@ -632,9 +644,16 @@ p, li, ol, ul, a {
   place-items: start start;
 }
 
+.icon-copybtn-sml {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  align-items: center;
+  text-align: left;
+  place-items: start start;
+}
+
 .icon-copybtn-text {
   position: relative;
-  grid-column: 2;
   font-family: "Montserrat", sans-serif;
   font-size: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.625);
   display: none;
@@ -706,7 +725,7 @@ svg {
 }
 
 .swatch {
-  grid-template-rows: 1fr calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  grid-template-rows: 1fr;
 }
 
 .primary-swatch {

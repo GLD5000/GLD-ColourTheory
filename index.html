@@ -57,7 +57,7 @@
             
             <container class="name-label-container">
               <button id="primary-name" class="primary-name swatch-name">Primary</button>
-              <button class="icon-copybtn" id="primary-copybtn" data-content="Copy">
+              <button class="icon-copybtn icon-copybtn-lg" id="primary-copybtn" data-content="Copy">
                   <wrapper class="primary-svg-wrapper svg-wrapper" id="primary-copybtn-svg-wrapper">
                     <svg id="copy-svg" class="copy-svg svg-icon svg icon-copybtn-svg" alt="Copy Colours" height='100%' width='100%'>
                       <rect class="svg" x="10%" y="30%" width="60%" height="60%" rx="4%" style='stroke-width:4%;stroke-linecap:round'/>
@@ -164,6 +164,7 @@
           <wrapper class="close-wrapper">
             <button id="monochromeA-close" class="close-btn" aria-label="Close Swatch">
               <svg id="close-svg"  alt="Close" height='100%' width='100%'>
+                <rect class="background" x="0%" y="0%" width="100%" height="100%" rx="4%" style='stroke-width:0%; stroke-linecap:round; fill:white;'/>
                 <line x1='10%' y1='10%' x2='90%' y2='90%' style='stroke:rgb(0,0,0);stroke-width:10%;stroke-linecap:round' />
                 <line x1='10%' y1='90%' x2='90%' y2='10%' style='stroke:rgb(0,0,0);stroke-width:10%;stroke-linecap:round' />
               </svg>
@@ -172,9 +173,9 @@
 
 
           <container class="name-label-container">
-            <button id="monochromeA-name" class="monochromeA-name swatch-name">Monochrome A</button>
-            <button class="icon-copybtn" id="monochromeA-copybtn">
-                <wrapper class="monochromeA-svg-wrapper svg-wrapper"  id="monochromeA-copybtn-svg-wrapper">
+            <button id="monochromeA-custom" class="monochromeA-name swatch-name btn-picker">MonochromeA</button>
+            <button class="icon-copybtn icon-copybtn-sml" id="monochromeA-copybtn">
+                <wrapper class="monochromeA-svg-wrapper svg-wrapper-sml"  id="monochromeA-copybtn-svg-wrapper">
                   <svg class="copy-svg svg-icon svg icon-copybtn-svg" alt="Copy Colours" height='100%' width='100%'>
                     <use href="#copy-svg"/>
                   </svg>
@@ -187,11 +188,6 @@
 
       </wrapper>
         
-        <container class="flexbox-horizontal-btn">
-          <button class="btn btn-med btn-picker" id="monochromeA-custom">
-            <h4>Change</h4>
-          </button>
-        </container>
       </container>
 
       <container class="swatch monochromeB" id="monochromeB">

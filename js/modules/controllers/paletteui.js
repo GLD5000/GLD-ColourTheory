@@ -580,12 +580,14 @@ export const paletteUi = {
     gradientColours === null
       ? paletteData.clearGradientColours(name)
       : paletteData.addGradientColours(name, gradientColours);
+      const hex = paletteData.getPickerHex(name);
+      if (userObjects.copyButtons[name + "-copybtn"].children[0] !== undefined) {
+        userObjects.copyButtons[name + "-copybtn"].children[0].style.fill = hex;
+        userObjects.copyButtons[name + "-copybtn"].children[0].style.stroke =
+          userObjects.wrappers[name + "-wrapper"].style.color;
+      }
     if (name === "primary") {
-      const hex = paletteData.getPrimaryHex();
       userObjects.wrappers[name + "-wrapper"].style.background = hex;
-      userObjects.copyButtons[name + "-copybtn"].children[0].style.fill = hex;
-      userObjects.copyButtons[name + "-copybtn"].children[0].style.stroke =
-        userObjects.wrappers[name + "-wrapper"].style.color;
 
       userObjects.other.gradient.style.background = string;
       return;
@@ -844,9 +846,9 @@ export const paletteUi = {
     const color = document.getElementById(name + "-wrapper").style.color;
     const originalText = label.innerHTML;
     const originalSvg = svgWrapper.innerHTML;
-    const newSvg = `            <svg id="tick-svg" alt="Tick" height='100%' width='100%'>
-    <line x1='10%' y1='40%' x2='30%' y2='80%' style='stroke:rgb(255,255,255);stroke-width:10%;stroke-linecap:round; stroke:${color};' />
-    <line x1='30%' y1='80%' x2='90%' y2='25%' style='stroke:rgb(255,255,255);stroke-width:10%;stroke-linecap:round; stroke:${color}' />
+    const newSvg = `<svg id="tick-svg" alt="Tick" height='100%' width='100%'>
+    <line x1='20%' y1='50%' x2='40%' y2='80%' style='stroke:rgb(255,255,255);stroke-width:10%;stroke-linecap:round; stroke:${color};' />
+    <line x1='40%' y1='80%' x2='80%' y2='30%' style='stroke:rgb(255,255,255);stroke-width:10%;stroke-linecap:round; stroke:${color}' />
   </svg>
 `;
     const newText = "Copied!";
@@ -855,7 +857,7 @@ export const paletteUi = {
     setTimeout(() => {
       label.innerHTML = originalText;
       svgWrapper.innerHTML = originalSvg;
-      }, 1800);
+    }, 1800);
   },
   _onclickEmail(target) {
     const textArray = paletteData.getClipboard()[2];
@@ -976,8 +978,7 @@ export const paletteUi = {
     colourScheme.applyAllGradients();
   },
   _onclickCustomPicker(e) {
-    const pickerName =
-      e.target.id?.split("-")[0] || e.target.parentElement.id.split("-")[0];
+    const pickerName = e.target.id.split("-")[0];
     userObjects.pickers[pickerName + "-picker"].click();
   },
   _setOnChange() {
