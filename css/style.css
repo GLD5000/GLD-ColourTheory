@@ -96,6 +96,11 @@ table {
   margin: 0;
   box-shadow: none;
   border: none;
+  pointer-events: none;
+}
+
+.clickable, button, input[type=range], a {
+  pointer-events: all;
 }
 
 button {

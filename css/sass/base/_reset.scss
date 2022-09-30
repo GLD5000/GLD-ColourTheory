@@ -51,6 +51,10 @@ table {
     box-shadow: none;
     border: none;
 	//transition: 0.18s;
+	pointer-events: none;
+}
+.clickable, button, input[type="range"], a {
+	pointer-events: all;
 }
 button {
 	background: none;
