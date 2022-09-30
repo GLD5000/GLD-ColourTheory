@@ -56,9 +56,9 @@
             <input type="color" id="primary-picker" class="picker primary-picker"></input>
             
             <container class="name-label-container">
-              <button id="primary-name" class="swatch-name-primary swatch-label">Primary</button>
+              <button id="primary-name" class="primary-name swatch-name">Primary</button>
               <button class="icon-copybtn" id="primary-copybtn" data-content="Copy">
-                  <wrapper class="primary-svg-wrapper" id="primary-copybtn-svg-wrapper">
+                  <wrapper class="primary-svg-wrapper svg-wrapper" id="primary-copybtn-svg-wrapper">
                     <svg id="copy-svg" class="copy-svg svg-icon svg icon-copybtn-svg" alt="Copy Colours" height='100%' width='100%'>
                       <rect class="svg" x="10%" y="30%" width="60%" height="60%" rx="4%" style='stroke-width:4%;stroke-linecap:round'/>
                       <rect class="svg" x="30%" y="10%" width="60%" height="60%" rx="4%" style='stroke-width:4%;stroke-linecap:round'/>
@@ -71,7 +71,7 @@
             
 
             
-            <label id="primary-info" class="swatch-info swatch-label">Info</label>
+            <label id="primary-info" class="swatch-info">Info</label>
           </wrapper>
           
             <button class="btn btn-med btn-dual mode" id="gradient" data-content="Add Tones"></button>
@@ -159,15 +159,38 @@
 
       <container class="swatch monochromeA" id="monochromeA">
         <wrapper id="monochromeA-wrapper" class="picker-wrapper monochromeA-wrapper" name="Monochrome A">
-        </wrapper>
+
+          <input type="color" id="monochromeA-picker" class="picker monochromeA-picker"></input>
+          <wrapper class="close-wrapper">
+            <button id="monochromeA-close" class="close-btn" aria-label="Close Swatch">
+              <svg id="close-svg"  alt="Close" height='100%' width='100%'>
+                <line x1='10%' y1='10%' x2='90%' y2='90%' style='stroke:rgb(0,0,0);stroke-width:10%;stroke-linecap:round' />
+                <line x1='10%' y1='90%' x2='90%' y2='10%' style='stroke:rgb(0,0,0);stroke-width:10%;stroke-linecap:round' />
+              </svg>
+            </button>
+          </wrapper>
+
+
+          <container class="name-label-container">
+            <button id="monochromeA-name" class="monochromeA-name swatch-name">Monochrome A</button>
+            <button class="icon-copybtn" id="monochromeA-copybtn">
+                <wrapper class="monochromeA-svg-wrapper svg-wrapper"  id="monochromeA-copybtn-svg-wrapper">
+                  <svg class="copy-svg svg-icon svg icon-copybtn-svg" alt="Copy Colours" height='100%' width='100%'>
+                    <use href="#copy-svg"/>
+                  </svg>
+                </wrapper>
+              <h2 class="icon-copybtn-text" id="monochromeA-copybtn-text">Copy</h2>
+            </button>
+          </container>
+          
+          <label id="monochromeA-info" class="swatch-info">Information</label>
+
+      </wrapper>
         
         <container class="flexbox-horizontal-btn">
           <button class="btn btn-med btn-picker" id="monochromeA-custom">
             <h4>Change</h4>
-            <input type="color" id="monochromeA-picker" class="picker monochromeA-picker"></input>
           </button>
-          <button class="btn btn-med copy-single" id="monochromeA-copybtn" data-content="Copy">Copy</button>
-          <button class="btn btn-med btn-close" id="monochromeA-close">Close</button>
         </container>
       </container>
 

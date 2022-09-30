@@ -233,26 +233,57 @@
   border-top: 0;
   border-radius: 0 0 8px 8px;
 }
+.primary-name {
+  font-size: $font-primary-size;
+}
+.swatch-name {
+  //.primary-wrapper::before
+  grid-column: 2;
+  text-align: center;
+  left: 0;
+  top: calc(1.25 * $gem);
+  line-height: 90%;
+}
+.swatch-info {
+  //.primary-wrapper::after
+  text-align: center;
+  left: 0;
+  top: $gem4;
+  width: 100%;
+  line-height: 90%;
+  font-family: $font-ratings;
+  font-size: $font-ratings-size;
+  font-weight: 500;
+}
 
-.swatch-label {
+.swatch-info {
   color: inherit;
   width: 100%;
   text-align: center;
   cursor: text;
+}
+.close-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-content: flex-end;
 }
 .copy-single {
   position: relative;
   display: block;
   width: min-content;
 }
-.primary-svg-wrapper{
+.svg-wrapper {
   width: $icon-size;
   height: $icon-size;
 }
-.svg-icon {
+.svg-icon, .close-btn {
   display: block;
   width: $icon-size;
   height: $icon-size;
+}
+.close-btn {
+  margin-left: auto;
 }
 .icon-copybtn-svg {
   grid-column: 1;
@@ -277,12 +308,13 @@
 .icon-copybtn:hover .icon-copybtn-text {
   display: block;
 }
-svg, .pointless {
+svg,
+.pointless {
   pointer-events: none;
 }
 
-svg{
+svg {
   fill: inherit;
   stroke: inherit;
-  display:block;
+  display: block;
 }
