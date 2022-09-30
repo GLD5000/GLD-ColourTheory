@@ -10,6 +10,14 @@
     <script type="module" defer src="js/main.js"></script>
     <link rel="stylesheet" href="css/style.css">
 
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script defer src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script defer src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Load our React component. -->
+    <script defer src="like_button.js"></script>
+
 </head>
 <body>
 
@@ -151,7 +159,7 @@
         </container>
       </container>
 
-
+      <div id="like_button_container"></div>
       <container class="swatch monochromeA" id="monochromeA">
         <wrapper id="monochromeA-wrapper" class="picker-wrapper monochromeA-wrapper" name="Monochrome A">
 
