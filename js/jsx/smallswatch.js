@@ -8,7 +8,11 @@ class SmallSwatch extends React.Component {
 
   render() {
     if (this.state.liked) {
-      return <h1>"Clicked"</h1>;
+      return       <button onClick={() => this.setState({ liked: false })}>
+        <h2>H2</h2>
+      Clicked
+    </button>
+;
     }
 
     return (

@@ -27,9 +27,16 @@ var SmallSwatch = function (_React$Component) {
 
       if (this.state.liked) {
         return React.createElement(
-          "h1",
-          null,
-          "\"Clicked\""
+          "button",
+          { onClick: function onClick() {
+              return _this2.setState({ liked: false });
+            } },
+          React.createElement(
+            "h2",
+            null,
+            "H2"
+          ),
+          "Clicked"
         );
       }
 
