@@ -14,7 +14,7 @@ const paletteState = {
   _resetAllCustomStates() {
     userObjects.smallSwatchNamesArray.forEach((name) => {
       paletteData.setCustomColourState(name, "auto");
-      userObjects.wrappers[name + "-wrapper"].dataset.content = name;
+      paletteUi._setSmallSwatchName(name, name);
     });
   },
   setCustomStatesfromWrappers() {
@@ -695,18 +695,22 @@ export const paletteUi = {
       return paletteData.getCustomColourName(name);
     return null;
   },
-  _addCustomColour(name, hex) {
+  _setSmallSwatchName(swatchName, customName){
+    if (userObjects.customButtons[swatchName + "-custom"] !== undefined)
+    userObjects.customButtons[swatchName + "-custom"].innerHTML = customName;
+  },
+  _addCustomColour(swatchName, hex) {
     const customName =
-      paletteData.getCustomColourName(name) ||
+      paletteData.getCustomColourName(swatchName) ||
       `custom${++this.customBackgroundCounter}`;
     paletteData.addCustomColour(
-      name,
-      colourObject.fromHex({ name: name, customName: customName, hex: hex })
+      swatchName,
+      colourObject.fromHex({ name: swatchName, customName: customName, hex: hex })
     );
-    paletteData.setCustomColourState(name, "custom");
-    userObjects.wrappers[name + "-wrapper"].dataset.content = customName;
+    paletteData.setCustomColourState(swatchName, "custom");
+    paletteUi._setSmallSwatchName(swatchName, customName);
     return colourObject.fromHex({
-      name: name,
+      name: swatchName,
       customName: customName,
       hex: hex,
     });
