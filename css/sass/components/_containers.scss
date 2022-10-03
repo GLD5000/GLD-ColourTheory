@@ -77,7 +77,7 @@
 }
 .picker-wrapper {
   display: grid;
-  grid-template-rows: $icon-size auto auto 1fr;
+  grid-template-rows: $icon-size auto auto 1fr calc(1.25 * $gem);
   position: relative;
   color: black;
 }

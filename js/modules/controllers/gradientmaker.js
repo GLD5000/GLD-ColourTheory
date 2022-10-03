@@ -58,7 +58,6 @@ export const gradientMaker = {
       this._gradientString = mainColour.hex;
       this._gradientColours = null;
     } else {
-      const isPrimary = mainColour.name === "primary";
       const satOffset = clampRotate.clamp(mainColour.sat - 50, -30, 25);
       const lumOffset = clampRotate.clamp(mainColour.lum - 50, -15, 15);
       const satMult = this._findMult(this._satStart, this._satEnd, stops); //0.98;
@@ -80,9 +79,7 @@ export const gradientMaker = {
       const gap = getComputedStyle(
         document.querySelector(".slider-container")
       ).gap;
-      const gradientStringStart = isPrimary
-        ? `linear-gradient(to left`
-        : `linear-gradient(to top, #000 ${gap}, ${mainColour.hex} ${gap}, ${mainColour.hex}) 0% 0% / 100% 70% no-repeat, linear-gradient(to left`;
+      const gradientStringStart = `linear-gradient(to left`;
       this._gradientString = gradientStringStart;
       const stopWidth = 100 / stops;
       const customName = mainColour.customName || mainColour.name;
@@ -98,7 +95,7 @@ export const gradientMaker = {
           stopWidth + i * stopWidth
         }%`;
       });
-      this._gradientString += isPrimary ? `)` : `) 0% 50% / 100% 30%`;
+      this._gradientString += `)`;
     }
   },
   updateGradient(colour, stops) {

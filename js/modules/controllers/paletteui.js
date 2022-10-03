@@ -8,6 +8,8 @@ import { gradientMaker } from "./gradientmaker.js";
 import { clampRotate } from "../utilities/utilities.js";
 import { randomItemFromArray } from "../utilities/utilities.js";
 //import { callLogger } from "../utilities/utilities.js";
+//  const name = "analogousA";
+//  createSwatchElement(name);
 
 const paletteState = {
   saveCounter: 0,
@@ -580,19 +582,18 @@ export const paletteUi = {
     gradientColours === null
       ? paletteData.clearGradientColours(name)
       : paletteData.addGradientColours(name, gradientColours);
-      const hex = paletteData.getPickerHex(name);
-      if (userObjects.copyButtons[name + "-copybtn"].children[0] !== undefined) {
-        userObjects.copyButtons[name + "-copybtn"].children[0].style.fill = hex;
-        userObjects.copyButtons[name + "-copybtn"].children[0].style.stroke =
-          userObjects.wrappers[name + "-wrapper"].style.color;
-      }
-    if (name === "primary") {
-      userObjects.wrappers[name + "-wrapper"].style.background = hex;
-
-      userObjects.other.gradient.style.background = string;
-      return;
+    const hex = paletteData.getPickerHex(name);
+    if (userObjects.copyButtons[name + "-copybtn"].children[0] !== undefined) {
+      userObjects.copyButtons[name + "-copybtn"].children[0].style.fill = hex;
+      userObjects.copyButtons[name + "-copybtn"].children[0].style.stroke =
+        userObjects.wrappers[name + "-wrapper"].style.color;
     }
-    userObjects.wrappers[name + "-wrapper"].style.background = string;
+    // if (name === "primary") {
+      userObjects.wrappers[name + "-wrapper"].style.background = hex;
+      userObjects.gradientButtons[name + "-gradient"].style.background = string;
+      // return;
+    // }
+    // userObjects.wrappers[name + "-wrapper"].style.background = string;
   },
   _getSliderColourObject() {
     const selectColourKeys = {
@@ -633,7 +634,7 @@ export const paletteUi = {
   _updateGradientNumberTones() {
     let numberTones = parseInt(paletteData.paletteState.gradientMode);
     if (numberTones === 1) numberTones = 0;
-    userObjects.other["gradient"].innerHTML = "Tones: " + numberTones;
+    userObjects.other["primary-gradient"].innerHTML = "Tones: " + numberTones;
   },
   _onclickGradient() {
     this._incrementGradientNumberTones();
@@ -695,9 +696,9 @@ export const paletteUi = {
       return paletteData.getCustomColourName(name);
     return null;
   },
-  _setSmallSwatchName(swatchName, customName){
+  _setSmallSwatchName(swatchName, customName) {
     if (userObjects.customButtons[swatchName + "-custom"] !== undefined)
-    userObjects.customButtons[swatchName + "-custom"].innerHTML = customName;
+      userObjects.customButtons[swatchName + "-custom"].innerHTML = customName;
   },
   _addCustomColour(swatchName, hex) {
     const customName =
@@ -705,7 +706,11 @@ export const paletteUi = {
       `custom${++this.customBackgroundCounter}`;
     paletteData.addCustomColour(
       swatchName,
-      colourObject.fromHex({ name: swatchName, customName: customName, hex: hex })
+      colourObject.fromHex({
+        name: swatchName,
+        customName: customName,
+        hex: hex,
+      })
     );
     paletteData.setCustomColourState(swatchName, "custom");
     paletteUi._setSmallSwatchName(swatchName, customName);
@@ -988,7 +993,8 @@ export const paletteUi = {
   _setOnChange() {
     userObjects.other["colourspace"].onclick = () => this._onclickColourspace();
     userObjects.other["prefix"].onclick = () => this._onclickPrefix();
-    userObjects.other["gradient"].onclick = () => this._onclickGradient();
+    userObjects.other["primary-gradient"].onclick = () =>
+      this._onclickGradient();
     userObjects.other["random-colour"].onclick = () => this._onclickRandom();
     userObjects.other["random-scheme"].onclick = () =>
       colourScheme._randomiseScheme();
@@ -1065,7 +1071,7 @@ export const paletteUi = {
     //document.onclick = (e) => {console.log(e.target);};
   },
   getStops() {
-    return userObjects.other["gradient"].innerHTML.toLowerCase();
+    return userObjects.other["primary-gradient"].innerHTML.toLowerCase();
   },
   userObjects() {
     return userObjects;
@@ -1097,7 +1103,7 @@ export const paletteUi = {
     if (name === "primary") {
       userObjects.labels["primary-info"].innerHTML = textColour.contrastString;
     }
-    if (name !== "primary") wrapper.dataset.rating = textColour.rating;
+    if (name !== "primary") userObjects.labels[name + "-info"].innerHTML = textColour.rating;
   },
   setTextColour(backgroundColour) {
     const textMode = paletteUi.getTextMode();

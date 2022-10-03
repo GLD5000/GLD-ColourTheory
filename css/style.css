@@ -96,15 +96,14 @@ table {
   margin: 0;
   box-shadow: none;
   border: none;
-  pointer-events: none;
-}
-
-.clickable, button, input[type=range], a {
-  pointer-events: all;
 }
 
 button {
   background: none;
+}
+
+button * {
+  pointer-events: none;
 }
 
 :root {
@@ -675,6 +674,12 @@ svg {
   display: block;
 }
 
+.btn-gradient {
+  display: block;
+  position: relative;
+  height: 100%;
+}
+
 .swatch-palette {
   width: 100%;
   display: grid;
@@ -755,7 +760,7 @@ svg {
 
 .picker-wrapper {
   display: grid;
-  grid-template-rows: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)) auto auto 1fr;
+  grid-template-rows: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)) auto auto 1fr calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
   position: relative;
   color: black;
 }
