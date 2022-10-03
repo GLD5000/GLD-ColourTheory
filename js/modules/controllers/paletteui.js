@@ -1103,7 +1103,7 @@ export const paletteUi = {
     if (name === "primary") {
       userObjects.labels["primary-info"].innerHTML = textColour.contrastString;
     }
-    if (name !== "primary") userObjects.labels[name + "-info"].innerHTML = textColour.rating;
+    if (name !== "primary") userObjects.labels[name + "-info"].innerHTML = textColour.contrastString;
   },
   setTextColour(backgroundColour) {
     const textMode = paletteUi.getTextMode();

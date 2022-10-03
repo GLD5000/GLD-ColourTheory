@@ -564,6 +564,7 @@ p, li, ol, ul, a {
 }
 
 .swatch-name {
+  color: inherit;
   grid-column: 2;
   text-align: center;
   left: 0;

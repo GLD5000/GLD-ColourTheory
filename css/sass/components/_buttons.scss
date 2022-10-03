@@ -237,6 +237,7 @@
   font-size: $font-primary-size;
 }
 .swatch-name {
+  color: inherit;
   //.primary-wrapper::before
   grid-column: 2;
   text-align: center;
