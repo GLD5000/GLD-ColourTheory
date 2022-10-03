@@ -680,8 +680,8 @@ export const paletteUi = {
         this._splitName(key)
       );
       const newTextColour = colourObject.makeTextColour(
-        textColour,
-        backgroundColour
+        {textColour: textColour,
+        backgroundColour: backgroundColour}
       );
       if (newTextColour.name === "primary-text") {
         paletteData.setMainTextColour(newTextColour);
@@ -1110,8 +1110,8 @@ export const paletteUi = {
     const oldTextColour =
       textMode === "custom" ? paletteUi.getTextColour(backgroundColour) : null;
     const newTextColour = colourObject.makeTextColour(
-      oldTextColour,
-      backgroundColour
+      {textColour: oldTextColour,
+        backgroundColour: backgroundColour}
     );
     if (newTextColour.name === "primary-text") {
       paletteData.setMainTextColour(newTextColour);

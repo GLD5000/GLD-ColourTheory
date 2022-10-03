@@ -19,8 +19,8 @@ export const luminance = {
   addLuminanceToObject(colourObj) {
     colourObj.relativeLuminance = convertSrgbToLuminance(
       colourObj.red,
+      colourObj.green,
       colourObj.blue,
-      colourObj.green
     );
     return colourObj;
   },

@@ -1,5 +1,5 @@
 import { colourspace } from "../modules/utilities/colourmodules/colourspace.js";
-import { colourObject } from "../modules/utilities/colourobject.js"
+import { colourObject } from "../modules/utilities/colourobject.js";
 function sum(...args) {
   console.log(args);
   return args[0] + args[1];
@@ -9,16 +9,24 @@ function newTest(testFunction, object, resultKey, resultValue) {
     expect(testFunction(object)[resultKey]).toBe(resultValue);
   });
 }
-function equalityTest(a, b, name = "Unnamed", objectName = "Unknown Colour", functionName = "Equality test") {
-  function testHandler(a, b) {return a === b};
+function equalityTest(
+  a,
+  b,
+  name = "Unnamed",
+  objectName = "Unknown Colour",
+  functionName = "Equality test"
+) {
+  function testHandler(a, b) {
+    return a === b;
+  }
   test(`${functionName} ${objectName} ${name} ${a} = ${b}`, () => {
-    expect(testHandler(a,b)).toBe(true);
+    expect(testHandler(a, b)).toBe(true);
   });
 }
 
 function testLoop(object, array, fn) {
   array.forEach((entry) => {
-    const newObject = {...object};
+    const newObject = { ...object };
     newTest(fn, newObject, entry[0], entry[1]);
   });
 }
@@ -26,7 +34,14 @@ function testLoopB(object, array, fn) {
   const testObject = fn(object);
 
   array.forEach((entry) => {
-    equalityTest(testObject[entry[0]], entry[1], entry[0], object.name, fn.name)});
+    equalityTest(
+      testObject[entry[0]],
+      entry[1],
+      entry[0],
+      object.name,
+      fn.name
+    );
+  });
 }
 function testLoopReverse({
   name = "Anon",
@@ -130,3 +145,11 @@ const turquoiseResultsB = [
   ["lum", 50],
 ];
 testLoopB(turquoiseObjectB, turquoiseResultsB, colourObject.fromSrgb);
+
+const newColour = colourObject.fromHex({ name: "turquoise", hex: "#4CD6C6" });
+newTest(
+  colourObject.makeTextColour,
+  { backgroundColour: newColour},
+  "contrastString",
+  "Contrast Ratio: 11.74 AAA+"
+);
