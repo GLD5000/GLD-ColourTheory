@@ -1,372 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GLD Colourmatic 5000</title>
-    <meta
-      name="description"
-      content="GLD's Colour Scheme Generator makes creating your CSS and SCSS colour variables super simple. Generate schemes in seconds with Colour Theory and tonal variations baked in."
-    />
-    <link rel="icon" href="media/img/favicon/gldcondensed.ico" alt="GLD Icon" />
-    <script type="module" defer src="js/main.js"></script>
-    <link rel="stylesheet" href="css/style.css" />
 
-    <!-- Load React. -->
-    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-    <!-- <script defer src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GLD Colourmatic 5000</title>
+  <meta name="description"
+    content="GLD's Colour Scheme Generator makes creating your CSS and SCSS colour variables super simple. Generate schemes in seconds with Colour Theory and tonal variations baked in." />
+  <link rel="icon" href="media/img/favicon/gldcondensed.ico" alt="GLD Icon" />
+  <script type="module" defer src="js/main.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <!-- <script defer src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script defer src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script> -->
-    <script
-      defer
-      src="https://unpkg.com/react@18/umd/react.development.js"
-      crossorigin
-    ></script>
-    <script
-      defer
-      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-      crossorigin
-    ></script>
+  <script defer src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script defer src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 
-    <!-- Load our React component. -->
-    <script defer src="js/modules/elements/smallswatch.js"></script>
-  </head>
-  <body>
-    <section class="body-grid">
-      <header id="header" class="header" name="header">
-        <nav class="navbar">
-          <container class="logo-grid">
-            <img
-              id="gldlogo"
-              class="gldlogo"
-              src="media/img/Logos/gldcondensedpngB.png"
-              alt="GLD Logo"
-            />
-            <container>
-              <h1 class="logoproduct">COLOUR&shy;MATIC 5000</h1>
-              <h2 class="header-two">Custom CSS Colour Scheme Generator</h2>
+  <!-- Load our React component. -->
+  <script defer src="js/modules/elements/smallswatch.js"></script>
+</head>
+
+<body>
+  <section class="body-grid">
+    <header id="header" class="header" name="header">
+      <nav class="navbar">
+        <container class="logo-grid">
+          <img id="gldlogo" class="gldlogo" src="media/img/Logos/gldcondensedpngB.png" alt="GLD Logo" />
+          <container>
+            <h1 class="logoproduct">COLOUR&shy;MATIC 5000</h1>
+            <h2 class="header-two">Custom CSS Colour Scheme Generator</h2>
+          </container>
+        </container>
+        <button name="Menu button" class="hamburger-toggle" id="hamburger-toggle"
+          aria-label="Click to open drop-down navigation menu.">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+        <ul class="navbar-list" id="navbar-list">
+          <li>
+            <a class="navlink" href="https://github.com/GLD5000/Red-Herring" target="_blank">Profile</a>
+          </li>
+          <li>
+            <a class="navlink" href="https://github.com/GLD5000/Red-Herring" target="_blank">Portfolio</a>
+          </li>
+          <li>
+            <a class="navlink" href="https://github.com/GLD5000/Red-Herring" target="_blank">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="swatch-palette" id="swatch-palette">
+      <container class="primary-swatch" name="primary Colour">
+        <h3>Pick Colour</h3>
+
+        <container id="primary-container" class="primary-container">
+          <wrapper id="primary-wrapper" class="primary-wrapper wrapper" name="Primary Colour" data-content="">
+            <container class="slider-container">
+              <input aria-label="Hue Slider" type="range" min="0" max="100" step="0.5" class="slider slider-a"
+                id="slider-a" name="Hue" />
+              <input aria-label="Saturation Slider" type="range" min="0" max="100" step="0.5" class="slider slider-b"
+                id="slider-b" name="Saturation" />
+              <input aria-label="Luminance Slider" type="range" min="0" max="100" step="0.5" class="slider slider-c"
+                id="slider-c" name="Luminance" />
             </container>
-          </container>
-          <button
-            name="Menu button"
-            class="hamburger-toggle"
-            id="hamburger-toggle"
-            aria-label="Click to open drop-down navigation menu."
-          >
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
+
+            <input type="color" id="primary-picker" class="picker primary-picker" />
+
+            <container class="name-label-container">
+              <button id="primary-name" class="primary-name swatch-name">
+                Primary
+              </button>
+              <button class="icon-copybtn icon-copybtn-lg" id="primary-copybtn" data-content="Copy">
+                <wrapper class="primary-svg-wrapper svg-wrapper" id="primary-copybtn-svg-wrapper">
+                  <svg id="copy-svg" class="copy-svg svg-icon svg icon-copybtn-svg" alt="Copy Colours" height="100%"
+                    width="100%">
+                    <rect class="svg" x="10%" y="30%" width="60%" height="60%" rx="4%"
+                      style="stroke-width: 4%; stroke-linecap: round" />
+                    <rect class="svg" x="30%" y="10%" width="60%" height="60%" rx="4%"
+                      style="stroke-width: 4%; stroke-linecap: round" />
+                  </svg>
+                </wrapper>
+                <h2 class="icon-copybtn-text" id="primary-copybtn-text">
+                  Copy
+                </h2>
+              </button>
+            </container>
+
+            <label id="primary-info" class="swatch-info">Info</label>
+          </wrapper>
+
+          <button class="btn btn-med btn-dual mode btn-gradient" id="primary-gradient"
+            data-content="Add Tones"></button>
+        </container>
+
+        <container class="flexbox-horizontal-btn">
+          <button class="btn btn-med btn-dual colourspace" id="colourspace" data-content="Change Colour Mode">
+            Mode: Hex
           </button>
-          <ul class="navbar-list" id="navbar-list">
-            <li>
-              <a
-                class="navlink"
-                href="https://github.com/GLD5000/Red-Herring"
-                target="_blank"
-                >Profile</a
-              >
-            </li>
-            <li>
-              <a
-                class="navlink"
-                href="https://github.com/GLD5000/Red-Herring"
-                target="_blank"
-                >Portfolio</a
-              >
-            </li>
-            <li>
-              <a
-                class="navlink"
-                href="https://github.com/GLD5000/Red-Herring"
-                target="_blank"
-                >Contact</a
-              >
-            </li>
-          </ul>
-        </nav>
-      </header>
 
-      <section class="swatch-palette" id="swatch-palette">
-        <container class="primary-swatch" name="primary Colour">
-          <h3>Pick Colour</h3>
+          <button id="textmode" class="btn btn-med textmode" data-content="Change Text Colour">
+            <h4>Text: Auto</h4>
+            <input type="color" id="textcolour-picker" class="picker textmode-picker" />
+          </button>
 
-          <container id="primary-container" class="primary-container">
-            <wrapper
-              id="primary-wrapper"
-              class="primary-wrapper wrapper"
-              name="Primary Colour"
-              data-content=""
-            >
-              <container class="slider-container">
-                <input
-                  aria-label="Hue Slider"
-                  type="range"
-                  min="0"
-                  max="100"
-                  step="0.5"
-                  class="slider slider-a"
-                  id="slider-a"
-                  name="Hue"
-                />
-                <input
-                  aria-label="Saturation Slider"
-                  type="range"
-                  min="0"
-                  max="100"
-                  step="0.5"
-                  class="slider slider-b"
-                  id="slider-b"
-                  name="Saturation"
-                />
-                <input
-                  aria-label="Luminance Slider"
-                  type="range"
-                  min="0"
-                  max="100"
-                  step="0.5"
-                  class="slider slider-c"
-                  id="slider-c"
-                  name="Luminance"
-                />
-              </container>
+          <button class="btn btn-med random-colour random-btn" id="random-colour" data-content="Random Colour">
+            Random
+          </button>
+        </container>
+      </container>
 
-              <input
-                type="color"
-                id="primary-picker"
-                class="picker primary-picker"
-              />
+      <container class="btn-container btn-scheme">
+        <h3>Pick Scheme</h3>
+        <figure id="current-colours" class="current-colours"></figure>
+        <container id="scheme-flexbox" class="flexbox-scheme" data-content="Choose A Scheme">
+          <button id="Monochrome" class="scheme-button" data-content="Click To Change">Monochrome
+          </button>
+          <button id="Analogous" class="scheme-button" data-content="Click To Change">Analogous
+          </button>
+          <button id="Complementary" class="scheme-button" data-content="Click To Change">Complementary</button>
+          <button id="Split" class="scheme-button" data-content="Click To Change">Split Complementary
+          </button>
+          <button id="Triadic" class="scheme-button" data-content="Click To Change">Triadic
+          </button>
+          <button id="Tetradic" class="scheme-button" data-content="Click To Change">Tetradic Square
+          </button>
+          <button id="Neutral" class="scheme-button neutral-scheme" data-content="Click To Change">Neutral
+          </button>
+        </container>
+        <container class="flexbox-horizontal-btn">
+          <button class="btn btn-small all-btn" id="select-all">All</button>
+          <button class="btn btn-small none-btn" id="select-none">None
+          </button>
+          <button class="btn btn-med random-scheme random-btn" id="random-scheme"
+            data-content="Random Colour Scheme">Random
+          </button>
+        </container>
+      </container>
 
-              <container class="name-label-container">
-                <button id="primary-name" class="primary-name swatch-name">
-                  Primary
-                </button>
-                <button
-                  class="icon-copybtn icon-copybtn-lg"
-                  id="primary-copybtn"
-                  data-content="Copy"
-                >
-                  <wrapper
-                    class="primary-svg-wrapper svg-wrapper"
-                    id="primary-copybtn-svg-wrapper"
-                  >
-                    <svg
-                      id="copy-svg"
-                      class="copy-svg svg-icon svg icon-copybtn-svg"
-                      alt="Copy Colours"
-                      height="100%"
-                      width="100%"
-                    >
-                      <rect
-                        class="svg"
-                        x="10%"
-                        y="30%"
-                        width="60%"
-                        height="60%"
-                        rx="4%"
-                        style="stroke-width: 4%; stroke-linecap: round"
-                      />
-                      <rect
-                        class="svg"
-                        x="30%"
-                        y="10%"
-                        width="60%"
-                        height="60%"
-                        rx="4%"
-                        style="stroke-width: 4%; stroke-linecap: round"
-                      />
-                    </svg>
-                  </wrapper>
-                  <h2 class="icon-copybtn-text" id="primary-copybtn-text">
-                    Copy
-                  </h2>
-                </button>
-              </container>
+      <container class="btn-container btn-history">
+        <h3>Save Scheme</h3>
+        <ul id="history-flexbox" class="flexbox-history" data-content="Load Palette">
+          <li># Save Colours Here #</li>
+        </ul>
 
-              <label id="primary-info" class="swatch-info">Info</label>
-            </wrapper>
+        <container class="flexbox-horizontal-btn">
+          <button class="btn btn-small save-btn" id="save-button">
+            Save
+          </button>
+          <button class="btn btn-med random-all random-btn" id="random-all" data-content="Random All">
+            Random
+          </button>
+        </container>
+      </container>
 
-            <button
-              class="btn btn-med btn-dual mode btn-gradient"
-              id="primary-gradient"
-              data-content="Add Tones"
-            ></button>
-          </container>
+      <container class="btn-container btn-copy">
+        <h3 id="clipboard-h3">Copy CSS Variables</h3>
 
-          <container class="flexbox-horizontal-btn">
-            <button
-              class="btn btn-med btn-dual colourspace"
-              id="colourspace"
-              data-content="Change Colour Mode"
-            >
-              Mode: Hex
-            </button>
-
-            <button
-              id="textmode"
-              class="btn btn-med textmode"
-              data-content="Change Text Colour"
-            >
-              <h4>Text: Auto</h4>
-              <input
-                type="color"
-                id="textcolour-picker"
-                class="picker textmode-picker"
-              />
-            </button>
-
-            <button
-              class="btn btn-med random-colour random-btn"
-              id="random-colour"
-              data-content="Random Colour"
-            >
-              Random
-            </button>
-          </container>
+        <container id="clipboard-flexbox" class="flexbox-clipboard" data-content="Copy">
+          <figure id="clipboard" class="clipboard" data-clipboard="" data-content="Copy"></figure>
+          <figure id="clipboard-secondary" class="clipboard-secondary" data-content="Copy"></figure>
         </container>
 
-        <container class="btn-container btn-scheme">
-          <h3>Pick Scheme</h3>
-          <figure id="current-colours" class="current-colours"></figure>
-          <container
-            id="scheme-flexbox"
-            class="flexbox-scheme"
-            data-content="Choose A Scheme"
-          >
-            <button
-              id="Monochrome"
-              class="scheme-button"
-              data-content="Click To Change"
-            >Monochrome
-            </button>
-            <button
-              id="Analogous"
-              class="scheme-button"
-              data-content="Click To Change"
-            >Analogous
-            </button>
-            <button
-              id="Complementary"
-              class="scheme-button"
-              data-content="Click To Change"
-            >Complementary</button>
-            <button
-              id="Split"
-              class="scheme-button"
-              data-content="Click To Change"
-            >Split Complementary
-            </button>
-            <button
-              id="Triadic"
-              class="scheme-button"
-              data-content="Click To Change"
-            >Triadic
-            </button>
-            <button
-              id="Tetradic"
-              class="scheme-button"
-              data-content="Click To Change"
-            >Tetradic Square
-            </button>
-            <button
-              id="Neutral"
-              class="scheme-button neutral-scheme"
-              data-content="Click To Change"
-            >Neutral
-            </button>
-          </container>
-          <container class="flexbox-horizontal-btn">
-            <button class="btn btn-small all-btn" id="select-all">All</button>
-            <button class="btn btn-small none-btn" id="select-none">None
-            </button>
-            <button
-              class="btn btn-med random-scheme random-btn"
-              id="random-scheme"
-              data-content="Random Colour Scheme"
-            >Random
-            </button>
-          </container>
+        <container class="flexbox-horizontal-btn">
+          <button class="btn btn-tiny prefix hover-btn" id="prefix" data-content="Swap Prefix">
+            Prefix
+          </button>
+          <button class="btn btn-small copy-all hover-btn" id="copyAllCSS" data-content="Copy">
+            Copy
+          </button>
+          <button class="btn btn-small email-all hover-btn" id="email" data-content="Send to...">
+            Email
+          </button>
         </container>
-
-        <container class="btn-container btn-history">
-          <h3>Save Scheme</h3>
-          <ul
-            id="history-flexbox"
-            class="flexbox-history"
-            data-content="Load Palette"
-          >
-            <li># Save Colours Here #</li>
-          </ul>
-
-          <container class="flexbox-horizontal-btn">
-            <button class="btn btn-small save-btn" id="save-button">
-              Save
-            </button>
-            <button
-              class="btn btn-med random-all random-btn"
-              id="random-all"
-              data-content="Random All"
-            >
-              Random
-            </button>
-          </container>
-        </container>
-
-        <container class="btn-container btn-copy">
-          <h3 id="clipboard-h3">Copy CSS Variables</h3>
-
-          <container
-            id="clipboard-flexbox"
-            class="flexbox-clipboard"
-            data-content="Copy"
-          >
-            <figure
-              id="clipboard"
-              class="clipboard"
-              data-clipboard=""
-              data-content="Copy"
-            ></figure>
-            <figure
-              id="clipboard-secondary"
-              class="clipboard-secondary"
-              data-content="Copy"
-            ></figure>
-          </container>
-
-          <container class="flexbox-horizontal-btn">
-            <button
-              class="btn btn-tiny prefix hover-btn"
-              id="prefix"
-              data-content="Swap Prefix"
-            >
-              Prefix
-            </button>
-            <button
-              class="btn btn-small copy-all hover-btn"
-              id="copyAllCSS"
-              data-content="Copy"
-            >
-              Copy
-            </button>
-            <button
-              class="btn btn-small email-all hover-btn"
-              id="email"
-              data-content="Send to..."
-            >
-              Email
-            </button>
-          </container>
-        </container>
-      </section>
-
-      <footer class="footer">
-        <a href="https://github.com/GLD5000/Red-Herring" target="_blank">
-          <img
-            class="githublogo"
-            src="media/img/Logos/GitHub-Mark-Light-64px.png"
-            alt="Github Logo"
-          />
-        </a>
-      </footer>
+      </container>
     </section>
-  </body>
+
+    <footer class="footer">
+      <a href="https://github.com/GLD5000/Red-Herring" target="_blank">
+        <img class="githublogo" src="media/img/Logos/GitHub-Mark-Light-64px.png" alt="Github Logo" />
+      </a>
+    </footer>
+  </section>
+</body>
+
 </html>
