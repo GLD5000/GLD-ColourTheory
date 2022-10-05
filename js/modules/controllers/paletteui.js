@@ -583,11 +583,13 @@ export const paletteUi = {
       ? paletteData.clearGradientColours(name)
       : paletteData.addGradientColours(name, gradientColours);
     const hex = paletteData.getPickerHex(name);
-    if (userObjects.copyButtons[name + "-copybtn"].children[0] !== undefined) {
+    // if (userObjects.copyButtons[name + "-copybtn"].children[0] !== undefined) {
+      userObjects.wrappers[name + "-wrapper"].style.stroke = userObjects.wrappers[name + "-wrapper"].style.color;
+
       userObjects.copyButtons[name + "-copybtn"].children[0].style.fill = hex;
-      userObjects.copyButtons[name + "-copybtn"].children[0].style.stroke =
-        userObjects.wrappers[name + "-wrapper"].style.color;
-    }
+      // userObjects.copyButtons[name + "-copybtn"].children[0].style.stroke =
+      //   userObjects.wrappers[name + "-wrapper"].style.color;
+    // }
     // if (name === "primary") {
       userObjects.wrappers[name + "-wrapper"].style.background = hex;
       userObjects.gradientButtons[name + "-gradient"].style.background = string;
@@ -1099,7 +1101,9 @@ export const paletteUi = {
   _setWrapperTextColour(textColour) {
     const name = this._splitName(textColour.name);
     const wrapper = this._getWrapper(name);
-    wrapper.style.color = textColour.hex || "#000000";
+    const textHex = textColour.hex || "#000000";
+    wrapper.style.stroke = textHex;
+    wrapper.style.color = textHex;
     if (name === "primary") {
       userObjects.labels["primary-info"].innerHTML = textColour.contrastString;
     }

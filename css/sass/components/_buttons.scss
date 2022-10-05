@@ -275,10 +275,15 @@
   width: min-content;
 }
 .svg-wrapper {
+  stroke: inherit;
   width: $icon-size;
   height: $icon-size;
 }
+.name-label-container{
+  stroke: inherit;
+}
 .svg-wrapper-sml {
+  stroke: inherit;
   width: $icon-size-sml;
   height: $icon-size-sml;
 }
@@ -303,6 +308,8 @@
 }
 .icon-copybtn-lg {
   color: inherit;
+  fill: inherit;
+  stroke: inherit;
 
   display: grid;
   grid-template-columns: auto 1fr;
@@ -312,6 +319,8 @@
 }
 .icon-copybtn-sml {
   color: inherit;
+  fill: inherit;
+  stroke: inherit;
 
   display: grid;
   grid-template-rows: auto 1fr;

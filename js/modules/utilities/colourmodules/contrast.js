@@ -11,13 +11,22 @@ export const contrast = {
   makeContrastRating(ratio) {
     return ratio > 4.5 ? (ratio > 7 ? "AAA+" : "AA+") : "Low";
   },
-  _autoTextColour(backgroundColour, targetContrast = "Max") {
-    const relativeLuminance = backgroundColour.relativeLuminance;
-    const contrastBlack = contrast.getContrastRatio([0, relativeLuminance]);
-    const contrastWhite = contrast.getContrastRatio([1, relativeLuminance]);
-    const autoColour = contrastBlack > contrastWhite ? "#000000" : "#ffffff";
-    const autoContrast = Math.max(contrastBlack, contrastWhite);
-    return [autoColour, autoContrast];
+  _getTextColourMaxContrast(backgroundLuminance){
+    const backgroundLuminanceCutoff = 0.1791287847;
+    const backgroundLuminanceIsAboveCutoff = backgroundLuminance > backgroundLuminanceCutoff;
+    const textColour = backgroundLuminanceIsAboveCutoff? "#000000" : "#ffffff";
+    const textLuminance = backgroundLuminanceIsAboveCutoff? 0 : 1;
+    const textContrast = contrast.getContrastRatio([textLuminance, backgroundLuminance])
+    return [textColour, textContrast]
+  },
+  _autoTextColour(backgroundColour, targetContrast = null) {
+    const backgroundLuminance = backgroundColour.relativeLuminance;
+    if (targetContrast === null) 
+    // const contrastBlack = contrast.getContrastRatio([0, relativeLuminance]);
+    // const contrastWhite = contrast.getContrastRatio([1, relativeLuminance]);
+    // const autoColour = contrastBlack > contrastWhite ? "#000000" : "#ffffff";
+    // const autoContrast = Math.max(contrastBlack, contrastWhite);
+    return contrast._getTextColourMaxContrast(backgroundLuminance);
   },
   makeTextColour(textColour = null, backgroundColour = null) {
     if (backgroundColour == null) return "No Background Colour Found"; //if background colour == null return
