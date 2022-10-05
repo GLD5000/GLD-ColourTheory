@@ -302,6 +302,8 @@
   stroke: inherit;
 }
 .icon-copybtn-lg {
+  color: inherit;
+
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
@@ -309,6 +311,8 @@
   place-items: start start;
 }
 .icon-copybtn-sml {
+  color: inherit;
+
   display: grid;
   grid-template-rows: auto 1fr;
   align-items: center;
@@ -317,6 +321,7 @@
 
 }
 .icon-copybtn-text {
+  color: inherit;
   position: relative;
   // grid-column: 2;
   font-family: $font-ratings;

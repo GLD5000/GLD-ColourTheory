@@ -11,7 +11,7 @@ export const contrast = {
   makeContrastRating(ratio) {
     return ratio > 4.5 ? (ratio > 7 ? "AAA+" : "AA+") : "Low";
   },
-  _autoTextColour(backgroundColour) {
+  _autoTextColour(backgroundColour, targetContrast = "Max") {
     const relativeLuminance = backgroundColour.relativeLuminance;
     const contrastBlack = contrast.getContrastRatio([0, relativeLuminance]);
     const contrastWhite = contrast.getContrastRatio([1, relativeLuminance]);

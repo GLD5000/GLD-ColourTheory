@@ -637,6 +637,7 @@ p, li, ol, ul, a {
 }
 
 .icon-copybtn-lg {
+  color: inherit;
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
@@ -645,6 +646,7 @@ p, li, ol, ul, a {
 }
 
 .icon-copybtn-sml {
+  color: inherit;
   display: grid;
   grid-template-rows: auto 1fr;
   align-items: center;
@@ -653,6 +655,7 @@ p, li, ol, ul, a {
 }
 
 .icon-copybtn-text {
+  color: inherit;
   position: relative;
   font-family: "Montserrat", sans-serif;
   font-size: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.625);
