@@ -1,4 +1,5 @@
-# GLD Colourmatic 5000
+# [GLD Colourmatic 5000](https://gld5000.github.io/Red-Herring/)
+[https://gld5000.github.io/Red-Herring/](https://gld5000.github.io/Red-Herring/)
 ![GLD Colourmatic 5000](./media/img/screenshots/title-bar-b.jpg)
 ### The free colour palette generator for web developers.
 ![Overview](./media/img/screenshots/Overview.jpg)  
