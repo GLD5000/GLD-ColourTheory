@@ -149,7 +149,7 @@ testLoopB(turquoiseObjectB, turquoiseResultsB, colourObject.fromSrgb);
 const newColour = colourObject.fromHex({ name: "turquoise", hex: "#4CD6C6" });
 newTest(
   colourObject.makeTextColour,
-  { backgroundColour: newColour},
+  { backgroundColour: newColour },
   "contrastString",
   "Contrast Ratio: 11.74 AAA+"
 );

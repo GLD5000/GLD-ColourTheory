@@ -16,8 +16,6 @@ export const contrast = {
     return luminance > luminanceCutoff;
   },
   _convertLuminanceToSrgbDecimal(luminance) {
-    console.log(`luminance ${luminance}`);
-
     const luminanceThreshold = 0.04045 / 12.92;
     const luminanceAboveThreshold = luminance > luminanceThreshold;
     if (luminanceAboveThreshold) {
@@ -29,17 +27,22 @@ export const contrast = {
 
     return srgbDecimal;
   },
+  _convertSingleHexToHexString(convertedDecimal){
+    return "#" + convertedDecimal.repeat(3);
+  },
+  _convertDecimalToSingleHex(srgbDecimal){
+    const convertedDecimal = Math.round(srgbDecimal * 255)
+    .toString(16);
+    if (convertedDecimal.length < 2) return "0" + convertedDecimal;
+    return convertedDecimal
+  },
   _convertSrgbDecimalToHex(srgbDecimal) {
-    const hexString =
-      "#" +
-      Math.round(srgbDecimal * 255)
-        .toString(16)
-        .repeat(3);
+    const singleHex = contrast._convertDecimalToSingleHex(srgbDecimal);
+    const hexString = contrast._convertSingleHexToHexString(singleHex);
     return hexString;
   },
   _convertLuminanceToHex(luminance) {
     const srgbDecimal = contrast._convertLuminanceToSrgbDecimal(luminance);
-    console.log(`srgbDecimal ${srgbDecimal}`);
     const hexString = contrast._convertSrgbDecimalToHex(srgbDecimal);
     return hexString;
   },
@@ -48,36 +51,27 @@ export const contrast = {
   },
   _calculateMinLuminance(maxLuminance, targetContrast) {
     const minLuminance =
-      (-0.05 * targetContrast + maxLuminance + 0.05) / targetContrast;
+      ((-0.05 * targetContrast) + maxLuminance + 0.05) / targetContrast;
     return contrast._clampLuminance(minLuminance);
   },
   _calculateMaxLuminance(minLuminance, targetContrast) {
-    const maxLuminance = targetContrast * (minLuminance + 0.05) - 0.05;
-    console.log(`maxLuminance ${maxLuminance}`);
-
+    const maxLuminance = (targetContrast * (minLuminance + 0.05)) - 0.05;
     return contrast._clampLuminance(maxLuminance);
   },
   _calculateTargetLuminance(backgroundLuminance, targetContrast) {
     const backgroundLuminanceIsMax =
       contrast._luminanceAboveCutoff(backgroundLuminance);
-    console.log(`backgroundLuminanceIsMax ${backgroundLuminanceIsMax}`);
     const textLuminance = backgroundLuminanceIsMax
       ? contrast._calculateMinLuminance(backgroundLuminance, targetContrast)
       : contrast._calculateMaxLuminance(backgroundLuminance, targetContrast);
     return textLuminance;
   },
   _getTextColourSetContrast(backgroundLuminance, targetContrast) {
-    console.clear();
-    console.log(`backgroundLuminance ${backgroundLuminance}`);
-    console.log(`targetContrast ${targetContrast}`);
     const textLuminance = contrast._calculateTargetLuminance(
       backgroundLuminance,
       targetContrast
     );
-    console.log(`textLuminance ${textLuminance}`);
-
     const textColour = contrast._convertLuminanceToHex(textLuminance);
-    console.log(`textColour ${textColour}`);
     const textContrast = contrast.getContrastRatio([
       textLuminance,
       backgroundLuminance,
@@ -96,6 +90,9 @@ export const contrast = {
     return [textColour, textContrast];
   },
   _autoTextColour(backgroundColour, targetContrast = null) {
+    // if (backgroundColour.name === "primary") {
+      // console.clear();
+      // console.log(backgroundColour.relativeLuminance)};
     const backgroundLuminance = backgroundColour.relativeLuminance;
     if (targetContrast === null)
       return contrast._getTextColourMaxContrast(backgroundLuminance);
