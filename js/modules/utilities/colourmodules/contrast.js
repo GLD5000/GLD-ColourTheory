@@ -27,14 +27,18 @@ export const contrast = {
 
     return srgbDecimal;
   },
-  _convertSingleHexToHexString(convertedDecimal){
-    return "#" + convertedDecimal.repeat(3);
+  _convertSingleHexToHexString(hex){
+    return "#" + hex.repeat(3);
+  },
+  _prependZero(digit){
+    return "0" + digit;
   },
   _convertDecimalToSingleHex(srgbDecimal){
-    const convertedDecimal = Math.round(srgbDecimal * 255)
+    const hex = Math.round(srgbDecimal * 255)
     .toString(16);
-    if (convertedDecimal.length < 2) return "0" + convertedDecimal;
-    return convertedDecimal
+    const HexIsSingleDigit = hex.length < 2;
+    if (HexIsSingleDigit) return contrast._prependZero(hex);
+    return hex;
   },
   _convertSrgbDecimalToHex(srgbDecimal) {
     const singleHex = contrast._convertDecimalToSingleHex(srgbDecimal);
@@ -90,9 +94,6 @@ export const contrast = {
     return [textColour, textContrast];
   },
   _autoTextColour(backgroundColour, targetContrast = null) {
-    // if (backgroundColour.name === "primary") {
-      // console.clear();
-      // console.log(backgroundColour.relativeLuminance)};
     const backgroundLuminance = backgroundColour.relativeLuminance;
     if (targetContrast === null)
       return contrast._getTextColourMaxContrast(backgroundLuminance);
@@ -103,9 +104,8 @@ export const contrast = {
     );
   },
   makeTextColour(textColour = null, backgroundColour = null) {
-    if (backgroundColour == null) return "No Background Colour Found"; //if background colour == null return
+    if (backgroundColour == null) return "No Background Colour Found"; 
     if (textColour == null) {
-      //auto text
       const returnColour = { name: `${backgroundColour.name}-text` };
       [returnColour.hex, returnColour.contrastRatio] =
         this._autoTextColour(backgroundColour);
