@@ -973,7 +973,7 @@ export const paletteUi = {
     if (paletteUi.getTextMode() === "auto") {
       //paletteUi.setTextMode("custom");
       paletteUi.setTextPickerDisabled(false);
-      //userObjects.pickers["textcolour-picker"].click();
+      userObjects.pickers["textcolour-picker"].click();
       if (
         paletteData.getMainTextColour().hex != "#000000" &&
         paletteData.getMainTextColour().hex != "#FFFFFF"
