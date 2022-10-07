@@ -613,12 +613,6 @@ p, li, ol, ul, a {
   stroke: inherit;
 }
 
-.svg-wrapper-sml {
-  stroke: inherit;
-  width: calc(0.65 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
-  height: calc(0.65 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
-}
-
 .svg-icon {
   display: block;
 }
@@ -642,23 +636,12 @@ p, li, ol, ul, a {
   stroke: inherit;
 }
 
-.icon-copybtn-lg {
+.icon-copybtn {
   color: inherit;
   fill: inherit;
   stroke: inherit;
   display: grid;
   grid-template-columns: auto 1fr;
-  align-items: center;
-  text-align: left;
-  place-items: start start;
-}
-
-.icon-copybtn-sml {
-  color: inherit;
-  fill: inherit;
-  stroke: inherit;
-  display: grid;
-  grid-template-rows: auto 1fr;
   align-items: center;
   text-align: left;
   place-items: start start;
@@ -692,6 +675,11 @@ svg {
   display: block;
   position: relative;
   height: 100%;
+  width: 100%;
+}
+
+.svg-wrapper-sml {
+  grid-column: 2;
 }
 
 .swatch-palette {
@@ -777,6 +765,8 @@ svg {
   grid-template-rows: calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)) auto auto 1fr calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
   position: relative;
   color: black;
+  place-items: start center;
+  gap: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
 }
 
 .primary-container {
@@ -867,7 +857,7 @@ svg {
   align-content: flex-start;
 }
 
-.name-label-container {
+.name-label-container, .icon-copybtn {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   place-items: start start;

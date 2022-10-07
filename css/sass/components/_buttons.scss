@@ -282,11 +282,6 @@
 .name-label-container{
   stroke: inherit;
 }
-.svg-wrapper-sml {
-  stroke: inherit;
-  width: $icon-size-sml;
-  height: $icon-size-sml;
-}
 .svg-icon {
   display: block;
 } 
@@ -306,7 +301,7 @@
   fill: inherit;
   stroke: inherit;
 }
-.icon-copybtn-lg {
+.icon-copybtn {
   color: inherit;
   fill: inherit;
   stroke: inherit;
@@ -316,18 +311,6 @@
   align-items: center;
   text-align: left;
   place-items: start start;
-}
-.icon-copybtn-sml {
-  color: inherit;
-  fill: inherit;
-  stroke: inherit;
-
-  display: grid;
-  grid-template-rows: auto 1fr;
-  align-items: center;
-  text-align: left;
-  place-items: start start;
-
 }
 .icon-copybtn-text {
   color: inherit;
@@ -355,4 +338,8 @@ svg {
   display:block;
   position: relative;
   height: 100%;
+  width: 100%;
+}
+.svg-wrapper-sml{
+  grid-column: 2;
 }

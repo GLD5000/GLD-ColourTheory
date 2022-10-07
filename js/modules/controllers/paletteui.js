@@ -23,7 +23,7 @@ const paletteState = {
     const returnObject = {};
     userObjects.smallSwatchNamesArray.forEach((name) => {
       returnObject[name] =
-        userObjectsAll[name + "-wrapper"].dataset.content[0].toLowerCase() ===
+        userObjects.labels[name + "-name"].innerHTML[0].toLowerCase() ===
         "c"
           ? "Custom"
           : "auto"; //check wrapper for the 'c' word
@@ -479,11 +479,11 @@ export const paletteUi = {
     this.customBackgroundCounter = this._updateClipboard = 0;
     this._debounce();
     colourScheme.storeStatusAllSchemes();
-    
+
     this._randomisePrimary();
     this._randomiseColourSpace();
     this._randomiseGradient();
-    
+
     this._setOnChange();
     paletteState._resetAllCustomStates();
     paletteState.setCustomStatesfromWrappers();
@@ -491,16 +491,11 @@ export const paletteUi = {
       paletteData.paletteState,
       paletteData.savedState
     );
-    console.log(userObjects);
-    console.log(paletteData);
+        console.log(userObjects);
+
   },
   _splitName(name, separator = "-") {
     return name.split(separator)[0];
-  },
-  _resetSmallWrapperContent() {
-    userObjects.smallSwatchNamesArray.forEach(
-      (x) => (userObjects.wrappers[x + "-wrapper"].dataset.content = x)
-    );
   },
   _getColourspace() {
     return (
@@ -547,7 +542,6 @@ export const paletteUi = {
       rgb: [red, green, blue],
     };
     this._setSliderValues(selectColourObject[colourspace], colourspace);
-    this._resetSmallWrapperContent();
     userObjects.pickers["primary-picker"].value = hex;
     this._updateGldLogoColour(hex);
     paletteData.setPrimaryHex(hex);
@@ -588,16 +582,19 @@ export const paletteUi = {
       : paletteData.addGradientColours(name, gradientColours);
     const hex = paletteData.getPickerHex(name);
     // if (userObjects.copyButtons[name + "-copybtn"].children[0] !== undefined) {
-      userObjects.wrappers[name + "-wrapper"].style.stroke = userObjects.wrappers[name + "-wrapper"].style.color;
 
-      userObjects.copyButtons[name + "-copybtn"].children[0].style.fill = hex;
-      // userObjects.copyButtons[name + "-copybtn"].children[0].style.stroke =
-      //   userObjects.wrappers[name + "-wrapper"].style.color;
+    userObjects.wrappers[name + "-wrapper"].style.stroke =
+      userObjects.wrappers[name + "-wrapper"].style.color;
+
+    userObjects.copyButtons[name + "-copybtn"].children[0].style.fill = hex;
+    // userObjects.copyButtons[name + "-copybtn"].children[0].style.stroke =
+    //   userObjects.wrappers[name + "-wrapper"].style.color;
     // }
     // if (name === "primary") {
-      userObjects.wrappers[name + "-wrapper"].style.background = hex;
-      userObjects.gradientButtons[name + "-gradient"].style.background = string;
-      // return;
+    userObjects.wrappers[name + "-wrapper"].style.background = hex;
+
+    userObjects.gradientButtons[name + "-gradient"].style.background = string;
+    // return;
     // }
     // userObjects.wrappers[name + "-wrapper"].style.background = string;
   },
@@ -685,10 +682,10 @@ export const paletteUi = {
       const backgroundColour = paletteData.getColourObject(
         this._splitName(key)
       );
-      const newTextColour = colourObject.makeTextColour(
-        {textColour: textColour,
-        backgroundColour: backgroundColour}
-      );
+      const newTextColour = colourObject.makeTextColour({
+        textColour: textColour,
+        backgroundColour: backgroundColour,
+      });
       if (newTextColour.name === "primary-text") {
         paletteData.setMainTextColour(newTextColour);
       }
@@ -703,8 +700,8 @@ export const paletteUi = {
     return null;
   },
   _setSmallSwatchName(swatchName, customName) {
-    if (userObjects.customButtons[swatchName + "-custom"] !== undefined)
-      userObjects.customButtons[swatchName + "-custom"].innerHTML = customName;
+    //if (userObjects.labels[swatchName + "-name"] !== undefined)
+      userObjects.labels[swatchName + "-name"].innerHTML = customName;
   },
   _addCustomColour(swatchName, hex) {
     const customName =
@@ -782,7 +779,7 @@ export const paletteUi = {
     const colourspace = this._getColourspace();
     const prefix = paletteData.getPrefix();
     let lookupName =
-      userObjects.wrappers[name + "-wrapper"].dataset.content[0] === "c"
+      userObjects.labels[name + "-name"].innerHTML[0] === "c"
         ? paletteData.getCustomColourName(name) || name
         : name;
     const textArray = [
@@ -846,7 +843,6 @@ export const paletteUi = {
     const textArray = paletteData.getClipboard()[2];
     let text = textArray.join(";\n\r");
     navigator.clipboard.writeText(text);
-    //console.log(`Copied To Clipboard:\n${text}`);
   },
   _showCompletedMessage(target, message = "Copied") {
     const revertMessage = target.dataset.content;
@@ -899,7 +895,6 @@ export const paletteUi = {
     //this._showCompletedMessage(e.target, message);
     const text = this._getClipboardTextSingle(name);
     navigator.clipboard.writeText(text);
-    //console.log(`Copied To Clipboard:\n${text}`);
   },
   _setSliderStyles(colourspace) {
     const sliderNameArrays = {
@@ -973,7 +968,6 @@ export const paletteUi = {
   },
   _onclickTextMode(e) {
     //if (e.target.id !== "textmode") return;
-    //console.log(e.target.id);
     if (paletteUi.getTextMode() === "auto") {
       //paletteUi.setTextMode("custom");
       paletteUi.setTextPickerDisabled(false);
@@ -1048,7 +1042,7 @@ export const paletteUi = {
       this._onclickTextMode,
       { useCapture: true }
     );
-    userObjects.customButtons["monochromeA-custom"].addEventListener(
+    userObjects.labels["monochromeA-name"].addEventListener(
       "click",
       this._onclickCustomPicker,
       { useCapture: true }
@@ -1074,7 +1068,6 @@ export const paletteUi = {
       "click",
       this._SaveHistoryObject
     );
-    //document.onclick = (e) => {console.log(e.target);};
   },
   getStops() {
     return userObjects.other["primary-gradient"].innerHTML.toLowerCase();
@@ -1108,19 +1101,21 @@ export const paletteUi = {
     const textHex = textColour.hex || "#000000";
     wrapper.style.stroke = textHex;
     wrapper.style.color = textHex;
+
     if (name === "primary") {
       userObjects.labels["primary-info"].innerHTML = textColour.contrastString;
     }
-    if (name !== "primary") userObjects.labels[name + "-info"].innerHTML = textColour.contrastString;
+    if (name !== "primary")
+      userObjects.labels[name + "-info"].innerHTML = textColour.contrastString;
   },
   setTextColour(backgroundColour) {
     const textMode = paletteUi.getTextMode();
     const oldTextColour =
       textMode === "custom" ? paletteUi.getTextColour(backgroundColour) : null;
-    const newTextColour = colourObject.makeTextColour(
-      {textColour: oldTextColour,
-        backgroundColour: backgroundColour}
-    );
+    const newTextColour = colourObject.makeTextColour({
+      textColour: oldTextColour,
+      backgroundColour: backgroundColour,
+    });
     if (newTextColour.name === "primary-text") {
       paletteData.setMainTextColour(newTextColour);
     }

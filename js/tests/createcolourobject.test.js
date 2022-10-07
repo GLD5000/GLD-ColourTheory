@@ -1,7 +1,6 @@
 import { colourspace } from "../modules/utilities/colourmodules/colourspace.js";
 import { colourObject } from "../modules/utilities/colourobject.js";
 function sum(...args) {
-  console.log(args);
   return args[0] + args[1];
 }
 function newTest(testFunction, object, resultKey, resultValue) {
