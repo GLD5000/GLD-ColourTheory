@@ -479,7 +479,11 @@ export const paletteUi = {
     this.customBackgroundCounter = this._updateClipboard = 0;
     this._debounce();
     colourScheme.storeStatusAllSchemes();
-    this._randomiseAll();
+    
+    this._randomisePrimary();
+    this._randomiseColourSpace();
+    this._randomiseGradient();
+    
     this._setOnChange();
     paletteState._resetAllCustomStates();
     paletteState.setCustomStatesfromWrappers();
