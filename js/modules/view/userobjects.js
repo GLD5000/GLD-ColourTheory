@@ -62,7 +62,7 @@ createSwatchElementsSmall();
 
 function setAll() {
   const selectorsArray = [
-    ["customButtons", ".btn-picker"],
+    ["closeButtons", ".close-btn"],
     ["swatches", ".swatch"],
     ["pickers", 'input[type="color"]'],
     ["sliders", 'input[type="range"]', "array"], //array

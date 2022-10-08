@@ -23,8 +23,7 @@ const paletteState = {
     const returnObject = {};
     userObjects.smallSwatchNamesArray.forEach((name) => {
       returnObject[name] =
-        userObjects.labels[name + "-name"].innerHTML[0].toLowerCase() ===
-        "c"
+        userObjects.labels[name + "-name"].innerHTML[0].toLowerCase() === "c"
           ? "Custom"
           : "auto"; //check wrapper for the 'c' word
       paletteData.paletteState.smallSwatchCustomState = returnObject;
@@ -491,8 +490,7 @@ export const paletteUi = {
       paletteData.paletteState,
       paletteData.savedState
     );
-        console.log(userObjects);
-
+    console.log(userObjects);
   },
   _splitName(name, separator = "-") {
     return name.split(separator)[0];
@@ -701,7 +699,7 @@ export const paletteUi = {
   },
   _setSmallSwatchName(swatchName, customName) {
     //if (userObjects.labels[swatchName + "-name"] !== undefined)
-      userObjects.labels[swatchName + "-name"].innerHTML = customName;
+    userObjects.labels[swatchName + "-name"].innerHTML = customName;
   },
   _addCustomColour(swatchName, hex) {
     const customName =
@@ -990,6 +988,11 @@ export const paletteUi = {
     const pickerName = e.target.id.split("-")[0];
     userObjects.pickers[pickerName + "-picker"].click();
   },
+  _onClickCloseButton(e) {
+    const name = paletteUi._splitName(e.target.id);
+    userObjects.swatches[name].classList.add("hidden");
+    paletteData.paletteState.swatchVisibility[name] = "hidden";
+  },
   _setOnChange() {
     userObjects.other["colourspace"].onclick = () => this._onclickColourspace();
     userObjects.other["prefix"].onclick = () => this._onclickPrefix();
@@ -1030,11 +1033,12 @@ export const paletteUi = {
           85
         ))
     );
-    userObjects.smallSwatchNamesArray.forEach(
-      (x) =>
-        (userObjects.pickers[x + "-picker"].onclick = (e) =>
-          this._onclickPickerSmall(e))
-    );
+    userObjects.smallSwatchNamesArray.forEach((x) => {
+      userObjects.pickers[x + "-picker"].onclick = (e) =>
+        this._onclickPickerSmall(e);
+      userObjects.closeButtons[x + "-close"].onclick = (e) =>
+        paletteUi._onClickCloseButton(e);
+    });
     userObjects.wrappers["primary-wrapper"].onclick = (e) =>
       this._onclickPickerMain(e);
     userObjects.other["textmode"].addEventListener(
@@ -1048,9 +1052,6 @@ export const paletteUi = {
       { useCapture: true }
     );
 
-    //userObjects.pickers['textcolour-picker'].addEventListener('click', this._onclickPickerText, true)
-
-    //userObjects.pickers['textcolour-picker'].onclick = (e) => this._onclickPickerText(e);
     this._getUiObject("hamburger-toggle").onclick = (x) => {
       this._getUiObject("navbar-list").classList.toggle("active");
     };
