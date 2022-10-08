@@ -251,6 +251,13 @@ const colourScheme = {
       paletteData.paletteState.swatchVisibility[x] = "hidden";
     });
   },
+  showAllSwatches(){
+    Object.values(paletteData.paletteState.swatchVisibility).forEach(x => x = null);
+    Object.values(paletteData.paletteState.schemes).forEach(x => x = null);
+    Object.values(userObjects.swatches).forEach(x => {
+      if (x.classList.contains("hidden")) x.classList.remove("hidden");
+    });
+  },
   showSwatches(name) {
     if (name === "Neutral") {
       userObjects.swatches["neutral"].classList.remove("hidden");
@@ -394,6 +401,8 @@ const colourScheme = {
     colourScheme.buildOverallGradient();
   },
   onclickSelectAll() {
+    colourScheme.showAllSwatches();
+    colourScheme.buildOverallGradient();
     const targets = Array.from(Object.values(userObjects.schemes));
     targets.forEach((target) => {
       if (
@@ -402,7 +411,6 @@ const colourScheme = {
       )
         this.unDimSchemeButton(target);
     });
-    colourScheme.buildOverallGradient();
   },
   onclickSelectNone() {
     const targets = Array.from(Object.values(userObjects.schemes));
