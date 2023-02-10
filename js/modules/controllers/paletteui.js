@@ -402,15 +402,15 @@ const colourScheme = {
   },
   onclickSelectAll() {
     colourScheme.showAllSwatches();
-    colourScheme.buildOverallGradient();
     const targets = Array.from(Object.values(userObjects.schemes));
     targets.forEach((target) => {
       if (
         target.classList.contains("dimmed") ||
         target.classList.contains("dimmed-neutral")
-      )
+        )
         this.unDimSchemeButton(target);
-    });
+      });
+      colourScheme.buildOverallGradient();
   },
   onclickSelectNone() {
     const targets = Array.from(Object.values(userObjects.schemes));
