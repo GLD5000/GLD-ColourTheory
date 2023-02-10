@@ -1,11 +1,10 @@
 export const userObjectsAll = {};
-function createSwatchElement(name){
+function createSwatchElement(name) {
   const element = document.createElement("section");
   element.classList.add("swatch");
   element.classList.add(name);
   element.id = name;
-  element.innerHTML =         
-  `<div id="${name}-wrapper" class="picker-wrapper ${name}-wrapper" name="${name}">
+  element.innerHTML = `<div id="${name}-wrapper" class="picker-wrapper ${name}-wrapper" name="${name}">
   
     <input type="color" id="${name}-picker" class="picker ${name}-picker"></input>
     <div class="close-wrapper">
@@ -27,23 +26,27 @@ function createSwatchElement(name){
     
     <button class="icon-copybtn" id="${name}-copybtn">
     <div class="${name}-svg-wrapper svg-wrapper svg-wrapper-sml"  id="${name}-copybtn-svg-wrapper">
-    <svg class="copy-svg svg-icon svg icon-copybtn-svg" alt="Copy Colours" height='100%' width='100%'>
-    <use href="#copy-svg"/>
+    <svg id="copy-svg-${name}" class="copy-svg svg-icon svg icon-copybtn-svg" alt="Copy Colours" height="100%"
+    width="100%">
+    <rect class="svg" x="10%" y="30%" width="60%" height="60%" rx="4%"
+      style="stroke-width: 4%; stroke-linecap: round" />
+    <rect class="svg" x="30%" y="10%" width="60%" height="60%" rx="4%"
+      style="stroke-width: 4%; stroke-linecap: round" />
     </svg>
+
     </div>
     <h2 class="icon-copybtn-text" id="${name}-copybtn-text">Copy</h2>
     </button>
     
     <button class="btn-gradient" id="${name}-gradient"></button>
   </div>
-  `
+  `;
   document.getElementById("swatch-palette").append(element);
-  
-  };
-function createSwatchElementsSmall(){
+}
+function createSwatchElementsSmall() {
   const namesArray = [
-    "analogousA", 
-    "analogousB", 
+    "analogousA",
+    "analogousB",
     "monochromeA",
     "monochromeB",
     "triadicA",
@@ -55,9 +58,10 @@ function createSwatchElementsSmall(){
     "splitB",
     "neutral",
   ];
-  namesArray.forEach(name => {
-    createSwatchElement(name)});
-};
+  namesArray.forEach((name) => {
+    createSwatchElement(name);
+  });
+}
 createSwatchElementsSmall();
 
 function setAll() {
