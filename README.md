@@ -56,7 +56,7 @@ Simply click wherever you see the colour codes and you can copy one swatch or th
 ![HSL](./media/img/screenshots/HSL.jpg)  
 ![RGB](./media/img/screenshots/RGB.jpg)  
 * Click the 'HSL/RGB/Hex' button to switch colour modes.   
-[Slider Warmth](./media/img/screenshots/Slider%20Warmth.jpg)
+![Slider Warmth](./media/img/screenshots/Slider%20Warmth.jpg)
 * The sliders on top of the Primary Swatch change so you can adjust the palette in different colour spaces.  
 Just hover, tab or click to see what they do.  
 
