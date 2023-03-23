@@ -251,10 +251,12 @@ const colourScheme = {
       paletteData.paletteState.swatchVisibility[x] = "hidden";
     });
   },
-  showAllSwatches(){
-    Object.values(paletteData.paletteState.swatchVisibility).forEach(x => x = null);
-    Object.values(paletteData.paletteState.schemes).forEach(x => x = null);
-    Object.values(userObjects.swatches).forEach(x => {
+  showAllSwatches() {
+    Object.values(paletteData.paletteState.swatchVisibility).forEach(
+      (x) => (x = null)
+    );
+    Object.values(paletteData.paletteState.schemes).forEach((x) => (x = null));
+    Object.values(userObjects.swatches).forEach((x) => {
       if (x.classList.contains("hidden")) x.classList.remove("hidden");
     });
   },
@@ -407,10 +409,10 @@ const colourScheme = {
       if (
         target.classList.contains("dimmed") ||
         target.classList.contains("dimmed-neutral")
-        )
+      )
         this.unDimSchemeButton(target);
-      });
-      colourScheme.buildOverallGradient();
+    });
+    colourScheme.buildOverallGradient();
   },
   onclickSelectNone() {
     const targets = Array.from(Object.values(userObjects.schemes));
@@ -880,8 +882,8 @@ export const paletteUi = {
     const textArray = paletteData.getClipboard()[2];
     let linebreak = `;%0D%0A`;
     let text = textArray.join(linebreak);
-    const subjectMessage = `GLD Colourmatic 5000 colours for you`;
-    const bodyMessage = `Thank you for using the GLD Colourmatic 5000!%0D%0A%0D%0AHere is your chosen colour palette:%0D%0A%0D%0A${text}`;
+    const subjectMessage = `GLD ColourMatic 5000 colours for you`;
+    const bodyMessage = `Thank you for using the GLD ColourMatic 5000!%0D%0A%0D%0AHere is your chosen colour palette:%0D%0A%0D%0A${text}`;
     window.open(
       `mailto:youremail@address?subject=${subjectMessage}&body=${bodyMessage}`
     );
