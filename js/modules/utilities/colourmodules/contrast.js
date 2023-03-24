@@ -6,7 +6,9 @@ export const contrast = {
   },
   makeContrastRatioString(ratio) {
     const rating = ratio > 4.5 ? (ratio > 7 ? "AAA+" : "AA+") : "Low";
-    return `Contrast Ratio: ${ratio.toFixed(2)} ${rating}`;
+    const toFixed =  Math.floor(ratio * 100) / 100;
+
+    return `Contrast Ratio: ${toFixed} ${rating}`;
   },
   makeContrastRating(ratio) {
     return ratio > 4.5 ? (ratio > 7 ? "AAA+" : "AA+") : "Low";
