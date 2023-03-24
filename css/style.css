@@ -193,6 +193,10 @@ p, li, ol, ul, a {
   color: #fff;
 }
 
+.header-two {
+  text-align: center;
+}
+
 .footer {
   display: flex;
   align-items: center;
