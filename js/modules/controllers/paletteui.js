@@ -1056,10 +1056,10 @@ export const paletteUi = {
       this._onclickTextMode,
       { useCapture: true }
     );
-    userObjects.labels["monochromeA-name"].addEventListener(
-      "click",
-      this._onclickCustomPicker,
-      { useCapture: true }
+    Object.values(userObjects.labels).forEach((label) =>
+      label.addEventListener("click", this._onclickCustomPicker, {
+        useCapture: true,
+      })
     );
 
     this._getUiObject("hamburger-toggle").onclick = (x) => {

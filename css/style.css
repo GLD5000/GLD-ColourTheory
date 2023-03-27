@@ -773,6 +773,10 @@ svg {
   gap: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.125);
 }
 
+.label {
+  cursor: pointer;
+}
+
 .primary-container {
   display: grid;
   grid-template-rows: 7fr 3fr;

@@ -83,6 +83,10 @@
   place-items: start center;
   gap: $gap;
 }
+.label {
+  cursor: pointer;
+}
+
 // .primary-wrapper:hover, .picker-wrapper:hover, .dice:hover {
 //   box-shadow: $box-shadow-inset-dark;
 // }
