@@ -6,9 +6,9 @@ function createSwatchElement(name) {
   element.id = name;
   element.innerHTML = `<div id="${name}-wrapper" class="picker-wrapper ${name}-wrapper" name="${name}">
   
-    <input type="color" id="${name}-picker" class="picker ${name}-picker"></input>
+    <input type="color" id="${name}-picker" aria-labelledby="${name}-name" class="picker ${name}-picker"></input>
     <div class="close-wrapper">
-    <button id="${name}-close" class="close-btn" aria-label="Close Swatch">
+    <button id="${name}-close" aria-label="Close ${name}" class="close-btn" aria-label="Close Swatch">
     <svg id="close-svg"  alt="Close" height='100%' width='100%'>
     <rect class="background" x="0%" y="0%" width="100%" height="100%" rx="4%" style='stroke-width:0%; stroke-linecap:round; fill:white;'/>
     <line x1='10%' y1='10%' x2='90%' y2='90%' style='stroke:rgb(0,0,0);stroke-width:10%;stroke-linecap:round' />
@@ -19,12 +19,12 @@ function createSwatchElement(name) {
     
     
     <section class="name-label-container">
-    <button id="${name}-name" class="${name}-name swatch-name btn-picker label">${name}</button>
+    <button id="${name}-name" class="${name}-name swatch-name btn-picker label" aria-label="${name} Colour Picker">${name}</button>
     </section>
     
-    <button id="${name}-info" class="swatch-info label">Information</button>
+    <p id="${name}-info" class="swatch-info label">Information</p>
     
-    <button class="icon-copybtn" id="${name}-copybtn">
+    <button class="icon-copybtn" aria-label="Copy ${name}" id="${name}-copybtn">
     <div class="${name}-svg-wrapper svg-wrapper svg-wrapper-sml"  id="${name}-copybtn-svg-wrapper">
     <svg id="copy-svg-${name}" class="copy-svg svg-icon svg icon-copybtn-svg" alt="Copy Colours" height="100%"
     width="100%">
@@ -38,7 +38,7 @@ function createSwatchElement(name) {
     <h2 class="icon-copybtn-text" id="${name}-copybtn-text">Copy</h2>
     </button>
     
-    <button class="btn-gradient" id="${name}-gradient"></button>
+    <div class="btn-gradient" id="${name}-gradient"></div>
   </div>
   `;
   document.getElementById("swatch-palette").append(element);

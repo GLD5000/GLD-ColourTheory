@@ -63,13 +63,13 @@
                 id="slider-c" name="Luminance" />
             </container>
 
-            <input type="color" id="primary-picker" class="picker primary-picker" />
+            <input type="color" id="primary-picker" aria-labelledby="primary-name" class="picker primary-picker" />
 
             <container class="name-label-container">
               <button id="primary-name" class="primary-name swatch-name label">
                 Primary
               </button>
-              <button class="icon-copybtn icon-copybtn-lg" id="primary-copybtn" data-content="Copy">
+              <button class="icon-copybtn icon-copybtn-lg" aria-label="Copy Primary Colour" id="primary-copybtn" data-content="Copy">
                 <wrapper class="primary-svg-wrapper svg-wrapper" id="primary-copybtn-svg-wrapper">
                   <svg id="copy-svg" class="copy-svg svg-icon svg icon-copybtn-svg" alt="Copy Colours" height="100%"
                     width="100%">
@@ -85,7 +85,7 @@
               </button>
             </container>
 
-            <button id="primary-info" class="swatch-info label">Info</button>
+            <p id="primary-info" class="swatch-info label">Info</p>
           </wrapper>
 
           <button class="btn btn-med btn-dual mode btn-gradient" id="primary-gradient"
@@ -99,7 +99,7 @@
 
           <button id="textmode" class="btn btn-med textmode" data-content="Change Text Colour">
             <h4>Text: Auto</h4>
-            <input type="color" id="textcolour-picker" class="picker textmode-picker" />
+            <input type="color" id="textcolour-picker" aria-labelledby="textmode" class="picker textmode-picker" />
           </button>
 
           <button class="btn btn-med random-colour random-btn" id="random-colour" data-content="Random Colour">
