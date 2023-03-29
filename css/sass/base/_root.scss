@@ -1,37 +1,43 @@
-@use '../abstracts' as *;
+@use "../abstracts" as *;
 :root {
-    background: #000;
-    box-shadow: none;
-    border: none;
-    outline: none;
-    margin: 0;
-    padding: 0;
-  
+  background: #000;
+  box-shadow: none;
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
 }
 
-li, ol, ul {
-    list-style: none;
-    text-decoration: none;
+li,
+ol,
+ul {
+  list-style: none;
+  text-decoration: none;
 }
 
 h1 {
-    font-size: $gem3;
+  font-size: $gem3;
 }
 h2 {
-    font-size: $gem;
-    color: $neutral-1000;
+  font-size: $gem;
+  color: $neutral-1000;
 }
-h3, .slider-header {
-    //font-family: $font-clipboard;
-    width: 100%;
-    font-size: $gem;
-    color: $neutral-0;
-    text-align: center;
-    line-height: 1.25;
-    background-color: $neutral-700;
+h3,
+.slider-header {
+  //font-family: $font-clipboard;
+  width: 100%;
+  font-size: $gem;
+  color: $neutral-0;
+  text-align: center;
+  line-height: 1.25;
+  background-color: $neutral-700;
 }
-p, li, ol, ul, a {
-    font-weight: 700;
-    font-size: $gem;
-    font-family: $font-main;
+p,
+li,
+ol,
+ul,
+a {
+  font-weight: 700;
+  font-size: $gem;
+  font-family: $font-main;
 }

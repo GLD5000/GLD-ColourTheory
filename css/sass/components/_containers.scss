@@ -129,7 +129,6 @@
   padding: $gap;
 }
 
-
 .flexbox-horizontal-btn {
   display: flex;
   gap: $gap;
@@ -204,15 +203,15 @@
   align-content: flex-start;
 }
 
-.name-label-container, .icon-copybtn {
+.name-label-container,
+.icon-copybtn {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   place-items: start start;
 }
-.copyleft{
-    line-height: 90%;
+.copyleft {
+  line-height: 90%;
   font-family: $font-ratings;
   font-size: $font-ratings-size;
   font-weight: 500;
-
 }

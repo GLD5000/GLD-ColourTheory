@@ -88,7 +88,7 @@ export const constraints = {
       hsl: ["hue", "sat", "lum"],
       rgb: ["red", "green", "blue"],
     };
-    return keyLookup[mode]
+    return keyLookup[mode];
   },
   getAssignPartial(oldColour, newColour, mode) {
     if (newColour.hasOwnProperty("hex"))

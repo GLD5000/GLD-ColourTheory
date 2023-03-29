@@ -46,10 +46,11 @@
     grid-column: span 1;
     grid-row: span 3;
   }
-  .btn-scheme, .btn-copy, .btn-history{
+  .btn-scheme,
+  .btn-copy,
+  .btn-history {
     grid-row: span 2;
   }
-
 }
 @media all and (min-width: $bp-tiny) {
   //37.5em
@@ -143,7 +144,6 @@
     //grid-column: 3;
     grid-row: span 2;
     grid-column: span 1;
-
   }
   .btn-scheme {
     grid-row: span 2;

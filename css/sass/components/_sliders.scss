@@ -21,9 +21,7 @@ input[type="range"]::-webkit-slider-thumb {
   height: $slider-thumb-size;
   width: $slider-thumb-size;
   border-radius: 38%;
-  box-shadow: 0 0 0 2px black,
-  0 0 0 4px white,
-  0 0 0 6px black;
+  box-shadow: 0 0 0 2px black, 0 0 0 4px white, 0 0 0 6px black;
   //border: $border-slider-thumb;
   //outline: black solid 2px;
   background: transparent;
@@ -34,9 +32,7 @@ input[type="range"]::-ms-thumb {
   height: $slider-thumb-size;
   width: $slider-thumb-size;
   border-radius: 38%;
-  box-shadow: 0 0 0 2px black,
-  0 0 0 4px white,
-  0 0 0 6px black;
+  box-shadow: 0 0 0 2px black, 0 0 0 4px white, 0 0 0 6px black;
   //border: $border-slider-thumb;
   //outline: black solid 2px;
   background: transparent;
@@ -47,9 +43,7 @@ input[type="range"]::-moz-range-thumb {
   height: $slider-thumb-size;
   width: $slider-thumb-size;
   border-radius: 38%;
-  box-shadow: 0 0 0 2px black,
-  0 0 0 4px white,
-  0 0 0 6px black;
+  box-shadow: 0 0 0 2px black, 0 0 0 4px white, 0 0 0 6px black;
   //border: $border-slider-thumb;
   //outline: black solid 2px;
   background: transparent;

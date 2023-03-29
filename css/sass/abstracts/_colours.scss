@@ -18,10 +18,28 @@ $neutral-500a: hsl(0, 0%, 55.7%, 60%);
 //$rainbow-gradient: linear-gradient(to right, hsl(0, 100%, 70%), hsl(60, 100%, 70%), hsl(120, 100%, 70%), hsl(180, 100%, 70%), hsl(240, 100%, 70%), hsl(300, 100%, 70%), hsl(360, 100%, 70%));
 $lum: 70%;
 $sat: 70%;
-$rainbow-gradient: linear-gradient(to right, hsl(0,$sat,$lum), hsl(60,$sat,$lum), hsl(120,$sat,$lum), hsl(180,$sat,$lum), hsl(240,$sat,$lum), hsl(300,$sat,$lum), hsl(360,$sat,$lum));
-$desaturated-rainbow-gradient: linear-gradient(to right, hsl(0, 0%,$lum), hsl(60, 10%,$lum), hsl(120, 20%,$lum), hsl(180, 40%,$lum), hsl(240, 80%,$lum), hsl(300, 100%,$lum), hsl(360, 100%,$lum));
-$vscode-blue:#9cdcfe;
-$vscode-hex-orange:#ce9178;
+$rainbow-gradient: linear-gradient(
+  to right,
+  hsl(0, $sat, $lum),
+  hsl(60, $sat, $lum),
+  hsl(120, $sat, $lum),
+  hsl(180, $sat, $lum),
+  hsl(240, $sat, $lum),
+  hsl(300, $sat, $lum),
+  hsl(360, $sat, $lum)
+);
+$desaturated-rainbow-gradient: linear-gradient(
+  to right,
+  hsl(0, 0%, $lum),
+  hsl(60, 10%, $lum),
+  hsl(120, 20%, $lum),
+  hsl(180, 40%, $lum),
+  hsl(240, 80%, $lum),
+  hsl(300, 100%, $lum),
+  hsl(360, 100%, $lum)
+);
+$vscode-blue: #9cdcfe;
+$vscode-hex-orange: #ce9178;
 $vscode-hsl-green: #b5cea8;
 
 $primaryColour: hsl(14, 69.3%, 68%);

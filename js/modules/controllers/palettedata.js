@@ -14,7 +14,6 @@ export const paletteData = {
     smallSwatchCustomState: {},
     schemes: {},
     swatchVisibility: {},
-
   },
   backgroundColours: new Map(),
   gradientColours: new Map(),

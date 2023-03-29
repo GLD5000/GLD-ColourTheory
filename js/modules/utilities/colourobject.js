@@ -37,7 +37,7 @@ export const colourObject = {
       ? this.fromHsl({ ...newPartial })
       : this.fromSrgb({ ...newPartial });
   },
-  makeTextColour({textColour = null, backgroundColour = null}) {
+  makeTextColour({ textColour = null, backgroundColour = null }) {
     const colour = contrast.makeTextColour(textColour, backgroundColour);
     return colourObject._textColourFromHex(colour);
   },

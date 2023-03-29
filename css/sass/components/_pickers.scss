@@ -1,8 +1,7 @@
-@use '../abstracts' as *;
+@use "../abstracts" as *;
 .btn-container {
   font-size: $font-primary-size;
 }
-
 
 .picker {
   position: absolute;
@@ -11,7 +10,7 @@
   width: 1px;
   height: 1px;
   opacity: 0;
-  padding:0;
+  padding: 0;
   cursor: pointer;
   border: none;
   outline: none;

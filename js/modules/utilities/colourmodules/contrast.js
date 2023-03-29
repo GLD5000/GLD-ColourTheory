@@ -6,7 +6,7 @@ export const contrast = {
   },
   makeContrastRatioString(ratio) {
     const rating = ratio > 4.5 ? (ratio > 7 ? "AAA+" : "AA+") : "Low";
-    const toFixed =  Math.floor(ratio * 100) / 100;
+    const toFixed = Math.floor(ratio * 100) / 100;
 
     return `Contrast Ratio: ${toFixed} ${rating}`;
   },
@@ -29,15 +29,14 @@ export const contrast = {
 
     return srgbDecimal;
   },
-  _convertSingleHexToHexString(hex){
+  _convertSingleHexToHexString(hex) {
     return "#" + hex.repeat(3);
   },
-  _prependZero(digit){
+  _prependZero(digit) {
     return "0" + digit;
   },
-  _convertDecimalToSingleHex(srgbDecimal){
-    const hex = Math.round(srgbDecimal * 255)
-    .toString(16);
+  _convertDecimalToSingleHex(srgbDecimal) {
+    const hex = Math.round(srgbDecimal * 255).toString(16);
     const HexIsSingleDigit = hex.length < 2;
     if (HexIsSingleDigit) return contrast._prependZero(hex);
     return hex;
@@ -57,11 +56,11 @@ export const contrast = {
   },
   _calculateMinLuminance(maxLuminance, targetContrast) {
     const minLuminance =
-      ((-0.05 * targetContrast) + maxLuminance + 0.05) / targetContrast;
+      (-0.05 * targetContrast + maxLuminance + 0.05) / targetContrast;
     return contrast._clampLuminance(minLuminance);
   },
   _calculateMaxLuminance(minLuminance, targetContrast) {
-    const maxLuminance = (targetContrast * (minLuminance + 0.05)) - 0.05;
+    const maxLuminance = targetContrast * (minLuminance + 0.05) - 0.05;
     return contrast._clampLuminance(maxLuminance);
   },
   _calculateTargetLuminance(backgroundLuminance, targetContrast) {
@@ -106,7 +105,7 @@ export const contrast = {
     );
   },
   makeTextColour(textColour = null, backgroundColour = null) {
-    if (backgroundColour == null) return "No Background Colour Found"; 
+    if (backgroundColour == null) return "No Background Colour Found";
     if (textColour == null) {
       const returnColour = { name: `${backgroundColour.name}-text` };
       [returnColour.hex, returnColour.contrastRatio] =

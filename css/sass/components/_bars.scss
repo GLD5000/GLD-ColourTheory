@@ -1,144 +1,142 @@
-@use '../abstracts' as *;
+@use "../abstracts" as *;
 
-.header,.footer {
-    display:relative;
-    color: $neutral-0;
-    
+.header,
+.footer {
+  display: relative;
+  color: $neutral-0;
 }
-.header-two{
-    text-align: center;
+.header-two {
+  text-align: center;
 }
 .footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-top: #fff solid 4px;
-    background-color: $neutral-1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: #fff solid 4px;
+  background-color: $neutral-1000;
 }
 .header {
-    background: $rainbow-gradient;
-    border-bottom: $border;
-    cursor: pointer;
+  background: $rainbow-gradient;
+  border-bottom: $border;
+  cursor: pointer;
 }
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: $gem2;
-    padding-right: $gem2;
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: $gem2;
+  padding-right: $gem2;
 }
 .navbar-list {
-    margin: 0;
-    padding: 0;
-    text-align: left;
-    display: flex;
-    gap: $gaplg;
-    min-width: max-content;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  display: flex;
+  gap: $gaplg;
+  min-width: max-content;
 }
 .logo-grid {
-    align-items: center;
-    max-width: 70%;
-    padding: 0;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: $gem
+  align-items: center;
+  max-width: 70%;
+  padding: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: $gem;
 }
 .logoproduct {
-    font-family: $font-logoproduct;
-    font-size: $font-logoproduct-size;
-    color: $neutral-1000;
-    flex-basis: 1;
-    text-shadow: 4px 0px $neutral-0;
-    font-weight: 900;
-    padding-top: 8px;
-    padding-bottom: 8px;
-
-}  
-.gldlogo{
-    width: calc(1 * $gem3);
-    height: calc(1 * $gem3);
-    aspect-ratio: 1/1;
-    border: 4px solid #000;
-    box-shadow: $box-shadow;
-    //outline: 2px solid #fff;
-    //border-radius: 50%;
-    padding: 0px;
-    margin: 12px;
-    background-color:#807de8;//#d01339;//transparent;// #fff; //#6bff70;
-    cursor: pointer;
+  font-family: $font-logoproduct;
+  font-size: $font-logoproduct-size;
+  color: $neutral-1000;
+  flex-basis: 1;
+  text-shadow: 4px 0px $neutral-0;
+  font-weight: 900;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.gldlogo {
+  width: calc(1 * $gem3);
+  height: calc(1 * $gem3);
+  aspect-ratio: 1/1;
+  border: 4px solid #000;
+  box-shadow: $box-shadow;
+  //outline: 2px solid #fff;
+  //border-radius: 50%;
+  padding: 0px;
+  margin: 12px;
+  background-color: #807de8; //#d01339;//transparent;// #fff; //#6bff70;
+  cursor: pointer;
 }
 
 .hamburger-toggle {
-    position: absolute;
-    top: $gem3Quart;
-    right: $gem2;
-    display: none;
-    flex-direction: column;
-    gap: $gap;
-    //justify-content: space-around;
-    width: $gem2;
-    height: $gem2;
-
+  position: absolute;
+  top: $gem3Quart;
+  right: $gem2;
+  display: none;
+  flex-direction: column;
+  gap: $gap;
+  //justify-content: space-around;
+  width: $gem2;
+  height: $gem2;
 }
 .navlink {
-    text-decoration: none;
-    color: $neutral-1000;
-    padding: 4px;
-    border: solid 4px transparent;
+  text-decoration: none;
+  color: $neutral-1000;
+  padding: 4px;
+  border: solid 4px transparent;
 }
 
-.navlink:hover, .navlink:focus {
-    color: $neutral-1000;
-    background-color: #fff5;
-    border: solid 4px #000;
+.navlink:hover,
+.navlink:focus {
+  color: $neutral-1000;
+  background-color: #fff5;
+  border: solid 4px #000;
 }
 
 .hamburger-line {
-    height: 4px;
-    width: 100%;
-    background-color: $neutral-1000;
-   // border-radius: 10px
+  height: 4px;
+  width: 100%;
+  background-color: $neutral-1000;
+  // border-radius: 10px
 }
 
 @media (max-width: 750px) {
-    .hamburger-toggle {
-        display: flex;
-    }
-    .navbar-list {
-        display: none;
-        width: 100%;
-    }
-    .logo-grid {
-        align-items: center;
-        max-width: 90%;
-    }
-    .logoproduct {
-        font-size: calc(0.7 * $font-logoproduct-size);
-        width: auto;
-        //width: 80%;
-    }
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .navbar-list {
-        width: 100%;
-        flex-direction: column;
-        gap: $gem;
-        padding: $gem 0 $gem3Quart;
-    }
-    .navbar-list li {
-        text-align: center;
-    }
-    .navbar-list.active {
-        display: flex;
-    }
+  .hamburger-toggle {
+    display: flex;
+  }
+  .navbar-list {
+    display: none;
+    width: 100%;
+  }
+  .logo-grid {
+    align-items: center;
+    max-width: 90%;
+  }
+  .logoproduct {
+    font-size: calc(0.7 * $font-logoproduct-size);
+    width: auto;
+    //width: 80%;
+  }
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .navbar-list {
+    width: 100%;
+    flex-direction: column;
+    gap: $gem;
+    padding: $gem 0 $gem3Quart;
+  }
+  .navbar-list li {
+    text-align: center;
+  }
+  .navbar-list.active {
+    display: flex;
+  }
 }
 .githublogo {
-    width: $gem;
-    height: $gem;
-    display: block;
-    align-self: center;
-    margin: 8px;
+  width: $gem;
+  height: $gem;
+  display: block;
+  align-self: center;
+  margin: 8px;
 }
