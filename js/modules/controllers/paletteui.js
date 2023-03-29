@@ -500,7 +500,7 @@ export const paletteUi = {
       paletteData.paletteState,
       paletteData.savedState
     );
-    console.log(userObjects);
+    // console.log(userObjects);
   },
   _splitName(name, separator = "-") {
     return name.split(separator)[0];
