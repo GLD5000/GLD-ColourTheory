@@ -572,14 +572,15 @@ a {
     calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.25) 0px;
   background-color: hsl(0deg, 0%, 55.7%);
   display: grid;
-  grid-template: calc(
+  grid-template:
+    calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.25)
+    repeat(3, 1fr) calc(
       clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.25
-    ) repeat(3, 1fr) calc(
+    )
+    / calc(
       clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.25
-    ) / calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.25) repeat(
-      3,
-      1fr
-    ) calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.25);
+    ) repeat(3, 1fr)
+    calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.25);
   min-height: calc(
     2.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)
   );
@@ -904,17 +905,16 @@ svg {
 }
 
 .primary-swatch {
-  grid-template-rows: calc(
-      1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)
-    ) 1fr calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  grid-template-rows:
+    calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem))
+    1fr calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
 }
 
 .btn-scheme {
-  grid-template-rows: calc(
-      1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)
-    ) calc(5 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)) 1fr calc(
-      1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)
-    );
+  grid-template-rows:
+    calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem))
+    calc(5 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)) 1fr calc(1.25 *
+        clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
 }
 
 .btn-scheme,
@@ -924,9 +924,9 @@ svg {
 
 .btn-copy,
 .btn-history {
-  grid-template-rows: calc(
-      1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)
-    ) 1fr calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
+  grid-template-rows:
+    calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem))
+    1fr calc(1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem));
 }
 
 .btn-random::after {
@@ -938,9 +938,9 @@ svg {
 
 .picker-wrapper {
   display: grid;
-  grid-template-rows: calc(
-      1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)
-    ) auto auto 1fr calc(
+  grid-template-rows:
+    calc(1 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem))
+    auto auto 1fr calc(
       1.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)
     );
   position: relative;
