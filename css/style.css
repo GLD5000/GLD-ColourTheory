@@ -871,6 +871,13 @@ svg {
   place-items: start start;
 }
 
+.copyleft {
+  line-height: 90%;
+  font-family: "Montserrat", sans-serif;
+  font-size: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.625);
+  font-weight: 500;
+}
+
 .btn-container {
   font-size: calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 1.6 * 1.6);
 }

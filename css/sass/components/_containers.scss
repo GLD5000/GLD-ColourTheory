@@ -209,3 +209,10 @@
   grid-template-columns: 1fr auto 1fr;
   place-items: start start;
 }
+.copyleft{
+    line-height: 90%;
+  font-family: $font-ratings;
+  font-size: $font-ratings-size;
+  font-weight: 500;
+
+}
