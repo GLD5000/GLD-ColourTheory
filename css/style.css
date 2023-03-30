@@ -577,9 +577,8 @@ a {
     repeat(3, 1fr) calc(
       clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.25
     )
-    / calc(
-      clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.25
-    ) repeat(3, 1fr)
+    / calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.25)
+    repeat(3, 1fr)
     calc(clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem) * 0.25);
   min-height: calc(
     2.25 * clamp(1rem, 0.7934782609rem + 0.8695652174vw, 2.75rem)

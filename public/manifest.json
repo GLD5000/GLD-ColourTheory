@@ -1,0 +1,20 @@
+{
+  "manifest_version": "3",
+  "version": "0.1",
+  "short_name": "GLD",
+  "name": "GLD Portfolio",
+  "description": "View my portfolio projects, see my source code and get in touch with me.",
+  "icons": [
+    {
+      "src": "GLD144.png",
+      "sizes": "144x144",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
