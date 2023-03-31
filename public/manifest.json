@@ -1,9 +1,9 @@
 {
   "manifest_version": "3",
   "version": "0.1",
-  "short_name": "GLD",
-  "name": "GLD Portfolio",
-  "description": "View my portfolio projects, see my source code and get in touch with me.",
+  "short_name": "ColourTheory",
+  "name": "GLD ColourTheory",
+  "description": "Colour Theory playground and CSS colour scheme generator.",
   "icons": [
     {
       "src": "GLD144.png",
