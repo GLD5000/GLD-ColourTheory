@@ -1,6 +1,6 @@
-# [GLD ColourTheory](https://gld5000.github.io/colourTheory/)
+# [GLD ColourTheory](https://colour-theory.netlify.app/)
 
-[https://gld5000.github.io/colourTheory/](https://gld5000.github.io/colourTheory/)
+[https://colour-theory.netlify.app/](https://colour-theory.netlify.app/)
 
 ### The free colour palette generator for web developers.
 
